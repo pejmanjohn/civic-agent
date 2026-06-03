@@ -1,0 +1,42 @@
+{
+  "id": "seattle.operating_budget",
+  "jurisdiction_id": "seattle",
+  "jurisdiction_name": "City of Seattle",
+  "jurisdiction_level": "city",
+  "budget_family": "operating",
+  "provider": "Socrata / data.seattle.gov",
+  "dataset_name": "City of Seattle Operating Budget",
+  "dataset_id": "8u2j-imqx",
+  "access_method": "socrata",
+  "json_endpoint": "https://data.seattle.gov/resource/8u2j-imqx.json",
+  "csv_endpoint": "https://data.seattle.gov/resource/8u2j-imqx.csv?$limit=50000",
+  "metadata_endpoint": "https://data.seattle.gov/api/views/8u2j-imqx",
+  "public_page": "https://openbudget.seattle.gov/#!/year/2026/operating/0/department",
+  "known_years": [2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026],
+  "refresh_frequency_observed": "One Time",
+  "primary_measure": "approved_amount",
+  "year_field": "fiscal_year",
+  "hierarchy_fields": ["service", "department", "program", "fund", "description"],
+  "fields": [
+    {"name": "fiscal_year", "type": "number"},
+    {"name": "service", "type": "text"},
+    {"name": "department", "type": "text"},
+    {"name": "program", "type": "text"},
+    {"name": "fund", "type": "text"},
+    {"name": "fund_type", "type": "text"},
+    {"name": "expense_type", "type": "text"},
+    {"name": "description", "type": "text"},
+    {"name": "approved_amount", "type": "number"}
+  ],
+  "validation_checks": {
+    "fy2026_rows": 7622,
+    "fy2026_total_approx": 7311905121.57,
+    "fy2026_departments": 44
+  },
+  "caveats": [
+    "Annual/static operating budget publication, not realtime data.",
+    "Negative rows may be accounting offsets, recoveries, transfers, or internal cost allocation.",
+    "Zero and blank amount rows exist and should be handled intentionally.",
+    "Utility and enterprise fund budgets can dominate totals and are not the same as discretionary priorities."
+  ]
+}

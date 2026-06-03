@@ -1,0 +1,63 @@
+# civic-agent
+
+Agent-readable civic budget skills and data adapters.
+
+The goal is simple: point a capable agent at one public skill URL, then ask useful budget questions without knowing where the data lives, how the schema works, or what caveats matter.
+
+## First Prompt
+
+For a fresh agent:
+
+```text
+Read https://raw.githubusercontent.com/pejmanjohn/civic-agent/main/skill.md and help me analyze the Seattle budget.
+```
+
+For a specific first task:
+
+```text
+Read https://raw.githubusercontent.com/pejmanjohn/civic-agent/main/skill.md and compare Seattle Police Department, Seattle Fire Department, and Human Services Department from FY2018 to FY2026.
+```
+
+## Repo Shape
+
+```text
+civic-agent/
+  skill.md                 # hosted router skill for fresh-agent prompts
+  skills/
+    civic/SKILL.md         # installable router skill; hosts may expose this as /civic
+    seattle/skill.md       # Seattle-specific budget analyst skill
+  sources/
+    seattle/
+      operating-budget.source.json
+  data/
+    seattle/
+      README.md
+  docs/
+    architecture.md
+    plan.md
+  examples/
+    prompts.md
+```
+
+## Routing Model
+
+`skill.md` is the public entry point. It routes the agent to a jurisdiction-specific skill file.
+
+Current production source:
+
+- `seattle.operating_budget`: City of Seattle operating budget, Socrata dataset `8u2j-imqx`
+
+Future sources should follow the same pattern:
+
+- `washington.budget.operating`
+- `washington.spending.checkbook`
+- `king_county.budget`
+- `san_francisco.operating_budget`
+
+## Data Strategy
+
+Use live official APIs when they are clean and stable. Use checked-in snapshots when official public data is slow-changing, awkward to scrape, or report-shaped.
+
+Seattle is the clean example: direct Socrata JSON/CSV plus SoQL.
+
+Washington will likely be the messy example: Fiscal WA / OFM pages, downloadable XLSX files, ReportViewer exports, PDFs, and normalization.
