@@ -1,0 +1,25 @@
+{
+  "name": "civic-agent",
+  "owner": {
+    "name": "Pejman Pour-Moezzi",
+    "email": "pejman.pourmoezzi@gmail.com"
+  },
+  "description": "Routed civic budget and public-finance skills, starting with Seattle.",
+  "plugins": [
+    {
+      "name": "civic-agent",
+      "source": "./plugins/civic-agent",
+      "description": "Analyze civic budgets through routed jurisdiction skills.",
+      "category": "Analytics",
+      "keywords": [
+        "civic-agent",
+        "budget",
+        "public-finance",
+        "civic-data",
+        "seattle",
+        "washington",
+        "socrata"
+      ]
+    }
+  ]
+}
