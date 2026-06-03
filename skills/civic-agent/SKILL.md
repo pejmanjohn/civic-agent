@@ -1,6 +1,7 @@
 ---
 name: civic-agent
 description: Use when answering civic budget, public finance, government spending, revenue, department, fund, program, or year-over-year comparison questions across supported jurisdictions.
+argument-hint: "[a civic budget question, e.g. which Seattle departments grew most from 2018 to 2026]"
 ---
 
 # Civic Agent

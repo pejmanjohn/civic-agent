@@ -29,7 +29,7 @@ civic-agent/
   plugins/
     civic-agent/           # packaged plugin install target (Codex + Claude Code)
       .codex-plugin/plugin.json    # Codex manifest (name: civic-agent)
-      .claude-plugin/plugin.json   # Claude Code manifest (generated; name: civic-data)
+      .claude-plugin/plugin.json   # Claude Code manifest (generated; name: civic-agent)
       assets/icon.png
       skills/
         civic-agent/SKILL.md       # router skill; invoked as /civic-agent in both
@@ -52,7 +52,7 @@ civic-agent/
 
 `plugins/civic-agent/` is the packaged plugin copy used by the Codex marketplace install flow. It intentionally exposes one Codex-facing skill so the composer label appears as `Civic Agent`; jurisdiction instructions are generated as bundled references from `jurisdictions/<slug>/skill.md`.
 
-`plugins/civic-agent/` carries a manifest for each ecosystem in the same directory: the hand-authored `.codex-plugin/plugin.json` (named `civic-agent`) and the generated `.claude-plugin/plugin.json` (named `civic-data`). The two share one `skills/civic-agent/` tree, so jurisdiction behavior never diverges. The Claude Code plugin is named `civic-data` — deliberately different from the `civic-agent` skill — so Claude Code exposes the skill in its picker as the bare `/civic-agent` instead of the namespaced `/civic-data:civic-agent`. (A plugin skill is always invokable by its bare skill name; the picker only shows the un-prefixed form when the skill name differs from the plugin name. The Codex plugin keeps the name `civic-agent`.)
+`plugins/civic-agent/` carries a manifest for each ecosystem in the same directory: the hand-authored `.codex-plugin/plugin.json` and the generated `.claude-plugin/plugin.json` (both named `civic-agent`). The two share one `skills/civic-agent/` tree, so jurisdiction behavior never diverges. The router `SKILL.md` declares an `argument-hint`, which makes Claude Code treat it as a command and show it in the picker as the bare `/civic-agent` rather than the namespaced `/civic-agent:civic-agent` (skills without `argument-hint` are shown namespaced). The Claude Code manifest is generated from the Codex manifest by `scripts/package_plugin.py`.
 
 ## Codex Plugin Install
 
@@ -77,7 +77,7 @@ For Claude Code:
 
 ```text
 /plugin marketplace add pejmanjohn/civic-agent
-/plugin install civic-data@civic-agent
+/plugin install civic-agent@civic-agent
 ```
 
 The `owner/repo` shorthand resolves the repository's default branch (`main`), so no ref pin is needed; append `@main` to pin it explicitly. After install, invoke the router as:
@@ -86,7 +86,7 @@ The `owner/repo` shorthand resolves the repository's default branch (`main`), so
 /civic-agent
 ```
 
-The plugin id is `civic-data` (the install target) but the skill is `civic-agent`, so the picker shows the bare `/civic-agent`. You usually don't type it at all: the skill is model-invoked from its description, so asking a budget question fires it automatically. Validate the marketplace and plugin locally before sharing:
+The picker shows the bare `/civic-agent` (not `/civic-agent:civic-agent`) because the skill declares an `argument-hint`, which Claude Code treats as a command. You usually don't type it at all: the skill is model-invoked from its description, so asking a budget question fires it automatically. Validate the marketplace and plugin locally before sharing:
 
 ```bash
 claude plugin validate .

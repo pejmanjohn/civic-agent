@@ -20,13 +20,6 @@ SOURCE_AGENT = ROOT / "skills" / "civic-agent" / "agents" / "openai.yaml"
 JURISDICTIONS_ROOT = ROOT / "jurisdictions"
 SEMVER_WITH_BUILD_RE = re.compile(r"^([^+]+)(?:\+.*)?$")
 
-# The Claude Code plugin is named differently from its skill so the skill is
-# invoked as the bare /civic-agent. A plugin skill's short command is its skill
-# name (here civic-agent, the skills/ directory); Claude Code shows it un-prefixed
-# in the picker only when the skill name differs from the plugin name. The Codex
-# plugin keeps the name civic-agent (its manifest is hand-authored and unchanged).
-CLAUDE_PLUGIN_NAME = "civic-data"
-
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Package the Civic Agent Codex plugin.")
@@ -114,13 +107,15 @@ def claude_manifest_content() -> str:
 
     The Codex manifest is the hand-authored source of truth for shared metadata.
     The generated Claude manifest drops the Codex-only ``interface`` block and the
-    ``skills`` path, carries the plain base semver with no ``+codex.<stamp>`` build
-    suffix, and overrides ``name`` to ``CLAUDE_PLUGIN_NAME`` so the skill is invoked
-    as the bare ``/civic-agent`` (see the constant for why the names differ).
+    ``skills`` path, and carries the plain base semver with no ``+codex.<stamp>``
+    build suffix. The skill is invoked as the bare ``/civic-agent`` because its
+    ``SKILL.md`` declares an ``argument-hint`` (Claude Code shows skills that
+    declare command arguments un-prefixed in the picker); the plugin name does
+    not affect this.
     """
     codex = json.loads(MANIFEST_PATH.read_text(encoding="utf-8"))
     manifest = {
-        "name": CLAUDE_PLUGIN_NAME,
+        "name": codex["name"],
         "description": codex["description"],
         "version": strip_build_metadata(str(codex["version"])),
         "author": codex["author"],
