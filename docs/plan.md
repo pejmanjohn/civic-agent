@@ -13,7 +13,9 @@ Read https://raw.githubusercontent.com/pejmanjohn/civic-agent/main/skill.md and 
 ## Phase 1: Seattle
 
 - [x] Create root hosted router skill at `skill.md`.
-- [x] Create installable router skill at `skills/civic/SKILL.md`.
+- [x] Create Codex plugin manifest at `.codex-plugin/plugin.json`.
+- [x] Create installable router skill at `skills/civic-agent/SKILL.md` for `/civic-agent` style hosts.
+- [x] Keep short alias skill at `skills/civic/SKILL.md`.
 - [x] Create Seattle jurisdiction skill at `skills/seattle/skill.md`.
 - [x] Add Seattle source metadata at `sources/seattle/operating-budget.source.json`.
 - [ ] Dogfood the hosted prompt with 5-6 budget questions.
@@ -27,6 +29,7 @@ Dogfood prompts:
 - What programs inside Seattle Police Department are largest in FY2026?
 - What are the biggest negative rows in FY2026?
 - How much is labor vs non-labor in FY2026?
+- Make me a chart showing which Seattle departments had the largest budget increases from FY2018 to FY2026.
 
 ## Phase 2: Washington
 

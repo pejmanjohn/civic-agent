@@ -11,17 +11,18 @@
 2. Installable skill surface for hosts that expose skills or slash commands:
 
    ```text
-   skills/civic/SKILL.md
+   skills/civic-agent/SKILL.md
    ```
 
-The installable skill may be exposed by a host as `/civic`, but slash-command behavior is host-specific. The repo's responsibility is to provide a clear router skill and jurisdiction skill files.
+The installable skill may be exposed by a host as `/civic-agent`, but slash-command behavior is host-specific. The repo's responsibility is to provide a clear router skill and jurisdiction skill files.
 
 ## Routing Contract
 
 Root router:
 
 - `skill.md`
-- `skills/civic/SKILL.md`
+- `skills/civic-agent/SKILL.md`
+- `skills/civic/SKILL.md` as a short alias
 
 Jurisdiction skill:
 
@@ -45,6 +46,14 @@ Optional data snapshots:
 3. Read the matching jurisdiction skill.
 4. Use that skill's official sources and validation checks.
 5. Explain the grain and caveats in the answer.
+
+For composed prompts such as:
+
+```text
+@data-analytics /civic-agent make me a chart showing which Seattle departments had the largest budget increases from 2018 to 2026.
+```
+
+`/civic-agent` owns source routing, query planning, validation, and budget interpretation. The analytics/charting plugin owns chart rendering after Civic Agent has produced the source-backed table.
 
 Unsupported jurisdictions should fail clearly. Do not fabricate adapters.
 

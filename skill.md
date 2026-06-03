@@ -62,6 +62,20 @@ Action:
 4. Query Seattle operating budget grouped by `fiscal_year` and `department`.
 5. Report absolute dollars, dollar change, percent change, and caveats.
 
+User:
+
+```text
+@data-analytics /civic-agent make me a chart showing which Seattle departments had the largest budget increases from 2018 to 2026.
+```
+
+Action:
+
+1. Detect Civic Agent slash-style request plus chart intent.
+2. Detect Seattle and department growth.
+3. Read `skills/seattle/skill.md`.
+4. Query Seattle department totals for FY2018 and FY2026.
+5. Compute absolute dollar increase by department, handle missing baseline years explicitly, then use the available charting/data analytics tool to render the chart.
+
 ## Answer Rules
 
 - Do not invent data sources.

@@ -23,8 +23,11 @@ Read https://raw.githubusercontent.com/pejmanjohn/civic-agent/main/skill.md and 
 ```text
 civic-agent/
   skill.md                 # hosted router skill for fresh-agent prompts
+  .codex-plugin/
+    plugin.json            # Codex plugin manifest
   skills/
-    civic/SKILL.md         # installable router skill; hosts may expose this as /civic
+    civic-agent/SKILL.md   # installable router skill; hosts may expose this as /civic-agent
+    civic/SKILL.md         # short alias
     seattle/skill.md       # Seattle-specific budget analyst skill
   sources/
     seattle/
@@ -42,6 +45,8 @@ civic-agent/
 ## Routing Model
 
 `skill.md` is the public entry point. It routes the agent to a jurisdiction-specific skill file.
+
+`skills/civic-agent/SKILL.md` is the installable router skill. If a host maps installed skills to slash commands, this is the skill intended to become `/civic-agent`.
 
 Current production source:
 

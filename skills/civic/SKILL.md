@@ -5,7 +5,7 @@ description: Use when answering civic budget, public finance, government spendin
 
 # Civic
 
-This is the installable router skill for Civic Agent. A host may expose it as `/civic`.
+This is a short alias for Civic Agent. Prefer the `civic-agent` skill when a host supports slash commands; it may expose that skill as `/civic-agent`.
 
 When invoked, route the user's question to the right jurisdiction skill.
 

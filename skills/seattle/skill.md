@@ -118,6 +118,20 @@ curl -sS --get 'https://data.seattle.gov/resource/8u2j-imqx.json' \
   --data-urlencode '$order=fiscal_year,department'
 ```
 
+### Department growth from FY2018 to FY2026
+
+Use this for chart requests like "which Seattle departments had the largest budget increases from 2018 to 2026." Query both years, then compute `increase = total_2026 - total_2018` locally and sort by `increase desc`.
+
+```bash
+curl -sS --get 'https://data.seattle.gov/resource/8u2j-imqx.json' \
+  --data-urlencode '$select=fiscal_year,department,sum(approved_amount) as total' \
+  --data-urlencode '$where=fiscal_year in(2018,2026)' \
+  --data-urlencode '$group=fiscal_year,department' \
+  --data-urlencode '$order=department,fiscal_year'
+```
+
+Important caveat: departments can appear, disappear, or change structure. If a department has no FY2018 row but a large FY2026 total, show it but label the increase as "new/no FY2018 match" rather than organic growth.
+
 If a department name is uncertain, discover matching department values first:
 
 ```bash
@@ -174,6 +188,8 @@ Start with service totals, then department totals, then largest programs. If the
 ### Compare departments
 
 Group by `fiscal_year` and `department`. Report current totals, absolute change, and percent change. Be careful with departments that appear, disappear, or are renamed.
+
+For largest-increase charts, calculate change from the earliest requested year to the latest requested year and chart the top departments by absolute dollar increase. Include departments with missing baseline years separately or mark them clearly.
 
 ### Drill into a department
 
