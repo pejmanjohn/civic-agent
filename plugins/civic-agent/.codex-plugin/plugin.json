@@ -1,6 +1,6 @@
 {
   "name": "civic-agent",
-  "version": "0.1.0",
+  "version": "0.1.0+codex.20260603193718",
   "description": "Analyze civic budget and public finance data through routed jurisdiction skills.",
   "author": {
     "name": "Pejman Pour-Moezzi",
@@ -34,11 +34,13 @@
     "privacyPolicyURL": "https://github.com/pejmanjohn/civic-agent",
     "termsOfServiceURL": "https://github.com/pejmanjohn/civic-agent",
     "defaultPrompt": [
-      "/civic-agent analyze the Seattle budget",
-      "/civic-agent compare Seattle departments",
-      "/civic-agent show Seattle budget growth"
+      "Analyze the Seattle budget",
+      "Compare Seattle departments",
+      "Show Seattle budget growth"
     ],
     "brandColor": "#0F766E",
+    "composerIcon": "./assets/icon.png",
+    "logo": "./assets/icon.png",
     "screenshots": []
   }
 }

@@ -1,22 +1,10 @@
 # civic-agent
 
+<img src="plugins/civic-agent/assets/icon.png" alt="Civic Agent icon" width="120">
+
 Agent-readable civic budget skills and data adapters.
 
 The goal is simple: point a capable agent at one public skill URL, then ask useful budget questions without knowing where the data lives, how the schema works, or what caveats matter.
-
-## First Prompt
-
-For a fresh agent:
-
-```text
-Read https://raw.githubusercontent.com/pejmanjohn/civic-agent/main/skill.md and help me analyze the Seattle budget.
-```
-
-For a specific first task:
-
-```text
-Read https://raw.githubusercontent.com/pejmanjohn/civic-agent/main/skill.md and compare Seattle Police Department, Seattle Fire Department, and Human Services Department from FY2018 to FY2026.
-```
 
 ## Repo Shape
 
@@ -27,15 +15,18 @@ civic-agent/
   skill.md                 # hosted router skill for fresh-agent prompts
   skills/
     civic-agent/SKILL.md   # installable router skill; hosts may expose this as /civic-agent
-    civic/SKILL.md         # short alias
+    civic-agent/agents/    # Codex display metadata for the primary skill
+    civic-agent/references/
+      seattle.md           # bundled Seattle reference for installed plugin use
     seattle/skill.md       # Seattle-specific budget analyst skill
   plugins/
     civic-agent/           # packaged Codex plugin install target
       .codex-plugin/plugin.json
+      assets/icon.png
       skills/
         civic-agent/SKILL.md
-        civic/SKILL.md
-        seattle/skill.md
+        civic-agent/agents/openai.yaml
+        civic-agent/references/seattle.md
   sources/
     seattle/
       operating-budget.source.json
@@ -55,7 +46,7 @@ civic-agent/
 
 `skills/civic-agent/SKILL.md` is the installable router skill. If a host maps installed skills to slash commands, this is the skill intended to become `/civic-agent`.
 
-`plugins/civic-agent/` is the packaged plugin copy used by the Codex marketplace install flow.
+`plugins/civic-agent/` is the packaged plugin copy used by the Codex marketplace install flow. It intentionally exposes one Codex-facing skill so the composer label appears as `Civic Agent`; jurisdiction instructions are bundled as references under that skill.
 
 ## Codex Plugin Install
 

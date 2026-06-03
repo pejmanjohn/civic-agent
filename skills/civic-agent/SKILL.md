@@ -15,7 +15,13 @@ When invoked, identify the jurisdiction and route the user's question to the rig
 
 Read the Seattle skill before answering City of Seattle operating budget questions.
 
-If Civic Agent is installed as a plugin, use the bundled skill:
+If Civic Agent is installed as a Codex plugin, use the bundled reference:
+
+```text
+references/seattle.md
+```
+
+If working from this source repo outside the packaged plugin, use:
 
 ```text
 skills/seattle/skill.md

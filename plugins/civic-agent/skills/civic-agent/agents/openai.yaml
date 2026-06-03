@@ -1,0 +1,7 @@
+interface:
+  display_name: "Civic Agent"
+  short_description: "Analyze civic budgets through routed jurisdiction skills"
+  brand_color: "#0F766E"
+  default_prompt: "Use $civic-agent to analyze Seattle budgets and public finance questions."
+policy:
+  allow_implicit_invocation: true

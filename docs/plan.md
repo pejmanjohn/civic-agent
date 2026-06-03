@@ -13,10 +13,10 @@ Read https://raw.githubusercontent.com/pejmanjohn/civic-agent/main/skill.md and 
 ## Phase 1: Seattle
 
 - [x] Create root hosted router skill at `skill.md`.
-- [x] Create Codex plugin manifest at `.codex-plugin/plugin.json`.
+- [x] Create Codex plugin manifest at `plugins/civic-agent/.codex-plugin/plugin.json`.
 - [x] Create installable router skill at `skills/civic-agent/SKILL.md` for `/civic-agent` style hosts.
-- [x] Keep short alias skill at `skills/civic/SKILL.md`.
 - [x] Create Seattle jurisdiction skill at `skills/seattle/skill.md`.
+- [x] Bundle Seattle as a primary-skill reference for Codex plugin installs.
 - [x] Add Seattle source metadata at `sources/seattle/operating-budget.source.json`.
 - [ ] Dogfood the hosted prompt with 5-6 budget questions.
 - [ ] Tighten the Seattle skill where agents stumble.
