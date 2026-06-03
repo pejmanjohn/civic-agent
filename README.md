@@ -10,6 +10,8 @@ The goal is simple: point a capable agent at one public skill URL, then ask usef
 
 ```text
 civic-agent/
+  .claude-plugin/
+    marketplace.json        # marketplace catalog for Claude Code plugin discovery
   .agents/plugins/
     marketplace.json        # marketplace entry for Codex plugin discovery
   skill.md                 # hosted router skill for fresh-agent prompts
@@ -32,6 +34,10 @@ civic-agent/
         civic-agent/SKILL.md
         civic-agent/agents/openai.yaml
         civic-agent/references/seattle.md
+    civic-agent-cc/        # packaged Claude Code plugin (generated); invoked as /civic-agent
+      .claude-plugin/plugin.json   # Claude Code manifest (generated from the Codex manifest)
+      SKILL.md             # plugin-root default skill -> bare /civic-agent
+      references/seattle.md
   scripts/
     package_plugin.py
   docs/
@@ -48,6 +54,8 @@ civic-agent/
 `skills/civic-agent/SKILL.md` is the installable router skill. If a host maps installed skills to slash commands, this is the skill intended to become `/civic-agent`.
 
 `plugins/civic-agent/` is the packaged plugin copy used by the Codex marketplace install flow. It intentionally exposes one Codex-facing skill so the composer label appears as `Civic Agent`; jurisdiction instructions are generated as bundled references from `jurisdictions/<slug>/skill.md`.
+
+`plugins/civic-agent-cc/` is the generated Claude Code plugin. It carries the router as a plugin-root `SKILL.md` (a "default skill") so Claude Code exposes it as the bare `/civic-agent` rather than the namespaced `/civic-agent:civic-agent` that a `skills/<name>/` layout would produce. Both packaged plugins are generated from the same canonical sources by `scripts/package_plugin.py`.
 
 ## Codex Plugin Install
 
@@ -66,13 +74,35 @@ Example combined with a chart-capable analytics tool:
 @data-analytics /civic-agent make me a chart showing which Seattle departments had the largest budget increases from 2018 to 2026.
 ```
 
+## Claude Code Plugin Install
+
+For Claude Code:
+
+```text
+/plugin marketplace add pejmanjohn/civic-agent
+/plugin install civic-agent@civic-agent
+```
+
+The `owner/repo` shorthand resolves the repository's default branch (`main`), so no ref pin is needed; append `@main` to pin it explicitly. After install, invoke the router as:
+
+```text
+/civic-agent
+```
+
+The bare `/civic-agent` (rather than the namespaced `/civic-agent:civic-agent`) comes from packaging the router as the plugin's **root default skill** — a `SKILL.md` at the plugin root with no sibling `skills/` directory. You usually don't type it at all: the skill is model-invoked from its description, so asking a budget question fires it automatically. Validate the marketplace and plugin locally before sharing:
+
+```bash
+claude plugin validate .
+claude plugin validate ./plugins/civic-agent-cc
+```
+
 Current production source:
 
 - `seattle.operating_budget`: City of Seattle operating budget, Socrata dataset `8u2j-imqx`
 
 ## Packaging
 
-Location-specific source files live under `jurisdictions/`. Refresh the checked-in Codex plugin package after editing canonical jurisdiction or router files:
+Location-specific source files live under `jurisdictions/`. Refresh the checked-in plugin packages (Codex and Claude Code) after editing canonical jurisdiction or router files. The entire `plugins/civic-agent-cc/` Claude Code plugin — its manifest, root `SKILL.md`, and bundled references — is generated from the canonical sources and the hand-authored Codex manifest, so shared metadata is edited once in `plugins/civic-agent/.codex-plugin/plugin.json`:
 
 ```bash
 python3 scripts/package_plugin.py

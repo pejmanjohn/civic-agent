@@ -16,12 +16,28 @@
 
 The installable skill may be exposed by a host as `/civic-agent`, but slash-command behavior is host-specific. The repo's responsibility is to provide a clear router skill and canonical jurisdiction files under `jurisdictions/`.
 
-The repo also includes `.agents/plugins/marketplace.json` so Codex marketplace installs can discover the plugin:
+The repo serves two marketplace catalogs from one canonical source, so the same plugin can be installed from either ecosystem:
 
-```bash
-codex plugin marketplace add pejmanjohn/civic-agent --ref main
-codex plugin add civic-agent@civic-agent
-```
+- Codex discovers the plugin via `.agents/plugins/marketplace.json`:
+
+  ```bash
+  codex plugin marketplace add pejmanjohn/civic-agent --ref main
+  codex plugin add civic-agent@civic-agent
+  ```
+
+- Claude Code discovers it via the repo-root `.claude-plugin/marketplace.json`:
+
+  ```bash
+  /plugin marketplace add pejmanjohn/civic-agent
+  /plugin install civic-agent@civic-agent
+  ```
+
+Each catalog points at its own packaged plugin directory, both generated from the same canonical sources by `scripts/package_plugin.py`:
+
+- Codex installs `plugins/civic-agent/` (hand-authored `.codex-plugin/plugin.json`, router under `skills/civic-agent/SKILL.md`, bundled `references/`). The skill lives under `skills/<name>/`, which Codex exposes as `/civic-agent`.
+- Claude Code installs `plugins/civic-agent-cc/` (generated `.claude-plugin/plugin.json`, router as a plugin-root `SKILL.md`, bundled `references/`). The router is the plugin's **root default skill**, so Claude Code exposes it as the bare `/civic-agent` rather than the namespaced `/civic-agent:civic-agent` a `skills/<name>/` layout would produce.
+
+The two ecosystems use separate directories because Claude Code's bare-command default skill requires a plugin-root `SKILL.md` with no sibling `skills/` directory, while Codex's manifest points at `skills/`. The Claude Code manifest is generated from the Codex manifest (dropping the Codex `interface` block and the `+codex.<stamp>` version suffix), so shared metadata is edited once in the Codex manifest; `package_plugin.py --check` fails if any generated file drifts.
 
 ## Routing Contract
 
@@ -29,12 +45,14 @@ Root router:
 
 - `skill.md`
 - `skills/civic-agent/SKILL.md`
-- `plugins/civic-agent/skills/civic-agent/SKILL.md` as the packaged plugin copy
+- `plugins/civic-agent/skills/civic-agent/SKILL.md` as the packaged Codex copy
+- `plugins/civic-agent-cc/SKILL.md` as the packaged Claude Code copy (plugin-root default skill)
 
 Jurisdiction reference:
 
 - `jurisdictions/<jurisdiction>/skill.md` as the canonical source
-- `plugins/civic-agent/skills/civic-agent/references/<jurisdiction>.md` inside the packaged plugin, generated from the canonical source
+- `plugins/civic-agent/skills/civic-agent/references/<jurisdiction>.md` inside the packaged Codex plugin, generated from the canonical source
+- `plugins/civic-agent-cc/references/<jurisdiction>.md` inside the packaged Claude Code plugin, generated from the canonical source
 
 Source metadata:
 
