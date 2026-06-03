@@ -27,17 +27,14 @@ civic-agent/
     civic-agent/SKILL.md   # installable router skill; hosts may expose this as /civic-agent
     civic-agent/agents/    # Codex display metadata for the primary skill
   plugins/
-    civic-agent/           # packaged Codex plugin install target
-      .codex-plugin/plugin.json
+    civic-agent/           # packaged plugin install target (Codex + Claude Code)
+      .codex-plugin/plugin.json    # Codex manifest (name: civic-agent)
+      .claude-plugin/plugin.json   # Claude Code manifest (generated; name: civic-data)
       assets/icon.png
       skills/
-        civic-agent/SKILL.md
+        civic-agent/SKILL.md       # router skill; invoked as /civic-agent in both
         civic-agent/agents/openai.yaml
         civic-agent/references/seattle.md
-    civic-agent-cc/        # packaged Claude Code plugin (generated); invoked as /civic-agent
-      .claude-plugin/plugin.json   # Claude Code manifest (generated from the Codex manifest)
-      SKILL.md             # plugin-root default skill -> bare /civic-agent
-      references/seattle.md
   scripts/
     package_plugin.py
   docs/
@@ -55,7 +52,7 @@ civic-agent/
 
 `plugins/civic-agent/` is the packaged plugin copy used by the Codex marketplace install flow. It intentionally exposes one Codex-facing skill so the composer label appears as `Civic Agent`; jurisdiction instructions are generated as bundled references from `jurisdictions/<slug>/skill.md`.
 
-`plugins/civic-agent-cc/` is the generated Claude Code plugin. It carries the router as a plugin-root `SKILL.md` (a "default skill") so Claude Code exposes it as the bare `/civic-agent` rather than the namespaced `/civic-agent:civic-agent` that a `skills/<name>/` layout would produce. Both packaged plugins are generated from the same canonical sources by `scripts/package_plugin.py`.
+`plugins/civic-agent/` carries a manifest for each ecosystem in the same directory: the hand-authored `.codex-plugin/plugin.json` (named `civic-agent`) and the generated `.claude-plugin/plugin.json` (named `civic-data`). The two share one `skills/civic-agent/` tree, so jurisdiction behavior never diverges. The Claude Code plugin is named `civic-data` — deliberately different from the `civic-agent` skill — so Claude Code exposes the skill in its picker as the bare `/civic-agent` instead of the namespaced `/civic-data:civic-agent`. (A plugin skill is always invokable by its bare skill name; the picker only shows the un-prefixed form when the skill name differs from the plugin name. The Codex plugin keeps the name `civic-agent`.)
 
 ## Codex Plugin Install
 
@@ -80,7 +77,7 @@ For Claude Code:
 
 ```text
 /plugin marketplace add pejmanjohn/civic-agent
-/plugin install civic-agent@civic-agent
+/plugin install civic-data@civic-agent
 ```
 
 The `owner/repo` shorthand resolves the repository's default branch (`main`), so no ref pin is needed; append `@main` to pin it explicitly. After install, invoke the router as:
@@ -89,11 +86,11 @@ The `owner/repo` shorthand resolves the repository's default branch (`main`), so
 /civic-agent
 ```
 
-The bare `/civic-agent` (rather than the namespaced `/civic-agent:civic-agent`) comes from packaging the router as the plugin's **root default skill** — a `SKILL.md` at the plugin root with no sibling `skills/` directory. You usually don't type it at all: the skill is model-invoked from its description, so asking a budget question fires it automatically. Validate the marketplace and plugin locally before sharing:
+The plugin id is `civic-data` (the install target) but the skill is `civic-agent`, so the picker shows the bare `/civic-agent`. You usually don't type it at all: the skill is model-invoked from its description, so asking a budget question fires it automatically. Validate the marketplace and plugin locally before sharing:
 
 ```bash
 claude plugin validate .
-claude plugin validate ./plugins/civic-agent-cc
+claude plugin validate ./plugins/civic-agent
 ```
 
 Current production source:
@@ -102,7 +99,7 @@ Current production source:
 
 ## Packaging
 
-Location-specific source files live under `jurisdictions/`. Refresh the checked-in plugin packages (Codex and Claude Code) after editing canonical jurisdiction or router files. The entire `plugins/civic-agent-cc/` Claude Code plugin — its manifest, root `SKILL.md`, and bundled references — is generated from the canonical sources and the hand-authored Codex manifest, so shared metadata is edited once in `plugins/civic-agent/.codex-plugin/plugin.json`:
+Location-specific source files live under `jurisdictions/`. Refresh the checked-in plugin package after editing canonical jurisdiction or router files. The Claude Code manifest (`plugins/civic-agent/.claude-plugin/plugin.json`) is generated from the hand-authored Codex manifest, so shared metadata is edited once in `plugins/civic-agent/.codex-plugin/plugin.json`:
 
 ```bash
 python3 scripts/package_plugin.py

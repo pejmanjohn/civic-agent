@@ -13,13 +13,19 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 PLUGIN_ROOT = ROOT / "plugins" / "civic-agent"
 PLUGIN_SKILL_ROOT = PLUGIN_ROOT / "skills" / "civic-agent"
-CC_PLUGIN_ROOT = ROOT / "plugins" / "civic-agent-cc"
 MANIFEST_PATH = PLUGIN_ROOT / ".codex-plugin" / "plugin.json"
-CLAUDE_MANIFEST_PATH = CC_PLUGIN_ROOT / ".claude-plugin" / "plugin.json"
+CLAUDE_MANIFEST_PATH = PLUGIN_ROOT / ".claude-plugin" / "plugin.json"
 SOURCE_ROUTER = ROOT / "skills" / "civic-agent" / "SKILL.md"
 SOURCE_AGENT = ROOT / "skills" / "civic-agent" / "agents" / "openai.yaml"
 JURISDICTIONS_ROOT = ROOT / "jurisdictions"
 SEMVER_WITH_BUILD_RE = re.compile(r"^([^+]+)(?:\+.*)?$")
+
+# The Claude Code plugin is named differently from its skill so the skill is
+# invoked as the bare /civic-agent. A plugin skill's short command is its skill
+# name (here civic-agent, the skills/ directory); Claude Code shows it un-prefixed
+# in the picker only when the skill name differs from the plugin name. The Codex
+# plugin keeps the name civic-agent (its manifest is hand-authored and unchanged).
+CLAUDE_PLUGIN_NAME = "civic-data"
 
 
 def parse_args() -> argparse.Namespace:
@@ -58,28 +64,25 @@ def main() -> None:
 
 
 def collect_outputs(*, update_cachebuster: bool) -> dict[Path, str]:
-    router = SOURCE_ROUTER.read_text(encoding="utf-8")
+    # Codex and Claude Code share one plugin directory and one skill tree
+    # (skills/civic-agent/, invoked as /civic-agent in both). Each ecosystem
+    # carries its own manifest: the hand-authored .codex-plugin/plugin.json and
+    # the generated .claude-plugin/plugin.json.
     outputs: dict[Path, str] = {
-        # Codex plugin: router lives under skills/<name>/ (invoked as /civic-agent:civic-agent).
-        PLUGIN_SKILL_ROOT / "SKILL.md": router,
+        PLUGIN_SKILL_ROOT / "SKILL.md": SOURCE_ROUTER.read_text(encoding="utf-8"),
         PLUGIN_SKILL_ROOT / "agents" / "openai.yaml": SOURCE_AGENT.read_text(encoding="utf-8"),
-        # Claude Code plugin: router is the plugin-root default skill (invoked as bare /civic-agent),
-        # with its own generated manifest. A root SKILL.md must have NO sibling skills/ directory,
-        # or Claude Code registers the skills/ skill and ignores the root one.
-        CC_PLUGIN_ROOT / "SKILL.md": router,
         CLAUDE_MANIFEST_PATH: claude_manifest_content(),
     }
-    codex_references = PLUGIN_SKILL_ROOT / "references"
-    claude_references = CC_PLUGIN_ROOT / "references"
+    references_root = PLUGIN_SKILL_ROOT / "references"
     for jurisdiction_dir in sorted(JURISDICTIONS_ROOT.iterdir()):
         if not jurisdiction_dir.is_dir() or jurisdiction_dir.name.startswith("."):
             continue
         skill_path = jurisdiction_dir / "skill.md"
         if not skill_path.is_file():
             continue
-        reference = skill_path.read_text(encoding="utf-8")
-        outputs[codex_references / f"{jurisdiction_dir.name}.md"] = reference
-        outputs[claude_references / f"{jurisdiction_dir.name}.md"] = reference
+        outputs[references_root / f"{jurisdiction_dir.name}.md"] = skill_path.read_text(
+            encoding="utf-8"
+        )
     if update_cachebuster:
         manifest = json.loads(MANIFEST_PATH.read_text(encoding="utf-8"))
         manifest["version"] = cachebusted_version(str(manifest["version"]))
@@ -111,14 +114,13 @@ def claude_manifest_content() -> str:
 
     The Codex manifest is the hand-authored source of truth for shared metadata.
     The generated Claude manifest drops the Codex-only ``interface`` block and the
-    ``skills`` path, and carries the plain base semver with no ``+codex.<stamp>``
-    build suffix. The Claude Code plugin exposes the router as a plugin-root default
-    skill (``SKILL.md`` at the plugin root), so it is invoked as the bare plugin name
-    (``/civic-agent``) instead of the namespaced ``/civic-agent:civic-agent``.
+    ``skills`` path, carries the plain base semver with no ``+codex.<stamp>`` build
+    suffix, and overrides ``name`` to ``CLAUDE_PLUGIN_NAME`` so the skill is invoked
+    as the bare ``/civic-agent`` (see the constant for why the names differ).
     """
     codex = json.loads(MANIFEST_PATH.read_text(encoding="utf-8"))
     manifest = {
-        "name": codex["name"],
+        "name": CLAUDE_PLUGIN_NAME,
         "description": codex["description"],
         "version": strip_build_metadata(str(codex["version"])),
         "author": codex["author"],
