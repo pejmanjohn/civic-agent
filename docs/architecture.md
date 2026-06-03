@@ -16,12 +16,23 @@
 
 The installable skill may be exposed by a host as `/civic-agent`, but slash-command behavior is host-specific. The repo's responsibility is to provide a clear router skill and canonical jurisdiction files under `jurisdictions/`.
 
-The repo also includes `.agents/plugins/marketplace.json` so Codex marketplace installs can discover the plugin:
+The repo serves two marketplace catalogs from one canonical source, so the same plugin can be installed from either ecosystem:
 
-```bash
-codex plugin marketplace add pejmanjohn/civic-agent --ref main
-codex plugin add civic-agent@civic-agent
-```
+- Codex discovers the plugin via `.agents/plugins/marketplace.json`:
+
+  ```bash
+  codex plugin marketplace add pejmanjohn/civic-agent --ref main
+  codex plugin add civic-agent@civic-agent
+  ```
+
+- Claude Code discovers it via the repo-root `.claude-plugin/marketplace.json`:
+
+  ```bash
+  /plugin marketplace add pejmanjohn/civic-agent
+  /plugin install civic-agent@civic-agent
+  ```
+
+Both catalogs point at the single packaged plugin directory `plugins/civic-agent/`, which carries a manifest for each ecosystem: the hand-authored `.codex-plugin/plugin.json` and the generated `.claude-plugin/plugin.json`. The shared `skills/` tree (router `SKILL.md` plus bundled jurisdiction `references/`) is identical for both, so jurisdiction behavior never diverges. The Claude Code manifest is generated from the Codex manifest by `scripts/package_plugin.py` (dropping the Codex `interface` block and the `+codex.<stamp>` version suffix), keeping shared metadata in one place; `package_plugin.py --check` fails if the generated manifest drifts.
 
 ## Routing Contract
 
