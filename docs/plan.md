@@ -15,9 +15,9 @@ Read https://raw.githubusercontent.com/pejmanjohn/civic-agent/main/skill.md and 
 - [x] Create root hosted router skill at `skill.md`.
 - [x] Create Codex plugin manifest at `plugins/civic-agent/.codex-plugin/plugin.json`.
 - [x] Create installable router skill at `skills/civic-agent/SKILL.md` for `/civic-agent` style hosts.
-- [x] Create Seattle jurisdiction skill at `skills/seattle/skill.md`.
+- [x] Create Seattle jurisdiction skill at `jurisdictions/seattle/skill.md`.
 - [x] Bundle Seattle as a primary-skill reference for Codex plugin installs.
-- [x] Add Seattle source metadata at `sources/seattle/operating-budget.source.json`.
+- [x] Add Seattle source metadata at `jurisdictions/seattle/sources/operating-budget.source.json`.
 - [ ] Dogfood the hosted prompt with 5-6 budget questions.
 - [ ] Tighten the Seattle skill where agents stumble.
 
@@ -36,7 +36,7 @@ Dogfood prompts:
 - [ ] Treat Fiscal WA as the broad public fiscal portal.
 - [ ] Treat OFM as the executive budget and source-document authority.
 - [ ] Treat LEAP as a source family inside the Washington adapter, not the top-level dataset.
-- [ ] Add `skills/washington/skill.md`.
+- [ ] Add `jurisdictions/washington/skill.md`.
 - [ ] Add source metadata for operating, capital, transportation, revenue, spending/checkbook, staffing, and K-12.
 - [ ] Decide which data should be snapshotted because it is slow-changing or awkward to extract live.
 - [ ] Build extractor/normalizer scripts for ReportViewer/XLSX/PDF surfaces only where necessary.

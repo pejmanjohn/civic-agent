@@ -14,7 +14,7 @@
    skills/civic-agent/SKILL.md
    ```
 
-The installable skill may be exposed by a host as `/civic-agent`, but slash-command behavior is host-specific. The repo's responsibility is to provide a clear router skill and jurisdiction reference files.
+The installable skill may be exposed by a host as `/civic-agent`, but slash-command behavior is host-specific. The repo's responsibility is to provide a clear router skill and canonical jurisdiction files under `jurisdictions/`.
 
 The repo also includes `.agents/plugins/marketplace.json` so Codex marketplace installs can discover the plugin:
 
@@ -33,26 +33,25 @@ Root router:
 
 Jurisdiction reference:
 
-- `skills/<jurisdiction>/skill.md`
-- `skills/civic-agent/references/<jurisdiction>.md` for the source copy of the installable router
-- `plugins/civic-agent/skills/civic-agent/references/<jurisdiction>.md` inside the packaged plugin
+- `jurisdictions/<jurisdiction>/skill.md` as the canonical source
+- `plugins/civic-agent/skills/civic-agent/references/<jurisdiction>.md` inside the packaged plugin, generated from the canonical source
 
 Source metadata:
 
-- `sources/<jurisdiction>/<dataset>.source.json`
+- `jurisdictions/<jurisdiction>/sources/<dataset>.source.json`
 
 Optional data snapshots:
 
-- `data/<jurisdiction>/<dataset>/<version>.raw.<csv|xlsx|json>`
-- `data/<jurisdiction>/<dataset>/<version>.normalized.jsonl`
-- `data/<jurisdiction>/<dataset>/<version>.summary.json`
-- `data/<jurisdiction>/<dataset>/<version>.provenance.json`
+- `jurisdictions/<jurisdiction>/data/<dataset>/<version>.raw.<csv|xlsx|json>`
+- `jurisdictions/<jurisdiction>/data/<dataset>/<version>.normalized.jsonl`
+- `jurisdictions/<jurisdiction>/data/<dataset>/<version>.summary.json`
+- `jurisdictions/<jurisdiction>/data/<dataset>/<version>.provenance.json`
 
 ## Routing Rules
 
 1. Detect jurisdiction.
 2. Detect budget family or question type.
-3. Read the matching jurisdiction skill.
+3. Read the matching jurisdiction skill under `jurisdictions/<jurisdiction>/skill.md`.
 4. Use that skill's official sources and validation checks.
 5. Explain the grain and caveats in the answer.
 
@@ -70,4 +69,4 @@ Unsupported jurisdictions should fail clearly. Do not fabricate adapters.
 
 Seattle is the clean source: a direct Socrata API with stable fields.
 
-Washington will likely be the messy source: Fiscal WA and OFM pages, ReportViewer exports, Power BI surfaces, XLSX files, and PDFs. That means the repo must support both live queries and curated snapshots.
+Washington will likely be the messy source: Fiscal WA and OFM pages, ReportViewer exports, Power BI surfaces, XLSX files, and PDFs. That means the repo must support both live queries and curated snapshots while keeping each jurisdiction's instructions, source metadata, and data notes together.

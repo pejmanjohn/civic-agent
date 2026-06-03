@@ -24,13 +24,13 @@ references/seattle.md
 If working from this source repo outside the packaged plugin, use:
 
 ```text
-skills/seattle/skill.md
+jurisdictions/seattle/skill.md
 ```
 
 If working from the hosted public repo, use:
 
 ```text
-https://raw.githubusercontent.com/pejmanjohn/civic-agent/main/skills/seattle/skill.md
+https://raw.githubusercontent.com/pejmanjohn/civic-agent/main/jurisdictions/seattle/skill.md
 ```
 
 Use Seattle for:

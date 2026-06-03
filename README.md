@@ -13,12 +13,17 @@ civic-agent/
   .agents/plugins/
     marketplace.json        # marketplace entry for Codex plugin discovery
   skill.md                 # hosted router skill for fresh-agent prompts
+  jurisdictions/
+    seattle/
+      README.md
+      skill.md
+      sources/
+        operating-budget.source.json
+      data/
+        README.md
   skills/
     civic-agent/SKILL.md   # installable router skill; hosts may expose this as /civic-agent
     civic-agent/agents/    # Codex display metadata for the primary skill
-    civic-agent/references/
-      seattle.md           # bundled Seattle reference for installed plugin use
-    seattle/skill.md       # Seattle-specific budget analyst skill
   plugins/
     civic-agent/           # packaged Codex plugin install target
       .codex-plugin/plugin.json
@@ -27,12 +32,8 @@ civic-agent/
         civic-agent/SKILL.md
         civic-agent/agents/openai.yaml
         civic-agent/references/seattle.md
-  sources/
-    seattle/
-      operating-budget.source.json
-  data/
-    seattle/
-      README.md
+  scripts/
+    package_plugin.py
   docs/
     architecture.md
     plan.md
@@ -42,11 +43,11 @@ civic-agent/
 
 ## Routing Model
 
-`skill.md` is the public entry point. It routes the agent to a jurisdiction-specific skill file.
+`skill.md` is the public entry point. It routes the agent to a jurisdiction-specific skill file under `jurisdictions/`.
 
 `skills/civic-agent/SKILL.md` is the installable router skill. If a host maps installed skills to slash commands, this is the skill intended to become `/civic-agent`.
 
-`plugins/civic-agent/` is the packaged plugin copy used by the Codex marketplace install flow. It intentionally exposes one Codex-facing skill so the composer label appears as `Civic Agent`; jurisdiction instructions are bundled as references under that skill.
+`plugins/civic-agent/` is the packaged plugin copy used by the Codex marketplace install flow. It intentionally exposes one Codex-facing skill so the composer label appears as `Civic Agent`; jurisdiction instructions are generated as bundled references from `jurisdictions/<slug>/skill.md`.
 
 ## Codex Plugin Install
 
@@ -68,6 +69,22 @@ Example combined with a chart-capable analytics tool:
 Current production source:
 
 - `seattle.operating_budget`: City of Seattle operating budget, Socrata dataset `8u2j-imqx`
+
+## Packaging
+
+Location-specific source files live under `jurisdictions/`. Refresh the checked-in Codex plugin package after editing canonical jurisdiction or router files:
+
+```bash
+python3 scripts/package_plugin.py
+python3 scripts/package_plugin.py --check
+```
+
+For local Codex reinstall testing, update the plugin cachebuster explicitly:
+
+```bash
+python3 scripts/package_plugin.py --update-cachebuster
+codex plugin add civic-agent@civic-agent
+```
 
 Future sources should follow the same pattern:
 

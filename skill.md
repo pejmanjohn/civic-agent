@@ -22,7 +22,7 @@ You are a civic budget analysis router. Your job is to identify the jurisdiction
 Use for City of Seattle operating budget questions:
 
 ```text
-https://raw.githubusercontent.com/pejmanjohn/civic-agent/main/skills/seattle/skill.md
+https://raw.githubusercontent.com/pejmanjohn/civic-agent/main/jurisdictions/seattle/skill.md
 ```
 
 Triggers:
@@ -45,7 +45,7 @@ Action:
 
 1. Read this router file.
 2. Detect Seattle.
-3. Read `skills/seattle/skill.md`.
+3. Read `jurisdictions/seattle/skill.md`.
 4. Use the Seattle skill to query Socrata dataset `8u2j-imqx`.
 
 User:
@@ -58,7 +58,7 @@ Action:
 
 1. Read this router file.
 2. Detect Seattle and department comparison.
-3. Read `skills/seattle/skill.md`.
+3. Read `jurisdictions/seattle/skill.md`.
 4. Query Seattle operating budget grouped by `fiscal_year` and `department`.
 5. Report absolute dollars, dollar change, percent change, and caveats.
 
@@ -72,7 +72,7 @@ Action:
 
 1. Detect Civic Agent slash-style request plus chart intent.
 2. Detect Seattle and department growth.
-3. Read `skills/seattle/skill.md`.
+3. Read `jurisdictions/seattle/skill.md`.
 4. Query Seattle department totals for FY2018 and FY2026.
 5. Compute absolute dollar increase by department, handle missing baseline years explicitly, then use the available charting/data analytics tool to render the chart.
 
@@ -89,9 +89,10 @@ Action:
 
 Each new jurisdiction should add:
 
-- a jurisdiction skill file under `skills/<jurisdiction>/skill.md`
-- a source metadata file under `sources/<jurisdiction>/`
-- optional data snapshots under `data/<jurisdiction>/`
+- a jurisdiction folder under `jurisdictions/<jurisdiction>/`
+- a jurisdiction skill file at `jurisdictions/<jurisdiction>/skill.md`
+- source metadata under `jurisdictions/<jurisdiction>/sources/`
+- optional data snapshots under `jurisdictions/<jurisdiction>/data/`
 - validation checks that let agents catch bad pulls
 
 Do not compare jurisdictions until the field mapping and accounting differences are explicit.
