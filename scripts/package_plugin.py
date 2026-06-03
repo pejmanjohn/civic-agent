@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Refresh the checked-in Codex plugin package from canonical source files."""
+"""Refresh the checked-in Codex and Claude Code plugin packages from canonical source files."""
 
 from __future__ import annotations
 
@@ -14,6 +14,7 @@ ROOT = Path(__file__).resolve().parents[1]
 PLUGIN_ROOT = ROOT / "plugins" / "civic-agent"
 PLUGIN_SKILL_ROOT = PLUGIN_ROOT / "skills" / "civic-agent"
 MANIFEST_PATH = PLUGIN_ROOT / ".codex-plugin" / "plugin.json"
+CLAUDE_MANIFEST_PATH = PLUGIN_ROOT / ".claude-plugin" / "plugin.json"
 SOURCE_ROUTER = ROOT / "skills" / "civic-agent" / "SKILL.md"
 SOURCE_AGENT = ROOT / "skills" / "civic-agent" / "agents" / "openai.yaml"
 JURISDICTIONS_ROOT = ROOT / "jurisdictions"
@@ -59,6 +60,7 @@ def collect_outputs(*, update_cachebuster: bool) -> dict[Path, str]:
     outputs: dict[Path, str] = {
         PLUGIN_SKILL_ROOT / "SKILL.md": SOURCE_ROUTER.read_text(encoding="utf-8"),
         PLUGIN_SKILL_ROOT / "agents" / "openai.yaml": SOURCE_AGENT.read_text(encoding="utf-8"),
+        CLAUDE_MANIFEST_PATH: claude_manifest_content(),
     }
     references_root = PLUGIN_SKILL_ROOT / "references"
     for jurisdiction_dir in sorted(JURISDICTIONS_ROOT.iterdir()):
@@ -89,13 +91,38 @@ def write_outputs(outputs: dict[Path, str]) -> None:
         path.write_text(content, encoding="utf-8")
 
 
-def cachebusted_version(version: str) -> str:
+def strip_build_metadata(version: str) -> str:
     match = SEMVER_WITH_BUILD_RE.match(version)
     if match is None:
         raise ValueError(f"unsupported plugin version: {version}")
-    base_version = match.group(1)
+    return match.group(1)
+
+
+def claude_manifest_content() -> str:
+    """Generate the Claude Code plugin manifest from the canonical Codex manifest.
+
+    The Codex manifest is the hand-authored source of truth for shared metadata.
+    The generated Claude manifest drops the Codex-only ``interface`` block and the
+    ``skills`` path (Claude Code auto-discovers ``skills/<name>/SKILL.md``), and
+    carries the plain base semver with no ``+codex.<stamp>`` build suffix.
+    """
+    codex = json.loads(MANIFEST_PATH.read_text(encoding="utf-8"))
+    manifest = {
+        "name": codex["name"],
+        "description": codex["description"],
+        "version": strip_build_metadata(str(codex["version"])),
+        "author": codex["author"],
+        "homepage": codex["homepage"],
+        "repository": codex["repository"],
+        "license": codex["license"],
+        "keywords": codex["keywords"],
+    }
+    return json.dumps(manifest, indent=2) + "\n"
+
+
+def cachebusted_version(version: str) -> str:
     stamp = datetime.now(timezone.utc).strftime("%Y%m%d%H%M%S")
-    return f"{base_version}+codex.{stamp}"
+    return f"{strip_build_metadata(version)}+codex.{stamp}"
 
 
 if __name__ == "__main__":

@@ -1,0 +1,22 @@
+{
+  "name": "civic-agent",
+  "description": "Analyze civic budget and public finance data through routed jurisdiction skills.",
+  "version": "0.1.0",
+  "author": {
+    "name": "Pejman Pour-Moezzi",
+    "email": "pejman.pourmoezzi@gmail.com",
+    "url": "https://github.com/pejmanjohn"
+  },
+  "homepage": "https://github.com/pejmanjohn/civic-agent",
+  "repository": "https://github.com/pejmanjohn/civic-agent",
+  "license": "MIT",
+  "keywords": [
+    "civic-agent",
+    "budget",
+    "public-finance",
+    "civic-data",
+    "seattle",
+    "washington",
+    "socrata"
+  ]
+}
