@@ -16,6 +16,13 @@
 
 The installable skill may be exposed by a host as `/civic-agent`, but slash-command behavior is host-specific. The repo's responsibility is to provide a clear router skill and jurisdiction skill files.
 
+The repo also includes `.agents/plugins/marketplace.json` so Codex marketplace installs can discover the plugin:
+
+```bash
+codex plugin marketplace add pejmanjohn/civic-agent --ref main
+codex plugin add civic-agent@civic-agent
+```
+
 ## Routing Contract
 
 Root router:
@@ -23,10 +30,12 @@ Root router:
 - `skill.md`
 - `skills/civic-agent/SKILL.md`
 - `skills/civic/SKILL.md` as a short alias
+- `plugins/civic-agent/skills/civic-agent/SKILL.md` as the packaged plugin copy
 
 Jurisdiction skill:
 
 - `skills/<jurisdiction>/skill.md`
+- `plugins/civic-agent/skills/<jurisdiction>/skill.md` inside the packaged plugin
 
 Source metadata:
 

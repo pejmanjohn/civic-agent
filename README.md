@@ -22,13 +22,20 @@ Read https://raw.githubusercontent.com/pejmanjohn/civic-agent/main/skill.md and 
 
 ```text
 civic-agent/
+  .agents/plugins/
+    marketplace.json        # marketplace entry for Codex plugin discovery
   skill.md                 # hosted router skill for fresh-agent prompts
-  .codex-plugin/
-    plugin.json            # Codex plugin manifest
   skills/
     civic-agent/SKILL.md   # installable router skill; hosts may expose this as /civic-agent
     civic/SKILL.md         # short alias
     seattle/skill.md       # Seattle-specific budget analyst skill
+  plugins/
+    civic-agent/           # packaged Codex plugin install target
+      .codex-plugin/plugin.json
+      skills/
+        civic-agent/SKILL.md
+        civic/SKILL.md
+        seattle/skill.md
   sources/
     seattle/
       operating-budget.source.json
@@ -47,6 +54,25 @@ civic-agent/
 `skill.md` is the public entry point. It routes the agent to a jurisdiction-specific skill file.
 
 `skills/civic-agent/SKILL.md` is the installable router skill. If a host maps installed skills to slash commands, this is the skill intended to become `/civic-agent`.
+
+`plugins/civic-agent/` is the packaged plugin copy used by the Codex marketplace install flow.
+
+## Codex Plugin Install
+
+For Codex builds that install plugins from marketplaces:
+
+```bash
+codex plugin marketplace add pejmanjohn/civic-agent --ref main
+codex plugin add civic-agent@civic-agent
+```
+
+After install, hosts that expose skill slash commands should route `/civic-agent` to `skills/civic-agent/SKILL.md`.
+
+Example combined with a chart-capable analytics tool:
+
+```text
+@data-analytics /civic-agent make me a chart showing which Seattle departments had the largest budget increases from 2018 to 2026.
+```
 
 Current production source:
 

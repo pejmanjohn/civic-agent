@@ -1,0 +1,20 @@
+{
+  "name": "civic-agent",
+  "interface": {
+    "displayName": "Civic Agent"
+  },
+  "plugins": [
+    {
+      "name": "civic-agent",
+      "source": {
+        "source": "local",
+        "path": "./plugins/civic-agent"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Analytics"
+    }
+  ]
+}
