@@ -7,6 +7,8 @@ type: feat
 
 # feat: Add Claude Code plugin distribution support
 
+> **Post-implementation revision.** A follow-up requirement — invoke the plugin as the bare `/civic-agent`, not the namespaced `/civic-agent:civic-agent` — reversed KTD1. Claude Code only exposes a bare command for a plugin's **root default skill** (a `SKILL.md` at the plugin root with no sibling `skills/` directory), and that cannot coexist with the Codex `skills/` tree in one directory. The Claude Code plugin is therefore a separate, generated directory `plugins/civic-agent-cc/` (plugin name still `civic-agent`) with a root `SKILL.md`; Codex's `plugins/civic-agent/` is unchanged. Both are generated from the same canonical sources, so the single-source-of-truth intent of KTD1 holds. Wherever this document says `/civic-agent:civic-agent`, the shipped command is `/civic-agent`. See `docs/architecture.md` for the current shape.
+
 ## Summary
 
 Civic Agent currently distributes as a Codex plugin: canonical sources (`skills/civic-agent/SKILL.md` router + `jurisdictions/<slug>/skill.md`) are assembled by `scripts/package_plugin.py` into `plugins/civic-agent/` with a `.codex-plugin/plugin.json` manifest, and `.agents/plugins/marketplace.json` is the Codex catalog.
