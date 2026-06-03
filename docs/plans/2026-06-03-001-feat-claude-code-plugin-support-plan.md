@@ -1,6 +1,6 @@
 ---
 title: "feat: Add Claude Code plugin distribution support"
-status: active
+status: completed
 created: 2026-06-03
 type: feat
 ---
