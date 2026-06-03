@@ -29,15 +29,15 @@ The repo serves two marketplace catalogs from one canonical source, so the same 
 
   ```bash
   /plugin marketplace add pejmanjohn/civic-agent
-  /plugin install civic-data@civic-agent
+  /plugin install civic-agent@civic-agent
   ```
 
 Both catalogs point at the single packaged plugin directory `plugins/civic-agent/`, which carries a manifest for each ecosystem over one shared `skills/civic-agent/` tree:
 
 - The hand-authored `.codex-plugin/plugin.json` is named `civic-agent`; Codex exposes the skill as `/civic-agent`.
-- The generated `.claude-plugin/plugin.json` is named `civic-data` (the install id, `civic-data@civic-agent`). Claude Code namespaces plugin skills as `/<plugin>:<skill>` (`civic-data:civic-agent`), but a skill is also invokable by its bare skill name, and the picker shows the un-prefixed `/civic-agent` precisely because the plugin name (`civic-data`) differs from the skill name (`civic-agent`). Were the plugin also named `civic-agent`, the picker would fall back to the qualified `/civic-agent:civic-agent`.
+- The generated `.claude-plugin/plugin.json` is also named `civic-agent` (install id `civic-agent@civic-agent`). Claude Code namespaces plugin skills as `/<plugin>:<skill>`, but a skill whose `SKILL.md` declares an `argument-hint` is treated as a command and shown in the picker by its bare name. The router declares `argument-hint`, so the picker shows `/civic-agent` rather than `/civic-agent:civic-agent`. (The plugin name does not affect this — a skill without `argument-hint` shows namespaced regardless of the plugin name.)
 
-The Claude Code manifest is generated from the Codex manifest (dropping the Codex `interface` block, stripping the `+codex.<stamp>` version suffix, and overriding `name` to `civic-data`), so shared metadata is edited once in the Codex manifest; `package_plugin.py --check` fails if the generated manifest drifts.
+The Claude Code manifest is generated from the Codex manifest (dropping the Codex `interface` block and stripping the `+codex.<stamp>` version suffix), so shared metadata is edited once in the Codex manifest; `package_plugin.py --check` fails if the generated manifest drifts.
 
 ## Routing Contract
 
