@@ -111,7 +111,7 @@ Current production sources:
 
 - `seattle.operating_budget`: City of Seattle operating budget, Socrata dataset `8u2j-imqx`
 - `king_county.open_budget_dashboard`: King County Open Budget Dashboard, Power BI Gov snapshot `2026-04-01`
-- `washington.operating_budget`: Washington state 2025-27 enacted operating budget, Fiscal WA Power BI snapshot `2025-27-enacted-2025-05-20`
+- `washington.operating_budget`: Washington state operating budget, Fiscal WA Power BI snapshot `2025-27-enacted-2025-05-20`, including 2025-27 enacted agency/function totals and enacted base biennial trends from 2013-15 through 2025-27
 
 Worked examples:
 
@@ -177,4 +177,4 @@ Seattle is the clean example: direct Socrata JSON/CSV plus SoQL.
 
 King County is the first report-shaped example: official Power BI Gov dashboard replayed through reviewed query templates into a checked-in normalized snapshot.
 
-Washington is the second report-shaped example: Fiscal WA Power BI reports replayed through reviewed query templates into a checked-in normalized operating budget snapshot. Treat Open Checkbook as a separate actual-spending source.
+Washington is the second report-shaped example: Fiscal WA Power BI reports replayed through reviewed query templates into a checked-in normalized operating budget snapshot. It also demonstrates the split-time-span pattern: one logical source id with multiple official report surfaces stitched into common historical trend tables and validated by overlap totals. Treat Open Checkbook as a separate actual-spending source.

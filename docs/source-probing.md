@@ -65,6 +65,53 @@ Run the matrix before getting deep into any one extraction path. Power BI is one
 
    If the official source is slow-changing and awkward to query live, prefer a checked-in normalized snapshot with provenance over a fragile live-only answer path.
 
+7. One source can have multiple official surfaces.
+
+   If a jurisdiction splits the same budget family across current, prior, yearly, or biennial report pages, keep one logical source id when the provider, measures, caveats, and answer contract are the same. Model each official page/report/file as a `source_surface`, normalize rows into shared tables, and include a row-level `source_surface_id`.
+
+## Split Time-Span Sources
+
+Many civic sources are not one neat API. A current dashboard may cover the active budget while a prior-years dashboard, yearly CSV series, or archived report covers older periods. Treat this as a normal source shape, not as an exception.
+
+Use this pattern when the surfaces represent the same official source family and can answer one user-facing trend question:
+
+```text
+source_id: washington.operating_budget
+source_surfaces:
+  current_biennial_summary_powerbi:
+    status: accepted
+    coverage: current enacted biennium
+  prior_summary_powerbi:
+    status: accepted
+    coverage: prior enacted biennia
+  older_reportviewer:
+    status: candidate_context_only
+    coverage: possible older history, not normalized yet
+normalized tables:
+  historical-biennium-summary.jsonl
+  historical-agency-by-biennium.jsonl
+  historical-functional-area-by-biennium.jsonl
+row fields:
+  source_surface_id
+  period fields
+  semantic filter fields
+  official dimension code and label
+  amount fields
+```
+
+Acceptance rules:
+
+- Keep one source id only when the normalized row contract is coherent: same measure, compatible period grain, compatible budget state, and shared caveats.
+- Declare every official surface in the source card with a status: `accepted`, `candidate_context_only`, `context_only`, or `rejected`.
+- Add semantic filter fields such as `budget_state`, `revision_scope`, `session_type`, `budget_version`, `fund_view`, and `period_type`; do not bury those assumptions in prose only.
+- Prefer official codes plus labels for dimensions. Labels alone are brittle across historical periods.
+- Use `source_surface_id` on every row so answers can cite which official surface supplied each segment.
+- Reconcile overlaps when two surfaces cover the same period. If current 2025-27 appears in both a current report and a prior-years report, the totals must match before either surface is accepted for the stitched trend.
+- Reconcile grouped totals to the statewide or parent total for every period. If agency or functional-area rows do not sum to the statewide trend, leave that grain unsupported.
+- Keep non-reconciled official surfaces visible as context or candidates instead of silently mixing them into normal answers.
+
+When a source is split by year with separate CSV/XLSX files, use the same shape: one source card, one `source_surfaces` entry per file or file family, shared normalized historical tables, row-level provenance, checksums/file metadata for each accepted file, and period-by-period reconciliation checks.
+
 ## Workflow
 
 ### 1. State The User Question

@@ -4,23 +4,55 @@
   "budget_version": "Enacted (05-20-2025)",
   "budget_version_filter": "Enacted - 5/20/2025",
   "default_fund_view": "Total Budgeted",
+  "default_trend": {
+    "budget_state": "enacted",
+    "budget_version": "Enacted",
+    "fund_view": "Total Budgeted",
+    "period_type": "biennium",
+    "revision_scope": "base",
+    "session_type": "R1"
+  },
   "fund_views": [
     "Outlook Funds (NGF-O)",
     "Total Budgeted"
   ],
+  "historical_coverage": {
+    "agency_grain": true,
+    "biennia": [
+      "2013-15",
+      "2015-17",
+      "2017-19",
+      "2019-21",
+      "2021-23",
+      "2023-25",
+      "2025-27"
+    ],
+    "end_biennium": "2025-27",
+    "functional_area_grain": true,
+    "start_biennium": "2013-15",
+    "statewide_grain": true
+  },
   "model_refresh_time": "2025-07-22T17:18:33.94",
   "notes": [
     "Amounts are budgeted/authorized report values, not actual spending.",
     "Fiscal WA report values are returned in thousands; normalized rows store dollars.",
-    "Outlook Funds (NGF-O) and Total Budgeted are separate fund views."
+    "Outlook Funds (NGF-O) and Total Budgeted are separate fund views.",
+    "Historical trend rows default to enacted base biennial operating budgets, using Fiscal WA SessionType R1 and budget version Enacted."
   ],
   "row_counts": {
     "agency_by_fund_view": 187,
     "functional_area_by_fund_view": 22,
+    "historical_agency_by_biennium": 711,
+    "historical_biennium_summary": 7,
+    "historical_functional_area_by_biennium": 77,
     "version_summary": 28
   },
   "snapshot_version": "2025-27-enacted-2025-05-20",
   "source_id": "washington.operating_budget",
+  "surface_refresh_times": {
+    "current_biennial_summary_powerbi": "2025-07-22T17:18:33.94",
+    "prior_summary_powerbi": "2025-12-29T18:08:24.87"
+  },
   "top_agencies_default_fund_view": [
     {
       "agency": "WA State Health Care Authority",
@@ -94,6 +126,19 @@
     "default_fund_view_agency_rows": 102,
     "default_fund_view_functional_area_rows": 11,
     "default_fund_view_total": 150411096000,
+    "historical_agency_totals_match": true,
+    "historical_current_overlap_matches": true,
+    "historical_current_overlap_total": 150411096000,
+    "historical_functional_area_totals_match": true,
+    "historical_totals_by_biennium": {
+      "2013-15": 66522466000,
+      "2015-17": 78888305000,
+      "2017-19": 88274413000,
+      "2019-21": 99705964000,
+      "2021-23": 121732757000,
+      "2023-25": 133609941000,
+      "2025-27": 150411096000
+    },
     "totals_by_fund_view": {
       "Outlook Funds (NGF-O)": 77857672000,
       "Total Budgeted": 150411096000

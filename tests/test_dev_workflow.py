@@ -65,6 +65,10 @@ class DevWorkflowTest(unittest.TestCase):
             self.assertTrue(skill.startswith("---\nname: civic-agent-dev\n"))
             self.assertIn("/civic-agent-dev", skill)
             self.assertIn("Generated local development package", skill)
+            self.assertIn(str(ROOT), skill)
+            self.assertIn("Do not inspect the production `@civic-agent` cache", skill)
+            self.assertIn("jurisdictions/<jurisdiction>/skill.md", skill)
+            self.assertNotIn("raw.githubusercontent.com/pejmanjohn/civic-agent-dev", skill)
 
             agent_metadata = (
                 generated_root

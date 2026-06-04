@@ -1,14 +1,14 @@
 {
   "cancelQueries": [],
-  "modelId": 12288560,
+  "modelId": 10692770,
   "queries": [
     {
       "ApplicationContext": {
-        "DatasetId": "ae27b156-31b3-420a-a565-9dfb90d76d2d",
+        "DatasetId": "455d50dc-30a0-4ce5-b242-575b33611899",
         "Sources": [
           {
-            "ReportId": "6e5a7010-5733-4b49-9a98-71edd8041d57",
-            "VisualId": "codex_agency_by_fund_view"
+            "ReportId": "a86320fb-86a0-4f87-b52b-6012c7d066cf",
+            "VisualId": "codex_historical_agency_by_biennium"
           }
         ]
       },
@@ -21,7 +21,7 @@
                   "DataVolume": 3,
                   "Primary": {
                     "Window": {
-                      "Count": 500
+                      "Count": 3000
                     }
                   }
                 },
@@ -32,7 +32,11 @@
                         0,
                         1,
                         2,
-                        3
+                        3,
+                        4,
+                        5,
+                        6,
+                        7
                       ]
                     }
                   ]
@@ -53,11 +57,6 @@
                     "Type": 0
                   },
                   {
-                    "Entity": "ComboFundBridge",
-                    "Name": "c",
-                    "Type": 0
-                  },
-                  {
                     "Entity": "Titles_Agency",
                     "Name": "a",
                     "Type": 0
@@ -65,25 +64,90 @@
                 ],
                 "OrderBy": [
                   {
-                    "Direction": 2,
+                    "Direction": 1,
                     "Expression": {
-                      "Aggregation": {
+                      "Column": {
                         "Expression": {
-                          "Column": {
-                            "Expression": {
-                              "SourceRef": {
-                                "Source": "f"
-                              }
-                            },
-                            "Property": "Amount"
+                          "SourceRef": {
+                            "Source": "f"
                           }
                         },
-                        "Function": 0
+                        "Property": "Biennium"
+                      }
+                    }
+                  },
+                  {
+                    "Direction": 1,
+                    "Expression": {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Source": "v"
+                          }
+                        },
+                        "Property": "PublishDate"
+                      }
+                    }
+                  },
+                  {
+                    "Direction": 1,
+                    "Expression": {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Source": "a"
+                          }
+                        },
+                        "Property": "Title35"
                       }
                     }
                   }
                 ],
                 "Select": [
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Source": "f"
+                        }
+                      },
+                      "Property": "Biennium"
+                    },
+                    "Name": "biennium"
+                  },
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Source": "v"
+                        }
+                      },
+                      "Property": "SessionType"
+                    },
+                    "Name": "session_type"
+                  },
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Source": "v"
+                        }
+                      },
+                      "Property": "Verttl"
+                    },
+                    "Name": "budget_version_filter"
+                  },
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Source": "v"
+                        }
+                      },
+                      "Property": "Title35"
+                    },
+                    "Name": "budget_version"
+                  },
                   {
                     "Column": {
                       "Expression": {
@@ -107,15 +171,20 @@
                     "Name": "agency"
                   },
                   {
-                    "Column": {
+                    "Aggregation": {
                       "Expression": {
-                        "SourceRef": {
-                          "Source": "c"
+                        "Column": {
+                          "Expression": {
+                            "SourceRef": {
+                              "Source": "v"
+                            }
+                          },
+                          "Property": "PublishDate"
                         }
                       },
-                      "Property": "Fundname"
+                      "Function": 4
                     },
-                    "Name": "fund_view"
+                    "Name": "publish_date"
                   },
                   {
                     "Aggregation": {
@@ -147,7 +216,7 @@
                                   "Source": "v"
                                 }
                               },
-                              "Property": "Verttl"
+                              "Property": "Title35"
                             }
                           }
                         ],
@@ -155,7 +224,7 @@
                           [
                             {
                               "Literal": {
-                                "Value": "'Enacted - 5/20/2025'"
+                                "Value": "'Enacted'"
                               }
                             }
                           ]
@@ -171,10 +240,10 @@
                             "Column": {
                               "Expression": {
                                 "SourceRef": {
-                                  "Source": "c"
+                                  "Source": "v"
                                 }
                               },
-                              "Property": "Fundname"
+                              "Property": "SessionType"
                             }
                           }
                         ],
@@ -182,14 +251,7 @@
                           [
                             {
                               "Literal": {
-                                "Value": "'Outlook Funds (NGF-O)'"
-                              }
-                            }
-                          ],
-                          [
-                            {
-                              "Literal": {
-                                "Value": "'Total Budgeted'"
+                                "Value": "'R1'"
                               }
                             }
                           ]

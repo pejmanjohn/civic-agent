@@ -103,9 +103,11 @@ Use Washington for:
 - Fiscal WA operating budget
 - Washington state agency budget totals
 - 2025-27 enacted Washington operating budget
+- Washington operating budget over time
+- historical Washington operating budget trends
 - Washington Total Budgeted or Outlook Funds (NGF-O) questions
 
-Do not use Washington for actual spending, vendor payments, procurement, actual revenue collected, Seattle budget analysis, King County budget analysis, 2026 supplemental changes, capital budget, transportation budget, staffing/FTE, or cross-jurisdiction comparison.
+Do not use Washington for actual spending, vendor payments, procurement, actual revenue collected, Seattle budget analysis, King County budget analysis, 2026 supplemental changes, pre-2013-15 trends, capital budget, transportation budget, staffing/FTE, or cross-jurisdiction comparison.
 
 ## Workflow
 
@@ -131,7 +133,7 @@ If a data visualization or analytics plugin is available, use it after computing
 
 For King County chart requests, use the checked-in snapshot from `jurisdictions/king_county/data/open-budget-dashboard/2026-04-01/`. Current chart-ready grains are countywide year totals, FY2026 department budgeted revenue/expenditure, and FY2026 department budgeted FTE.
 
-For Washington chart requests, use the checked-in snapshot from `jurisdictions/washington/data/operating-budget/2025-27-enacted-2025-05-20/`. Current chart-ready grains are 2025-27 enacted agency totals and functional area totals by fund view. Default to `Total Budgeted` unless the user asks for `Outlook Funds (NGF-O)`.
+For Washington chart requests, use the checked-in snapshot from `jurisdictions/washington/data/operating-budget/2025-27-enacted-2025-05-20/`. Current chart-ready grains are 2025-27 enacted agency totals and functional area totals by fund view, plus enacted base historical trends by biennium from 2013-15 through 2025-27. Default to `Total Budgeted` unless the user asks for `Outlook Funds (NGF-O)`.
 
 ## Fresh-Agent Prompt
 

@@ -73,6 +73,8 @@ Source metadata acts as a source card: it identifies the official source, human 
 
 Each source card should include `human_inspection_urls`: a short list of public URLs a reader can open to inspect the official source. Keep those separate from machine-oriented API, metadata, and query endpoints.
 
+When one logical source is split across time spans or report pages, keep the source id stable and represent the pieces as `source_surfaces` in the source card. Each accepted surface should carry its official inspection URL, machine endpoint or file metadata, coverage, and status. Normalized rows should include `source_surface_id`, semantic filters such as budget state/fund view/period type, and official dimension codes where available. Snapshot summaries should include overlap reconciliation and period-by-period grouped-total checks before a stitched historical table is treated as answerable.
+
 Before adding a source card for a new source family, write a probe brief using `docs/source-probing.md` and `docs/templates/source-probe-brief.md`. The probe brief should identify the official owner, candidate machine surfaces, access method, supported questions, unsupported claims, validation checks, and whether the source should be accepted live, snapshotted, kept as context only, watched, or rejected.
 
 Optional data snapshots:
@@ -115,4 +117,4 @@ Seattle is the clean source: a direct Socrata API with stable fields.
 
 King County is the report-shaped source: an official Power BI Gov dashboard replayed through reviewed query templates into a checked-in snapshot.
 
-Washington is the next broad source family: Fiscal WA and OFM pages, Power BI surfaces, XLSX files, and PDFs. That means the repo must support both live queries and curated snapshots while keeping each jurisdiction's instructions, source metadata, probe notes, and data notes together.
+Washington is the second report-shaped source and first split-time-span source: Fiscal WA current and prior Power BI surfaces are stitched into one `washington.operating_budget` snapshot for current 2025-27 rankings and historical enacted base trends from 2013-15 through 2025-27. Fiscal WA also has XLSX files, PDFs, and checkbook surfaces, but those remain separate source families or context until they have their own accepted extraction and validation path.

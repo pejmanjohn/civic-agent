@@ -1,6 +1,6 @@
 # Washington State Budget Source Probe
 
-Status: probe complete, not implemented
+Status: accepted and implemented for operating budget summary snapshots; additional Fiscal WA surfaces remain candidates/context
 
 Date: 2026-06-04
 
@@ -15,7 +15,8 @@ Yes, but not through the OFM budget landing page alone.
 The best primary data surface is Washington's Fiscal Information site:
 
 - `https://fiscal.wa.gov/statebudgets/statebudgetsoverview`
-- `https://fiscal.wa.gov/Search/OperatingDataSearch`
+- `https://fiscal.wa.gov/statebudgets/operatingsummarycomparisonbien`
+- `https://fiscal.wa.gov/statebudgets/operatingsummarygraphicprior`
 
 OFM remains an official source for budget proposals, enacted/executive context, agency budget materials, and source documents:
 
@@ -29,7 +30,9 @@ For budgeted/authorized data, Fiscal WA is a Power BI-backed official public das
 |---|---|---|---|---|
 | OFM budget hub | Washington Office of Financial Management | `https://ofm.wa.gov/budget/` | portal/documents | Good official entry point, not the best machine data source. |
 | Fiscal WA state budgets | LEAP and OFM | `https://fiscal.wa.gov/statebudgets/statebudgetsoverview` | portal/dashboard | Best official budget data hub. Separates operating, capital, transportation, and combined budgets. |
-| Fiscal WA operating search | LEAP and OFM | `https://fiscal.wa.gov/Search/OperatingDataSearch` | Power BI dashboard | Searchable operating budget line-item data in agencies and funds. |
+| Fiscal WA biennial operating summary comparison | LEAP and OFM | `https://fiscal.wa.gov/statebudgets/operatingsummarycomparisonbien` | Power BI dashboard | Accepted current 2025-27 operating budget summary surface. |
+| Fiscal WA prior operating summary | LEAP and OFM | `https://fiscal.wa.gov/statebudgets/operatingsummarygraphicprior` | Power BI dashboard | Accepted historical enacted base trend surface. |
+| Fiscal WA operating search | LEAP and OFM | `https://fiscal.wa.gov/Search/OperatingDataSearch` | Power BI dashboard | Context-only for this source; useful for line-item search investigation, but not accepted for full historical summary trends because totals did not reconcile to the summary report. |
 | Fiscal WA agency information | LEAP and OFM | `https://fiscal.wa.gov/statebudgets/AgencyInfo` | portal/dashboard links | Maps agency-related reports across operating, capital, transportation, budget bills, LEAP docs, and search. |
 | Fiscal WA Open Checkbook | LEAP and OFM | `https://fiscal.wa.gov/Spending/Checkbook` | Power BI plus XLSX downloads | Actual vendor payments by biennium, monthly updates. Not a budget source. |
 
@@ -38,7 +41,7 @@ For budgeted/authorized data, Fiscal WA is a Power BI-backed official public das
 Recommended first accepted source:
 
 ```text
-washington_state.operating_budget
+washington.operating_budget
 access_method: powerbi_snapshot
 ```
 
@@ -62,13 +65,13 @@ Probe methods used:
 Primary access surface:
 
 ```text
-Power BI public report snapshot for Fiscal WA operating budget data
+Power BI public report snapshots for Fiscal WA operating budget summary data
 ```
 
-Companion surfaces:
+Companion and candidate surfaces:
 
 ```text
-OFM budget hub and budget documents for context; Fiscal WA Open Checkbook XLSX for separate actual-spending questions
+OFM budget hub and budget documents for context; Fiscal WA Operating Search for line-item investigation; Fiscal WA Open Checkbook XLSX for separate actual-spending questions
 ```
 
 ## How The Site Was Probed
@@ -240,14 +243,27 @@ The Fiscal WA page states this is state agency vendor payments for the 2025-27 b
 
 This is useful for actual spending/payment questions. It is not a budget source.
 
-## Supported First Source
+## Implemented Source
 
-`washington_state.operating_budget` can likely support:
+`washington.operating_budget` supports:
 
-- Operating budget line-item search by agency, program, item, fund, appropriation type, fiscal year, biennium, and budget version.
-- Budgeted amount totals by agency, fiscal year, fund, program, or item, after version filters are explicit.
-- Budget version comparisons when `Operating_VersionInfo` is joined or filtered correctly.
-- Narrow answer traces using official Fiscal WA report metadata and reviewed query templates.
+- 2025-27 enacted operating budget totals by agency and fund view.
+- 2025-27 enacted operating budget totals by functional area and fund view.
+- Budget-version summaries for the current 2025-27 biennial operating summary report.
+- Statewide enacted base Total Budgeted operating budget trends by biennium from 2013-15 through 2025-27.
+- Agency enacted base Total Budgeted trends by biennium from 2013-15 through 2025-27.
+- Functional-area enacted base Total Budgeted trends by biennium from 2013-15 through 2025-27.
+- Narrow answer traces using official Fiscal WA report metadata, reviewed query templates, row-level `source_surface_id`, and reconciliation checks.
+
+Accepted source surfaces:
+
+- `current_biennial_summary_powerbi`: Fiscal WA biennial operating summary comparison, current 2025-27 agency/function/fund-view rows.
+- `prior_summary_powerbi`: Fiscal WA prior operating summary, historical enacted base statewide/agency/function rows.
+
+Context or candidate surfaces:
+
+- `operating_search_powerbi`: context-only for line-item investigation; not accepted for full historical trends because the 2025-27 enacted aggregate did not reconcile to the accepted summary total.
+- `prior_single_version_reportviewer`: candidate context-only older surface; not used for normal answers until replay and reconciliation are proven.
 
 ## Unsupported Claims
 
@@ -256,6 +272,8 @@ Do not use this first source for:
 - Actual spending or vendor payments.
 - Staffing/FTE unless a reviewed staffing or FTE source is added.
 - Capital or transportation budget questions unless those separate report models are probed and accepted.
+- Historical operating budget trends before 2013-15.
+- Supplemental, revised, proposal-stage, House, Senate, or Governor historical comparisons unless an explicit normalized table is added.
 - Claims that Civic Agent supports all Washington public finance.
 - Cross-jurisdiction comparisons with Seattle or King County until accounting definitions are mapped.
 
@@ -282,9 +300,9 @@ jurisdictions/washington/
 
 Use the King County extractor as the pattern, but keep this source-specific. Do not create a generic Power BI adapter yet.
 
-## Open Questions
+## Remaining Open Questions
 
-- Which budget version should be the first supported default: enacted/final, current supplemental, governor proposal, House, Senate, or all public versions?
-- Should the first snapshot use `Operating_Search` line items, `Operating_Funding` summary rows, or both?
-- Which official total should be used as the validation check for the selected version?
+- Should a separate Fiscal WA Operating Search source be added for line-item search and fiscal-year detail?
+- Can the prior Single Version ReportViewer surface be replayed safely enough to extend selected historical rows before 2013-15?
+- Should supplemental/revised historical comparison tables be added as a separate normalized grain?
 - Are capital and transportation separate Phase 2 sources or deferred until the operating source proves the workflow?

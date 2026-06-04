@@ -31,7 +31,8 @@
                       "Projections": [
                         0,
                         1,
-                        2
+                        2,
+                        3
                       ]
                     }
                   ]
@@ -83,6 +84,17 @@
                   }
                 ],
                 "Select": [
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Source": "fa"
+                        }
+                      },
+                      "Property": "FunctionalArea"
+                    },
+                    "Name": "functional_area_code"
+                  },
                   {
                     "Column": {
                       "Expression": {

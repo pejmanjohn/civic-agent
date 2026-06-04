@@ -2,9 +2,8 @@
 """Extract the Washington Fiscal WA operating budget snapshot.
 
 This script is intentionally source-specific. It replays reviewed Power BI
-query payloads for the Fiscal WA 2025-27 biennial operating summary comparison
-report and normalizes the known response shapes. It is not a generic Power BI
-adapter.
+query payloads for accepted Fiscal WA operating budget summary reports and
+normalizes the known response shapes. It is not a generic Power BI adapter.
 """
 
 from __future__ import annotations
@@ -26,11 +25,25 @@ JURISDICTION_ROOT = ROOT / "jurisdictions" / "washington"
 DATASET_ROOT = JURISDICTION_ROOT / "data" / "operating-budget"
 SOURCE_CARD_PATH = JURISDICTION_ROOT / "sources" / "operating-budget.source.json"
 QUERY_TEMPLATE_ROOT = DATASET_ROOT / "query_templates"
+CURRENT_SURFACE_ID = "current_biennial_summary_powerbi"
+PRIOR_SURFACE_ID = "prior_summary_powerbi"
 
 QUERY_TEMPLATE_FILES = {
     "version_summary": "version-summary.query.json",
     "agency_by_fund_view": "agency-by-fund-view.query.json",
     "functional_area_by_fund_view": "functional-area-by-fund-view.query.json",
+    "historical_biennium_summary": "historical-biennium-summary.query.json",
+    "historical_agency_by_biennium": "historical-agency-by-biennium.query.json",
+    "historical_functional_area_by_biennium": "historical-functional-area-by-biennium.query.json",
+}
+
+QUERY_TEMPLATE_SURFACES = {
+    "version_summary": CURRENT_SURFACE_ID,
+    "agency_by_fund_view": CURRENT_SURFACE_ID,
+    "functional_area_by_fund_view": CURRENT_SURFACE_ID,
+    "historical_biennium_summary": PRIOR_SURFACE_ID,
+    "historical_agency_by_biennium": PRIOR_SURFACE_ID,
+    "historical_functional_area_by_biennium": PRIOR_SURFACE_ID,
 }
 
 
@@ -48,10 +61,21 @@ def main() -> None:
             write_json(QUERY_TEMPLATE_ROOT / QUERY_TEMPLATE_FILES[key], template)
 
     if args.live:
-        metadata = fetch_models_and_exploration(source)
-        conceptual_schema = fetch_conceptual_schema(source)
-        verify_metadata(source, metadata)
-        responses = {key: post_querydata(source, template) for key, template in templates.items()}
+        surfaces = live_powerbi_surfaces(source)
+        metadata = {
+            surface_id: fetch_models_and_exploration(surface)
+            for surface_id, surface in surfaces.items()
+        }
+        conceptual_schema = {
+            surface_id: fetch_conceptual_schema(surface)
+            for surface_id, surface in surfaces.items()
+        }
+        for surface_id, surface_metadata in metadata.items():
+            verify_metadata(surfaces[surface_id], surface_metadata)
+        responses = {
+            key: post_querydata(surfaces[QUERY_TEMPLATE_SURFACES[key]], template)
+            for key, template in templates.items()
+        }
         if args.raw_dir:
             write_raw_responses(args.raw_dir, responses)
     else:
@@ -192,6 +216,38 @@ def order_by(expression: dict[str, Any], direction: int = 1) -> dict[str, Any]:
     return {"Direction": direction, "Expression": expression}
 
 
+def source_surface(source: dict[str, Any], surface_id: str) -> dict[str, Any]:
+    surfaces = source.get("source_surfaces", {})
+    if surface_id not in surfaces:
+        if surface_id == CURRENT_SURFACE_ID:
+            # Backward-compatible fallback for the original single-surface card.
+            return {
+                "id": CURRENT_SURFACE_ID,
+                "status": "accepted",
+                "powerbi_resource_key": source["powerbi_resource_key"],
+                "powerbi_api_host": source["powerbi_api_host"],
+                "metadata_endpoint": source["metadata_endpoint"],
+                "conceptual_schema_endpoint": source["conceptual_schema_endpoint"],
+                "querydata_endpoint": source["querydata_endpoint"],
+                "model_id": source["model_id"],
+                "report_id": source["report_id"],
+                "dataset_id": source["dataset_id"],
+                "dataset_display_name": source["dataset_display_name"],
+                "observed_model_refresh_time": source["observed_model_refresh_time"],
+            }
+        raise ExtractionError(f"source card does not include surface {surface_id}")
+    surface = dict(surfaces[surface_id])
+    surface.setdefault("id", surface_id)
+    return surface
+
+
+def live_powerbi_surfaces(source: dict[str, Any]) -> dict[str, dict[str, Any]]:
+    return {
+        surface_id: source_surface(source, surface_id)
+        for surface_id in sorted(set(QUERY_TEMPLATE_SURFACES.values()))
+    }
+
+
 def build_query_templates(source: dict[str, Any]) -> dict[str, dict[str, Any]]:
     return {
         "version_summary": build_version_summary_template(source),
@@ -200,7 +256,9 @@ def build_query_templates(source: dict[str, Any]) -> dict[str, dict[str, Any]]:
             group_source="a",
             group_entity="Titles_Agency",
             group_property="Title35",
+            group_code_property="Agency",
             group_name="agency",
+            group_code_name="agency_code",
             visual_id="codex_agency_by_fund_view",
         ),
         "functional_area_by_fund_view": build_grouped_budget_template(
@@ -208,8 +266,31 @@ def build_query_templates(source: dict[str, Any]) -> dict[str, dict[str, Any]]:
             group_source="fa",
             group_entity="Titles_FunctionalArea",
             group_property="Title35",
+            group_code_property="FunctionalArea",
             group_name="functional_area",
+            group_code_name="functional_area_code",
             visual_id="codex_functional_area_by_fund_view",
+        ),
+        "historical_biennium_summary": build_historical_biennium_summary_template(source),
+        "historical_agency_by_biennium": build_historical_grouped_budget_template(
+            source=source,
+            group_source="a",
+            group_entity="Titles_Agency",
+            group_property="Title35",
+            group_code_property="Agency",
+            group_name="agency",
+            group_code_name="agency_code",
+            visual_id="codex_historical_agency_by_biennium",
+        ),
+        "historical_functional_area_by_biennium": build_historical_grouped_budget_template(
+            source=source,
+            group_source="fa",
+            group_entity="Titles_FunctionalArea",
+            group_property="Title35",
+            group_code_property="FunctionalArea",
+            group_name="functional_area",
+            group_code_name="functional_area_code",
+            visual_id="codex_historical_functional_area_by_biennium",
         ),
     }
 
@@ -235,7 +316,13 @@ def build_version_summary_template(source: dict[str, Any]) -> dict[str, Any]:
             order_by(column_expression("c", "Fundname"), 1),
         ],
     }
-    return querydata_payload(source, query, list(range(len(select))), "codex_version_summary", 1000)
+    return querydata_payload(
+        source_surface(source, CURRENT_SURFACE_ID),
+        query,
+        list(range(len(select))),
+        "codex_version_summary",
+        1000,
+    )
 
 
 def build_grouped_budget_template(
@@ -244,10 +331,13 @@ def build_grouped_budget_template(
     group_source: str,
     group_entity: str,
     group_property: str,
+    group_code_property: str,
     group_name: str,
+    group_code_name: str,
     visual_id: str,
 ) -> dict[str, Any]:
     select = [
+        select_column(group_source, group_code_property, group_code_name),
         select_column(group_source, group_property, group_name),
         select_column("c", "Fundname", "fund_view"),
         select_sum("f", "Amount", "amount_thousands"),
@@ -266,7 +356,98 @@ def build_grouped_budget_template(
         ],
         "OrderBy": [order_by(sum_expression("f", "Amount"), 2)],
     }
-    return querydata_payload(source, query, list(range(len(select))), visual_id, 500)
+    return querydata_payload(
+        source_surface(source, CURRENT_SURFACE_ID),
+        query,
+        list(range(len(select))),
+        visual_id,
+        500,
+    )
+
+
+def build_historical_biennium_summary_template(source: dict[str, Any]) -> dict[str, Any]:
+    select = historical_base_select(include_publish_date=True)
+    select.append(select_sum("f", "Amount", "amount_thousands"))
+    query = {
+        "Version": 2,
+        "From": historical_common_from(include_functional_area=False),
+        "Select": select,
+        "Where": historical_default_where(source),
+        "OrderBy": historical_order_by(),
+    }
+    return querydata_payload(
+        source_surface(source, PRIOR_SURFACE_ID),
+        query,
+        list(range(len(select))),
+        "codex_historical_biennium_summary",
+        1000,
+    )
+
+
+def build_historical_grouped_budget_template(
+    *,
+    source: dict[str, Any],
+    group_source: str,
+    group_entity: str,
+    group_property: str,
+    group_code_property: str,
+    group_name: str,
+    group_code_name: str,
+    visual_id: str,
+) -> dict[str, Any]:
+    select = historical_base_select(include_publish_date=False)
+    select.extend(
+        [
+            select_column(group_source, group_code_property, group_code_name),
+            select_column(group_source, group_property, group_name),
+            select_min("v", "PublishDate", "publish_date"),
+            select_sum("f", "Amount", "amount_thousands"),
+        ]
+    )
+    from_entities = historical_common_from(include_functional_area=group_entity == "Titles_FunctionalArea")
+    if group_entity == "Titles_Agency":
+        from_entities.append({"Name": group_source, "Entity": group_entity, "Type": 0})
+    query = {
+        "Version": 2,
+        "From": from_entities,
+        "Select": select,
+        "Where": historical_default_where(source) + [not_null_filter(group_source, group_property)],
+        "OrderBy": historical_order_by() + [order_by(column_expression(group_source, group_property), 1)],
+    }
+    return querydata_payload(
+        source_surface(source, PRIOR_SURFACE_ID),
+        query,
+        list(range(len(select))),
+        visual_id,
+        3000,
+    )
+
+
+def historical_base_select(*, include_publish_date: bool) -> list[dict[str, Any]]:
+    select = [
+        select_column("f", "Biennium", "biennium"),
+        select_column("v", "SessionType", "session_type"),
+        select_column("v", "Verttl", "budget_version_filter"),
+        select_column("v", "Title35", "budget_version"),
+    ]
+    if include_publish_date:
+        select.append(select_min("v", "PublishDate", "publish_date"))
+    return select
+
+
+def historical_default_where(source: dict[str, Any]) -> list[dict[str, Any]]:
+    trend = source["default_trend"]
+    return [
+        in_filter("v", "Title35", [trend["budget_version"]]),
+        in_filter("v", "SessionType", [trend["session_type"]]),
+    ]
+
+
+def historical_order_by() -> list[dict[str, Any]]:
+    return [
+        order_by(column_expression("f", "Biennium"), 1),
+        order_by(column_expression("v", "PublishDate"), 1),
+    ]
 
 
 def common_from(*, include_functional_area: bool) -> list[dict[str, Any]]:
@@ -280,8 +461,18 @@ def common_from(*, include_functional_area: bool) -> list[dict[str, Any]]:
     return from_entities
 
 
+def historical_common_from(*, include_functional_area: bool) -> list[dict[str, Any]]:
+    from_entities = [
+        {"Name": "f", "Entity": "Operating_Funding", "Type": 0},
+        {"Name": "v", "Entity": "Operating_VersionInfo", "Type": 0},
+    ]
+    if include_functional_area:
+        from_entities.append({"Name": "fa", "Entity": "Titles_FunctionalArea", "Type": 0})
+    return from_entities
+
+
 def querydata_payload(
-    source: dict[str, Any],
+    surface: dict[str, Any],
     query: dict[str, Any],
     projections: list[int],
     visual_id: str,
@@ -311,10 +502,10 @@ def querydata_payload(
                 },
                 "QueryId": "",
                 "ApplicationContext": {
-                    "DatasetId": source["dataset_id"],
+                    "DatasetId": surface["dataset_id"],
                     "Sources": [
                         {
-                            "ReportId": source["report_id"],
+                            "ReportId": surface["report_id"],
                             "VisualId": visual_id,
                         }
                     ],
@@ -322,22 +513,22 @@ def querydata_payload(
             }
         ],
         "cancelQueries": [],
-        "modelId": source["model_id"],
+        "modelId": surface["model_id"],
     }
 
 
-def fetch_models_and_exploration(source: dict[str, Any]) -> dict[str, Any]:
-    return get_json(source["metadata_endpoint"], source)
+def fetch_models_and_exploration(surface: dict[str, Any]) -> dict[str, Any]:
+    return get_json(surface["metadata_endpoint"], surface)
 
 
-def fetch_conceptual_schema(source: dict[str, Any]) -> dict[str, Any]:
-    return get_json(source["conceptual_schema_endpoint"], source)
+def fetch_conceptual_schema(surface: dict[str, Any]) -> dict[str, Any]:
+    return get_json(surface["conceptual_schema_endpoint"], surface)
 
 
-def get_json(url: str, source: dict[str, Any]) -> dict[str, Any]:
+def get_json(url: str, surface: dict[str, Any]) -> dict[str, Any]:
     request = urllib.request.Request(
         url,
-        headers=powerbi_headers(source),
+        headers=powerbi_headers(surface),
     )
     try:
         with urllib.request.urlopen(request, timeout=60) as response:
@@ -348,14 +539,14 @@ def get_json(url: str, source: dict[str, Any]) -> dict[str, Any]:
     return json.loads(decode_response(raw, encoding))
 
 
-def post_querydata(source: dict[str, Any], query_template: dict[str, Any]) -> dict[str, Any]:
+def post_querydata(surface: dict[str, Any], query_template: dict[str, Any]) -> dict[str, Any]:
     payload = json.dumps(query_template, separators=(",", ":")).encode("utf-8")
     request = urllib.request.Request(
-        source["querydata_endpoint"],
+        surface["querydata_endpoint"],
         data=payload,
         method="POST",
         headers={
-            **powerbi_headers(source),
+            **powerbi_headers(surface),
             "ActivityId": "11111111-1111-4111-8111-111111111111",
             "Content-Type": "application/json;charset=UTF-8",
             "Origin": "https://app.powerbi.com",
@@ -372,12 +563,12 @@ def post_querydata(source: dict[str, Any], query_template: dict[str, Any]) -> di
     return json.loads(decode_response(raw, encoding))
 
 
-def powerbi_headers(source: dict[str, Any]) -> dict[str, str]:
+def powerbi_headers(surface: dict[str, Any]) -> dict[str, str]:
     return {
         "Accept": "application/json, text/plain, */*",
         "Accept-Encoding": "gzip",
         "User-Agent": "Mozilla/5.0",
-        "X-PowerBI-ResourceKey": source["powerbi_resource_key"],
+        "X-PowerBI-ResourceKey": surface["powerbi_resource_key"],
     }
 
 
@@ -387,18 +578,18 @@ def decode_response(raw: bytes, content_encoding: str | None) -> str:
     return raw.decode("utf-8")
 
 
-def verify_metadata(source: dict[str, Any], metadata: dict[str, Any]) -> None:
+def verify_metadata(surface: dict[str, Any], metadata: dict[str, Any]) -> None:
     try:
         model = metadata["models"][0]
     except (KeyError, IndexError) as exc:
         raise ExtractionError("metadata response does not include models[0]") from exc
-    if model.get("id") != source["model_id"]:
+    if model.get("id") != surface["model_id"]:
         raise ExtractionError(
-            f"model id mismatch: expected {source['model_id']}, got {model.get('id')}"
+            f"model id mismatch for {surface['id']}: expected {surface['model_id']}, got {model.get('id')}"
         )
-    if model.get("dbName") != source["dataset_id"]:
+    if model.get("dbName") != surface["dataset_id"]:
         raise ExtractionError(
-            f"dataset id mismatch: expected {source['dataset_id']}, got {model.get('dbName')}"
+            f"dataset id mismatch for {surface['id']}: expected {surface['dataset_id']}, got {model.get('dbName')}"
         )
 
 
@@ -482,16 +673,22 @@ def normalize_grouped_budget_rows(
     source: dict[str, Any],
     rows: list[dict[str, Any]],
     group_field: str,
+    group_code_field: str,
 ) -> list[dict[str, Any]]:
     normalized = []
     for row in rows:
         amount_thousands = int(row["amount_thousands"])
         normalized.append(
             {
+                "source_surface_id": CURRENT_SURFACE_ID,
                 "biennium": source["biennium"],
+                "period_type": "biennium",
+                "budget_state": source["default_trend"]["budget_state"],
+                "revision_scope": source["default_trend"]["revision_scope"],
                 "budget_version": source["budget_version_label"],
                 "budget_version_filter": source["budget_version_filter"],
                 "fund_view": row["fund_view"],
+                group_code_field: str(row[group_code_field]),
                 group_field: row[group_field],
                 "amount_thousands": amount_thousands,
                 "budgeted_amount": amount_thousands * 1000,
@@ -509,7 +706,11 @@ def normalize_version_summary(
         publish_date = powerbi_date_to_iso(row.get("publish_date"))
         normalized.append(
             {
+                "source_surface_id": CURRENT_SURFACE_ID,
                 "biennium": source["biennium"],
+                "period_type": "biennium",
+                "budget_state": source["default_trend"]["budget_state"],
+                "revision_scope": source["default_trend"]["revision_scope"],
                 "version_filter": row["version_filter"],
                 "budget_version": row["budget_version"],
                 "fund_view": row["fund_view"],
@@ -519,6 +720,95 @@ def normalize_version_summary(
             }
         )
     return normalized
+
+
+def normalize_historical_summary_rows(
+    source: dict[str, Any], rows: list[dict[str, Any]]
+) -> list[dict[str, Any]]:
+    trend = source["default_trend"]
+    normalized = []
+    for row in rows:
+        amount_thousands = int(row["amount_thousands"])
+        normalized.append(
+            {
+                "source_surface_id": PRIOR_SURFACE_ID,
+                "biennium": row["biennium"],
+                "period_type": trend["period_type"],
+                "session_type": row["session_type"],
+                "budget_state": trend["budget_state"],
+                "revision_scope": trend["revision_scope"],
+                "budget_version_filter": row["budget_version_filter"],
+                "budget_version": row["budget_version"],
+                "fund_view": trend["fund_view"],
+                "publish_date": powerbi_date_to_iso(row.get("publish_date")),
+                "amount_thousands": amount_thousands,
+                "budgeted_amount": amount_thousands * 1000,
+            }
+        )
+    return normalized
+
+
+def normalize_historical_grouped_budget_rows(
+    source: dict[str, Any],
+    rows: list[dict[str, Any]],
+    group_field: str,
+    group_code_field: str,
+) -> list[dict[str, Any]]:
+    trend = source["default_trend"]
+    normalized = []
+    for row in rows:
+        amount_thousands = int(row["amount_thousands"])
+        normalized.append(
+            {
+                "source_surface_id": PRIOR_SURFACE_ID,
+                "biennium": row["biennium"],
+                "period_type": trend["period_type"],
+                "session_type": row["session_type"],
+                "budget_state": trend["budget_state"],
+                "revision_scope": trend["revision_scope"],
+                "budget_version_filter": row["budget_version_filter"],
+                "budget_version": row["budget_version"],
+                "fund_view": trend["fund_view"],
+                "publish_date": powerbi_date_to_iso(row.get("publish_date")),
+                group_code_field: str(row[group_code_field]),
+                group_field: row[group_field],
+                "amount_thousands": amount_thousands,
+                "budgeted_amount": amount_thousands * 1000,
+            }
+        )
+    return normalized
+
+
+def current_rows_as_historical(
+    source: dict[str, Any],
+    rows: list[dict[str, Any]],
+    group_field: str,
+    group_code_field: str,
+) -> list[dict[str, Any]]:
+    trend = source["default_trend"]
+    historical = []
+    for row in rows:
+        if row["fund_view"] != trend["fund_view"]:
+            continue
+        historical.append(
+            {
+                "source_surface_id": CURRENT_SURFACE_ID,
+                "biennium": row["biennium"],
+                "period_type": trend["period_type"],
+                "session_type": trend["session_type"],
+                "budget_state": trend["budget_state"],
+                "revision_scope": trend["revision_scope"],
+                "budget_version_filter": row["budget_version_filter"],
+                "budget_version": row["budget_version"],
+                "fund_view": row["fund_view"],
+                "publish_date": source["budget_version_date"],
+                group_code_field: str(row[group_code_field]),
+                group_field: row[group_field],
+                "amount_thousands": row["amount_thousands"],
+                "budgeted_amount": row["budgeted_amount"],
+            }
+        )
+    return historical
 
 
 def powerbi_date_to_iso(value: Any) -> str | None:
@@ -565,8 +855,6 @@ def write_snapshot(
     output_dir: Path,
     live: bool,
 ) -> None:
-    verify_metadata(source, metadata)
-
     version_rows = normalize_version_summary(
         source,
         parse_rows(
@@ -578,23 +866,86 @@ def write_snapshot(
         source,
         parse_rows(
             responses["agency_by_fund_view"],
-            ["agency", "fund_view", "amount_thousands"],
+            ["agency_code", "agency", "fund_view", "amount_thousands"],
         ),
         "agency",
+        "agency_code",
     )
     functional_area_rows = normalize_grouped_budget_rows(
         source,
         parse_rows(
             responses["functional_area_by_fund_view"],
-            ["functional_area", "fund_view", "amount_thousands"],
+            ["functional_area_code", "functional_area", "fund_view", "amount_thousands"],
         ),
         "functional_area",
+        "functional_area_code",
+    )
+    historical_summary_rows = normalize_historical_summary_rows(
+        source,
+        parse_rows(
+            responses["historical_biennium_summary"],
+            [
+                "biennium",
+                "session_type",
+                "budget_version_filter",
+                "budget_version",
+                "publish_date",
+                "amount_thousands",
+            ],
+        ),
+    )
+    historical_agency_rows = normalize_historical_grouped_budget_rows(
+        source,
+        parse_rows(
+            responses["historical_agency_by_biennium"],
+            [
+                "biennium",
+                "session_type",
+                "budget_version_filter",
+                "budget_version",
+                "agency_code",
+                "agency",
+                "publish_date",
+                "amount_thousands",
+            ],
+        ),
+        "agency",
+        "agency_code",
+    ) + current_rows_as_historical(source, agency_rows, "agency", "agency_code")
+    historical_functional_area_rows = normalize_historical_grouped_budget_rows(
+        source,
+        parse_rows(
+            responses["historical_functional_area_by_biennium"],
+            [
+                "biennium",
+                "session_type",
+                "budget_version_filter",
+                "budget_version",
+                "functional_area_code",
+                "functional_area",
+                "publish_date",
+                "amount_thousands",
+            ],
+        ),
+        "functional_area",
+        "functional_area_code",
+    ) + current_rows_as_historical(
+        source,
+        functional_area_rows,
+        "functional_area",
+        "functional_area_code",
     )
 
     normalized_dir = output_dir / "normalized"
     write_jsonl(normalized_dir / "version-summary.jsonl", version_rows)
     write_jsonl(normalized_dir / "agency-by-fund-view.jsonl", agency_rows)
     write_jsonl(normalized_dir / "functional-area-by-fund-view.jsonl", functional_area_rows)
+    write_jsonl(normalized_dir / "historical-biennium-summary.jsonl", historical_summary_rows)
+    write_jsonl(normalized_dir / "historical-agency-by-biennium.jsonl", historical_agency_rows)
+    write_jsonl(
+        normalized_dir / "historical-functional-area-by-biennium.jsonl",
+        historical_functional_area_rows,
+    )
 
     totals_by_fund = totals_by(agency_rows, "fund_view")
     functional_totals_by_fund = totals_by(functional_area_rows, "fund_view")
@@ -606,26 +957,75 @@ def write_snapshot(
                 f"{agency_total} vs {function_total}"
             )
 
+    historical_summary_totals = totals_by(historical_summary_rows, "biennium")
+    historical_agency_totals = totals_by(historical_agency_rows, "biennium")
+    historical_functional_area_totals = totals_by(historical_functional_area_rows, "biennium")
+    if historical_summary_totals != historical_agency_totals:
+        raise ExtractionError(
+            "historical statewide/agency totals mismatch: "
+            f"{historical_summary_totals} vs {historical_agency_totals}"
+        )
+    if historical_summary_totals != historical_functional_area_totals:
+        raise ExtractionError(
+            "historical statewide/functional-area totals mismatch: "
+            f"{historical_summary_totals} vs {historical_functional_area_totals}"
+        )
+    current_default_total = totals_by_fund[source["default_trend"]["fund_view"]]
+    historical_current_total = historical_summary_totals.get(source["biennium"])
+    if historical_current_total != current_default_total:
+        raise ExtractionError(
+            f"historical/current overlap mismatch for {source['biennium']}: "
+            f"{historical_current_total} vs {current_default_total}"
+        )
+    verify_unique_keys(historical_summary_rows, ["biennium"], "historical biennium")
+    verify_unique_keys(
+        historical_agency_rows,
+        ["biennium", "agency_code"],
+        "historical agency",
+    )
+    verify_unique_keys(
+        historical_functional_area_rows,
+        ["biennium", "functional_area_code"],
+        "historical functional area",
+    )
+
     default_fund_view = source["default_fund_view"]
     default_agency_rows = [row for row in agency_rows if row["fund_view"] == default_fund_view]
     default_function_rows = [
         row for row in functional_area_rows if row["fund_view"] == default_fund_view
     ]
+    biennia = sorted(historical_summary_totals)
 
     summary = {
         "source_id": source["id"],
         "snapshot_version": source["snapshot_version"],
-        "model_refresh_time": model_metadata(metadata).get("LastRefreshTime"),
+        "model_refresh_time": model_metadata(metadata[CURRENT_SURFACE_ID]).get("LastRefreshTime"),
+        "surface_refresh_times": {
+            surface_id: model_metadata(surface_metadata).get("LastRefreshTime")
+            for surface_id, surface_metadata in metadata.items()
+        },
         "biennium": source["biennium"],
         "budget_version_filter": source["budget_version_filter"],
         "budget_version": source["budget_version_label"],
         "fund_views": source["fund_views"],
         "default_fund_view": default_fund_view,
+        "default_trend": source["default_trend"],
+        "historical_coverage": {
+            "biennia": biennia,
+            "start_biennium": biennia[0],
+            "end_biennium": biennia[-1],
+            "statewide_grain": True,
+            "agency_grain": True,
+            "functional_area_grain": True,
+        },
         "amount_units": "dollars",
         "row_counts": {
             "version_summary": len(version_rows),
             "agency_by_fund_view": len(agency_rows),
             "functional_area_by_fund_view": len(functional_area_rows),
+            "historical_biennium_summary": len(historical_summary_rows),
+            "historical_agency_by_biennium": len(historical_agency_rows),
+            "historical_functional_area_by_biennium": len(historical_functional_area_rows),
         },
         "validation_checks": {
             "default_fund_view_total": totals_by_fund[default_fund_view],
@@ -633,6 +1033,11 @@ def write_snapshot(
             "default_fund_view_functional_area_rows": len(default_function_rows),
             "totals_by_fund_view": totals_by_fund,
             "agency_function_totals_match": True,
+            "historical_totals_by_biennium": historical_summary_totals,
+            "historical_agency_totals_match": True,
+            "historical_functional_area_totals_match": True,
+            "historical_current_overlap_matches": True,
+            "historical_current_overlap_total": historical_current_total,
         },
         "top_agencies_default_fund_view": top_rows(
             default_agency_rows, "agency", "budgeted_amount", 8
@@ -644,6 +1049,10 @@ def write_snapshot(
             "Amounts are budgeted/authorized report values, not actual spending.",
             "Fiscal WA report values are returned in thousands; normalized rows store dollars.",
             "Outlook Funds (NGF-O) and Total Budgeted are separate fund views.",
+            (
+                "Historical trend rows default to enacted base biennial operating "
+                "budgets, using Fiscal WA SessionType R1 and budget version Enacted."
+            ),
         ],
     }
     write_json(output_dir / "summary.json", summary)
@@ -657,18 +1066,33 @@ def write_snapshot(
         "official_context_page": source["official_context_page"],
         "powerbi_report_url": source["powerbi_report_url"],
         "api_host": source["powerbi_api_host"],
-        "model_metadata": model_metadata(metadata),
-        "source_card_expected_model": {
-            "model_id": source["model_id"],
-            "dataset_id": source["dataset_id"],
-            "observed_model_refresh_time": source["observed_model_refresh_time"],
+        "source_surfaces": source_surfaces_provenance(source),
+        "model_metadata": model_metadata(metadata[CURRENT_SURFACE_ID]),
+        "model_metadata_by_surface": {
+            surface_id: model_metadata(surface_metadata)
+            for surface_id, surface_metadata in metadata.items()
+        },
+        "source_card_expected_models": {
+            surface_id: {
+                "model_id": source_surface(source, surface_id)["model_id"],
+                "dataset_id": source_surface(source, surface_id)["dataset_id"],
+                "observed_model_refresh_time": source_surface(
+                    source, surface_id
+                )["observed_model_refresh_time"],
+            }
+            for surface_id in metadata
         },
         "filters": {
             "budget_version_filter": source["budget_version_filter"],
             "budget_version": source["budget_version_label"],
             "fund_views": source["fund_views"],
+            "default_trend": source["default_trend"],
         },
-        "conceptual_entities": conceptual_entities(conceptual_schema),
+        "conceptual_entities": conceptual_entities(conceptual_schema[CURRENT_SURFACE_ID]),
+        "conceptual_entities_by_surface": {
+            surface_id: conceptual_entities(surface_schema)
+            for surface_id, surface_schema in conceptual_schema.items()
+        },
         "raw_response_policy": {
             "committed_raw_live_responses": False,
             "local_raw_capture_path": "jurisdictions/washington/data/operating-budget/local_raw/",
@@ -685,6 +1109,17 @@ def write_snapshot(
         },
     }
     write_json(output_dir / "provenance.json", provenance)
+
+
+def verify_unique_keys(
+    rows: list[dict[str, Any]], key_fields: list[str], label: str
+) -> None:
+    seen: set[tuple[Any, ...]] = set()
+    for row in rows:
+        key = tuple(row[field] for field in key_fields)
+        if key in seen:
+            raise ExtractionError(f"duplicate {label} row key: {key}")
+        seen.add(key)
 
 
 def totals_by(rows: list[dict[str, Any]], key: str) -> dict[str, int]:
@@ -729,9 +1164,45 @@ def query_template_provenance(
             "template_path": str((QUERY_TEMPLATE_ROOT / QUERY_TEMPLATE_FILES[key]).relative_to(ROOT)),
             "template_sha256": sha256_json(template),
             "response_sha256": sha256_json(responses[key]),
+            "source_surface_id": QUERY_TEMPLATE_SURFACES[key],
             "visual_id": visual_id(template),
         }
     return details
+
+
+def source_surfaces_provenance(source: dict[str, Any]) -> dict[str, dict[str, Any]]:
+    surfaces = source.get("source_surfaces", {})
+    if not surfaces:
+        return {
+            CURRENT_SURFACE_ID: {
+                "status": "accepted",
+                "official_dashboard_page": source["official_dashboard_page"],
+                "powerbi_report_url": source["powerbi_report_url"],
+                "dataset_display_name": source["dataset_display_name"],
+                "dataset_id": source["dataset_id"],
+                "model_id": source["model_id"],
+                "report_id": source["report_id"],
+            }
+        }
+    keep = [
+        "status",
+        "official_dashboard_page",
+        "powerbi_report_url",
+        "dataset_display_name",
+        "dataset_id",
+        "model_id",
+        "report_id",
+        "coverage",
+        "notes",
+    ]
+    return {
+        surface_id: {
+            key: surface[key]
+            for key in keep
+            if key in surface
+        }
+        for surface_id, surface in surfaces.items()
+    }
 
 
 def visual_id(query_template: dict[str, Any]) -> str | None:
