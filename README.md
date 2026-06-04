@@ -116,6 +116,9 @@ Worked examples:
 
 - `docs/seattle-demo.md`: source-backed answers and compact traces for the current dogfood prompts.
 - `docs/king-county-demo.md`: source-backed answers and compact traces for the King County snapshot.
+- `docs/source-probing.md`: workflow for evaluating new official sources before adding them.
+- `docs/source-probes/seattle-open-data-portal.md`: Socrata/open data portal probe and workflow lessons.
+- `docs/source-probes/washington-state-budget.md`: current Washington state budget source probe.
 
 ## Packaging
 
@@ -163,6 +166,8 @@ Future sources should follow the same pattern:
 - `washington.spending.checkbook`
 - `san_francisco.operating_budget`
 
+Before adding a future source, run the source-probing workflow in `docs/source-probing.md` and capture the result with `docs/templates/source-probe-brief.md`.
+
 ## Data Strategy
 
 Use live official APIs when they are clean and stable. Use checked-in snapshots when official public data is slow-changing, awkward to scrape, or report-shaped.
@@ -171,4 +176,4 @@ Seattle is the clean example: direct Socrata JSON/CSV plus SoQL.
 
 King County is the first report-shaped example: official Power BI Gov dashboard replayed through reviewed query templates into a checked-in normalized snapshot.
 
-Washington will likely be the messy example: Fiscal WA / OFM pages, downloadable XLSX files, ReportViewer exports, PDFs, and normalization.
+Washington is the next broad source family: Fiscal WA / OFM pages, Power BI reports, downloadable XLSX files, PDFs, and normalization. Treat Fiscal WA operating budget as a Power BI snapshot candidate and Open Checkbook as a separate actual-spending source.

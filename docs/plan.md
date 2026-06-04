@@ -47,13 +47,17 @@ King County intentionally stays narrow: budgeted revenue, budgeted expenditures,
 
 ## Phase 2: Washington
 
-- [ ] Treat Fiscal WA as the broad public fiscal portal.
-- [ ] Treat OFM as the executive budget and source-document authority.
+- [x] Probe Washington state budget sources and classify Fiscal WA as the primary official data surface.
+- [x] Treat Fiscal WA operating budget reports as Power BI-backed snapshot candidates.
+- [x] Treat OFM as the executive budget and source-document authority.
 - [ ] Treat LEAP as a source family inside the Washington adapter, not the top-level dataset.
+- [ ] Decide the first supported operating budget version/default from Fiscal WA.
 - [ ] Add `jurisdictions/washington/skill.md`.
-- [ ] Add source metadata for operating, capital, transportation, revenue, spending/checkbook, staffing, and K-12.
+- [ ] Add source metadata for the first Washington operating budget source.
+- [ ] Decide whether spending/checkbook should be a second Washington source based on downloadable XLSX files.
+- [ ] Add source metadata for capital, transportation, revenue, staffing, and K-12 only after each source is probed.
 - [ ] Decide which data should be snapshotted because it is slow-changing or awkward to extract live.
-- [ ] Build extractor/normalizer scripts for ReportViewer/XLSX/PDF surfaces only where necessary.
+- [ ] Build extractor/normalizer scripts for Power BI/XLSX/PDF surfaces only where necessary.
 
 ## Phase 3: Multi-Jurisdiction
 
@@ -67,5 +71,6 @@ King County intentionally stays narrow: budgeted revenue, budgeted expenditures,
 - The public prompt should be short.
 - The skill document should carry the complexity.
 - Official sources are the source of truth.
+- New source families should start with a probe brief before source cards or extractors.
 - Snapshots are allowed when official public data changes slowly or is painful for agents to retrieve reliably.
 - Do not compare jurisdictions until field mappings and caveats are explicit.

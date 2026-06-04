@@ -73,6 +73,8 @@ Source metadata acts as a source card: it identifies the official source, human 
 
 Each source card should include `human_inspection_urls`: a short list of public URLs a reader can open to inspect the official source. Keep those separate from machine-oriented API, metadata, and query endpoints.
 
+Before adding a source card for a new source family, write a probe brief using `docs/source-probing.md` and `docs/templates/source-probe-brief.md`. The probe brief should identify the official owner, candidate machine surfaces, access method, supported questions, unsupported claims, validation checks, and whether the source should be accepted live, snapshotted, kept as context only, watched, or rejected.
+
 Optional data snapshots:
 
 - `jurisdictions/<jurisdiction>/data/<dataset>/<version>.raw.<csv|xlsx|json>`
@@ -113,4 +115,4 @@ Seattle is the clean source: a direct Socrata API with stable fields.
 
 King County is the report-shaped source: an official Power BI Gov dashboard replayed through reviewed query templates into a checked-in snapshot.
 
-Washington will likely be the messy source: Fiscal WA and OFM pages, ReportViewer exports, Power BI surfaces, XLSX files, and PDFs. That means the repo must support both live queries and curated snapshots while keeping each jurisdiction's instructions, source metadata, and data notes together.
+Washington is the next broad source family: Fiscal WA and OFM pages, Power BI surfaces, XLSX files, and PDFs. That means the repo must support both live queries and curated snapshots while keeping each jurisdiction's instructions, source metadata, probe notes, and data notes together.
