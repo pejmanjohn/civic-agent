@@ -112,6 +112,10 @@ Acceptance rules:
 
 When a source is split by year with separate CSV/XLSX files, use the same shape: one source card, one `source_surfaces` entry per file or file family, shared normalized historical tables, row-level provenance, checksums/file metadata for each accepted file, and period-by-period reconciliation checks.
 
+8. Coverage categories are promoted only after probes.
+
+   `docs/coverage-taxonomy.md` carries the full civic coverage map and the currently active source-card categories. A backlog category such as demographics, crime, transportation, housing, procurement, health, service requests, governance, or elections should not appear in `coverage_claims` until this workflow proves what an official source can answer or explicitly cannot answer.
+
 ## Workflow
 
 ### 1. State The User Question
@@ -134,6 +138,7 @@ Record:
 
 - Jurisdiction
 - Budget family: operating, capital, transportation, revenue, spending/checkbook, staffing, K-12, grants, debt, procurement
+- Coverage target from `docs/coverage-taxonomy.md`: active category for current budget/public-finance work, or backlog family if the source is being investigated for future coverage.
 - Desired grain: agency, department, program, fund, project, vendor, fiscal year, biennium, version
 - Desired measure: budgeted amount, actual spending, revenue, FTE, contract amount, project appropriation
 
@@ -525,6 +530,8 @@ Use one of these outcomes:
 - `reject`: Not official, not inspectable, too brittle, or unable to support useful questions.
 
 Record why. A rejected source with clear evidence is useful future context.
+
+Also record the reviewed coverage category or backlog family, whether the source should create or update a source-card `coverage_claims` entry, and which evidence references would support that claim. Do not add unsupported rows just to fill a jurisdiction matrix.
 
 ## Civic Agent Artifacts
 
