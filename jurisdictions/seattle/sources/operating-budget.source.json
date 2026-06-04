@@ -44,6 +44,53 @@
     "Washington state, King County, school district, or other non-Seattle budget analysis.",
     "Policy conclusions that are not directly supported by approved operating budget rows."
   ],
+  "coverage_claims": [
+    {
+      "category": "budget_finance.operating_budget",
+      "status": "supported",
+      "measures": ["approved_amount"],
+      "grains": [
+        "fiscal_year",
+        "service",
+        "department",
+        "program",
+        "fund",
+        "fund_type",
+        "expense_type",
+        "description"
+      ],
+      "time_coverage": "FY2018-FY2026",
+      "evidence": [
+        "known_years",
+        "primary_measure",
+        "validation_checks.fy2026_rows",
+        "validation_checks.fy2026_total_approx",
+        "validation_checks.fy2026_departments"
+      ],
+      "caveats": [
+        "Annual/static operating budget publication, not realtime data.",
+        "Approved operating budget rows are not actual spending."
+      ]
+    },
+    {
+      "category": "budget_finance.revenue_budget",
+      "status": "unsupported",
+      "unsupported_reason": "Unsupported by this source: revenue analysis beyond operating-budget fund/accounting context is not supported.",
+      "evidence": ["not_supported_by_this_source"]
+    },
+    {
+      "category": "workforce.budgeted_fte",
+      "status": "unsupported",
+      "unsupported_reason": "Unsupported by this source: staffing, headcount, FTE, vacancy, and personnel roster claims are not supported.",
+      "evidence": ["not_supported_by_this_source"]
+    },
+    {
+      "category": "budget_finance.actual_spending_checkbook",
+      "status": "unsupported",
+      "unsupported_reason": "Unsupported by this source: actual spending, payments, invoices, checkbook transactions, and procurement activity are not supported.",
+      "evidence": ["not_supported_by_this_source"]
+    }
+  ],
   "fields": [
     {"name": "fiscal_year", "type": "number"},
     {"name": "service", "type": "text"},

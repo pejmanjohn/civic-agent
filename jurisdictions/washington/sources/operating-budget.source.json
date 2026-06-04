@@ -148,6 +148,54 @@
     "Cross-jurisdiction comparisons with Seattle or King County until accounting definitions and normalized dimensions are explicit.",
     "Broad policy conclusions that are not directly supported by the dashboard rows."
   ],
+  "coverage_claims": [
+    {
+      "category": "budget_finance.operating_budget",
+      "status": "supported",
+      "measures": ["budgeted_amount"],
+      "grains": [
+        "biennium",
+        "budget_version",
+        "fund_view",
+        "agency",
+        "functional_area"
+      ],
+      "time_coverage": "2025-27 enacted biennial operating budget; snapshot version 2025-27-enacted-2025-05-20",
+      "evidence": [
+        "snapshot_version",
+        "biennium",
+        "budget_version_filter",
+        "primary_measures",
+        "validation_checks.default_fund_view_total",
+        "validation_checks.outlook_funds_total",
+        "validation_checks.total_budgeted_agency_rows",
+        "validation_checks.total_budgeted_functional_area_rows",
+        "validation_checks.agency_function_totals_match"
+      ],
+      "caveats": [
+        "The snapshot is budgeted/authorized data, not actual spending.",
+        "Outlook Funds (NGF-O) and Total Budgeted are different fund views; always state which one is used."
+      ]
+    },
+    {
+      "category": "budget_finance.revenue_budget",
+      "status": "unsupported",
+      "unsupported_reason": "Unsupported by this source: the current Fiscal WA operating summary slice is not a revenue budget source.",
+      "evidence": ["budget_family", "safe_answer_patterns"]
+    },
+    {
+      "category": "workforce.budgeted_fte",
+      "status": "unsupported",
+      "unsupported_reason": "Unsupported by this source: staffing and FTE analysis are not supported.",
+      "evidence": ["not_supported_by_this_source"]
+    },
+    {
+      "category": "budget_finance.actual_spending_checkbook",
+      "status": "unsupported",
+      "unsupported_reason": "Unsupported by this source: actual spending, vendor payments, checkbook transactions, procurement, invoices, and actual revenue collected are not supported.",
+      "evidence": ["not_supported_by_this_source"]
+    }
+  ],
   "fields": [
     {"name": "source_surface_id", "type": "text"},
     {"name": "biennium", "type": "text"},
