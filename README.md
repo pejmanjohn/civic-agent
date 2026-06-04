@@ -52,6 +52,8 @@ civic-agent/
     dev.py                  # agent-run local dev plugin installer/status helper
   docs/
     architecture.md
+    coverage-matrix.md
+    coverage-taxonomy.md
     plan.md
     seattle-demo.md
   examples/
@@ -113,10 +115,16 @@ Current production sources:
 - `king_county.open_budget_dashboard`: King County Open Budget Dashboard, Power BI Gov snapshot `2026-04-01`
 - `washington.operating_budget`: Washington state operating budget, Fiscal WA Power BI snapshot `2025-27-enacted-2025-05-20`, including 2025-27 enacted agency/function totals and enacted base biennial trends from 2013-15 through 2025-27
 
+Coverage orientation:
+
+- `docs/coverage-taxonomy.md`: full civic coverage map, current active budget/public-finance categories, and rules for promoting backlog categories after source probes.
+- `docs/coverage-matrix.md`: generated source and jurisdiction coverage view from checked-in source cards. It is a reviewed-source coverage aid, not a jurisdiction score.
+
 Worked examples:
 
 - `docs/seattle-demo.md`: source-backed answers and compact traces for the current dogfood prompts.
 - `docs/king-county-demo.md`: source-backed answers and compact traces for the King County snapshot.
+- `docs/coverage-matrix.md`: source-level coverage claims and derived jurisdiction rollups.
 - `docs/source-probing.md`: workflow for evaluating new official sources before adding them.
 - `docs/source-probes/seattle-open-data-portal.md`: Socrata/open data portal probe and workflow lessons.
 - `docs/source-probes/washington-state-budget.md`: current Washington state budget source probe.

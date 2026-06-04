@@ -62,6 +62,9 @@ King County intentionally stays narrow: budgeted revenue, budgeted expenditures,
 
 ## Phase 3: Multi-Jurisdiction
 
+- [x] Define a civic coverage taxonomy that separates the full aspirational coverage map from the current active budget/public-finance categories.
+- [x] Add source-level coverage claims for current production source cards.
+- [x] Add a generated coverage matrix and reviewed-source jurisdiction rollup.
 - [ ] Define normalized schema for cross-jurisdiction comparison.
 - [ ] Add snapshot provenance format.
 - [ ] Add validation checks per source.
@@ -73,5 +76,7 @@ King County intentionally stays narrow: budgeted revenue, budgeted expenditures,
 - The skill document should carry the complexity.
 - Official sources are the source of truth.
 - New source families should start with a probe brief before source cards or extractors.
+- Coverage claims are source-level review aids, not jurisdiction scores.
+- Backlog civic categories should become active only after a source probe proves what an official source can answer.
 - Snapshots are allowed when official public data changes slowly or is painful for agents to retrieve reliably.
 - Do not compare jurisdictions until field mappings and caveats are explicit.

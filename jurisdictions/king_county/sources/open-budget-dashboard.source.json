@@ -52,6 +52,69 @@
     "Cross-jurisdiction comparisons with Seattle or Washington state until accounting definitions and normalized dimensions are explicit.",
     "Broad policy conclusions that are not directly supported by the dashboard rows."
   ],
+  "coverage_claims": [
+    {
+      "category": "budget_finance.operating_budget",
+      "status": "supported",
+      "measures": ["budgeted_expenditure"],
+      "grains": ["year", "department"],
+      "time_coverage": "Dashboard years 2017-2027; snapshot version 2026-04-01",
+      "evidence": [
+        "known_years",
+        "snapshot_version",
+        "primary_measures",
+        "validation_checks.overview_years",
+        "validation_checks.fy2026_expenditure_total",
+        "validation_checks.fy2026_department_rows"
+      ],
+      "caveats": [
+        "The dashboard shows authorized or budgeted amounts, not actual spending.",
+        "Future years in the dashboard are budget years, not completed actuals."
+      ]
+    },
+    {
+      "category": "budget_finance.revenue_budget",
+      "status": "supported",
+      "measures": ["budgeted_revenue"],
+      "grains": ["year", "department"],
+      "time_coverage": "Dashboard years 2017-2027; snapshot version 2026-04-01",
+      "evidence": [
+        "known_years",
+        "snapshot_version",
+        "primary_measures",
+        "validation_checks.overview_years",
+        "validation_checks.fy2026_revenue_total",
+        "validation_checks.fy2026_department_rows"
+      ],
+      "caveats": [
+        "The dashboard shows budgeted revenue, not actual revenue earned.",
+        "Future years in the dashboard are budget years, not completed actuals."
+      ]
+    },
+    {
+      "category": "workforce.budgeted_fte",
+      "status": "supported",
+      "measures": ["budgeted_fte"],
+      "grains": ["year", "department"],
+      "time_coverage": "Dashboard years 2017-2027; snapshot version 2026-04-01",
+      "evidence": [
+        "known_years",
+        "snapshot_version",
+        "primary_measures",
+        "validation_checks.fy2026_fte_total",
+        "validation_checks.fy2026_department_fte_rows"
+      ],
+      "caveats": [
+        "Budgeted FTE is not an employee roster, vacancy count, payroll, or active headcount."
+      ]
+    },
+    {
+      "category": "budget_finance.actual_spending_checkbook",
+      "status": "unsupported",
+      "unsupported_reason": "Unsupported by this source: actual spending, payments, invoices, checkbook transactions, procurement activity, and actual revenue collected are not supported.",
+      "evidence": ["not_supported_by_this_source"]
+    }
+  ],
   "fields": [
     {"name": "year", "type": "number"},
     {"name": "department", "type": "text"},

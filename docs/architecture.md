@@ -75,6 +75,10 @@ Each source card should include `human_inspection_urls`: a short list of public 
 
 When one logical source is split across time spans or report pages, keep the source id stable and represent the pieces as `source_surfaces` in the source card. Each accepted surface should carry its official inspection URL, machine endpoint or file metadata, coverage, and status. Normalized rows should include `source_surface_id`, semantic filters such as budget state/fund view/period type, and official dimension codes where available. Snapshot summaries should include overlap reconciliation and period-by-period grouped-total checks before a stitched historical table is treated as answerable.
 
+Source cards may also include optional `coverage_claims`: compact, source-level claims that connect a reviewed source to the active categories in `docs/coverage-taxonomy.md`. Supported and partial claims should name measures, grains, time coverage or snapshot version, evidence references, and caveats. Unsupported claims must use source-level wording such as "unsupported by this source" and must not imply the jurisdiction lacks that data elsewhere.
+
+`docs/coverage-matrix.md` is generated from the taxonomy and checked-in source cards by `scripts/coverage.py`. It provides a per-source matrix and a derived jurisdiction rollup across reviewed sources. The rollup is not a score, not a normalized cross-jurisdiction schema, and not an answer path; normal answers still use the jurisdiction skill and source card.
+
 Before adding a source card for a new source family, write a probe brief using `docs/source-probing.md` and `docs/templates/source-probe-brief.md`. The probe brief should identify the official owner, candidate machine surfaces, access method, supported questions, unsupported claims, validation checks, and whether the source should be accepted live, snapshotted, kept as context only, watched, or rejected.
 
 Optional data snapshots:
