@@ -39,6 +39,19 @@ Both catalogs point at the single packaged plugin directory `plugins/civic-agent
 
 The Claude Code manifest is generated from the Codex manifest (dropping the Codex `interface` block and stripping the `+codex.<stamp>` version suffix), so shared metadata is edited once in the Codex manifest; `package_plugin.py --check` fails if the generated manifest drifts.
 
+## Local Development Surface
+
+Development is agent-native. The repo includes a local maintainer skill at `.agents/skills/civic-agent-maintainer/SKILL.md` for package refreshes, install status, and smoke-test prompts. A developer can ask the agent to refresh Civic Agent dev; the agent runs the deterministic helper and relays the result.
+
+The helper generates a gitignored Codex dev marketplace under `.generated/civic-agent-dev-marketplace/` with a separate plugin identity:
+
+- `@civic-agent`: production/stable install.
+- `@civic-agent-dev`: generated from the current local checkout, explicit testing only.
+
+The dev plugin is generated from the same canonical router and jurisdiction files as the production package. It should never be hand-edited, and it should not be used for generic budget questions unless the user explicitly asks to test the local development build.
+
+After installing or refreshing the dev plugin, open a new Codex thread before testing. Active threads do not reload newly installed plugin skills.
+
 ## Routing Contract
 
 Root router:
@@ -56,7 +69,9 @@ Source metadata:
 
 - `jurisdictions/<jurisdiction>/sources/<dataset>.source.json`
 
-Source metadata acts as a source card: it identifies the official source, fields, known checks, caveats, safe answer patterns, and claims that source should not support.
+Source metadata acts as a source card: it identifies the official source, human inspection URLs, fields, known checks, caveats, safe answer patterns, and claims that source should not support.
+
+Each source card should include `human_inspection_urls`: a short list of public URLs a reader can open to inspect the official source. Keep those separate from machine-oriented API, metadata, and query endpoints.
 
 Optional data snapshots:
 

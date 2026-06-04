@@ -9,6 +9,16 @@
   "access_method": "powerbi_snapshot",
   "official_dashboard_page": "https://kingcounty.gov/en/dept/executive/governance-leadership/performance-strategy-budget/budget/budget-dashboard",
   "powerbi_report_url": "https://app.powerbigov.us/view?r=eyJrIjoiOTNmYzYwMDEtNWM5ZC00YjllLThlNzAtZDc1OGRjNzA4MmEwIiwidCI6ImJhZTUwNTlhLTc2ZjAtNDlkNy05OTk2LTcyZGZlOTVkNjljNyJ9",
+  "human_inspection_urls": [
+    {
+      "label": "Official King County dashboard page",
+      "url": "https://kingcounty.gov/en/dept/executive/governance-leadership/performance-strategy-budget/budget/budget-dashboard"
+    },
+    {
+      "label": "Power BI report view",
+      "url": "https://app.powerbigov.us/view?r=eyJrIjoiOTNmYzYwMDEtNWM5ZC00YjllLThlNzAtZDc1OGRjNzA4MmEwIiwidCI6ImJhZTUwNTlhLTc2ZjAtNDlkNy05OTk2LTcyZGZlOTVkNjljNyJ9"
+    }
+  ],
   "powerbi_resource_key": "93fc6001-5c9d-4b9e-8e70-d758dc7082a0",
   "powerbi_tenant_id": "bae5059a-76f0-49d7-9996-72dfe95d69c7",
   "powerbi_api_host": "https://wabi-us-gov-iowa-api.analysis.usgovcloudapi.net",

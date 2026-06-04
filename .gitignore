@@ -2,6 +2,7 @@
 *.log
 tmp/
 dist/
+.generated/
 node_modules/
 .env
 .env.*

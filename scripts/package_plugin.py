@@ -40,11 +40,7 @@ def main() -> None:
     args = parse_args()
     planned = collect_outputs(update_cachebuster=args.update_cachebuster)
     if args.check:
-        failures = [
-            str(path.relative_to(ROOT))
-            for path, content in planned.items()
-            if read_text(path) != content
-        ]
+        failures = package_check_failures(planned)
         if failures:
             print("Plugin package is out of date:")
             for failure in failures:
@@ -52,6 +48,7 @@ def main() -> None:
             raise SystemExit(1)
         print("Plugin package is current.")
         return
+    remove_stale_outputs(planned)
     write_outputs(planned)
     print("Packaged Civic Agent plugin.")
 
@@ -66,14 +63,9 @@ def collect_outputs(*, update_cachebuster: bool) -> dict[Path, str]:
         PLUGIN_SKILL_ROOT / "agents" / "openai.yaml": SOURCE_AGENT.read_text(encoding="utf-8"),
         CLAUDE_MANIFEST_PATH: claude_manifest_content(),
     }
-    references_root = PLUGIN_SKILL_ROOT / "references"
-    for jurisdiction_dir in sorted(JURISDICTIONS_ROOT.iterdir()):
-        if not jurisdiction_dir.is_dir() or jurisdiction_dir.name.startswith("."):
-            continue
-        skill_path = jurisdiction_dir / "skill.md"
-        if not skill_path.is_file():
-            continue
-        outputs[references_root / f"{jurisdiction_dir.name}.md"] = skill_path.read_text(
+    references_root = references_root_path()
+    for jurisdiction_name, skill_path in jurisdiction_skill_paths():
+        outputs[references_root / f"{jurisdiction_name}.md"] = skill_path.read_text(
             encoding="utf-8"
         )
     if update_cachebuster:
@@ -81,6 +73,55 @@ def collect_outputs(*, update_cachebuster: bool) -> dict[Path, str]:
         manifest["version"] = cachebusted_version(str(manifest["version"]))
         outputs[MANIFEST_PATH] = json.dumps(manifest, indent=2) + "\n"
     return outputs
+
+
+def jurisdiction_skill_paths() -> list[tuple[str, Path]]:
+    paths: list[tuple[str, Path]] = []
+    for jurisdiction_dir in sorted(JURISDICTIONS_ROOT.iterdir()):
+        if not jurisdiction_dir.is_dir() or jurisdiction_dir.name.startswith("."):
+            continue
+        skill_path = jurisdiction_dir / "skill.md"
+        if skill_path.is_file():
+            paths.append((jurisdiction_dir.name, skill_path))
+    return paths
+
+
+def references_root_path() -> Path:
+    return PLUGIN_SKILL_ROOT / "references"
+
+
+def stale_generated_reference_paths(planned: dict[Path, str]) -> list[Path]:
+    references_root = references_root_path()
+    if not references_root.is_dir():
+        return []
+    expected = {
+        path.resolve()
+        for path in planned
+        if path.parent.resolve() == references_root.resolve() and path.suffix == ".md"
+    }
+    return [
+        path
+        for path in sorted(references_root.glob("*.md"))
+        if path.resolve() not in expected
+    ]
+
+
+def package_check_failures(planned: dict[Path, str]) -> list[str]:
+    failures = [
+        str(path.relative_to(ROOT))
+        for path, content in planned.items()
+        if read_text(path) != content
+    ]
+    failures.extend(
+        f"{path.relative_to(ROOT)} (stale generated reference)"
+        for path in stale_generated_reference_paths(planned)
+    )
+    return failures
+
+
+def remove_stale_outputs(planned: dict[Path, str]) -> None:
+    for path in stale_generated_reference_paths(planned):
+        path.unlink()
 
 
 def read_text(path: Path) -> str | None:

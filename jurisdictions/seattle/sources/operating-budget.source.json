@@ -12,6 +12,16 @@
   "csv_endpoint": "https://data.seattle.gov/resource/8u2j-imqx.csv?$limit=50000",
   "metadata_endpoint": "https://data.seattle.gov/api/views/8u2j-imqx",
   "public_page": "https://openbudget.seattle.gov/#!/year/2026/operating/0/department",
+  "human_inspection_urls": [
+    {
+      "label": "Official OpenBudget dashboard",
+      "url": "https://openbudget.seattle.gov/#!/year/2026/operating/0/department"
+    },
+    {
+      "label": "Socrata dataset page",
+      "url": "https://data.seattle.gov/City-Administration/City-of-Seattle-Operating-Budget/8u2j-imqx"
+    }
+  ],
   "known_years": [2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026],
   "refresh_frequency_observed": "One Time",
   "primary_measure": "approved_amount",

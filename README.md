@@ -14,6 +14,8 @@ civic-agent/
     marketplace.json        # marketplace catalog for Claude Code plugin discovery
   .agents/plugins/
     marketplace.json        # marketplace entry for Codex plugin discovery
+  .agents/skills/
+    civic-agent-maintainer/ # repo-local maintainer skill for dev refresh/status/smoke
   skill.md                 # hosted router skill for fresh-agent prompts
   jurisdictions/
     seattle/
@@ -47,6 +49,7 @@ civic-agent/
         civic-agent/references/king_county.md
   scripts/
     package_plugin.py
+    dev.py                  # agent-run local dev plugin installer/status helper
   docs/
     architecture.md
     plan.md
@@ -123,12 +126,36 @@ python3 scripts/package_plugin.py
 python3 scripts/package_plugin.py --check
 ```
 
-For local Codex reinstall testing, update the plugin cachebuster explicitly:
+`package_plugin.py --check` also fails when a stale generated jurisdiction reference remains in the packaged plugin after a jurisdiction is renamed or removed.
+
+## Agent-Native Development Loop
+
+The preferred development workflow is conversational. Ask the local maintainer skill to refresh or inspect dev state instead of running commands manually:
+
+```text
+refresh Civic Agent dev
+check Civic Agent dev status
+smoke test Civic Agent dev
+```
+
+The maintainer skill lives at `.agents/skills/civic-agent-maintainer/SKILL.md`. It runs the deterministic helper script for you and reports the result.
+
+For local Codex testing, the maintainer skill generates and installs a gitignored dev plugin:
+
+```text
+@civic-agent      production/stable install
+@civic-agent-dev  current local checkout, explicit testing only
+```
+
+After a dev refresh, open a new Codex thread and explicitly invoke `@civic-agent-dev`. Active threads do not reload newly installed plugin skills.
+
+The underlying agent-run command is:
 
 ```bash
-python3 scripts/package_plugin.py --update-cachebuster
-codex plugin add civic-agent@civic-agent
+python3 scripts/dev.py install
 ```
+
+It refreshes the checked-in package, generates `.generated/civic-agent-dev-marketplace/`, installs `civic-agent-dev@civic-agent-dev`, and verifies that the installed cache contains the current jurisdiction references. `.generated/` is ignored and should not be edited or committed.
 
 Future sources should follow the same pattern:
 

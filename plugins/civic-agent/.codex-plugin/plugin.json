@@ -16,6 +16,7 @@
     "public-finance",
     "civic-data",
     "seattle",
+    "king-county",
     "washington",
     "socrata"
   ],
@@ -23,7 +24,7 @@
   "interface": {
     "displayName": "Civic Agent",
     "shortDescription": "Analyze civic budgets through routed jurisdiction skills",
-    "longDescription": "Civic Agent routes city, county, and state budget questions to jurisdiction-specific skill files with official data sources, query recipes, validation checks, and interpretation guardrails. The first supported jurisdiction is Seattle's operating budget.",
+    "longDescription": "Civic Agent routes city, county, and state budget questions to jurisdiction-specific skill files with official data sources, query recipes, validation checks, and interpretation guardrails. Current sources include Seattle operating budget data and a King County Open Budget Dashboard snapshot.",
     "developerName": "Pejman Pour-Moezzi",
     "category": "Analytics",
     "capabilities": [
@@ -35,8 +36,8 @@
     "termsOfServiceURL": "https://github.com/pejmanjohn/civic-agent",
     "defaultPrompt": [
       "Analyze the Seattle budget",
-      "Compare Seattle departments",
-      "Show Seattle budget growth"
+      "Analyze the King County budget",
+      "Compare Seattle departments"
     ],
     "brandColor": "#0F766E",
     "composerIcon": "./assets/icon.png",
