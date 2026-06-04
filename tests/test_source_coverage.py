@@ -168,7 +168,7 @@ class CoverageRendererTest(unittest.TestCase):
         self.assertEqual(sources, ["example.source"])
         self.assertIn("source-scoped", notes)
 
-    def test_rollup_status_prefers_supported_claims_over_unsupported_claims(self):
+    def test_rollup_status_prefers_supported_claims_without_dropping_trace(self):
         supported_source = {"id": "example.supported"}
         unsupported_source = {"id": "example.unsupported"}
         status, sources, _ = coverage_renderer.rollup_status(
@@ -178,7 +178,7 @@ class CoverageRendererTest(unittest.TestCase):
             ]
         )
         self.assertEqual(status, "supported")
-        self.assertEqual(sources, ["example.supported"])
+        self.assertEqual(sources, ["example.unsupported", "example.supported"])
 
     def test_checked_in_matrix_matches_renderer_output(self):
         rendered = coverage_renderer.render_markdown(

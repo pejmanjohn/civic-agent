@@ -207,13 +207,14 @@ def rollup_status(claims: list[tuple[dict, dict]]) -> tuple[str, list[str], str]
     if not claims:
         return "not-yet-probed", [], "No reviewed source card claim."
 
+    reviewed_sources = [card["id"] for card, _ in claims]
     supported = [card["id"] for card, claim in claims if claim["status"] == "supported"]
     if supported:
-        return "supported", supported, "At least one reviewed source supports this category."
+        return "supported", reviewed_sources, "At least one reviewed source supports this category."
 
     partial = [card["id"] for card, claim in claims if claim["status"] == "partial"]
     if partial:
-        return "partial", partial, "At least one reviewed source partially supports this category."
+        return "partial", reviewed_sources, "At least one reviewed source partially supports this category."
 
     unsupported = [card["id"] for card, claim in claims if claim["status"] == "unsupported"]
     return (
