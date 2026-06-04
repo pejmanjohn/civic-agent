@@ -56,6 +56,29 @@ Boundaries:
 - Use budgeted revenue, budgeted expenditure, and budgeted FTE language.
 - Do not use it for actual spending, actual revenue collected, payments, procurement, personnel rosters, or cross-jurisdiction comparisons.
 
+### Washington State
+
+Use for Washington state 2025-27 enacted operating budget questions:
+
+```text
+https://raw.githubusercontent.com/pejmanjohn/civic-agent/main/jurisdictions/washington/skill.md
+```
+
+Triggers:
+
+- Washington state budget
+- Washington operating budget
+- Fiscal WA operating budget
+- Washington state agency budget totals
+- 2025-27 enacted Washington operating budget
+- Washington Total Budgeted or Outlook Funds (NGF-O) questions
+
+Boundaries:
+
+- This source answers from a checked-in Fiscal WA Power BI snapshot.
+- Use budgeted/authorized operating budget language.
+- Do not use it for actual spending, vendor payments, 2026 supplemental changes, capital budget, transportation budget, staffing/FTE, or cross-jurisdiction comparisons.
+
 ## Routing Examples
 
 User:
@@ -112,6 +135,20 @@ Action:
 3. Read `jurisdictions/king_county/skill.md`.
 4. Use the King County snapshot `department-revenue-expenditure-by-year.jsonl`.
 5. Report budgeted expenditure rankings with snapshot, grain, validation check, and caveats.
+
+User:
+
+```text
+Read https://raw.githubusercontent.com/pejmanjohn/civic-agent/main/skill.md and show the largest Washington state agency budgets.
+```
+
+Action:
+
+1. Read this router file.
+2. Detect Washington state and agency budget ranking.
+3. Read `jurisdictions/washington/skill.md`.
+4. Use the Washington snapshot `agency-by-fund-view.jsonl`.
+5. Report 2025-27 enacted Total Budgeted agency rankings with snapshot, grain, validation check, and caveats.
 
 ## Answer Rules
 

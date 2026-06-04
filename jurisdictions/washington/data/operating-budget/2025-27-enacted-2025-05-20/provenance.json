@@ -1,0 +1,167 @@
+{
+  "api_host": "https://wabi-west-us-api.analysis.windows.net",
+  "conceptual_entities": {
+    "ComboFundBridge": [
+      "Fund",
+      "AppropType",
+      "ComboFund",
+      "ComboAppropType",
+      "Title35",
+      "FundCode",
+      "Fundname",
+      "SelectFund"
+    ],
+    "Operating_Funding": [
+      "Biennium",
+      "SessionType",
+      "VersionCode",
+      "Agency",
+      "Program",
+      "Subprogram",
+      "ItemGroup",
+      "Item",
+      "OmniFlag",
+      "CapitalFlag",
+      "FY",
+      "Fund",
+      "AppropType",
+      "Amount",
+      "FundCode",
+      "FundTTl",
+      "Pct",
+      "SessionTitle",
+      "TOTB",
+      "Supp"
+    ],
+    "Operating_VersionInfo": [
+      "Biennium",
+      "SessionType",
+      "VersionCode",
+      "Lock",
+      "IsPublic",
+      "Final",
+      "ReportingOnly",
+      "ArchiveFlag",
+      "BudgetType",
+      "Chamber",
+      "VersionOwner",
+      "Title10",
+      "Title20",
+      "Title35",
+      "VersionInformationLEAPOnly",
+      "VersionInformation",
+      "CreateDate",
+      "ChangedBy",
+      "VersionType",
+      "VersionOrigin",
+      "VersionContent",
+      "ShareLevel",
+      "AssociatedBaseVersionCode",
+      "PublishDate",
+      "WebTitle20",
+      "WebTitle35",
+      "WebDisplayOK",
+      "OutlookScenario",
+      "OtherChamberOutlookScenario",
+      "Verttl"
+    ],
+    "Titles_Agency": [
+      "Biennium",
+      "Agency",
+      "FunctionalArea",
+      "FunctionalAreaCap",
+      "FunctionalAreaTranspo",
+      "BudgetType",
+      "Chamber",
+      "HouseCommittee",
+      "Title10",
+      "Title20",
+      "Title35",
+      "Title50",
+      "LBNTitle80",
+      "TOCTitle80",
+      "WebTitle35",
+      "BillTitle",
+      "TranspoFundBalanceFlag",
+      "BudgetReductionsProgramLevelFlag",
+      "BudgetGroupingsProgramLevelFlag"
+    ],
+    "Titles_FunctionalArea": [
+      "SystemCode",
+      "BudgetType",
+      "FunctionalArea",
+      "Title10",
+      "Title20",
+      "Title35",
+      "Title50",
+      "BillPartTitle"
+    ]
+  },
+  "extracted_at": "2026-06-04T18:02:05.961231+00:00",
+  "filters": {
+    "budget_version": "Enacted (05-20-2025)",
+    "budget_version_filter": "Enacted - 5/20/2025",
+    "fund_views": [
+      "Outlook Funds (NGF-O)",
+      "Total Budgeted"
+    ]
+  },
+  "generated_by": "jurisdictions/washington/scripts/extract_operating_budget.py",
+  "generated_from_live_powerbi": true,
+  "model_metadata": {
+    "LastRefreshTime": "2025-07-22T17:18:33.94",
+    "dataset_id": "ae27b156-31b3-420a-a565-9dfb90d76d2d",
+    "direct_query_mode": false,
+    "display_name": "BudOpSummaryComparisonBien",
+    "exploration_id": 41389068,
+    "model_id": 12288560,
+    "report_id": 13157763,
+    "report_object_id": "6e5a7010-5733-4b49-9a98-71edd8041d57",
+    "size_in_mbs": 2
+  },
+  "official_context_page": "https://ofm.wa.gov/budget/",
+  "official_dashboard_page": "https://fiscal.wa.gov/statebudgets/operatingsummarycomparisonbien",
+  "powerbi_report_url": "https://app.powerbi.com/view?r=eyJrIjoiYjMzNmE2MDMtMWY2Ni00NjVkLWFmN2YtZWI4YjE3MjhkNTgzIiwidCI6ImI0ZWIwY2NmLTAxOTQtNDY2My1hNTZhLTllZDkxZWZkMzMwOCIsImMiOjZ9",
+  "query_templates": {
+    "agency_by_fund_view": {
+      "response_sha256": "e9eb4dfcc608f081390ffdc96467511663abc3644470b85eb5fb20265d9171ee",
+      "template_path": "jurisdictions/washington/data/operating-budget/query_templates/agency-by-fund-view.query.json",
+      "template_sha256": "22ac5d78777277a04d2bc48ef85c5e41e3dc8b95303e028c2df39fe79b5de2bc",
+      "visual_id": "codex_agency_by_fund_view"
+    },
+    "functional_area_by_fund_view": {
+      "response_sha256": "7384f1e6a1fac04f2d964e4c63d361b4629a04569864296327fdcc4ce977b180",
+      "template_path": "jurisdictions/washington/data/operating-budget/query_templates/functional-area-by-fund-view.query.json",
+      "template_sha256": "da04773e5e0c99b539c21c7d38b1f2c1789da971c590d9c240344fbd41a9726b",
+      "visual_id": "codex_functional_area_by_fund_view"
+    },
+    "version_summary": {
+      "response_sha256": "d21a750d197ac6790d4e487fb5f3ad36f9a6afc516ee698a4218b50a92baf717",
+      "template_path": "jurisdictions/washington/data/operating-budget/query_templates/version-summary.query.json",
+      "template_sha256": "821cd252acee8767918ade9c99c8166838cfd279c75256180bc1e53326bfe178",
+      "visual_id": "codex_version_summary"
+    }
+  },
+  "raw_response_policy": {
+    "committed_raw_live_responses": false,
+    "local_raw_capture_path": "jurisdictions/washington/data/operating-budget/local_raw/",
+    "reproduction": "python3 jurisdictions/washington/scripts/extract_operating_budget.py --live --write-query-templates --raw-dir jurisdictions/washington/data/operating-budget/local_raw"
+  },
+  "response_metrics": {
+    "agency_by_fund_view": {
+      "row_count": 187
+    },
+    "functional_area_by_fund_view": {
+      "row_count": 22
+    },
+    "version_summary": {
+      "row_count": 28
+    }
+  },
+  "source_card_expected_model": {
+    "dataset_id": "ae27b156-31b3-420a-a565-9dfb90d76d2d",
+    "model_id": 12288560,
+    "observed_model_refresh_time": "2025-07-22T17:18:33.94"
+  },
+  "source_id": "washington.operating_budget"
+}

@@ -1,0 +1,102 @@
+{
+  "amount_units": "dollars",
+  "biennium": "2025-27",
+  "budget_version": "Enacted (05-20-2025)",
+  "budget_version_filter": "Enacted - 5/20/2025",
+  "default_fund_view": "Total Budgeted",
+  "fund_views": [
+    "Outlook Funds (NGF-O)",
+    "Total Budgeted"
+  ],
+  "model_refresh_time": "2025-07-22T17:18:33.94",
+  "notes": [
+    "Amounts are budgeted/authorized report values, not actual spending.",
+    "Fiscal WA report values are returned in thousands; normalized rows store dollars.",
+    "Outlook Funds (NGF-O) and Total Budgeted are separate fund views."
+  ],
+  "row_counts": {
+    "agency_by_fund_view": 187,
+    "functional_area_by_fund_view": 22,
+    "version_summary": 28
+  },
+  "snapshot_version": "2025-27-enacted-2025-05-20",
+  "source_id": "washington.operating_budget",
+  "top_agencies_default_fund_view": [
+    {
+      "agency": "WA State Health Care Authority",
+      "budgeted_amount": 38033098000
+    },
+    {
+      "agency": "Public Schools",
+      "budgeted_amount": 36406761000
+    },
+    {
+      "agency": "Dept of Social and Health Services",
+      "budgeted_amount": 25021499000
+    },
+    {
+      "agency": "University of Washington",
+      "budgeted_amount": 9493234000
+    },
+    {
+      "agency": "Children, Youth, and Families",
+      "budgeted_amount": 5903859000
+    },
+    {
+      "agency": "Community/Technical College System",
+      "budgeted_amount": 4326569000
+    },
+    {
+      "agency": "Department of Corrections",
+      "budgeted_amount": 3340568000
+    },
+    {
+      "agency": "Bond Retirement and Interest",
+      "budgeted_amount": 3306357000
+    }
+  ],
+  "top_functional_areas_default_fund_view": [
+    {
+      "budgeted_amount": 51743404000,
+      "functional_area": "Other Human Services"
+    },
+    {
+      "budgeted_amount": 36406761000,
+      "functional_area": "Public Schools"
+    },
+    {
+      "budgeted_amount": 25021499000,
+      "functional_area": "DSHS"
+    },
+    {
+      "budgeted_amount": 18923070000,
+      "functional_area": "Higher Education"
+    },
+    {
+      "budgeted_amount": 8601896000,
+      "functional_area": "Governmental Operations"
+    },
+    {
+      "budgeted_amount": 4364275000,
+      "functional_area": "Special Appropriations"
+    },
+    {
+      "budgeted_amount": 3756697000,
+      "functional_area": "Natural Resources"
+    },
+    {
+      "budgeted_amount": 751505000,
+      "functional_area": "Judicial"
+    }
+  ],
+  "validation_checks": {
+    "agency_function_totals_match": true,
+    "default_fund_view_agency_rows": 102,
+    "default_fund_view_functional_area_rows": 11,
+    "default_fund_view_total": 150411096000,
+    "totals_by_fund_view": {
+      "Outlook Funds (NGF-O)": 77857672000,
+      "Total Budgeted": 150411096000
+    }
+  }
+}

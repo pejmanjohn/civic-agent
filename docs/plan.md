@@ -50,14 +50,15 @@ King County intentionally stays narrow: budgeted revenue, budgeted expenditures,
 - [x] Probe Washington state budget sources and classify Fiscal WA as the primary official data surface.
 - [x] Treat Fiscal WA operating budget reports as Power BI-backed snapshot candidates.
 - [x] Treat OFM as the executive budget and source-document authority.
-- [ ] Treat LEAP as a source family inside the Washington adapter, not the top-level dataset.
-- [ ] Decide the first supported operating budget version/default from Fiscal WA.
-- [ ] Add `jurisdictions/washington/skill.md`.
-- [ ] Add source metadata for the first Washington operating budget source.
+- [x] Treat LEAP as a source family inside the Washington adapter, not the top-level dataset.
+- [x] Decide the first supported operating budget version/default from Fiscal WA: 2025-27 enacted biennial operating budget.
+- [x] Add `jurisdictions/washington/skill.md`.
+- [x] Add source metadata for the first Washington operating budget source.
+- [x] Add a checked-in normalized snapshot for the first Washington operating budget source.
 - [ ] Decide whether spending/checkbook should be a second Washington source based on downloadable XLSX files.
 - [ ] Add source metadata for capital, transportation, revenue, staffing, and K-12 only after each source is probed.
-- [ ] Decide which data should be snapshotted because it is slow-changing or awkward to extract live.
-- [ ] Build extractor/normalizer scripts for Power BI/XLSX/PDF surfaces only where necessary.
+- [x] Decide which data should be snapshotted because it is slow-changing or awkward to extract live.
+- [x] Build extractor/normalizer scripts for the first operating-budget Power BI surface.
 
 ## Phase 3: Multi-Jurisdiction
 

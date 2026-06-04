@@ -1,0 +1,99 @@
+{
+  "id": "washington.operating_budget",
+  "jurisdiction_id": "washington",
+  "jurisdiction_name": "Washington State",
+  "jurisdiction_level": "state",
+  "budget_family": "operating",
+  "provider": "Fiscal WA / LEAP / Office of Financial Management / Microsoft Power BI",
+  "dataset_name": "2025-27 Biennial Omnibus Operating Budget Summary Comparison",
+  "access_method": "powerbi_snapshot",
+  "official_dashboard_page": "https://fiscal.wa.gov/statebudgets/operatingsummarycomparisonbien",
+  "official_context_page": "https://ofm.wa.gov/budget/",
+  "powerbi_report_url": "https://app.powerbi.com/view?r=eyJrIjoiYjMzNmE2MDMtMWY2Ni00NjVkLWFmN2YtZWI4YjE3MjhkNTgzIiwidCI6ImI0ZWIwY2NmLTAxOTQtNDY2My1hNTZhLTllZDkxZWZkMzMwOCIsImMiOjZ9",
+  "human_inspection_urls": [
+    {
+      "label": "Fiscal WA biennial operating summary comparison",
+      "url": "https://fiscal.wa.gov/statebudgets/operatingsummarycomparisonbien"
+    },
+    {
+      "label": "Fiscal WA operating budget main page",
+      "url": "https://fiscal.wa.gov/statebudgets/operatingbudgetmain"
+    },
+    {
+      "label": "OFM budget hub",
+      "url": "https://ofm.wa.gov/budget/"
+    },
+    {
+      "label": "Power BI report view",
+      "url": "https://app.powerbi.com/view?r=eyJrIjoiYjMzNmE2MDMtMWY2Ni00NjVkLWFmN2YtZWI4YjE3MjhkNTgzIiwidCI6ImI0ZWIwY2NmLTAxOTQtNDY2My1hNTZhLTllZDkxZWZkMzMwOCIsImMiOjZ9"
+    }
+  ],
+  "powerbi_resource_key": "b336a603-1f66-465d-af7f-eb8b1728d583",
+  "powerbi_tenant_id": "b4eb0ccf-0194-4663-a56a-9ed91efd3308",
+  "powerbi_api_host": "https://wabi-west-us-api.analysis.windows.net",
+  "metadata_endpoint": "https://wabi-west-us-api.analysis.windows.net/public/reports/b336a603-1f66-465d-af7f-eb8b1728d583/modelsAndExploration?preferReadOnlySession=true",
+  "conceptual_schema_endpoint": "https://wabi-west-us-api.analysis.windows.net/public/reports/b336a603-1f66-465d-af7f-eb8b1728d583/conceptualschema",
+  "querydata_endpoint": "https://wabi-west-us-api.analysis.windows.net/public/reports/querydata?synchronous=true",
+  "model_id": 12288560,
+  "report_id": "6e5a7010-5733-4b49-9a98-71edd8041d57",
+  "dataset_display_name": "BudOpSummaryComparisonBien",
+  "dataset_id": "ae27b156-31b3-420a-a565-9dfb90d76d2d",
+  "observed_model_refresh_time": "2025-07-22T17:18:33.94",
+  "snapshot_version": "2025-27-enacted-2025-05-20",
+  "biennium": "2025-27",
+  "budget_version_filter": "Enacted - 5/20/2025",
+  "budget_version_label": "Enacted (05-20-2025)",
+  "fund_views": [
+    "Outlook Funds (NGF-O)",
+    "Total Budgeted"
+  ],
+  "default_fund_view": "Total Budgeted",
+  "amount_units_from_report": "thousands_of_dollars",
+  "primary_measures": [
+    "budgeted_amount"
+  ],
+  "safe_answer_patterns": [
+    "2025-27 enacted operating budget totals by agency for Outlook Funds (NGF-O) or Total Budgeted.",
+    "2025-27 enacted operating budget totals by functional area for Outlook Funds (NGF-O) or Total Budgeted.",
+    "Budget-version summaries for the current 2025-27 biennial operating budget report.",
+    "Plain-English explanations of what Fiscal WA operating summary reports support and do not prove."
+  ],
+  "not_supported_by_this_source": [
+    "Actual spending, vendor payments, checkbook transactions, procurement, invoices, or actual revenue collected.",
+    "2026 supplemental budget changes unless the supplemental report snapshot is added separately.",
+    "Capital budget, transportation budget, staffing/FTE, school apportionment, debt, or grants analysis.",
+    "Line-item budget text search beyond the summary grains unless the Operating Search source is added separately.",
+    "Cross-jurisdiction comparisons with Seattle or King County until accounting definitions and normalized dimensions are explicit.",
+    "Broad policy conclusions that are not directly supported by the dashboard rows."
+  ],
+  "fields": [
+    {"name": "biennium", "type": "text"},
+    {"name": "budget_version", "type": "text"},
+    {"name": "fund_view", "type": "text"},
+    {"name": "agency", "type": "text"},
+    {"name": "functional_area", "type": "text"},
+    {"name": "budgeted_amount", "type": "number"},
+    {"name": "amount_thousands", "type": "number"}
+  ],
+  "source_entities": {
+    "Operating_Funding": ["Biennium", "SessionType", "VersionCode", "Agency", "Program", "Subprogram", "ItemGroup", "Item", "FY", "Fund", "AppropType", "Amount", "FundCode", "FundTTl", "Pct", "SessionTitle", "TOTB", "Supp"],
+    "Operating_VersionInfo": ["Biennium", "SessionType", "VersionCode", "IsPublic", "Final", "BudgetType", "Chamber", "VersionOwner", "Title35", "PublishDate", "WebTitle35", "Verttl"],
+    "ComboFundBridge": ["Fund", "AppropType", "ComboFund", "ComboAppropType", "Title35", "FundCode", "Fundname", "SelectFund"],
+    "Titles_Agency": ["Agency", "FunctionalArea", "BudgetType", "Title35", "WebTitle35"],
+    "Titles_FunctionalArea": ["FunctionalArea", "Title35"]
+  },
+  "validation_checks": {
+    "default_fund_view_total": 150411096000,
+    "outlook_funds_total": 77857672000,
+    "total_budgeted_agency_rows": 102,
+    "total_budgeted_functional_area_rows": 11,
+    "agency_function_totals_match": true
+  },
+  "caveats": [
+    "The snapshot is budgeted/authorized data, not actual spending.",
+    "Amounts returned by the Fiscal WA report are in thousands of dollars; normalized rows store dollar amounts.",
+    "The current source slice is the 2025-27 enacted biennial operating budget, not the 2026 supplemental report.",
+    "Outlook Funds (NGF-O) and Total Budgeted are different fund views; always state which one is used.",
+    "Power BI public report endpoints are undocumented; checked-in snapshots are the dependable answer source."
+  ]
+}

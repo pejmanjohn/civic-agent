@@ -165,9 +165,10 @@ def smoke() -> None:
         raise SystemExit(1)
 
     print()
-    print("Open a new Codex thread and run one or both smoke prompts:")
+    print("Open a new Codex thread and run one or more smoke prompts:")
     print("- @civic-agent-dev Where does Seattle spend the most money in FY2026?")
     print("- @civic-agent-dev What are King County's largest FY2026 department expenditures?")
+    print("- @civic-agent-dev What are Washington state's largest 2025-27 enacted operating budget agencies?")
 
 
 def generate_dev_package(generated_root: Path = GENERATED_ROOT, *, quiet: bool = False) -> str:
@@ -393,6 +394,7 @@ def dev_manifest(version: str) -> dict[str, object]:
                 "Test local Civic Agent",
                 "Analyze Seattle budget with civic-agent-dev",
                 "Analyze King County budget with civic-agent-dev",
+                "Analyze Washington state budget with civic-agent-dev",
             ],
         }
     )
