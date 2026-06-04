@@ -74,6 +74,41 @@ Use King County for:
 
 Do not use King County for actual spending, actual revenue collected, payments, procurement, personnel rosters, Seattle budget analysis, Washington state budget analysis, or cross-jurisdiction comparison.
 
+### Washington State
+
+Read the Washington skill before answering Washington state operating budget questions.
+
+If Civic Agent is installed as a packaged plugin (Codex or Claude Code), use the bundled reference:
+
+```text
+references/washington.md
+```
+
+If working from this source repo outside the packaged plugin, use:
+
+```text
+jurisdictions/washington/skill.md
+```
+
+If working from the hosted public repo, use:
+
+```text
+https://raw.githubusercontent.com/pejmanjohn/civic-agent/main/jurisdictions/washington/skill.md
+```
+
+Use Washington for:
+
+- Washington state budget
+- Washington operating budget
+- Fiscal WA operating budget
+- Washington state agency budget totals
+- 2025-27 enacted Washington operating budget
+- Washington operating budget over time
+- historical Washington operating budget trends
+- Washington Total Budgeted or Outlook Funds (NGF-O) questions
+
+Do not use Washington for actual spending, vendor payments, procurement, actual revenue collected, Seattle budget analysis, King County budget analysis, 2026 supplemental changes, pre-2013-15 trends, capital budget, transportation budget, staffing/FTE, or cross-jurisdiction comparison.
+
 ## Workflow
 
 1. Identify the jurisdiction in the user's question.
@@ -97,6 +132,8 @@ Route to Seattle, query department totals by year, compute 2026 minus 2018, sort
 If a data visualization or analytics plugin is available, use it after computing the source-backed table. If no chart renderer is available, return a compact table and explain that the data is chart-ready.
 
 For King County chart requests, use the checked-in snapshot from `jurisdictions/king_county/data/open-budget-dashboard/2026-04-01/`. Current chart-ready grains are countywide year totals, FY2026 department budgeted revenue/expenditure, and FY2026 department budgeted FTE.
+
+For Washington chart requests, use the checked-in snapshot from `jurisdictions/washington/data/operating-budget/2025-27-enacted-2025-05-20/`. Current chart-ready grains are 2025-27 enacted agency totals and functional area totals by fund view, plus enacted base historical trends by biennium from 2013-15 through 2025-27. Default to `Total Budgeted` unless the user asks for `Outlook Funds (NGF-O)`.
 
 ## Fresh-Agent Prompt
 

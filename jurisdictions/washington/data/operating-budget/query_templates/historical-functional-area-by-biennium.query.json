@@ -1,0 +1,303 @@
+{
+  "cancelQueries": [],
+  "modelId": 10692770,
+  "queries": [
+    {
+      "ApplicationContext": {
+        "DatasetId": "455d50dc-30a0-4ce5-b242-575b33611899",
+        "Sources": [
+          {
+            "ReportId": "a86320fb-86a0-4f87-b52b-6012c7d066cf",
+            "VisualId": "codex_historical_functional_area_by_biennium"
+          }
+        ]
+      },
+      "Query": {
+        "Commands": [
+          {
+            "SemanticQueryDataShapeCommand": {
+              "Binding": {
+                "DataReduction": {
+                  "DataVolume": 3,
+                  "Primary": {
+                    "Window": {
+                      "Count": 3000
+                    }
+                  }
+                },
+                "Primary": {
+                  "Groupings": [
+                    {
+                      "Projections": [
+                        0,
+                        1,
+                        2,
+                        3,
+                        4,
+                        5,
+                        6,
+                        7
+                      ]
+                    }
+                  ]
+                },
+                "Version": 1
+              },
+              "ExecutionMetricsKind": 1,
+              "Query": {
+                "From": [
+                  {
+                    "Entity": "Operating_Funding",
+                    "Name": "f",
+                    "Type": 0
+                  },
+                  {
+                    "Entity": "Operating_VersionInfo",
+                    "Name": "v",
+                    "Type": 0
+                  },
+                  {
+                    "Entity": "Titles_FunctionalArea",
+                    "Name": "fa",
+                    "Type": 0
+                  }
+                ],
+                "OrderBy": [
+                  {
+                    "Direction": 1,
+                    "Expression": {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Source": "f"
+                          }
+                        },
+                        "Property": "Biennium"
+                      }
+                    }
+                  },
+                  {
+                    "Direction": 1,
+                    "Expression": {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Source": "v"
+                          }
+                        },
+                        "Property": "PublishDate"
+                      }
+                    }
+                  },
+                  {
+                    "Direction": 1,
+                    "Expression": {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Source": "fa"
+                          }
+                        },
+                        "Property": "Title35"
+                      }
+                    }
+                  }
+                ],
+                "Select": [
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Source": "f"
+                        }
+                      },
+                      "Property": "Biennium"
+                    },
+                    "Name": "biennium"
+                  },
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Source": "v"
+                        }
+                      },
+                      "Property": "SessionType"
+                    },
+                    "Name": "session_type"
+                  },
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Source": "v"
+                        }
+                      },
+                      "Property": "Verttl"
+                    },
+                    "Name": "budget_version_filter"
+                  },
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Source": "v"
+                        }
+                      },
+                      "Property": "Title35"
+                    },
+                    "Name": "budget_version"
+                  },
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Source": "fa"
+                        }
+                      },
+                      "Property": "FunctionalArea"
+                    },
+                    "Name": "functional_area_code"
+                  },
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Source": "fa"
+                        }
+                      },
+                      "Property": "Title35"
+                    },
+                    "Name": "functional_area"
+                  },
+                  {
+                    "Aggregation": {
+                      "Expression": {
+                        "Column": {
+                          "Expression": {
+                            "SourceRef": {
+                              "Source": "v"
+                            }
+                          },
+                          "Property": "PublishDate"
+                        }
+                      },
+                      "Function": 4
+                    },
+                    "Name": "publish_date"
+                  },
+                  {
+                    "Aggregation": {
+                      "Expression": {
+                        "Column": {
+                          "Expression": {
+                            "SourceRef": {
+                              "Source": "f"
+                            }
+                          },
+                          "Property": "Amount"
+                        }
+                      },
+                      "Function": 0
+                    },
+                    "Name": "amount_thousands"
+                  }
+                ],
+                "Version": 2,
+                "Where": [
+                  {
+                    "Condition": {
+                      "In": {
+                        "Expressions": [
+                          {
+                            "Column": {
+                              "Expression": {
+                                "SourceRef": {
+                                  "Source": "v"
+                                }
+                              },
+                              "Property": "Title35"
+                            }
+                          }
+                        ],
+                        "Values": [
+                          [
+                            {
+                              "Literal": {
+                                "Value": "'Enacted'"
+                              }
+                            }
+                          ]
+                        ]
+                      }
+                    }
+                  },
+                  {
+                    "Condition": {
+                      "In": {
+                        "Expressions": [
+                          {
+                            "Column": {
+                              "Expression": {
+                                "SourceRef": {
+                                  "Source": "v"
+                                }
+                              },
+                              "Property": "SessionType"
+                            }
+                          }
+                        ],
+                        "Values": [
+                          [
+                            {
+                              "Literal": {
+                                "Value": "'R1'"
+                              }
+                            }
+                          ]
+                        ]
+                      }
+                    }
+                  },
+                  {
+                    "Condition": {
+                      "Not": {
+                        "Expression": {
+                          "In": {
+                            "Expressions": [
+                              {
+                                "Column": {
+                                  "Expression": {
+                                    "SourceRef": {
+                                      "Source": "fa"
+                                    }
+                                  },
+                                  "Property": "Title35"
+                                }
+                              }
+                            ],
+                            "Values": [
+                              [
+                                {
+                                  "Literal": {
+                                    "Value": "null"
+                                  }
+                                }
+                              ]
+                            ]
+                          }
+                        }
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        ]
+      },
+      "QueryId": ""
+    }
+  ],
+  "version": "1.0.0"
+}

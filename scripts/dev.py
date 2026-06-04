@@ -34,6 +34,30 @@ DEV_SKILL_NAME = "civic-agent-dev"
 DEV_PLUGIN_ROOT = GENERATED_ROOT / "plugins" / DEV_PLUGIN_NAME
 DEV_MANIFEST_PATH = DEV_PLUGIN_ROOT / ".codex-plugin" / "plugin.json"
 GENERATED_HEADER = "<!-- Generated local development package. Do not edit or commit. -->\n\n"
+DEV_SOURCE_GUIDANCE = f"""## Local Dev Source Resolution
+
+This generated dev skill is built from the local checkout:
+
+```text
+{ROOT}
+```
+
+For `@civic-agent-dev` tests in Codex, prefer the canonical source checkout paths:
+
+```text
+{ROOT}/jurisdictions/<jurisdiction>/skill.md
+{ROOT}/jurisdictions/<jurisdiction>/data/
+```
+
+Do not inspect the production `@civic-agent` cache under
+`/Users/pejman/.codex/plugins/cache/civic-agent/` when answering dev-plugin
+test prompts. That cache may be older than this local dev build.
+
+If the source checkout is unavailable, then use this dev plugin's bundled
+`references/<jurisdiction>.md` files. Hosted raw GitHub URLs point to the
+production repository and may not include uncommitted local dev changes.
+
+"""
 
 
 @dataclass
@@ -165,9 +189,11 @@ def smoke() -> None:
         raise SystemExit(1)
 
     print()
-    print("Open a new Codex thread and run one or both smoke prompts:")
+    print("Open a new Codex thread and run one or more smoke prompts:")
     print("- @civic-agent-dev Where does Seattle spend the most money in FY2026?")
     print("- @civic-agent-dev What are King County's largest FY2026 department expenditures?")
+    print("- @civic-agent-dev What are Washington state's largest 2025-27 enacted operating budget agencies?")
+    print("- @civic-agent-dev How has Washington state's operating budget changed over time?")
 
 
 def generate_dev_package(generated_root: Path = GENERATED_ROOT, *, quiet: bool = False) -> str:
@@ -393,6 +419,7 @@ def dev_manifest(version: str) -> dict[str, object]:
                 "Test local Civic Agent",
                 "Analyze Seattle budget with civic-agent-dev",
                 "Analyze King County budget with civic-agent-dev",
+                "Analyze Washington state budget with civic-agent-dev",
             ],
         }
     )
@@ -416,6 +443,10 @@ def dev_skill_content() -> str:
     )
     content = content.replace("# Civic Agent\n", "# Civic Agent Dev\n", 1)
     content = content.replace("/civic-agent", "/civic-agent-dev")
+    content = content.replace(
+        "https://raw.githubusercontent.com/pejmanjohn/civic-agent-dev/",
+        "https://raw.githubusercontent.com/pejmanjohn/civic-agent/",
+    )
     match = re.match(r"(---\n.*?\n---\n)(.*)", content, flags=re.DOTALL)
     if match is None:
         raise ValueError("router skill is missing frontmatter")
@@ -426,6 +457,7 @@ def dev_skill_content() -> str:
         + "This generated skill is for local development tests only. Generic civic "
         "budget questions should use the production `@civic-agent` install unless "
         "the user explicitly asks for the dev build.\n\n"
+        + DEV_SOURCE_GUIDANCE
         + match.group(2)
     )
 

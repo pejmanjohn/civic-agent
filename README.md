@@ -107,15 +107,20 @@ claude plugin validate .
 claude plugin validate ./plugins/civic-agent
 ```
 
-Current production source:
+Current production sources:
 
 - `seattle.operating_budget`: City of Seattle operating budget, Socrata dataset `8u2j-imqx`
 - `king_county.open_budget_dashboard`: King County Open Budget Dashboard, Power BI Gov snapshot `2026-04-01`
+- `washington.operating_budget`: Washington state operating budget, Fiscal WA Power BI snapshot `2025-27-enacted-2025-05-20`, including 2025-27 enacted agency/function totals and enacted base biennial trends from 2013-15 through 2025-27
 
 Worked examples:
 
 - `docs/seattle-demo.md`: source-backed answers and compact traces for the current dogfood prompts.
 - `docs/king-county-demo.md`: source-backed answers and compact traces for the King County snapshot.
+- `docs/source-probing.md`: workflow for evaluating new official sources before adding them.
+- `docs/source-probes/seattle-open-data-portal.md`: Socrata/open data portal probe and workflow lessons.
+- `docs/source-probes/washington-state-budget.md`: current Washington state budget source probe.
+- `jurisdictions/washington/skill.md`: source-backed answer recipes for the Washington operating budget snapshot.
 
 ## Packaging
 
@@ -159,9 +164,10 @@ It refreshes the checked-in package, generates `.generated/civic-agent-dev-marke
 
 Future sources should follow the same pattern:
 
-- `washington.budget.operating`
 - `washington.spending.checkbook`
 - `san_francisco.operating_budget`
+
+Before adding a future source, run the source-probing workflow in `docs/source-probing.md` and capture the result with `docs/templates/source-probe-brief.md`.
 
 ## Data Strategy
 
@@ -171,4 +177,4 @@ Seattle is the clean example: direct Socrata JSON/CSV plus SoQL.
 
 King County is the first report-shaped example: official Power BI Gov dashboard replayed through reviewed query templates into a checked-in normalized snapshot.
 
-Washington will likely be the messy example: Fiscal WA / OFM pages, downloadable XLSX files, ReportViewer exports, PDFs, and normalization.
+Washington is the second report-shaped example: Fiscal WA Power BI reports replayed through reviewed query templates into a checked-in normalized operating budget snapshot. It also demonstrates the split-time-span pattern: one logical source id with multiple official report surfaces stitched into common historical trend tables and validated by overlap totals. Treat Open Checkbook as a separate actual-spending source.

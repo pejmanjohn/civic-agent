@@ -56,6 +56,32 @@ Boundaries:
 - Use budgeted revenue, budgeted expenditure, and budgeted FTE language.
 - Do not use it for actual spending, actual revenue collected, payments, procurement, personnel rosters, or cross-jurisdiction comparisons.
 
+### Washington State
+
+Use for Washington state operating budget questions, including 2025-27 enacted totals and enacted base budget trends over time:
+
+```text
+https://raw.githubusercontent.com/pejmanjohn/civic-agent/main/jurisdictions/washington/skill.md
+```
+
+Triggers:
+
+- Washington state budget
+- Washington operating budget
+- Fiscal WA operating budget
+- Washington state agency budget totals
+- 2025-27 enacted Washington operating budget
+- Washington operating budget over time
+- historical Washington operating budget trends
+- Washington Total Budgeted or Outlook Funds (NGF-O) questions
+
+Boundaries:
+
+- This source answers from a checked-in Fiscal WA Power BI snapshot.
+- Use budgeted/authorized operating budget language.
+- Historical trend coverage is enacted base Total Budgeted by biennium from 2013-15 through 2025-27.
+- Do not use it for actual spending, vendor payments, 2026 supplemental changes, pre-2013-15 trends, capital budget, transportation budget, staffing/FTE, or cross-jurisdiction comparisons.
+
 ## Routing Examples
 
 User:
@@ -112,6 +138,34 @@ Action:
 3. Read `jurisdictions/king_county/skill.md`.
 4. Use the King County snapshot `department-revenue-expenditure-by-year.jsonl`.
 5. Report budgeted expenditure rankings with snapshot, grain, validation check, and caveats.
+
+User:
+
+```text
+Read https://raw.githubusercontent.com/pejmanjohn/civic-agent/main/skill.md and show the largest Washington state agency budgets.
+```
+
+Action:
+
+1. Read this router file.
+2. Detect Washington state and agency budget ranking.
+3. Read `jurisdictions/washington/skill.md`.
+4. Use the Washington snapshot `agency-by-fund-view.jsonl`.
+5. Report 2025-27 enacted Total Budgeted agency rankings with snapshot, grain, validation check, and caveats.
+
+User:
+
+```text
+Read https://raw.githubusercontent.com/pejmanjohn/civic-agent/main/skill.md and show how Washington state operating budgets changed over time.
+```
+
+Action:
+
+1. Read this router file.
+2. Detect Washington state and historical operating-budget trend.
+3. Read `jurisdictions/washington/skill.md`.
+4. Use the Washington snapshot `historical-biennium-summary.jsonl`.
+5. Report enacted base Total Budgeted biennial totals from 2013-15 through 2025-27 with validation checks and caveats.
 
 ## Answer Rules
 

@@ -47,13 +47,18 @@ King County intentionally stays narrow: budgeted revenue, budgeted expenditures,
 
 ## Phase 2: Washington
 
-- [ ] Treat Fiscal WA as the broad public fiscal portal.
-- [ ] Treat OFM as the executive budget and source-document authority.
-- [ ] Treat LEAP as a source family inside the Washington adapter, not the top-level dataset.
-- [ ] Add `jurisdictions/washington/skill.md`.
-- [ ] Add source metadata for operating, capital, transportation, revenue, spending/checkbook, staffing, and K-12.
-- [ ] Decide which data should be snapshotted because it is slow-changing or awkward to extract live.
-- [ ] Build extractor/normalizer scripts for ReportViewer/XLSX/PDF surfaces only where necessary.
+- [x] Probe Washington state budget sources and classify Fiscal WA as the primary official data surface.
+- [x] Treat Fiscal WA operating budget reports as Power BI-backed snapshot candidates.
+- [x] Treat OFM as the executive budget and source-document authority.
+- [x] Treat LEAP as a source family inside the Washington adapter, not the top-level dataset.
+- [x] Decide the first supported operating budget version/default from Fiscal WA: 2025-27 enacted biennial operating budget.
+- [x] Add `jurisdictions/washington/skill.md`.
+- [x] Add source metadata for the first Washington operating budget source.
+- [x] Add a checked-in normalized snapshot for the first Washington operating budget source.
+- [ ] Decide whether spending/checkbook should be a second Washington source based on downloadable XLSX files.
+- [ ] Add source metadata for capital, transportation, revenue, staffing, and K-12 only after each source is probed.
+- [x] Decide which data should be snapshotted because it is slow-changing or awkward to extract live.
+- [x] Build extractor/normalizer scripts for the first operating-budget Power BI surface.
 
 ## Phase 3: Multi-Jurisdiction
 
@@ -67,5 +72,6 @@ King County intentionally stays narrow: budgeted revenue, budgeted expenditures,
 - The public prompt should be short.
 - The skill document should carry the complexity.
 - Official sources are the source of truth.
+- New source families should start with a probe brief before source cards or extractors.
 - Snapshots are allowed when official public data changes slowly or is painful for agents to retrieve reliably.
 - Do not compare jurisdictions until field mappings and caveats are explicit.

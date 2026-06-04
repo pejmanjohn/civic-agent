@@ -1,0 +1,522 @@
+{
+  "api_host": "https://wabi-west-us-api.analysis.windows.net",
+  "conceptual_entities": {
+    "ComboFundBridge": [
+      "Fund",
+      "AppropType",
+      "ComboFund",
+      "ComboAppropType",
+      "Title35",
+      "FundCode",
+      "Fundname",
+      "SelectFund"
+    ],
+    "Operating_Funding": [
+      "Biennium",
+      "SessionType",
+      "VersionCode",
+      "Agency",
+      "Program",
+      "Subprogram",
+      "ItemGroup",
+      "Item",
+      "OmniFlag",
+      "CapitalFlag",
+      "FY",
+      "Fund",
+      "AppropType",
+      "Amount",
+      "FundCode",
+      "FundTTl",
+      "Pct",
+      "SessionTitle",
+      "TOTB",
+      "Supp"
+    ],
+    "Operating_VersionInfo": [
+      "Biennium",
+      "SessionType",
+      "VersionCode",
+      "Lock",
+      "IsPublic",
+      "Final",
+      "ReportingOnly",
+      "ArchiveFlag",
+      "BudgetType",
+      "Chamber",
+      "VersionOwner",
+      "Title10",
+      "Title20",
+      "Title35",
+      "VersionInformationLEAPOnly",
+      "VersionInformation",
+      "CreateDate",
+      "ChangedBy",
+      "VersionType",
+      "VersionOrigin",
+      "VersionContent",
+      "ShareLevel",
+      "AssociatedBaseVersionCode",
+      "PublishDate",
+      "WebTitle20",
+      "WebTitle35",
+      "WebDisplayOK",
+      "OutlookScenario",
+      "OtherChamberOutlookScenario",
+      "Verttl"
+    ],
+    "Titles_Agency": [
+      "Biennium",
+      "Agency",
+      "FunctionalArea",
+      "FunctionalAreaCap",
+      "FunctionalAreaTranspo",
+      "BudgetType",
+      "Chamber",
+      "HouseCommittee",
+      "Title10",
+      "Title20",
+      "Title35",
+      "Title50",
+      "LBNTitle80",
+      "TOCTitle80",
+      "WebTitle35",
+      "BillTitle",
+      "TranspoFundBalanceFlag",
+      "BudgetReductionsProgramLevelFlag",
+      "BudgetGroupingsProgramLevelFlag"
+    ],
+    "Titles_FunctionalArea": [
+      "SystemCode",
+      "BudgetType",
+      "FunctionalArea",
+      "Title10",
+      "Title20",
+      "Title35",
+      "Title50",
+      "BillPartTitle"
+    ]
+  },
+  "conceptual_entities_by_surface": {
+    "current_biennial_summary_powerbi": {
+      "ComboFundBridge": [
+        "Fund",
+        "AppropType",
+        "ComboFund",
+        "ComboAppropType",
+        "Title35",
+        "FundCode",
+        "Fundname",
+        "SelectFund"
+      ],
+      "Operating_Funding": [
+        "Biennium",
+        "SessionType",
+        "VersionCode",
+        "Agency",
+        "Program",
+        "Subprogram",
+        "ItemGroup",
+        "Item",
+        "OmniFlag",
+        "CapitalFlag",
+        "FY",
+        "Fund",
+        "AppropType",
+        "Amount",
+        "FundCode",
+        "FundTTl",
+        "Pct",
+        "SessionTitle",
+        "TOTB",
+        "Supp"
+      ],
+      "Operating_VersionInfo": [
+        "Biennium",
+        "SessionType",
+        "VersionCode",
+        "Lock",
+        "IsPublic",
+        "Final",
+        "ReportingOnly",
+        "ArchiveFlag",
+        "BudgetType",
+        "Chamber",
+        "VersionOwner",
+        "Title10",
+        "Title20",
+        "Title35",
+        "VersionInformationLEAPOnly",
+        "VersionInformation",
+        "CreateDate",
+        "ChangedBy",
+        "VersionType",
+        "VersionOrigin",
+        "VersionContent",
+        "ShareLevel",
+        "AssociatedBaseVersionCode",
+        "PublishDate",
+        "WebTitle20",
+        "WebTitle35",
+        "WebDisplayOK",
+        "OutlookScenario",
+        "OtherChamberOutlookScenario",
+        "Verttl"
+      ],
+      "Titles_Agency": [
+        "Biennium",
+        "Agency",
+        "FunctionalArea",
+        "FunctionalAreaCap",
+        "FunctionalAreaTranspo",
+        "BudgetType",
+        "Chamber",
+        "HouseCommittee",
+        "Title10",
+        "Title20",
+        "Title35",
+        "Title50",
+        "LBNTitle80",
+        "TOCTitle80",
+        "WebTitle35",
+        "BillTitle",
+        "TranspoFundBalanceFlag",
+        "BudgetReductionsProgramLevelFlag",
+        "BudgetGroupingsProgramLevelFlag"
+      ],
+      "Titles_FunctionalArea": [
+        "SystemCode",
+        "BudgetType",
+        "FunctionalArea",
+        "Title10",
+        "Title20",
+        "Title35",
+        "Title50",
+        "BillPartTitle"
+      ]
+    },
+    "prior_summary_powerbi": {
+      "ComboFundBridge": [
+        "Fund",
+        "AppropType",
+        "ComboFund",
+        "ComboAppropType",
+        "Title35",
+        "FundCode",
+        "SelectFund"
+      ],
+      "Operating_Funding": [
+        "Biennium",
+        "SessionType",
+        "VersionCode",
+        "Agency",
+        "Program",
+        "Subprogram",
+        "ItemGroup",
+        "Item",
+        "OmniFlag",
+        "CapitalFlag",
+        "FY",
+        "Fund",
+        "AppropType",
+        "Amount",
+        "FundCode",
+        "FundTTl",
+        "Pct",
+        "SessionTitle",
+        "TOTB",
+        "Supp",
+        "BienSessVersion",
+        "BienFund",
+        "BienAgy",
+        "BienSess"
+      ],
+      "Operating_VersionInfo": [
+        "Biennium",
+        "SessionType",
+        "VersionCode",
+        "Lock",
+        "IsPublic",
+        "Final",
+        "ReportingOnly",
+        "ArchiveFlag",
+        "BudgetType",
+        "Chamber",
+        "VersionOwner",
+        "Title10",
+        "Title20",
+        "Title35",
+        "VersionInformationLEAPOnly",
+        "VersionInformation",
+        "CreateDate",
+        "ChangedBy",
+        "VersionType",
+        "VersionOrigin",
+        "VersionContent",
+        "ShareLevel",
+        "AssociatedBaseVersionCode",
+        "PublishDate",
+        "WebTitle20",
+        "WebTitle35",
+        "WebDisplayOK",
+        "OutlookScenario",
+        "OtherChamberOutlookScenario",
+        "Verttl",
+        "BienSessVersion",
+        "BienSess"
+      ],
+      "Titles_Agency": [
+        "Biennium",
+        "Agency",
+        "FunctionalArea",
+        "FunctionalAreaCap",
+        "FunctionalAreaTranspo",
+        "BudgetType",
+        "Chamber",
+        "HouseCommittee",
+        "Title10",
+        "Title20",
+        "Title35",
+        "Title50",
+        "LBNTitle80",
+        "TOCTitle80",
+        "WebTitle35",
+        "BillTitle",
+        "TranspoFundBalanceFlag",
+        "BudgetReductionsProgramLevelFlag",
+        "BudgetGroupingsProgramLevelFlag",
+        "BienAgy"
+      ],
+      "Titles_FunctionalArea": [
+        "SystemCode",
+        "BudgetType",
+        "FunctionalArea",
+        "Title10",
+        "Title20",
+        "Title35",
+        "Title50",
+        "BillPartTitle"
+      ]
+    }
+  },
+  "extracted_at": "2026-06-04T21:27:58.136494+00:00",
+  "filters": {
+    "budget_version": "Enacted (05-20-2025)",
+    "budget_version_filter": "Enacted - 5/20/2025",
+    "default_trend": {
+      "budget_state": "enacted",
+      "budget_version": "Enacted",
+      "fund_view": "Total Budgeted",
+      "period_type": "biennium",
+      "revision_scope": "base",
+      "session_type": "R1"
+    },
+    "fund_views": [
+      "Outlook Funds (NGF-O)",
+      "Total Budgeted"
+    ]
+  },
+  "generated_by": "jurisdictions/washington/scripts/extract_operating_budget.py",
+  "generated_from_live_powerbi": true,
+  "model_metadata": {
+    "LastRefreshTime": "2025-07-22T17:18:33.94",
+    "dataset_id": "ae27b156-31b3-420a-a565-9dfb90d76d2d",
+    "direct_query_mode": false,
+    "display_name": "BudOpSummaryComparisonBien",
+    "exploration_id": 41389068,
+    "model_id": 12288560,
+    "report_id": 13157763,
+    "report_object_id": "6e5a7010-5733-4b49-9a98-71edd8041d57",
+    "size_in_mbs": 2
+  },
+  "model_metadata_by_surface": {
+    "current_biennial_summary_powerbi": {
+      "LastRefreshTime": "2025-07-22T17:18:33.94",
+      "dataset_id": "ae27b156-31b3-420a-a565-9dfb90d76d2d",
+      "direct_query_mode": false,
+      "display_name": "BudOpSummaryComparisonBien",
+      "exploration_id": 41389068,
+      "model_id": 12288560,
+      "report_id": 13157763,
+      "report_object_id": "6e5a7010-5733-4b49-9a98-71edd8041d57",
+      "size_in_mbs": 2
+    },
+    "prior_summary_powerbi": {
+      "LastRefreshTime": "2025-12-29T18:08:24.87",
+      "dataset_id": "455d50dc-30a0-4ce5-b242-575b33611899",
+      "direct_query_mode": false,
+      "display_name": "BudOpSummaryBudgetVersionsPrior",
+      "exploration_id": 43762985,
+      "model_id": 10692770,
+      "report_id": 11489082,
+      "report_object_id": "a86320fb-86a0-4f87-b52b-6012c7d066cf",
+      "size_in_mbs": 9
+    }
+  },
+  "official_context_page": "https://ofm.wa.gov/budget/",
+  "official_dashboard_page": "https://fiscal.wa.gov/statebudgets/operatingsummarycomparisonbien",
+  "powerbi_report_url": "https://app.powerbi.com/view?r=eyJrIjoiYjMzNmE2MDMtMWY2Ni00NjVkLWFmN2YtZWI4YjE3MjhkNTgzIiwidCI6ImI0ZWIwY2NmLTAxOTQtNDY2My1hNTZhLTllZDkxZWZkMzMwOCIsImMiOjZ9",
+  "query_templates": {
+    "agency_by_fund_view": {
+      "response_sha256": "71143491ccb6998d5a4b5777a9c24dc34bb397066a88320bc95236691b027d43",
+      "source_surface_id": "current_biennial_summary_powerbi",
+      "template_path": "jurisdictions/washington/data/operating-budget/query_templates/agency-by-fund-view.query.json",
+      "template_sha256": "cde33640ba5042c88576ae7d25023ce66cc7040d9eff9198045a62ba5c1e2577",
+      "visual_id": "codex_agency_by_fund_view"
+    },
+    "functional_area_by_fund_view": {
+      "response_sha256": "ada68a0cadf79ce4f05a38ea9ab13685d474416f67f3de891a2ce813cf403e37",
+      "source_surface_id": "current_biennial_summary_powerbi",
+      "template_path": "jurisdictions/washington/data/operating-budget/query_templates/functional-area-by-fund-view.query.json",
+      "template_sha256": "84342db366fb7786c686df747a3d0d8e2e131b2c8a772c61cdcdceae8b5986b5",
+      "visual_id": "codex_functional_area_by_fund_view"
+    },
+    "historical_agency_by_biennium": {
+      "response_sha256": "962fa9d9a9869f0db11b597400b24a6fb537e6eaafd998273370d31d1c212cf8",
+      "source_surface_id": "prior_summary_powerbi",
+      "template_path": "jurisdictions/washington/data/operating-budget/query_templates/historical-agency-by-biennium.query.json",
+      "template_sha256": "e0986614efc55b54f25fc70ab6541ffea8b7a440209372e9c871416142fc284b",
+      "visual_id": "codex_historical_agency_by_biennium"
+    },
+    "historical_biennium_summary": {
+      "response_sha256": "eb9c98e962bc5b2c82ed3e81814e43182a3490608e0105947ccfb61bf39a9208",
+      "source_surface_id": "prior_summary_powerbi",
+      "template_path": "jurisdictions/washington/data/operating-budget/query_templates/historical-biennium-summary.query.json",
+      "template_sha256": "9588e3e4555bb0366420b86cc3610071cb4675fe5bafb2fdf04a23c3e525e816",
+      "visual_id": "codex_historical_biennium_summary"
+    },
+    "historical_functional_area_by_biennium": {
+      "response_sha256": "caaa24a0b1e873c1f1dcb73a9493c549069f8b44fa8c0605b19deb360983d78c",
+      "source_surface_id": "prior_summary_powerbi",
+      "template_path": "jurisdictions/washington/data/operating-budget/query_templates/historical-functional-area-by-biennium.query.json",
+      "template_sha256": "e5ae2fede535c39e57cd8f3583f0bfaade38940f15c33c578e08d8a73a2cccbe",
+      "visual_id": "codex_historical_functional_area_by_biennium"
+    },
+    "version_summary": {
+      "response_sha256": "5713ecd4c8d044facce9f4d8f41cb227729f6f15ff935c45f15fa5727249a6dd",
+      "source_surface_id": "current_biennial_summary_powerbi",
+      "template_path": "jurisdictions/washington/data/operating-budget/query_templates/version-summary.query.json",
+      "template_sha256": "821cd252acee8767918ade9c99c8166838cfd279c75256180bc1e53326bfe178",
+      "visual_id": "codex_version_summary"
+    }
+  },
+  "raw_response_policy": {
+    "committed_raw_live_responses": false,
+    "local_raw_capture_path": "jurisdictions/washington/data/operating-budget/local_raw/",
+    "reproduction": "python3 jurisdictions/washington/scripts/extract_operating_budget.py --live --write-query-templates --raw-dir jurisdictions/washington/data/operating-budget/local_raw"
+  },
+  "response_metrics": {
+    "agency_by_fund_view": {
+      "row_count": 187
+    },
+    "functional_area_by_fund_view": {
+      "row_count": 22
+    },
+    "historical_agency_by_biennium": {
+      "row_count": 609
+    },
+    "historical_biennium_summary": {
+      "row_count": 7
+    },
+    "historical_functional_area_by_biennium": {
+      "row_count": 66
+    },
+    "version_summary": {
+      "row_count": 28
+    }
+  },
+  "source_card_expected_models": {
+    "current_biennial_summary_powerbi": {
+      "dataset_id": "ae27b156-31b3-420a-a565-9dfb90d76d2d",
+      "model_id": 12288560,
+      "observed_model_refresh_time": "2025-07-22T17:18:33.94"
+    },
+    "prior_summary_powerbi": {
+      "dataset_id": "455d50dc-30a0-4ce5-b242-575b33611899",
+      "model_id": 10692770,
+      "observed_model_refresh_time": "2025-12-29T18:08:24.87"
+    }
+  },
+  "source_id": "washington.operating_budget",
+  "source_surfaces": {
+    "current_biennial_summary_powerbi": {
+      "coverage": {
+        "biennia": [
+          "2025-27"
+        ],
+        "fund_views": [
+          "Outlook Funds (NGF-O)",
+          "Total Budgeted"
+        ],
+        "grains": [
+          "budget_version_by_fund_view",
+          "agency_by_fund_view",
+          "functional_area_by_fund_view"
+        ]
+      },
+      "dataset_display_name": "BudOpSummaryComparisonBien",
+      "dataset_id": "ae27b156-31b3-420a-a565-9dfb90d76d2d",
+      "model_id": 12288560,
+      "official_dashboard_page": "https://fiscal.wa.gov/statebudgets/operatingsummarycomparisonbien",
+      "powerbi_report_url": "https://app.powerbi.com/view?r=eyJrIjoiYjMzNmE2MDMtMWY2Ni00NjVkLWFmN2YtZWI4YjE3MjhkNTgzIiwidCI6ImI0ZWIwY2NmLTAxOTQtNDY2My1hNTZhLTllZDkxZWZkMzMwOCIsImMiOjZ9",
+      "report_id": "6e5a7010-5733-4b49-9a98-71edd8041d57",
+      "status": "accepted"
+    },
+    "operating_search_powerbi": {
+      "notes": [
+        "Useful for line-item operating budget search investigation.",
+        "Not accepted for historical statewide trend totals because the 2025-27 enacted aggregate did not reconcile to the accepted operating summary total."
+      ],
+      "official_dashboard_page": "https://fiscal.wa.gov/statebudgets/operatingbudgetmain",
+      "status": "context_only"
+    },
+    "prior_single_version_reportviewer": {
+      "notes": [
+        "Older official Fiscal WA surface that may extend some operating budget history before 2013-15.",
+        "Not used for normal answers until its requests can be replayed and reconciled into the normalized trend contract."
+      ],
+      "official_dashboard_page": "https://fiscal.wa.gov/statebudgets/OperatingSingleVersionPrior",
+      "status": "candidate_context_only"
+    },
+    "prior_summary_powerbi": {
+      "coverage": {
+        "agency_biennia": [
+          "2013-15",
+          "2015-17",
+          "2017-19",
+          "2019-21",
+          "2021-23",
+          "2023-25"
+        ],
+        "default_filter": {
+          "Operating_VersionInfo.SessionType": "R1",
+          "Operating_VersionInfo.Title35": "Enacted"
+        },
+        "functional_area_biennia": [
+          "2013-15",
+          "2015-17",
+          "2017-19",
+          "2019-21",
+          "2021-23",
+          "2023-25"
+        ],
+        "statewide_biennia": [
+          "2013-15",
+          "2015-17",
+          "2017-19",
+          "2019-21",
+          "2021-23",
+          "2023-25",
+          "2025-27"
+        ]
+      },
+      "dataset_display_name": "BudOpSummaryBudgetVersionsPrior",
+      "dataset_id": "455d50dc-30a0-4ce5-b242-575b33611899",
+      "model_id": 10692770,
+      "official_dashboard_page": "https://fiscal.wa.gov/statebudgets/operatingsummarygraphicprior",
+      "powerbi_report_url": "https://app.powerbi.com/view?r=eyJrIjoiN2QyYmI5Y2EtMjgwZS00OTQ3LTgwMzgtYmY2YzYzMjRlNzIyIiwidCI6ImI0ZWIwY2NmLTAxOTQtNDY2My1hNTZhLTllZDkxZWZkMzMwOCIsImMiOjZ9",
+      "report_id": "a86320fb-86a0-4f87-b52b-6012c7d066cf",
+      "status": "accepted"
+    }
+  }
+}
