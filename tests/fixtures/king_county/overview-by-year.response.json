@@ -1,0 +1,244 @@
+{
+  "jobIds": [
+    "fd9ebd6d-a759-4b19-b3ce-9cd762a2b643"
+  ],
+  "results": [
+    {
+      "jobId": "fd9ebd6d-a759-4b19-b3ce-9cd762a2b643",
+      "result": {
+        "data": {
+          "timestamp": "2026-06-04T04:19:45.612Z",
+          "rootActivityId": "aa41fdd9-6072-40b7-8bc8-f4d103604f22",
+          "descriptor": {
+            "Select": [
+              {
+                "Kind": 1,
+                "Depth": 0,
+                "Value": "G0",
+                "Format": "0",
+                "GroupKeys": [
+                  {
+                    "Source": {
+                      "Entity": "Year",
+                      "Property": "Year"
+                    },
+                    "Calc": "G0",
+                    "IsSameAsSelect": true
+                  }
+                ],
+                "Name": "Year.Year"
+              },
+              {
+                "Kind": 2,
+                "Value": "M0",
+                "Format": "\\$#,0.###############;(\\$#,0.###############);\\$#,0.###############",
+                "Name": "Sum(Revenues.Revenues)"
+              },
+              {
+                "Kind": 2,
+                "Value": "M1",
+                "Format": "\\$#,0.###############;(\\$#,0.###############);\\$#,0.###############",
+                "Name": "Sum(Expenditures.Expenditures)"
+              },
+              {
+                "Kind": 2,
+                "Value": "M2",
+                "Name": "Sum(FTEData.FTE)"
+              }
+            ],
+            "Expressions": {
+              "Primary": {
+                "Groupings": [
+                  {
+                    "Keys": [
+                      {
+                        "Source": {
+                          "Entity": "Year",
+                          "Property": "Year"
+                        },
+                        "Select": 0
+                      }
+                    ],
+                    "Member": "DM0"
+                  }
+                ]
+              }
+            },
+            "Limits": {
+              "Primary": {
+                "Id": "L0",
+                "Sample": {
+                  "Count": 3500
+                }
+              }
+            },
+            "Version": 2
+          },
+          "metrics": {
+            "Version": "1.0.0",
+            "Events": [
+              {
+                "Id": "e02e051d-816d-4965-b151-a1f0267c47ed",
+                "Name": "Execute Semantic Query",
+                "Component": "DSE",
+                "Start": "2026-06-04T04:19:45.6121452Z",
+                "End": "2026-06-04T04:19:45.752771Z"
+              },
+              {
+                "Id": "2ebeea24-097f-4a33-bf09-5e688a5d6507",
+                "ParentId": "e02e051d-816d-4965-b151-a1f0267c47ed",
+                "Name": "Execute DAX Query",
+                "Component": "DSE",
+                "Start": "2026-06-04T04:19:45.7215193Z",
+                "End": "2026-06-04T04:19:45.752771Z",
+                "Metrics": {
+                  "RowCount": 11
+                }
+              },
+              {
+                "Id": "705F30D3-99E5-456B-ABF5-0C64DFA07008",
+                "ParentId": "2ebeea24-097f-4a33-bf09-5e688a5d6507",
+                "Name": "Execute Query",
+                "Component": "AS",
+                "Start": "2026-06-04T04:19:45.75Z",
+                "End": "2026-06-04T04:19:45.753Z"
+              },
+              {
+                "Id": "75D2EB4A-A681-43BD-A40B-F76C6A083D71",
+                "ParentId": "705F30D3-99E5-456B-ABF5-0C64DFA07008",
+                "Name": "Serialize Rowset",
+                "Component": "AS",
+                "Start": "2026-06-04T04:19:45.753Z",
+                "End": "2026-06-04T04:19:45.753Z"
+              }
+            ]
+          },
+          "fromCache": false,
+          "dsr": {
+            "Version": 2,
+            "MinorVersion": 1,
+            "DS": [
+              {
+                "N": "DS0",
+                "PH": [
+                  {
+                    "DM0": [
+                      {
+                        "S": [
+                          {
+                            "N": "G0",
+                            "T": 4
+                          },
+                          {
+                            "N": "M0",
+                            "T": 4
+                          },
+                          {
+                            "N": "M1",
+                            "T": 4
+                          },
+                          {
+                            "N": "M2",
+                            "T": 4
+                          }
+                        ],
+                        "C": [
+                          2017,
+                          4605705855,
+                          4579566892,
+                          13990
+                        ]
+                      },
+                      {
+                        "C": [
+                          2018,
+                          4709409370,
+                          4922368964,
+                          14457
+                        ]
+                      },
+                      {
+                        "C": [
+                          2019,
+                          5136324257,
+                          5427297163,
+                          15155
+                        ]
+                      },
+                      {
+                        "C": [
+                          2020,
+                          5385045743,
+                          5678297836,
+                          15430
+                        ]
+                      },
+                      {
+                        "C": [
+                          2021,
+                          6788040053,
+                          7017894184,
+                          15316
+                        ]
+                      },
+                      {
+                        "C": [
+                          2022,
+                          6475852490,
+                          6616064040,
+                          15737
+                        ]
+                      },
+                      {
+                        "C": [
+                          2023,
+                          6648368097,
+                          7171881755,
+                          16600
+                        ]
+                      },
+                      {
+                        "C": [
+                          2024,
+                          6916539522,
+                          7441147541,
+                          17006
+                        ]
+                      },
+                      {
+                        "C": [
+                          2025,
+                          8194751522,
+                          8626613762,
+                          17636
+                        ]
+                      },
+                      {
+                        "C": [
+                          2026,
+                          8865634686,
+                          8598795612,
+                          18333
+                        ]
+                      },
+                      {
+                        "C": [
+                          2027,
+                          9112798743,
+                          8851666339,
+                          18490
+                        ]
+                      }
+                    ]
+                  }
+                ],
+                "IC": true,
+                "HAD": true
+              }
+            ]
+          }
+        }
+      }
+    }
+  ]
+}

@@ -56,6 +56,8 @@ Source metadata:
 
 - `jurisdictions/<jurisdiction>/sources/<dataset>.source.json`
 
+Source metadata acts as a source card: it identifies the official source, fields, known checks, caveats, safe answer patterns, and claims that source should not support.
+
 Optional data snapshots:
 
 - `jurisdictions/<jurisdiction>/data/<dataset>/<version>.raw.<csv|xlsx|json>`
@@ -63,13 +65,22 @@ Optional data snapshots:
 - `jurisdictions/<jurisdiction>/data/<dataset>/<version>.summary.json`
 - `jurisdictions/<jurisdiction>/data/<dataset>/<version>.provenance.json`
 
+Report-shaped sources may use a multi-artifact snapshot directory when one official report produces several normalized tables:
+
+- `jurisdictions/<jurisdiction>/data/<dataset>/query_templates/*.query.json`
+- `jurisdictions/<jurisdiction>/data/<dataset>/<version>/normalized/*.jsonl`
+- `jurisdictions/<jurisdiction>/data/<dataset>/<version>/summary.json`
+- `jurisdictions/<jurisdiction>/data/<dataset>/<version>/provenance.json`
+
+Raw report responses are local/debug artifacts by default unless a specific payload is reviewed and intentionally committed.
+
 ## Routing Rules
 
 1. Detect jurisdiction.
 2. Detect budget family or question type.
 3. Read the matching jurisdiction skill under `jurisdictions/<jurisdiction>/skill.md`.
 4. Use that skill's official sources and validation checks.
-5. Explain the grain and caveats in the answer.
+5. For source-backed answers, include a compact trace: source, grain, measure, filters/query logic, validation check or row count when useful, and caveats.
 
 For composed prompts such as:
 
@@ -84,5 +95,7 @@ Unsupported jurisdictions should fail clearly. Do not fabricate adapters.
 ## Why This Shape
 
 Seattle is the clean source: a direct Socrata API with stable fields.
+
+King County is the report-shaped source: an official Power BI Gov dashboard replayed through reviewed query templates into a checked-in snapshot.
 
 Washington will likely be the messy source: Fiscal WA and OFM pages, ReportViewer exports, Power BI surfaces, XLSX files, and PDFs. That means the repo must support both live queries and curated snapshots while keeping each jurisdiction's instructions, source metadata, and data notes together.

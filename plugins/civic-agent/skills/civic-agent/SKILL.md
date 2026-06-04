@@ -42,14 +42,47 @@ Use Seattle for:
 - Seattle Police Department, Fire, Human Services, City Light, or SPU budget questions
 - Seattle FY2018-FY2026 year-over-year comparisons
 
+### King County
+
+Read the King County skill before answering King County, Washington Open Budget Dashboard questions.
+
+If Civic Agent is installed as a packaged plugin (Codex or Claude Code), use the bundled reference:
+
+```text
+references/king_county.md
+```
+
+If working from this source repo outside the packaged plugin, use:
+
+```text
+jurisdictions/king_county/skill.md
+```
+
+If working from the hosted public repo, use:
+
+```text
+https://raw.githubusercontent.com/pejmanjohn/civic-agent/main/jurisdictions/king_county/skill.md
+```
+
+Use King County for:
+
+- King County budget
+- King County Open Budget Dashboard
+- King County budgeted revenue, budgeted expenditures, departments, or FTE
+- DCHS, DNRP, Metro Transit, Public Health, or Sheriff's Office budget questions
+- King County 2017-2027 countywide budget trend questions
+
+Do not use King County for actual spending, actual revenue collected, payments, procurement, personnel rosters, Seattle budget analysis, Washington state budget analysis, or cross-jurisdiction comparison.
+
 ## Workflow
 
 1. Identify the jurisdiction in the user's question.
 2. Identify the budget topic: operating budget, capital budget, transportation budget, spending/checkbook, revenue, staffing, school finance, department comparison, program drill-down, fund analysis, or year-over-year comparison.
 3. Read the matching jurisdiction skill file.
 4. Use that skill's official data sources, query recipes, validation checks, caveats, and answer style.
-5. If the user asks for a chart, compute the data first and then use available chart/data-visualization tools to render it.
-6. If no matching jurisdiction exists, say that Civic Agent does not yet include that jurisdiction.
+5. For source-backed answers, include a compact trace: source, grain, measure, filters/query logic, validation check or row count when useful, and caveats.
+6. If the user asks for a chart, compute the data first and then use available chart/data-visualization tools to render it.
+7. If no matching jurisdiction exists, say that Civic Agent does not yet include that jurisdiction.
 
 ## Chart Requests
 
@@ -62,6 +95,8 @@ For requests like:
 Route to Seattle, query department totals by year, compute 2026 minus 2018, sort by absolute increase, and chart the largest increases. Include source, grain, and caveats.
 
 If a data visualization or analytics plugin is available, use it after computing the source-backed table. If no chart renderer is available, return a compact table and explain that the data is chart-ready.
+
+For King County chart requests, use the checked-in snapshot from `jurisdictions/king_county/data/open-budget-dashboard/2026-04-01/`. Current chart-ready grains are countywide year totals, FY2026 department budgeted revenue/expenditure, and FY2026 department budgeted FTE.
 
 ## Fresh-Agent Prompt
 

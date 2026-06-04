@@ -1,0 +1,37 @@
+{
+  "known_years": [
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024,
+    2025,
+    2026,
+    2027
+  ],
+  "model_refresh_time": "2026-04-01T21:37:44.693",
+  "notes": [
+    "Amounts are authorized or budgeted dashboard values, not actual spending or actual revenue earned.",
+    "Future years in the dashboard are budget years, not completed actuals."
+  ],
+  "row_counts": {
+    "department_fte_by_year": 21,
+    "department_revenue_expenditure_by_year": 22,
+    "overview_by_year": 11
+  },
+  "snapshot_version": "2026-04-01",
+  "source_id": "king_county.open_budget_dashboard",
+  "validation_checks": {
+    "fy2026_department_expenditure_total": 8598795612,
+    "fy2026_department_fte_rows": 21,
+    "fy2026_department_fte_total": 18333,
+    "fy2026_department_revenue_total": 8865634686,
+    "fy2026_department_rows": 22,
+    "fy2026_expenditure_total": 8598795612,
+    "fy2026_fte_total": 18333,
+    "fy2026_revenue_total": 8865634686
+  }
+}

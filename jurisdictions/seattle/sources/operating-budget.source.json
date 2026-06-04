@@ -17,6 +17,23 @@
   "primary_measure": "approved_amount",
   "year_field": "fiscal_year",
   "hierarchy_fields": ["service", "department", "program", "fund", "description"],
+  "safe_answer_patterns": [
+    "Annual approved operating budget totals by fiscal year.",
+    "FY2018-FY2026 comparisons by service, department, program, fund, fund type, or Labor/Non-Labor description.",
+    "FY2026 service, department, program, fund, and Labor/Non-Labor rankings.",
+    "Department drill-downs into programs, funds, fund types, and Labor/Non-Labor rows.",
+    "Inspection of negative, zero, blank, and unusual approved_amount rows.",
+    "Chart-ready tables for Seattle operating budget trends and department growth using approved_amount."
+  ],
+  "not_supported_by_this_source": [
+    "Actual spending, payments, invoices, checkbook transactions, or procurement activity.",
+    "Realtime city operations, service delivery, maps, incidents, or performance data.",
+    "Staffing, headcount, FTE, vacancy, or personnel roster claims.",
+    "Capital budget, transportation capital program, or capital project analysis.",
+    "Revenue analysis beyond operating-budget fund/accounting context.",
+    "Washington state, King County, school district, or other non-Seattle budget analysis.",
+    "Policy conclusions that are not directly supported by approved operating budget rows."
+  ],
   "fields": [
     {"name": "fiscal_year", "type": "number"},
     {"name": "service", "type": "text"},

@@ -2,7 +2,7 @@
 
 <img src="plugins/civic-agent/assets/icon.png" alt="Civic Agent icon" width="120">
 
-Agent-readable civic budget skills and data adapters.
+Agent-readable civic budget skills, source cards, and plugin packaging.
 
 The goal is simple: point a capable agent at one public skill URL, then ask useful budget questions without knowing where the data lives, how the schema works, or what caveats matter.
 
@@ -23,6 +23,15 @@ civic-agent/
         operating-budget.source.json
       data/
         README.md
+    king_county/
+      README.md
+      skill.md
+      sources/
+        open-budget-dashboard.source.json
+      data/
+        open-budget-dashboard/
+          2026-04-01/
+          query_templates/
   skills/
     civic-agent/SKILL.md   # installable router skill; hosts may expose this as /civic-agent
     civic-agent/agents/    # Codex display metadata for the primary skill
@@ -35,11 +44,13 @@ civic-agent/
         civic-agent/SKILL.md       # router skill; invoked as /civic-agent in both
         civic-agent/agents/openai.yaml
         civic-agent/references/seattle.md
+        civic-agent/references/king_county.md
   scripts/
     package_plugin.py
   docs/
     architecture.md
     plan.md
+    seattle-demo.md
   examples/
     prompts.md
 ```
@@ -96,6 +107,12 @@ claude plugin validate ./plugins/civic-agent
 Current production source:
 
 - `seattle.operating_budget`: City of Seattle operating budget, Socrata dataset `8u2j-imqx`
+- `king_county.open_budget_dashboard`: King County Open Budget Dashboard, Power BI Gov snapshot `2026-04-01`
+
+Worked examples:
+
+- `docs/seattle-demo.md`: source-backed answers and compact traces for the current dogfood prompts.
+- `docs/king-county-demo.md`: source-backed answers and compact traces for the King County snapshot.
 
 ## Packaging
 
@@ -117,7 +134,6 @@ Future sources should follow the same pattern:
 
 - `washington.budget.operating`
 - `washington.spending.checkbook`
-- `king_county.budget`
 - `san_francisco.operating_budget`
 
 ## Data Strategy
@@ -125,5 +141,7 @@ Future sources should follow the same pattern:
 Use live official APIs when they are clean and stable. Use checked-in snapshots when official public data is slow-changing, awkward to scrape, or report-shaped.
 
 Seattle is the clean example: direct Socrata JSON/CSV plus SoQL.
+
+King County is the first report-shaped example: official Power BI Gov dashboard replayed through reviewed query templates into a checked-in normalized snapshot.
 
 Washington will likely be the messy example: Fiscal WA / OFM pages, downloadable XLSX files, ReportViewer exports, PDFs, and normalization.

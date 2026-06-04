@@ -1,0 +1,948 @@
+{
+  "schemas": [
+    {
+      "modelId": 897134,
+      "schema": {
+        "Entities": [
+          {
+            "Name": "Year",
+            "EdmName": "Sandbox.Year",
+            "Properties": [
+              {
+                "Name": "Year",
+                "EdmName": "Year2",
+                "DataType": 4,
+                "FormatString": "0",
+                "Column": {
+                  "DefaultAggregate": 1
+                },
+                "StableName": "71c02408-d8bb-47b1-b4bb-b75579235d0b"
+              }
+            ],
+            "Capabilities": {
+              "CanEditStorageMode": false,
+              "SupportsClustering": false,
+              "SupportsBinByCount": false
+            },
+            "StableName": "45eab380-a22c-435f-a2bc-87713c8ae3d1"
+          },
+          {
+            "Name": "AssignmentbyDetailedEntity",
+            "EdmName": "Sandbox.AssignmentbyDetailedEntity",
+            "Properties": [
+              {
+                "Name": "App / CIP Fund",
+                "EdmName": "App___CIP_Fund",
+                "DataType": 1,
+                "Column": {
+                  "DefaultAggregate": 1
+                },
+                "StableName": "8ac4d3cb-d622-4958-bb98-dfc4d8c5c115"
+              },
+              {
+                "Name": "App / CIP Fund2",
+                "EdmName": "App___CIP_Fund2",
+                "DataType": 1,
+                "Column": {
+                  "DefaultAggregate": 1
+                },
+                "StableName": "8f98e8f3-5018-4987-806d-cfb2c5b1a47e"
+              },
+              {
+                "Name": "App / Fund Name",
+                "EdmName": "App___Fund_Name",
+                "DataType": 1,
+                "Column": {
+                  "DefaultAggregate": 1
+                },
+                "StableName": "9cee4993-b631-49f9-9349-b5b60dc8be1a"
+              },
+              {
+                "Name": "Assignment Portfolio",
+                "EdmName": "Assignment_Portfolio",
+                "DataType": 1,
+                "Column": {
+                  "DefaultAggregate": 1
+                },
+                "StableName": "1382c867-7f87-4089-8892-5446d3d39a99"
+              },
+              {
+                "Name": "Analyst First Name",
+                "EdmName": "Analyst_First_Name",
+                "DataType": 1,
+                "Column": {
+                  "DefaultAggregate": 1
+                },
+                "StableName": "eaa4bb4e-2859-48a6-b144-cbc721c147ff"
+              },
+              {
+                "Name": "Analyst Full Name",
+                "EdmName": "Analyst_Full_Name",
+                "DataType": 1,
+                "Column": {
+                  "DefaultAggregate": 1
+                },
+                "StableName": "8be7ae18-f7bb-4dbb-befe-f70a4aa3491a"
+              },
+              {
+                "Name": "Program Area / Rounding",
+                "EdmName": "Program_Area___Rounding",
+                "DataType": 1,
+                "Column": {
+                  "DefaultAggregate": 1
+                },
+                "StableName": "3f122d34-beb2-4027-9095-7f58114ab818"
+              },
+              {
+                "Name": "Manager",
+                "DataType": 1,
+                "Column": {
+                  "DefaultAggregate": 1
+                },
+                "StableName": "0059db27-7761-4b6e-9c17-e007f3e9058e"
+              },
+              {
+                "Name": "Type",
+                "DataType": 1,
+                "Column": {
+                  "DefaultAggregate": 1
+                },
+                "StableName": "8029801d-34fa-43e8-8340-fa6e0d86f7e8"
+              },
+              {
+                "Name": "Fund",
+                "DataType": 1,
+                "Column": {
+                  "DefaultAggregate": 1
+                },
+                "StableName": "06a9d51f-6b3f-4bf1-b06a-f8e1cc355404"
+              },
+              {
+                "Name": "Fund Name",
+                "EdmName": "Fund_Name",
+                "DataType": 1,
+                "Column": {
+                  "DefaultAggregate": 1
+                },
+                "StableName": "9ccc8de3-8554-4ca4-bdd1-4c2f5c143d0d"
+              },
+              {
+                "Name": "GF",
+                "DataType": 1,
+                "Column": {
+                  "DefaultAggregate": 1
+                },
+                "StableName": "888330b8-21ac-4130-a261-1a634e4356a4"
+              },
+              {
+                "Name": "Department",
+                "DataType": 1,
+                "Column": {
+                  "DefaultAggregate": 1
+                },
+                "StableName": "283cd8d1-c0db-46e8-a2d3-c39f7c68b19c"
+              },
+              {
+                "Name": "Division",
+                "DataType": 1,
+                "Column": {
+                  "DefaultAggregate": 1
+                },
+                "StableName": "12e9614c-a071-4688-b1de-8f34078fe497"
+              },
+              {
+                "Name": "CR",
+                "DataType": 1,
+                "Column": {
+                  "DefaultAggregate": 1
+                },
+                "StableName": "aa45a908-cecb-49f7-9245-c1a6bee880f1"
+              },
+              {
+                "Name": "Bird Type",
+                "EdmName": "Bird_Type",
+                "DataType": 1,
+                "Column": {
+                  "DefaultAggregate": 1
+                },
+                "StableName": "cf99a98b-0e43-480a-b3e7-2358ebe3ca43"
+              },
+              {
+                "Name": "BookChapter",
+                "DataType": 1,
+                "Column": {
+                  "DefaultAggregate": 1
+                },
+                "StableName": "8c3262c2-42b9-4339-96a3-08c7723a74ef"
+              },
+              {
+                "Name": "Fund Published",
+                "EdmName": "Fund_Published",
+                "DataType": 1,
+                "Column": {
+                  "DefaultAggregate": 1
+                },
+                "StableName": "ba072d23-2a0f-4735-9de4-287ab6fcd124"
+              },
+              {
+                "Name": "Book SubChapter",
+                "EdmName": "Book_SubChapter",
+                "DataType": 1,
+                "Column": {
+                  "DefaultAggregate": 1
+                },
+                "StableName": "24ed5158-3abb-41b6-bec7-1d86a6614bbb"
+              }
+            ],
+            "Capabilities": {
+              "CanEditStorageMode": false,
+              "SupportsClustering": false,
+              "SupportsBinByCount": false
+            },
+            "StableName": "fedfa547-a0d5-48e5-bc69-3cfe03e5f325"
+          },
+          {
+            "Name": "Expenditures",
+            "EdmName": "Sandbox.Expenditures",
+            "Properties": [
+              {
+                "Name": "Column3",
+                "DataType": 1,
+                "Column": {
+                  "DefaultAggregate": 1
+                },
+                "StableName": "4e9c3ef6-9a9f-469d-aac3-bbada9f36368"
+              },
+              {
+                "Name": "Year",
+                "DataType": 4,
+                "FormatString": "0",
+                "Column": {
+                  "DefaultAggregate": 1
+                },
+                "StableName": "747c1471-2e98-4a8e-a229-e0bfe8e49708"
+              },
+              {
+                "Name": "Expenditures",
+                "EdmName": "Expenditures2",
+                "DataType": 4,
+                "FormatString": "\\$#,0.###############;(\\$#,0.###############);\\$#,0.###############",
+                "Column": {
+                  "DefaultAggregate": 2
+                },
+                "StableName": "b32245bc-6766-4cbc-8ebc-16d7b09462ca"
+              },
+              {
+                "Name": "Type",
+                "DataType": 1,
+                "Column": {
+                  "DefaultAggregate": 1
+                },
+                "StableName": "844d6e94-2493-46d5-8c92-e49cfb868752"
+              },
+              {
+                "Name": "Type Number",
+                "EdmName": "Type_Number",
+                "DataType": 1,
+                "Column": {
+                  "DefaultAggregate": 1
+                },
+                "StableName": "52aa669b-e522-4a55-96d0-f9244c1c4f5c"
+              },
+              {
+                "Name": "Division",
+                "DataType": 1,
+                "Column": {
+                  "DefaultAggregate": 1
+                },
+                "StableName": "d9fec1ec-ee8c-4d06-932f-b2ba85b89b13"
+              },
+              {
+                "Name": "App / CIP Fund2",
+                "EdmName": "App___CIP_Fund2",
+                "DataType": 1,
+                "Column": {
+                  "DefaultAggregate": 1
+                },
+                "StableName": "4c87f37d-fbe4-472e-90ab-ecafded9b0d6"
+              }
+            ],
+            "NavigationProperties": [
+              {
+                "Name": "Year_Year",
+                "Active": true,
+                "TargetEntity": "Year",
+                "SourceMultiplicity": 2,
+                "TargetMultiplicity": 0
+              },
+              {
+                "Name": "AssignmentbyDetailedEntity_App / CIP Fund2",
+                "Active": true,
+                "TargetEntity": "AssignmentbyDetailedEntity",
+                "SourceMultiplicity": 2,
+                "TargetMultiplicity": 0
+              }
+            ],
+            "Capabilities": {
+              "CanEditStorageMode": false,
+              "SupportsClustering": false,
+              "SupportsBinByCount": false
+            },
+            "StableName": "4e29e94e-2c03-4aac-b9db-1ec6102843da"
+          },
+          {
+            "Name": "FTEData",
+            "EdmName": "Sandbox.FTEData",
+            "Properties": [
+              {
+                "Name": "Column3",
+                "DataType": 1,
+                "Column": {
+                  "DefaultAggregate": 1
+                },
+                "StableName": "034236c1-807a-4719-9b51-185702f2e4f8"
+              },
+              {
+                "Name": "Column4",
+                "DataType": 1,
+                "Column": {
+                  "DefaultAggregate": 1
+                },
+                "StableName": "1a5bd2e2-b97a-4db4-85f4-381a305c74dd"
+              },
+              {
+                "Name": "Column5",
+                "DataType": 1,
+                "Column": {
+                  "DefaultAggregate": 1
+                },
+                "StableName": "3391f655-cf28-4880-b96c-a803189b142c"
+              },
+              {
+                "Name": "Column6",
+                "DataType": 1,
+                "Column": {
+                  "DefaultAggregate": 1
+                },
+                "StableName": "2949abcd-7231-4b06-980c-549a336c0aab"
+              },
+              {
+                "Name": "Year",
+                "DataType": 4,
+                "FormatString": "0",
+                "Column": {
+                  "DefaultAggregate": 1
+                },
+                "StableName": "10c42df0-07a3-4707-a32a-688066bbeae7"
+              },
+              {
+                "Name": "Full Time Employees",
+                "EdmName": "Full_Time_Employees",
+                "DataType": 4,
+                "Column": {
+                  "DefaultAggregate": 2
+                },
+                "StableName": "959e996e-d020-4e21-ace4-0e551988a699"
+              },
+              {
+                "Name": "App / CIP Fund2",
+                "EdmName": "App___CIP_Fund2",
+                "DataType": 1,
+                "Column": {
+                  "DefaultAggregate": 1
+                },
+                "StableName": "db991183-28b5-44e7-b78e-2fe01c6cd15c"
+              }
+            ],
+            "NavigationProperties": [
+              {
+                "Name": "Year_Year2",
+                "Active": true,
+                "TargetEntity": "Year",
+                "SourceMultiplicity": 2,
+                "TargetMultiplicity": 0
+              },
+              {
+                "Name": "AssignmentbyDetailedEntity_App / CIP Fund22",
+                "Active": true,
+                "TargetEntity": "AssignmentbyDetailedEntity",
+                "SourceMultiplicity": 2,
+                "TargetMultiplicity": 0
+              }
+            ],
+            "Capabilities": {
+              "CanEditStorageMode": false,
+              "SupportsClustering": false,
+              "SupportsBinByCount": false
+            },
+            "StableName": "9e4e131c-9be1-4e73-810a-86e402749287"
+          },
+          {
+            "Name": "Revenues",
+            "EdmName": "Sandbox.Revenues",
+            "Properties": [
+              {
+                "Name": "Column3",
+                "DataType": 1,
+                "Column": {
+                  "DefaultAggregate": 1
+                },
+                "StableName": "76a4bd38-fdf8-44ca-bbde-4413c3687995"
+              },
+              {
+                "Name": "Year",
+                "DataType": 4,
+                "FormatString": "0",
+                "Column": {
+                  "DefaultAggregate": 1
+                },
+                "StableName": "9cad5bb9-2e04-44a3-b9e3-9fad96c8a977"
+              },
+              {
+                "Name": "Revenues",
+                "EdmName": "Revenues2",
+                "DataType": 4,
+                "FormatString": "\\$#,0.###############;(\\$#,0.###############);\\$#,0.###############",
+                "Column": {
+                  "DefaultAggregate": 2
+                },
+                "StableName": "afaa5cb4-ebf4-4744-8cfa-27870463135c"
+              },
+              {
+                "Name": "Type",
+                "DataType": 1,
+                "Column": {
+                  "DefaultAggregate": 1
+                },
+                "StableName": "482d4787-77d1-4130-bdeb-1ded0cd79b73"
+              },
+              {
+                "Name": "Type Number",
+                "EdmName": "Type_Number",
+                "DataType": 1,
+                "Column": {
+                  "DefaultAggregate": 1
+                },
+                "StableName": "cb1a4df4-db93-4a4b-83a3-ce42dedbe16f"
+              },
+              {
+                "Name": "Division",
+                "DataType": 1,
+                "Column": {
+                  "DefaultAggregate": 1
+                },
+                "StableName": "79d7bc9a-e294-45f1-a92c-67bce3a0ad7c"
+              },
+              {
+                "Name": "App / CIP Fund2",
+                "EdmName": "App___CIP_Fund2",
+                "DataType": 1,
+                "Column": {
+                  "DefaultAggregate": 1
+                },
+                "StableName": "a5521d63-94e5-4d86-a23f-57b5ae4ae781"
+              }
+            ],
+            "NavigationProperties": [
+              {
+                "Name": "Year_Year3",
+                "Active": true,
+                "TargetEntity": "Year",
+                "SourceMultiplicity": 2,
+                "TargetMultiplicity": 0
+              },
+              {
+                "Name": "AssignmentbyDetailedEntity_App / CIP Fund23",
+                "Active": true,
+                "TargetEntity": "AssignmentbyDetailedEntity",
+                "SourceMultiplicity": 2,
+                "TargetMultiplicity": 0
+              }
+            ],
+            "Capabilities": {
+              "CanEditStorageMode": false,
+              "SupportsClustering": false,
+              "SupportsBinByCount": false
+            },
+            "StableName": "af7e8d91-1cee-43ed-a0f9-e45120b1208c"
+          },
+          {
+            "Name": "2025CIPDecision",
+            "EdmName": "Sandbox.v2025CIPDecision",
+            "Properties": [
+              {
+                "Name": "Division",
+                "DataType": 1,
+                "Column": {
+                  "DefaultAggregate": 1
+                },
+                "StableName": "f8b644b3-77b1-4fef-9acf-f767417e9a2f"
+              },
+              {
+                "Name": "Project Number",
+                "EdmName": "Project_Number",
+                "DataType": 4,
+                "FormatString": "0",
+                "Column": {
+                  "DefaultAggregate": 1
+                },
+                "StableName": "13e17cfa-2fbc-42a0-bd7e-11ab24047c56"
+              },
+              {
+                "Name": "Project Name",
+                "EdmName": "Project_Name",
+                "DataType": 1,
+                "Column": {
+                  "DefaultAggregate": 1
+                },
+                "StableName": "b0c71709-06c0-477d-ae54-962862ef086f"
+              },
+              {
+                "Name": "Decision Maker",
+                "EdmName": "Decision_Maker",
+                "DataType": 1,
+                "Column": {
+                  "DefaultAggregate": 1
+                },
+                "StableName": "e1ed1193-8bc2-4009-accb-c75f3d8208a0"
+              },
+              {
+                "Name": "CAP Status",
+                "EdmName": "CAP_Status",
+                "DataType": 1,
+                "Column": {
+                  "DefaultAggregate": 1
+                },
+                "StableName": "f346a990-a358-4ea6-877b-5ec7a89f56c2"
+              },
+              {
+                "Name": "Data Complete",
+                "EdmName": "Data_Complete",
+                "DataType": 1,
+                "Column": {
+                  "DefaultAggregate": 1
+                },
+                "StableName": "0ea2ae15-87b2-49e5-9dd4-6d604f96e1d5"
+              },
+              {
+                "Name": "Narrative Complete",
+                "EdmName": "Narrative_Complete",
+                "DataType": 1,
+                "Column": {
+                  "DefaultAggregate": 1
+                },
+                "StableName": "47e6c51f-32d4-447d-81da-3bc965cdc867"
+              },
+              {
+                "Name": "Estimate at Completion",
+                "EdmName": "Estimate_at_Completion",
+                "DataType": 4,
+                "FormatString": "\\$#,0.###############;(\\$#,0.###############);\\$#,0.###############",
+                "Column": {
+                  "DefaultAggregate": 2
+                },
+                "StableName": "924be03c-5de9-438b-99c3-9438be755da4"
+              },
+              {
+                "Name": "ESJ",
+                "DataType": 1,
+                "Column": {
+                  "DefaultAggregate": 1
+                },
+                "StableName": "8e1cdae9-0aa8-4e34-9d60-236b484c2128"
+              },
+              {
+                "Name": "Env",
+                "DataType": 1,
+                "Column": {
+                  "DefaultAggregate": 1
+                },
+                "StableName": "f14fb3be-e5cd-4f99-bb71-24825c75e345"
+              },
+              {
+                "Name": "CNL",
+                "DataType": 1,
+                "Column": {
+                  "DefaultAggregate": 1
+                },
+                "StableName": "2e582d96-ae07-4122-a3b7-d2323aa93926"
+              },
+              {
+                "Name": "Tech Adj",
+                "EdmName": "Tech_Adj",
+                "DataType": 1,
+                "Column": {
+                  "DefaultAggregate": 1
+                },
+                "StableName": "61b0a87f-465b-424f-aaa3-1d1aae0f8c69"
+              },
+              {
+                "Name": "IT Proj",
+                "EdmName": "IT_Proj",
+                "DataType": 1,
+                "Column": {
+                  "DefaultAggregate": 1
+                },
+                "StableName": "240e9581-4877-49e9-b7bc-0bbb37747503"
+              },
+              {
+                "Name": "Class Code",
+                "EdmName": "Class_Code",
+                "DataType": 1,
+                "Column": {
+                  "DefaultAggregate": 1
+                },
+                "StableName": "6f5f2c6a-5289-4192-98e2-a5351053e1b9"
+              },
+              {
+                "Name": "Approval Status Comments",
+                "EdmName": "Approval_Status_Comments",
+                "DataType": 1,
+                "Column": {
+                  "DefaultAggregate": 1
+                },
+                "StableName": "800cf5a7-ad25-4066-9239-455ea1d80120"
+              },
+              {
+                "Name": "Scope",
+                "DataType": 1,
+                "Column": {
+                  "DefaultAggregate": 1
+                },
+                "StableName": "0056106d-baa0-413c-b565-2726c5f1b69c"
+              },
+              {
+                "Name": "Description of Budget Request",
+                "EdmName": "Description_of_Budget_Request",
+                "DataType": 1,
+                "Column": {
+                  "DefaultAggregate": 1
+                },
+                "StableName": "26347178-f729-4216-85a2-4711a924355a"
+              },
+              {
+                "Name": "Equity and Social Justice",
+                "EdmName": "Equity_and_Social_Justice",
+                "DataType": 1,
+                "Column": {
+                  "DefaultAggregate": 1
+                },
+                "StableName": "deaea301-0da1-4f43-a357-cfb286632ac1"
+              },
+              {
+                "Name": "Strategic Climate Action Plan Alignment",
+                "EdmName": "Strategic_Climate_Action_Plan_Alignment",
+                "DataType": 1,
+                "Column": {
+                  "DefaultAggregate": 1
+                },
+                "StableName": "4ede4c22-0bee-4bee-9798-75e26266f85e"
+              },
+              {
+                "Name": "Other Considerations",
+                "EdmName": "Other_Considerations",
+                "DataType": 1,
+                "Column": {
+                  "DefaultAggregate": 1
+                },
+                "StableName": "d623f6e8-632a-4b35-b170-baa755791b49"
+              },
+              {
+                "Name": "2025 Proposed Expenditures",
+                "EdmName": "v2025_Proposed_Expenditures",
+                "DataType": 4,
+                "FormatString": "\\$#,0.###############;(\\$#,0.###############);\\$#,0.###############",
+                "Column": {
+                  "DefaultAggregate": 2
+                },
+                "StableName": "5cdbe6f6-1ae7-415c-a335-f43c4eb4c13e"
+              },
+              {
+                "Name": "2025 Proposed Revenues",
+                "EdmName": "v2025_Proposed_Revenues",
+                "DataType": 4,
+                "FormatString": "\\$#,0.###############;(\\$#,0.###############);\\$#,0.###############",
+                "Column": {
+                  "DefaultAggregate": 2
+                },
+                "StableName": "e1666f33-38f0-4655-b472-bb152c75f9cc"
+              },
+              {
+                "Name": "App / CIP Fund",
+                "EdmName": "App___CIP_Fund",
+                "DataType": 4,
+                "FormatString": "0",
+                "Column": {
+                  "DefaultAggregate": 1
+                },
+                "StableName": "bcb62b4a-5829-4151-b8f9-0bd75cbcfd09"
+              },
+              {
+                "Name": "Fund Name",
+                "EdmName": "Fund_Name",
+                "DataType": 1,
+                "Column": {
+                  "DefaultAggregate": 1
+                },
+                "StableName": "4eda0ba6-f194-4492-a47d-6fbee96088b0"
+              },
+              {
+                "Name": "Column20",
+                "DataType": 1,
+                "Column": {
+                  "DefaultAggregate": 1
+                },
+                "StableName": "95c3a9a7-d7bc-4f11-b68f-a1dd3b78a398"
+              },
+              {
+                "Name": "Column25",
+                "DataType": 1,
+                "Column": {
+                  "DefaultAggregate": 1
+                },
+                "StableName": "d60e1c52-2adc-4fa2-997c-f94417b8e330"
+              },
+              {
+                "Name": "Column26",
+                "DataType": 1,
+                "Column": {
+                  "DefaultAggregate": 1
+                },
+                "StableName": "9272c8b8-4364-4a8e-851e-beaf8e2d39ef"
+              },
+              {
+                "Name": "Expenditure Tooltip",
+                "EdmName": "Expenditure_Tooltip",
+                "DataType": 1,
+                "Measure": {},
+                "StableName": "96d18eac-780c-4734-ba63-592c57ad167f"
+              }
+            ],
+            "NavigationProperties": [
+              {
+                "Name": "LatitudeAndLongitude_Project Number",
+                "Active": true,
+                "TargetEntity": "LatitudeAndLongitude",
+                "SourceMultiplicity": 0,
+                "TargetMultiplicity": 0,
+                "CrossFilterDirection": 1
+              },
+              {
+                "Name": "AssignmentbyDetailedEntity_App / CIP Fund",
+                "Active": true,
+                "TargetEntity": "AssignmentbyDetailedEntity",
+                "SourceMultiplicity": 2,
+                "TargetMultiplicity": 0
+              }
+            ],
+            "Capabilities": {
+              "CanEditStorageMode": false,
+              "SupportsClustering": false,
+              "SupportsBinByCount": false
+            },
+            "StableName": "56a7582c-96dc-4565-ad0e-8c5847fe892f"
+          },
+          {
+            "Name": "LatitudeAndLongitude",
+            "EdmName": "Sandbox.LatitudeAndLongitude",
+            "Properties": [
+              {
+                "Name": "Project Number",
+                "EdmName": "Project_Number",
+                "DataType": 4,
+                "FormatString": "0",
+                "Column": {
+                  "DefaultAggregate": 1
+                },
+                "StableName": "4c46ceee-a1fd-4eb6-9483-14b986e1138a"
+              },
+              {
+                "Name": "Project Name",
+                "EdmName": "Project_Name",
+                "DataType": 1,
+                "Column": {
+                  "DefaultAggregate": 1
+                },
+                "StableName": "3c571f53-aed6-4d11-817a-718d6f8e3014"
+              },
+              {
+                "Name": "Latitude",
+                "DataType": 3,
+                "Column": {
+                  "DefaultAggregate": 1
+                },
+                "StableName": "04d43d24-41a6-419c-91c5-6e21d3141b42"
+              },
+              {
+                "Name": "Longitude",
+                "DataType": 3,
+                "Column": {
+                  "DefaultAggregate": 1
+                },
+                "StableName": "294f03d5-7462-494e-b8ef-e3a0bde0e740"
+              }
+            ],
+            "NavigationProperties": [
+              {
+                "Name": "2025CIPDecision_Project Number2",
+                "Active": true,
+                "TargetEntity": "2025CIPDecision",
+                "SourceMultiplicity": 0,
+                "TargetMultiplicity": 0,
+                "CrossFilterDirection": 1
+              }
+            ],
+            "Capabilities": {
+              "CanEditStorageMode": false,
+              "SupportsClustering": false,
+              "SupportsBinByCount": false
+            },
+            "StableName": "c6a8aec3-40bd-45cb-b11c-16df3ad6ae2f"
+          },
+          {
+            "Name": "FAQ",
+            "EdmName": "Sandbox.FAQ",
+            "Properties": [
+              {
+                "Name": "Questions",
+                "DataType": 1,
+                "Column": {
+                  "DefaultAggregate": 1
+                },
+                "StableName": "dd44ee2a-b8e7-40f5-b35f-563cef417cba"
+              },
+              {
+                "Name": "Answers",
+                "DataType": 1,
+                "Column": {
+                  "DefaultAggregate": 1
+                },
+                "StableName": "68bd5bee-4d9c-47a0-b36a-74a5d2267493"
+              }
+            ],
+            "Capabilities": {
+              "CanEditStorageMode": false,
+              "SupportsClustering": false,
+              "SupportsBinByCount": false
+            },
+            "StableName": "ad6f9197-39ec-406d-94d4-73c3b696f8ce"
+          },
+          {
+            "Name": "KCPopulation",
+            "EdmName": "Sandbox.KCPopulation",
+            "Properties": [
+              {
+                "Name": "County",
+                "DataType": 1,
+                "Column": {
+                  "DefaultAggregate": 1
+                },
+                "StableName": "727e678a-f12f-401e-9aec-34717ed0ca0a"
+              },
+              {
+                "Name": "Jurisdiction",
+                "DataType": 1,
+                "Column": {
+                  "DefaultAggregate": 1
+                },
+                "StableName": "22181825-4b24-499f-adbd-e7dbe7114c67"
+              },
+              {
+                "Name": "Year",
+                "DataType": 4,
+                "FormatString": "0",
+                "Column": {
+                  "DefaultAggregate": 1
+                },
+                "StableName": "99df7687-a0bf-471b-8c59-6f038964b3d9"
+              },
+              {
+                "Name": "Population",
+                "DataType": 4,
+                "FormatString": "0",
+                "Column": {
+                  "DefaultAggregate": 2
+                },
+                "StableName": "21dc184a-a92d-47fa-88f5-a1d55fbd8813"
+              }
+            ],
+            "NavigationProperties": [
+              {
+                "Name": "Year_Year4",
+                "Active": true,
+                "TargetEntity": "Year",
+                "SourceMultiplicity": 2,
+                "TargetMultiplicity": 0
+              }
+            ],
+            "Capabilities": {
+              "CanEditStorageMode": false,
+              "SupportsClustering": false,
+              "SupportsBinByCount": false
+            },
+            "StableName": "90075e4b-a885-4b9f-afc6-b85c5f99825d"
+          }
+        ],
+        "Capabilities": {
+          "SupportsMedian": true,
+          "SupportsPercentile": true,
+          "SupportsScopedEval": true,
+          "SupportsStringMinMax": true,
+          "SupportsMultiTableTupleFilters": true,
+          "SupportsTimeIntelligenceQuickMeasures": true,
+          "SupportsBinnedLineSample": true,
+          "SupportsOverlappingPointsSample": true,
+          "SupportsInsights": true,
+          "SupportsQna": true,
+          "SupportsInstanceFilters": true,
+          "Insights": {
+            "SupportsDistributionFactors": true,
+            "SupportsExplainChange": true,
+            "SupportsExplore": true,
+            "SupportsKeyDrivers": true,
+            "SupportsRelatedInsights": true,
+            "SupportsDecomposition": true,
+            "SupportsExplainAnomalies": true,
+            "SupportsCompatibleFields": true,
+            "SupportsQuerySuggestions": true,
+            "SupportsExplainVarianceToTarget": true,
+            "SupportsGenerateSummaries": true
+          },
+          "SupportsSubqueryRegrouping": true,
+          "SupportsTopNPerLevel": true,
+          "SupportsScopedAggregates": true,
+          "SupportsExtensionColumns": true,
+          "IsQnaEnabled": true,
+          "SupportsScopedDataReduction": true,
+          "TransformCapabilities": {
+            "SupportedTransforms": [
+              "KMeansClustering",
+              "SpatialClustering",
+              "DetectAnomaly",
+              "SampleAndDetectAnomaly",
+              "LargestDifferenceSummary",
+              "CorrelationSummary",
+              "TrendSummary",
+              "LargestCategorySummary",
+              "ChangeSummary",
+              "TopRightHandCornerSummary",
+              "SampleTimeSeriesData",
+              "HighPointLowPointSummary",
+              "RegionWithMostPointsSummary",
+              "Unpivot",
+              "AggregateSummary",
+              "ExtractTrend",
+              "LargestDivergenceSummary"
+            ]
+          },
+          "SupportsGroupSynchronization": true,
+          "SupportsSparklineData": true,
+          "SupportsVisualCalculations": true,
+          "IsNaturalLanguageSupported": true,
+          "IsNaturalLanguageEnabled": true
+        }
+      },
+      "error": null
+    }
+  ]
+}

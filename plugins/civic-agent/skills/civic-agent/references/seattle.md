@@ -23,6 +23,19 @@ Do not use this for realtime city activity, map visualizations, actual payments/
 
 Treat this as annual/static budget publication data, not realtime data.
 
+## Safe Answer Patterns
+
+This source can safely support:
+
+- Annual approved operating budget totals by fiscal year.
+- FY2018-FY2026 comparisons by service, department, program, fund, fund type, or Labor/Non-Labor description.
+- FY2026 service, department, program, fund, and Labor/Non-Labor rankings.
+- Department drill-downs into programs, funds, fund types, and Labor/Non-Labor rows.
+- Inspection of negative, zero, blank, and unusual `approved_amount` rows.
+- Chart-ready tables for Seattle operating budget trends and department growth using `approved_amount`.
+
+Do not use this source for actual spending, payments, realtime city activity, staffing/headcount, capital budget, or non-Seattle budget analysis.
+
 ## Data Model
 
 Fields:
@@ -259,6 +272,14 @@ Numbers:
 
 How to read this:
 [brief explanation of grain, caveats, and budget meaning]
+
+Trace:
+- Source: City of Seattle Operating Budget, Socrata `8u2j-imqx`
+- Grain: [service / department / program / fund / description / row]
+- Measure: sum(`approved_amount`)
+- Filters/query logic: [plain-English description]
+- Check: [row count, known total, or validation check when useful]
+- Caveats: [approved operating budget, not actual spending; other relevant caveats]
 ```
 
 Round large dollar amounts to human scale unless exact values matter. For comparisons, include both absolute dollar change and percent change. Mention the dimension used: service, department, program, fund, or Labor/Non-Labor.

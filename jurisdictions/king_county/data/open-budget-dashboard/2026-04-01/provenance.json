@@ -1,0 +1,163 @@
+{
+  "api_host": "https://wabi-us-gov-iowa-api.analysis.usgovcloudapi.net",
+  "conceptual_entities": {
+    "2025CIPDecision": [
+      "Division",
+      "Project Number",
+      "Project Name",
+      "Decision Maker",
+      "CAP Status",
+      "Data Complete",
+      "Narrative Complete",
+      "Estimate at Completion",
+      "ESJ",
+      "Env",
+      "CNL",
+      "Tech Adj",
+      "IT Proj",
+      "Class Code",
+      "Approval Status Comments",
+      "Scope",
+      "Description of Budget Request",
+      "Equity and Social Justice",
+      "Strategic Climate Action Plan Alignment",
+      "Other Considerations",
+      "2025 Proposed Expenditures",
+      "2025 Proposed Revenues",
+      "App / CIP Fund",
+      "Fund Name",
+      "Column20",
+      "Column25",
+      "Column26",
+      "Expenditure Tooltip"
+    ],
+    "AssignmentbyDetailedEntity": [
+      "App / CIP Fund",
+      "App / CIP Fund2",
+      "App / Fund Name",
+      "Assignment Portfolio",
+      "Analyst First Name",
+      "Analyst Full Name",
+      "Program Area / Rounding",
+      "Manager",
+      "Type",
+      "Fund",
+      "Fund Name",
+      "GF",
+      "Department",
+      "Division",
+      "CR",
+      "Bird Type",
+      "BookChapter",
+      "Fund Published",
+      "Book SubChapter"
+    ],
+    "Expenditures": [
+      "Column3",
+      "Year",
+      "Expenditures",
+      "Type",
+      "Type Number",
+      "Division",
+      "App / CIP Fund2"
+    ],
+    "FAQ": [
+      "Questions",
+      "Answers"
+    ],
+    "FTEData": [
+      "Column3",
+      "Column4",
+      "Column5",
+      "Column6",
+      "Year",
+      "Full Time Employees",
+      "App / CIP Fund2"
+    ],
+    "KCPopulation": [
+      "County",
+      "Jurisdiction",
+      "Year",
+      "Population"
+    ],
+    "LatitudeAndLongitude": [
+      "Project Number",
+      "Project Name",
+      "Latitude",
+      "Longitude"
+    ],
+    "Revenues": [
+      "Column3",
+      "Year",
+      "Revenues",
+      "Type",
+      "Type Number",
+      "Division",
+      "App / CIP Fund2"
+    ],
+    "Year": [
+      "Year"
+    ]
+  },
+  "extracted_at": "2026-06-04T04:25:26.536695+00:00",
+  "generated_by": "jurisdictions/king_county/scripts/extract_open_budget.py",
+  "generated_from_live_powerbi": true,
+  "model_metadata": {
+    "LastRefreshTime": "2026-04-01T21:37:44.693",
+    "dataset_id": "e6354f5d-a44d-4c75-ab7a-a2293b56b83b",
+    "direct_query_mode": false,
+    "display_name": "PublicDashboard",
+    "exploration_id": 3938217,
+    "model_id": 897134,
+    "report_id": 1310587,
+    "size_in_mbs": 1
+  },
+  "official_dashboard_page": "https://kingcounty.gov/en/dept/executive/governance-leadership/performance-strategy-budget/budget/budget-dashboard",
+  "powerbi_report_url": "https://app.powerbigov.us/view?r=eyJrIjoiOTNmYzYwMDEtNWM5ZC00YjllLThlNzAtZDc1OGRjNzA4MmEwIiwidCI6ImJhZTUwNTlhLTc2ZjAtNDlkNy05OTk2LTcyZGZlOTVkNjljNyJ9",
+  "query_templates": {
+    "department_fte_by_year": {
+      "response_sha256": "9190edfe3a271929a2f3924afdd04e681e5fd6184eb9c22ba0dbe686112ffdde",
+      "template_path": "jurisdictions/king_county/data/open-budget-dashboard/query_templates/department-fte-by-year.query.json",
+      "template_sha256": "cc81b6c45279ef9f16ff14e1d2f562af1e010bb02ba8eff214a422ee78d0fa19",
+      "visual_id": "88eb11c1d12ec49a2b4b",
+      "year_filter": 2026
+    },
+    "department_revenue_expenditure_by_year": {
+      "response_sha256": "43f193e46f1422b256c0f9f75da4b12d34897327a24f68042cc09f9525d776d6",
+      "template_path": "jurisdictions/king_county/data/open-budget-dashboard/query_templates/department-revenue-expenditure-by-year.query.json",
+      "template_sha256": "e834bd814b83085b9c5f43cdc3d102edd89d92beb98ad7ded9f68873d384c6ca",
+      "visual_id": "2ad918b7b77cb4d00a40",
+      "year_filter": 2026
+    },
+    "overview_by_year": {
+      "response_sha256": "4c67ce8abc138c19fe608d2f7c07487348264719735b08099508837a417f92e9",
+      "template_path": "jurisdictions/king_county/data/open-budget-dashboard/query_templates/overview-by-year.query.json",
+      "template_sha256": "50601943386ae9299ad770422c3f4a2b2addae5d1b472c2e93b75da5d47a0862",
+      "visual_id": "1b6fddf1e298652e9b58",
+      "year_filter": null
+    }
+  },
+  "raw_response_policy": {
+    "committed_raw_live_responses": false,
+    "committed_sanitized_fixtures": true,
+    "local_raw_capture_path": "jurisdictions/king_county/data/open-budget-dashboard/local_raw/",
+    "reproduction": "python3 jurisdictions/king_county/scripts/extract_open_budget.py --live --raw-dir jurisdictions/king_county/data/open-budget-dashboard/local_raw"
+  },
+  "response_metrics": {
+    "department_fte_by_year": {
+      "row_count": 23
+    },
+    "department_revenue_expenditure_by_year": {
+      "row_count": 23
+    },
+    "overview_by_year": {
+      "row_count": 11
+    }
+  },
+  "source_card_expected_model": {
+    "dataset_id": "e6354f5d-a44d-4c75-ab7a-a2293b56b83b",
+    "model_id": 897134,
+    "observed_model_refresh_time": "2026-04-01T21:37:44.693"
+  },
+  "source_id": "king_county.open_budget_dashboard"
+}

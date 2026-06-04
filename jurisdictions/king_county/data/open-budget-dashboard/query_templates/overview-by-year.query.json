@@ -1,0 +1,140 @@
+{
+  "version": "1.0.0",
+  "queries": [
+    {
+      "Query": {
+        "Commands": [
+          {
+            "SemanticQueryDataShapeCommand": {
+              "Query": {
+                "Version": 2,
+                "From": [
+                  {
+                    "Name": "y",
+                    "Entity": "Year",
+                    "Type": 0
+                  },
+                  {
+                    "Name": "r",
+                    "Entity": "Revenues",
+                    "Type": 0
+                  },
+                  {
+                    "Name": "e",
+                    "Entity": "Expenditures",
+                    "Type": 0
+                  },
+                  {
+                    "Name": "f",
+                    "Entity": "FTEData",
+                    "Type": 0
+                  }
+                ],
+                "Select": [
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Source": "y"
+                        }
+                      },
+                      "Property": "Year"
+                    },
+                    "Name": "Year.Year",
+                    "NativeReferenceName": "Year"
+                  },
+                  {
+                    "Aggregation": {
+                      "Expression": {
+                        "Column": {
+                          "Expression": {
+                            "SourceRef": {
+                              "Source": "r"
+                            }
+                          },
+                          "Property": "Revenues"
+                        }
+                      },
+                      "Function": 0
+                    },
+                    "Name": "Sum(Revenues.Revenues)",
+                    "NativeReferenceName": "Revenues"
+                  },
+                  {
+                    "Aggregation": {
+                      "Expression": {
+                        "Column": {
+                          "Expression": {
+                            "SourceRef": {
+                              "Source": "e"
+                            }
+                          },
+                          "Property": "Expenditures"
+                        }
+                      },
+                      "Function": 0
+                    },
+                    "Name": "Sum(Expenditures.Expenditures)",
+                    "NativeReferenceName": "Expenditures"
+                  },
+                  {
+                    "Aggregation": {
+                      "Expression": {
+                        "Column": {
+                          "Expression": {
+                            "SourceRef": {
+                              "Source": "f"
+                            }
+                          },
+                          "Property": "Full Time Employees"
+                        }
+                      },
+                      "Function": 0
+                    },
+                    "Name": "Sum(FTEData.FTE)",
+                    "NativeReferenceName": "Full-Time Employees"
+                  }
+                ]
+              },
+              "Binding": {
+                "Primary": {
+                  "Groupings": [
+                    {
+                      "Projections": [
+                        0,
+                        1,
+                        2,
+                        3
+                      ]
+                    }
+                  ]
+                },
+                "DataReduction": {
+                  "DataVolume": 4,
+                  "Primary": {
+                    "Sample": {}
+                  }
+                },
+                "Version": 1
+              },
+              "ExecutionMetricsKind": 1
+            }
+          }
+        ]
+      },
+      "CacheKey": "{\"Commands\":[{\"SemanticQueryDataShapeCommand\":{\"Query\":{\"Version\":2,\"From\":[{\"Name\":\"y\",\"Entity\":\"Year\",\"Type\":0},{\"Name\":\"r\",\"Entity\":\"Revenues\",\"Type\":0},{\"Name\":\"e\",\"Entity\":\"Expenditures\",\"Type\":0},{\"Name\":\"f\",\"Entity\":\"FTEData\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"y\"}},\"Property\":\"Year\"},\"Name\":\"Year.Year\",\"NativeReferenceName\":\"Year\"},{\"Aggregation\":{\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"r\"}},\"Property\":\"Revenues\"}},\"Function\":0},\"Name\":\"Sum(Revenues.Revenues)\",\"NativeReferenceName\":\"Revenues\"},{\"Aggregation\":{\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"e\"}},\"Property\":\"Expenditures\"}},\"Function\":0},\"Name\":\"Sum(Expenditures.Expenditures)\",\"NativeReferenceName\":\"Expenditures\"},{\"Aggregation\":{\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"f\"}},\"Property\":\"Full Time Employees\"}},\"Function\":0},\"Name\":\"Sum(FTEData.FTE)\",\"NativeReferenceName\":\"Full-Time Employees\"}]},\"Binding\":{\"Primary\":{\"Groupings\":[{\"Projections\":[0,1,2,3]}]},\"DataReduction\":{\"DataVolume\":4,\"Primary\":{\"Sample\":{}}},\"Version\":1},\"ExecutionMetricsKind\":1}}]}",
+      "QueryId": "",
+      "ApplicationContext": {
+        "DatasetId": "e6354f5d-a44d-4c75-ab7a-a2293b56b83b",
+        "Sources": [
+          {
+            "ReportId": "f7612801-c399-4a1a-9ec1-20b630c27791",
+            "VisualId": "1b6fddf1e298652e9b58"
+          }
+        ]
+      }
+    }
+  ],
+  "cancelQueries": [],
+  "modelId": 897134
+}

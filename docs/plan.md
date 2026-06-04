@@ -18,10 +18,10 @@ Read https://raw.githubusercontent.com/pejmanjohn/civic-agent/main/skill.md and 
 - [x] Create Seattle jurisdiction skill at `jurisdictions/seattle/skill.md`.
 - [x] Bundle Seattle as a primary-skill reference for Codex plugin installs.
 - [x] Add Seattle source metadata at `jurisdictions/seattle/sources/operating-budget.source.json`.
-- [ ] Dogfood the hosted prompt with 5-6 budget questions.
-- [ ] Tighten the Seattle skill where agents stumble.
+- [x] Publish worked demo answers for the dogfood prompts at `docs/seattle-demo.md`.
+- [x] Tighten the Seattle answer style with compact source/grain/query/caveat traces.
 
-Dogfood prompts:
+Dogfood prompts represented in `docs/seattle-demo.md`:
 
 - Where does Seattle spend the most money in FY2026?
 - Compare Seattle Police Department and Seattle Fire Department from FY2018 to FY2026.
@@ -30,6 +30,20 @@ Dogfood prompts:
 - What are the biggest negative rows in FY2026?
 - How much is labor vs non-labor in FY2026?
 - Make me a chart showing which Seattle departments had the largest budget increases from FY2018 to FY2026.
+
+Formal eval fixtures are deferred until Civic Agent has an answer runner that can check real outputs.
+
+## Phase 1.5: King County
+
+- [x] Add King County as the second source and first report-shaped source.
+- [x] Add `jurisdictions/king_county/skill.md`.
+- [x] Add source metadata at `jurisdictions/king_county/sources/open-budget-dashboard.source.json`.
+- [x] Add reviewed Power BI query templates and a source-specific extractor.
+- [x] Add checked-in normalized snapshot, summary, and provenance for snapshot `2026-04-01`.
+- [x] Add fixture-backed extractor tests for the supported Power BI response shapes.
+- [x] Publish worked King County demo answers at `docs/king-county-demo.md`.
+
+King County intentionally stays narrow: budgeted revenue, budgeted expenditures, and budgeted FTE from the Open Budget Dashboard. It does not add a generic Power BI adapter, contributor scaffold, or cross-jurisdiction comparison model.
 
 ## Phase 2: Washington
 

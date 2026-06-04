@@ -1,0 +1,75 @@
+{
+  "id": "king_county.open_budget_dashboard",
+  "jurisdiction_id": "king_county",
+  "jurisdiction_name": "King County, Washington",
+  "jurisdiction_level": "county",
+  "budget_family": "operating_budget_dashboard",
+  "provider": "King County / Microsoft Power BI Gov",
+  "dataset_name": "King County Open Budget Dashboard",
+  "access_method": "powerbi_snapshot",
+  "official_dashboard_page": "https://kingcounty.gov/en/dept/executive/governance-leadership/performance-strategy-budget/budget/budget-dashboard",
+  "powerbi_report_url": "https://app.powerbigov.us/view?r=eyJrIjoiOTNmYzYwMDEtNWM5ZC00YjllLThlNzAtZDc1OGRjNzA4MmEwIiwidCI6ImJhZTUwNTlhLTc2ZjAtNDlkNy05OTk2LTcyZGZlOTVkNjljNyJ9",
+  "powerbi_resource_key": "93fc6001-5c9d-4b9e-8e70-d758dc7082a0",
+  "powerbi_tenant_id": "bae5059a-76f0-49d7-9996-72dfe95d69c7",
+  "powerbi_api_host": "https://wabi-us-gov-iowa-api.analysis.usgovcloudapi.net",
+  "metadata_endpoint": "https://wabi-us-gov-iowa-api.analysis.usgovcloudapi.net/public/reports/93fc6001-5c9d-4b9e-8e70-d758dc7082a0/modelsAndExploration?preferReadOnlySession=true",
+  "conceptual_schema_endpoint": "https://wabi-us-gov-iowa-api.analysis.usgovcloudapi.net/public/reports/93fc6001-5c9d-4b9e-8e70-d758dc7082a0/conceptualschema",
+  "querydata_endpoint": "https://wabi-us-gov-iowa-api.analysis.usgovcloudapi.net/public/reports/querydata?synchronous=true",
+  "model_id": 897134,
+  "dataset_display_name": "PublicDashboard",
+  "dataset_id": "e6354f5d-a44d-4c75-ab7a-a2293b56b83b",
+  "observed_model_refresh_time": "2026-04-01T21:37:44.693",
+  "snapshot_version": "2026-04-01",
+  "known_years": [2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026, 2027],
+  "primary_measures": [
+    "budgeted_revenue",
+    "budgeted_expenditure",
+    "budgeted_fte"
+  ],
+  "safe_answer_patterns": [
+    "Countywide budgeted revenue and budgeted expenditure totals by dashboard year.",
+    "Countywide budgeted FTE totals by dashboard year.",
+    "FY2026 department-level budgeted revenue and budgeted expenditure rankings.",
+    "FY2026 department-level budgeted FTE rankings.",
+    "Plain-English explanations of what the Open Budget Dashboard supports and does not prove."
+  ],
+  "not_supported_by_this_source": [
+    "Actual spending, payments, invoices, checkbook transactions, procurement activity, or actual revenue collected.",
+    "Realtime county operations, service delivery, incidents, or performance data.",
+    "Personnel rosters, vacancies, employee-level staffing, or HR records.",
+    "Capital project analysis beyond the deferred dashboard entities.",
+    "Seattle, Washington state, school district, or other non-King-County budget analysis.",
+    "Cross-jurisdiction comparisons with Seattle or Washington state until accounting definitions and normalized dimensions are explicit.",
+    "Broad policy conclusions that are not directly supported by the dashboard rows."
+  ],
+  "fields": [
+    {"name": "year", "type": "number"},
+    {"name": "department", "type": "text"},
+    {"name": "budgeted_revenue", "type": "number"},
+    {"name": "budgeted_expenditure", "type": "number"},
+    {"name": "budgeted_fte", "type": "number"}
+  ],
+  "source_entities": {
+    "Year": ["Year"],
+    "AssignmentbyDetailedEntity": ["Department", "Division", "Fund", "Fund Name", "GF", "Type"],
+    "Revenues": ["Year", "Revenues", "Type", "Type Number", "Division", "App / CIP Fund2"],
+    "Expenditures": ["Year", "Expenditures", "Type", "Type Number", "Division", "App / CIP Fund2"],
+    "FTEData": ["Year", "Full Time Employees", "App / CIP Fund2"],
+    "deferred": ["2025CIPDecision", "LatitudeAndLongitude", "FAQ", "KCPopulation"]
+  },
+  "validation_checks": {
+    "overview_years": 11,
+    "fy2026_revenue_total": 8865634686,
+    "fy2026_expenditure_total": 8598795612,
+    "fy2026_department_rows": 22,
+    "fy2026_fte_total": 18333,
+    "fy2026_department_fte_rows": 21
+  },
+  "caveats": [
+    "The dashboard shows authorized or budgeted amounts, not actual spending or actual revenue earned.",
+    "Future years in the dashboard are budget years, not completed actuals.",
+    "Power BI public report endpoints are undocumented; checked-in snapshots are the dependable answer source.",
+    "Department budgets are not the same as total countywide spending on a policy area.",
+    "Capital, FAQ, project map, and population entities exist in the model but are deferred for this first King County source slice."
+  ]
+}

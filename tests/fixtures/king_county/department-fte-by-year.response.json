@@ -1,0 +1,514 @@
+{
+  "jobIds": [
+    "eb7f86bc-57c8-4868-b6cd-695d1ccc758f"
+  ],
+  "results": [
+    {
+      "jobId": "eb7f86bc-57c8-4868-b6cd-695d1ccc758f",
+      "result": {
+        "data": {
+          "timestamp": "2026-06-04T04:19:45.612Z",
+          "rootActivityId": "1d6ab64d-784e-45e4-9567-85ff2d0e43fd",
+          "descriptor": {
+            "Select": [
+              {
+                "Kind": 1,
+                "Depth": 0,
+                "Value": "G0",
+                "GroupKeys": [
+                  {
+                    "Source": {
+                      "Entity": "AssignmentbyDetailedEntity",
+                      "Property": "Department"
+                    },
+                    "Calc": "G0",
+                    "IsSameAsSelect": true
+                  }
+                ],
+                "Name": "AssignmentbyDetailedEntity.Department"
+              },
+              {
+                "Kind": 1,
+                "Depth": 1,
+                "Value": "G1",
+                "GroupKeys": [
+                  {
+                    "Source": {
+                      "Entity": "AssignmentbyDetailedEntity",
+                      "Property": "Division"
+                    },
+                    "Calc": "G1",
+                    "IsSameAsSelect": true
+                  }
+                ],
+                "Name": "AssignmentbyDetailedEntity.Division"
+              },
+              {
+                "Kind": 2,
+                "Value": "M0",
+                "Subtotal": [
+                  "A0",
+                  "A1"
+                ],
+                "Name": "Sum(FTEData.FTE)"
+              }
+            ],
+            "Expressions": {
+              "Primary": {
+                "Groupings": [
+                  {
+                    "Keys": [
+                      {
+                        "Source": {
+                          "Entity": "AssignmentbyDetailedEntity",
+                          "Property": "Department"
+                        },
+                        "Select": 0
+                      }
+                    ],
+                    "Member": "DM1",
+                    "SubtotalMember": "DM0"
+                  },
+                  {
+                    "Keys": [
+                      {
+                        "Source": {
+                          "Entity": "AssignmentbyDetailedEntity",
+                          "Property": "Division"
+                        },
+                        "Select": 1
+                      }
+                    ],
+                    "Member": "DM3",
+                    "SubtotalMember": "DM2"
+                  }
+                ]
+              }
+            },
+            "Version": 2
+          },
+          "metrics": {
+            "Version": "1.0.0",
+            "Events": [
+              {
+                "Id": "e39a5efc-02ca-45d8-a2e1-e54342bdbdac",
+                "Name": "Execute Semantic Query",
+                "Component": "DSE",
+                "Start": "2026-06-04T04:19:45.6121452Z",
+                "End": "2026-06-04T04:19:45.752771Z"
+              },
+              {
+                "Id": "45dbc754-47aa-4ea3-96ea-215a81708c14",
+                "ParentId": "e39a5efc-02ca-45d8-a2e1-e54342bdbdac",
+                "Name": "Execute DAX Query",
+                "Component": "DSE",
+                "Start": "2026-06-04T04:19:45.7215193Z",
+                "End": "2026-06-04T04:19:45.752771Z",
+                "Metrics": {
+                  "RowCount": 23
+                }
+              },
+              {
+                "Id": "5BB4F17C-D214-4DE8-992A-AD3CC58A9492",
+                "ParentId": "45dbc754-47aa-4ea3-96ea-215a81708c14",
+                "Name": "Execute Query",
+                "Component": "AS",
+                "Start": "2026-06-04T04:19:45.75Z",
+                "End": "2026-06-04T04:19:45.76Z"
+              },
+              {
+                "Id": "2C123E7B-C3C9-4467-84A8-6B3FF23ACF87",
+                "ParentId": "5BB4F17C-D214-4DE8-992A-AD3CC58A9492",
+                "Name": "Serialize Rowset",
+                "Component": "AS",
+                "Start": "2026-06-04T04:19:45.76Z",
+                "End": "2026-06-04T04:19:45.76Z"
+              }
+            ]
+          },
+          "fromCache": false,
+          "dsr": {
+            "Version": 2,
+            "MinorVersion": 1,
+            "DS": [
+              {
+                "N": "DS0",
+                "PH": [
+                  {
+                    "DM0": [
+                      {
+                        "S": [
+                          {
+                            "N": "A0",
+                            "T": 4
+                          }
+                        ],
+                        "A0": 18333
+                      }
+                    ]
+                  },
+                  {
+                    "DM1": [
+                      {
+                        "S": [
+                          {
+                            "N": "G0",
+                            "T": 1
+                          }
+                        ],
+                        "G0": "DAJD - Adult and Juvenile Detention",
+                        "M": [
+                          {
+                            "DM2": [
+                              {
+                                "S": [
+                                  {
+                                    "N": "A1",
+                                    "T": 4
+                                  }
+                                ],
+                                "A1": 944
+                              }
+                            ]
+                          },
+                          {
+                            "DM3": []
+                          }
+                        ]
+                      },
+                      {
+                        "G0": "DCHS - Community and Human Services",
+                        "M": [
+                          {
+                            "DM2": [
+                              {
+                                "A1": 759
+                              }
+                            ]
+                          },
+                          {
+                            "DM3": []
+                          }
+                        ]
+                      },
+                      {
+                        "G0": "DES - Executive Services",
+                        "M": [
+                          {
+                            "DM2": [
+                              {
+                                "A1": 1041
+                              }
+                            ]
+                          },
+                          {
+                            "DM3": []
+                          }
+                        ]
+                      },
+                      {
+                        "G0": "DHR - Human Resources",
+                        "M": [
+                          {
+                            "DM2": [
+                              {
+                                "A1": 207
+                              }
+                            ]
+                          },
+                          {
+                            "DM3": []
+                          }
+                        ]
+                      },
+                      {
+                        "G0": "DJA - Judicial Administration",
+                        "M": [
+                          {
+                            "DM2": [
+                              {
+                                "A1": 222
+                              }
+                            ]
+                          },
+                          {
+                            "DM3": []
+                          }
+                        ]
+                      },
+                      {
+                        "G0": "DLS - Local Services",
+                        "M": [
+                          {
+                            "DM2": [
+                              {
+                                "A1": 582
+                              }
+                            ]
+                          },
+                          {
+                            "DM3": []
+                          }
+                        ]
+                      },
+                      {
+                        "G0": "DNRP - Natural Resources and Parks",
+                        "M": [
+                          {
+                            "DM2": [
+                              {
+                                "A1": 2435
+                              }
+                            ]
+                          },
+                          {
+                            "DM3": []
+                          }
+                        ]
+                      },
+                      {
+                        "G0": "DOA - Assessments",
+                        "M": [
+                          {
+                            "DM2": [
+                              {
+                                "A1": 210
+                              }
+                            ]
+                          },
+                          {
+                            "DM3": []
+                          }
+                        ]
+                      },
+                      {
+                        "G0": "DPD - Public Defense",
+                        "M": [
+                          {
+                            "DM2": [
+                              {
+                                "A1": 544
+                              }
+                            ]
+                          },
+                          {
+                            "DM3": []
+                          }
+                        ]
+                      },
+                      {
+                        "G0": "DPH - Public Health",
+                        "M": [
+                          {
+                            "DM2": [
+                              {
+                                "A1": 1710
+                              }
+                            ]
+                          },
+                          {
+                            "DM3": []
+                          }
+                        ]
+                      },
+                      {
+                        "G0": "EXEC - Executive",
+                        "M": [
+                          {
+                            "DM2": [
+                              {
+                                "A1": 140
+                              }
+                            ]
+                          },
+                          {
+                            "DM3": []
+                          }
+                        ]
+                      },
+                      {
+                        "G0": "IND - Independent",
+                        "M": [
+                          {
+                            "DM2": [
+                              {
+                                "A1": 3
+                              }
+                            ]
+                          },
+                          {
+                            "DM3": []
+                          }
+                        ]
+                      },
+                      {
+                        "G0": "KCC - County Council",
+                        "M": [
+                          {
+                            "DM2": [
+                              {
+                                "A1": 170
+                              }
+                            ]
+                          },
+                          {
+                            "DM3": []
+                          }
+                        ]
+                      },
+                      {
+                        "G0": "KCDC - District Court",
+                        "M": [
+                          {
+                            "DM2": [
+                              {
+                                "A1": 251
+                              }
+                            ]
+                          },
+                          {
+                            "DM3": []
+                          }
+                        ]
+                      },
+                      {
+                        "G0": "KCE - Elections",
+                        "M": [
+                          {
+                            "DM2": [
+                              {
+                                "A1": 72
+                              }
+                            ]
+                          },
+                          {
+                            "DM3": [
+                              {
+                                "S": [
+                                  {
+                                    "N": "G1",
+                                    "T": 1,
+                                    "DN": "D0"
+                                  },
+                                  {
+                                    "N": "M0",
+                                    "T": 4
+                                  }
+                                ],
+                                "C": [
+                                  0,
+                                  72
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "G0": "KCIT - Information Technology",
+                        "M": [
+                          {
+                            "DM2": [
+                              {
+                                "A1": 471
+                              }
+                            ]
+                          },
+                          {
+                            "DM3": []
+                          }
+                        ]
+                      },
+                      {
+                        "G0": "KCSC - Superior Court",
+                        "M": [
+                          {
+                            "DM2": [
+                              {
+                                "A1": 379
+                              }
+                            ]
+                          },
+                          {
+                            "DM3": []
+                          }
+                        ]
+                      },
+                      {
+                        "G0": "KCSO - Sheriff's Office",
+                        "M": [
+                          {
+                            "DM2": [
+                              {
+                                "A1": 1246
+                              }
+                            ]
+                          },
+                          {
+                            "DM3": []
+                          }
+                        ]
+                      },
+                      {
+                        "G0": "MTD - Metro Transit",
+                        "M": [
+                          {
+                            "DM2": [
+                              {
+                                "A1": 6373
+                              }
+                            ]
+                          },
+                          {
+                            "DM3": []
+                          }
+                        ]
+                      },
+                      {
+                        "G0": "Non KC",
+                        "M": [
+                          {
+                            "DM2": [
+                              {
+                                "A1": 2
+                              }
+                            ]
+                          },
+                          {
+                            "DM3": []
+                          }
+                        ]
+                      },
+                      {
+                        "G0": "PAO - Prosecuting Attorney's Office",
+                        "M": [
+                          {
+                            "DM2": [
+                              {
+                                "A1": 572
+                              }
+                            ]
+                          },
+                          {
+                            "DM3": []
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ],
+                "IC": true,
+                "HAD": true,
+                "ValueDicts": {
+                  "D0": [
+                    "Elections"
+                  ]
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  ]
+}

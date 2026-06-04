@@ -1,5 +1,8 @@
 # Example Prompts
 
+Worked answers for these Seattle prompts are in `docs/seattle-demo.md`.
+Worked answers for King County prompts are in `docs/king-county-demo.md`.
+
 ## Fresh Agent
 
 ```text
@@ -14,6 +17,14 @@ Read https://raw.githubusercontent.com/pejmanjohn/civic-agent/main/skill.md and 
 Read https://raw.githubusercontent.com/pejmanjohn/civic-agent/main/skill.md and tell me where Seattle spends the most money in FY2026.
 ```
 
+```text
+Read https://raw.githubusercontent.com/pejmanjohn/civic-agent/main/skill.md and show the largest King County FY2026 department budgets.
+```
+
+```text
+Read https://raw.githubusercontent.com/pejmanjohn/civic-agent/main/skill.md and summarize King County budgeted revenue, budgeted expenditures, and FTE by year.
+```
+
 ## Installed Skill / Slash-Style Host
 
 If the host exposes `skills/civic-agent/SKILL.md` as `/civic-agent`:
@@ -26,10 +37,22 @@ If the host exposes `skills/civic-agent/SKILL.md` as `/civic-agent`:
 /civic-agent where does Seattle spend the most money in FY2026?
 ```
 
+```text
+/civic-agent show King County FY2026 departments by budgeted expenditure
+```
+
+```text
+/civic-agent which King County departments have the most budgeted FTE in FY2026?
+```
+
 With a data/charting plugin:
 
 ```text
 @data-analytics /civic-agent make me a chart showing which Seattle departments had the largest budget increases from 2018 to 2026.
+```
+
+```text
+@data-analytics /civic-agent make me a chart of King County FY2026 department budgeted expenditures.
 ```
 
 Slash command behavior is host-specific. The repo provides the installable router skill; the host decides whether it appears as `/civic-agent`.
