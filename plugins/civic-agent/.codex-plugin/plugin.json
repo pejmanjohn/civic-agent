@@ -1,6 +1,6 @@
 {
   "name": "civic-agent",
-  "version": "0.1.0+codex.20260603195325",
+  "version": "0.1.0+codex.20260604053655",
   "description": "Analyze civic budget and public finance data through routed jurisdiction skills.",
   "author": {
     "name": "Pejman Pour-Moezzi",
