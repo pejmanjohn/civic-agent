@@ -1,3 +1,4 @@
+import importlib.util
 import json
 import re
 import unittest
@@ -6,6 +7,8 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 TAXONOMY_PATH = ROOT / "docs" / "coverage-taxonomy.md"
+MATRIX_PATH = ROOT / "docs" / "coverage-matrix.md"
+SCRIPT_PATH = ROOT / "scripts" / "coverage.py"
 SOURCE_ROOT = ROOT / "jurisdictions"
 
 EXPECTED_ACTIVE_CATEGORIES = {
@@ -25,6 +28,12 @@ FORBIDDEN_UNSUPPORTED_PATTERNS = [
     re.compile(r"\bking county\s+(does not|doesn't|lacks|has no)\b", re.I),
     re.compile(r"\bwashington(?: state)?\s+(does not|doesn't|lacks|has no)\b", re.I),
 ]
+
+
+spec = importlib.util.spec_from_file_location("coverage_renderer", SCRIPT_PATH)
+coverage_renderer = importlib.util.module_from_spec(spec)
+assert spec.loader is not None
+spec.loader.exec_module(coverage_renderer)
 
 
 def load_json(path):
@@ -144,6 +153,46 @@ class SourceCoverageTest(unittest.TestCase):
                 self.assertIn("unsupported by this source", reason.lower())
                 for pattern in FORBIDDEN_UNSUPPORTED_PATTERNS:
                     self.assertIsNone(pattern.search(reason), reason)
+
+
+class CoverageRendererTest(unittest.TestCase):
+    def test_rollup_status_distinguishes_not_yet_probed_from_unsupported(self):
+        self.assertEqual(
+            coverage_renderer.rollup_status([]),
+            ("not-yet-probed", [], "No reviewed source card claim."),
+        )
+        source = {"id": "example.source"}
+        unsupported = {"status": "unsupported"}
+        status, sources, notes = coverage_renderer.rollup_status([(source, unsupported)])
+        self.assertEqual(status, "unsupported-by-reviewed-source")
+        self.assertEqual(sources, ["example.source"])
+        self.assertIn("source-scoped", notes)
+
+    def test_rollup_status_prefers_supported_claims_over_unsupported_claims(self):
+        supported_source = {"id": "example.supported"}
+        unsupported_source = {"id": "example.unsupported"}
+        status, sources, _ = coverage_renderer.rollup_status(
+            [
+                (unsupported_source, {"status": "unsupported"}),
+                (supported_source, {"status": "supported"}),
+            ]
+        )
+        self.assertEqual(status, "supported")
+        self.assertEqual(sources, ["example.supported"])
+
+    def test_checked_in_matrix_matches_renderer_output(self):
+        rendered = coverage_renderer.render_markdown(
+            coverage_renderer.parse_taxonomy(TAXONOMY_PATH),
+            coverage_renderer.load_source_cards(),
+        )
+        self.assertEqual(MATRIX_PATH.read_text(encoding="utf-8"), rendered)
+
+    def test_renderer_has_no_network_fetch_dependencies(self):
+        script = SCRIPT_PATH.read_text(encoding="utf-8")
+        self.assertNotIn("requests", script)
+        self.assertNotIn("urllib", script)
+        self.assertNotIn("http.client", script)
+        self.assertNotIn("socket", script)
 
 
 if __name__ == "__main__":
