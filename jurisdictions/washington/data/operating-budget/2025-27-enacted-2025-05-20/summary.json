@@ -48,6 +48,188 @@
     "version_summary": 28
   },
   "snapshot_version": "2025-27-enacted-2025-05-20",
+  "source_fingerprint": {
+    "checks": {
+      "agency_function_totals_match": true,
+      "default_fund_view_agency_rows": 102,
+      "default_fund_view_functional_area_rows": 11,
+      "default_fund_view_total": 150411096000,
+      "historical_agency_totals_match": true,
+      "historical_current_overlap_matches": true,
+      "historical_current_overlap_total": 150411096000,
+      "historical_functional_area_totals_match": true,
+      "historical_totals_by_biennium": {
+        "2013-15": 66522466000,
+        "2015-17": 78888305000,
+        "2017-19": 88274413000,
+        "2019-21": 99705964000,
+        "2021-23": 121732757000,
+        "2023-25": 133609941000,
+        "2025-27": 150411096000
+      },
+      "totals_by_fund_view": {
+        "Outlook Funds (NGF-O)": 77857672000,
+        "Total Budgeted": 150411096000
+      }
+    },
+    "integrity": {
+      "query_templates": {
+        "agency_by_fund_view": {
+          "response_sha256": "71143491ccb6998d5a4b5777a9c24dc34bb397066a88320bc95236691b027d43",
+          "source_surface_id": "current_biennial_summary_powerbi",
+          "template_path": "jurisdictions/washington/data/operating-budget/query_templates/agency-by-fund-view.query.json",
+          "template_sha256": "cde33640ba5042c88576ae7d25023ce66cc7040d9eff9198045a62ba5c1e2577",
+          "visual_id": "codex_agency_by_fund_view"
+        },
+        "functional_area_by_fund_view": {
+          "response_sha256": "ada68a0cadf79ce4f05a38ea9ab13685d474416f67f3de891a2ce813cf403e37",
+          "source_surface_id": "current_biennial_summary_powerbi",
+          "template_path": "jurisdictions/washington/data/operating-budget/query_templates/functional-area-by-fund-view.query.json",
+          "template_sha256": "84342db366fb7786c686df747a3d0d8e2e131b2c8a772c61cdcdceae8b5986b5",
+          "visual_id": "codex_functional_area_by_fund_view"
+        },
+        "historical_agency_by_biennium": {
+          "response_sha256": "962fa9d9a9869f0db11b597400b24a6fb537e6eaafd998273370d31d1c212cf8",
+          "source_surface_id": "prior_summary_powerbi",
+          "template_path": "jurisdictions/washington/data/operating-budget/query_templates/historical-agency-by-biennium.query.json",
+          "template_sha256": "e0986614efc55b54f25fc70ab6541ffea8b7a440209372e9c871416142fc284b",
+          "visual_id": "codex_historical_agency_by_biennium"
+        },
+        "historical_biennium_summary": {
+          "response_sha256": "eb9c98e962bc5b2c82ed3e81814e43182a3490608e0105947ccfb61bf39a9208",
+          "source_surface_id": "prior_summary_powerbi",
+          "template_path": "jurisdictions/washington/data/operating-budget/query_templates/historical-biennium-summary.query.json",
+          "template_sha256": "9588e3e4555bb0366420b86cc3610071cb4675fe5bafb2fdf04a23c3e525e816",
+          "visual_id": "codex_historical_biennium_summary"
+        },
+        "historical_functional_area_by_biennium": {
+          "response_sha256": "caaa24a0b1e873c1f1dcb73a9493c549069f8b44fa8c0605b19deb360983d78c",
+          "source_surface_id": "prior_summary_powerbi",
+          "template_path": "jurisdictions/washington/data/operating-budget/query_templates/historical-functional-area-by-biennium.query.json",
+          "template_sha256": "e5ae2fede535c39e57cd8f3583f0bfaade38940f15c33c578e08d8a73a2cccbe",
+          "visual_id": "codex_historical_functional_area_by_biennium"
+        },
+        "version_summary": {
+          "response_sha256": "5713ecd4c8d044facce9f4d8f41cb227729f6f15ff935c45f15fa5727249a6dd",
+          "source_surface_id": "current_biennial_summary_powerbi",
+          "template_path": "jurisdictions/washington/data/operating-budget/query_templates/version-summary.query.json",
+          "template_sha256": "821cd252acee8767918ade9c99c8166838cfd279c75256180bc1e53326bfe178",
+          "visual_id": "codex_version_summary"
+        }
+      },
+      "response_metrics": {
+        "agency_by_fund_view": {
+          "row_count": 187
+        },
+        "functional_area_by_fund_view": {
+          "row_count": 22
+        },
+        "historical_agency_by_biennium": {
+          "row_count": 609
+        },
+        "historical_biennium_summary": {
+          "row_count": 7
+        },
+        "historical_functional_area_by_biennium": {
+          "row_count": 66
+        },
+        "version_summary": {
+          "row_count": 28
+        }
+      },
+      "source_card_expected_models": {
+        "current_biennial_summary_powerbi": {
+          "dataset_id": "ae27b156-31b3-420a-a565-9dfb90d76d2d",
+          "model_id": 12288560,
+          "observed_model_refresh_time": "2025-07-22T17:18:33.94"
+        },
+        "prior_summary_powerbi": {
+          "dataset_id": "455d50dc-30a0-4ce5-b242-575b33611899",
+          "model_id": 10692770,
+          "observed_model_refresh_time": "2025-12-29T18:08:24.87"
+        }
+      }
+    },
+    "machine_access": {
+      "accepted_source_surfaces": [
+        "current_biennial_summary_powerbi",
+        "prior_summary_powerbi"
+      ],
+      "api_host": "https://wabi-west-us-api.analysis.windows.net",
+      "querydata_endpoint": "https://wabi-west-us-api.analysis.windows.net/public/reports/querydata?synchronous=true",
+      "type": "powerbi"
+    },
+    "public_inspection_urls": [
+      "https://fiscal.wa.gov/statebudgets/operatingsummarycomparisonbien",
+      "https://fiscal.wa.gov/statebudgets/operatingsummarygraphicprior",
+      "https://fiscal.wa.gov/statebudgets/operatingbudgetmain",
+      "https://ofm.wa.gov/budget/",
+      "https://app.powerbi.com/view?r=eyJrIjoiYjMzNmE2MDMtMWY2Ni00NjVkLWFmN2YtZWI4YjE3MjhkNTgzIiwidCI6ImI0ZWIwY2NmLTAxOTQtNDY2My1hNTZhLTllZDkxZWZkMzMwOCIsImMiOjZ9"
+    ],
+    "retrieval_context": {
+      "current_surface": {
+        "dataset_id": "ae27b156-31b3-420a-a565-9dfb90d76d2d",
+        "model_id": 12288560,
+        "powerbi_resource_key": "b336a603-1f66-465d-af7f-eb8b1728d583",
+        "report_id": "6e5a7010-5733-4b49-9a98-71edd8041d57",
+        "source_surface_id": "current_biennial_summary_powerbi"
+      },
+      "filters": {
+        "biennium": "2025-27",
+        "budget_version_filter": "Enacted - 5/20/2025",
+        "default_trend": {
+          "budget_state": "enacted",
+          "budget_version": "Enacted",
+          "fund_view": "Total Budgeted",
+          "period_type": "biennium",
+          "revision_scope": "base",
+          "session_type": "R1"
+        },
+        "fund_views": [
+          "Outlook Funds (NGF-O)",
+          "Total Budgeted"
+        ]
+      },
+      "historical_surface": {
+        "dataset_id": "455d50dc-30a0-4ce5-b242-575b33611899",
+        "model_id": 10692770,
+        "powerbi_resource_key": "7d2bb9ca-280e-4947-8038-bf6c6324e722",
+        "report_id": "a86320fb-86a0-4f87-b52b-6012c7d066cf",
+        "source_surface_id": "prior_summary_powerbi"
+      },
+      "query_templates": [
+        "version_summary",
+        "agency_by_fund_view",
+        "functional_area_by_fund_view",
+        "historical_biennium_summary",
+        "historical_agency_by_biennium",
+        "historical_functional_area_by_biennium"
+      ]
+    },
+    "row_counts": {
+      "agency_by_fund_view": 187,
+      "functional_area_by_fund_view": 22,
+      "historical_agency_by_biennium": 711,
+      "historical_biennium_summary": 7,
+      "historical_functional_area_by_biennium": 77,
+      "version_summary": 28
+    },
+    "version_boundary": {
+      "biennium": "2025-27",
+      "current_surface_refresh_time": "2025-07-22T17:18:33.94",
+      "historical_biennia": [
+        "2013-15",
+        "2015-17",
+        "2017-19",
+        "2019-21",
+        "2021-23",
+        "2023-25",
+        "2025-27"
+      ],
+      "historical_surface_refresh_time": "2025-12-29T18:08:24.87",
+      "snapshot_version": "2025-27-enacted-2025-05-20"
+    }
+  },
   "source_id": "washington.operating_budget",
   "surface_refresh_times": {
     "current_biennial_summary_powerbi": "2025-07-22T17:18:33.94",

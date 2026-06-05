@@ -65,6 +65,8 @@ class WashingtonRevenueExtractTest(unittest.TestCase):
     def test_snapshot_summary_captures_historical_coverage_and_current_partial_status(self):
         summary = load_json(SNAPSHOT_DIR / "summary.json")
         self.assertEqual(summary["source_id"], "washington.revenue_by_biennium")
+        self.assertEqual(summary["source_fingerprint"]["row_counts"], summary["row_counts"])
+        self.assertIn("exports", summary["source_fingerprint"]["integrity"])
         self.assertEqual(summary["actual_data_through"], "2026-04")
         self.assertEqual(summary["actual_data_through_label"], "Actual Data Through April 2026")
         self.assertEqual(summary["row_counts"]["general_fund_revenue_by_biennium"], 12)
@@ -145,8 +147,12 @@ class WashingtonRevenueExtractTest(unittest.TestCase):
             )
 
     def test_provenance_records_reportviewer_exports(self):
+        summary = load_json(SNAPSHOT_DIR / "summary.json")
         provenance = load_json(SNAPSHOT_DIR / "provenance.json")
         self.assertEqual(provenance["access_method"], "reportviewer_snapshot")
+        self.assertIn("source_fingerprint", provenance)
+        self.assertEqual(provenance["source_fingerprint"]["row_counts"], summary["row_counts"])
+        self.assertIn("exports", provenance["source_fingerprint"]["integrity"])
         self.assertEqual(provenance["actual_data_through"], "2026-04")
         self.assertEqual(provenance["actual_data_through_label"], "Actual Data Through April 2026")
         self.assertEqual(provenance["actual_data_through_precision"], "month")
@@ -162,6 +168,36 @@ class WashingtonRevenueExtractTest(unittest.TestCase):
         self.assertRegex(current_export["xml_sha256"], r"^[0-9a-f]{64}$")
         self.assertRegex(current_export["xlsx_sha256"], r"^[0-9a-f]{64}$")
         self.assertRegex(current_export["csv_sha256"], r"^[0-9a-f]{64}$")
+
+    def test_build_provenance_uses_normalized_row_counts_in_fingerprint(self):
+        source = load_json(SOURCE_CARD_PATH)
+        row_counts = {
+            "general_fund_revenue_by_biennium": 1,
+            "general_fund_revenue_by_area_account": 2,
+        }
+        export_metadata = {
+            "2025-27": {
+                "csv_row_count": 3,
+                "csv_sha256": "a" * 64,
+                "xlsx_sha256": "b" * 64,
+                "xml_sha256": "c" * 64,
+            }
+        }
+
+        provenance = extract.build_provenance(
+            source,
+            export_metadata,
+            "2026-06-05T00:00:00+00:00",
+            row_counts=row_counts,
+        )
+
+        self.assertEqual(provenance["source_fingerprint"]["row_counts"], row_counts)
+        self.assertEqual(
+            provenance["source_fingerprint"]["integrity"]["exports"]["2025-27"][
+                "csv_row_count"
+            ],
+            3,
+        )
 
     def test_parse_revenue_xml_handles_known_report_shape(self):
         xml = b"""<?xml version="1.0" encoding="utf-8"?>

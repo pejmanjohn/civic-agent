@@ -35,6 +35,62 @@
       "url": "https://fiscal.wa.gov/Spending/DisclaimerWAVendorCB.pdf"
     }
   ],
+  "source_fingerprint": {
+    "public_inspection_urls": [
+      "https://fiscal.wa.gov/Spending/Checkbook.aspx",
+      "https://fiscal.wa.gov/Spending/VendorPayments2527.xlsx",
+      "https://fiscal.wa.gov/Spending/ObjectSubObjectDefinitions.pdf",
+      "https://fiscal.wa.gov/Spending/DisclaimerWAVendorCB.pdf"
+    ],
+    "machine_access": {
+      "type": "official_bulk_download",
+      "accepted_source_surfaces": [
+        "vendor_payments_2013_15_xlsx",
+        "vendor_payments_2015_17_xlsx",
+        "vendor_payments_2017_19_xlsx",
+        "vendor_payments_2019_21_xlsx",
+        "vendor_payments_2021_23_xlsx",
+        "vendor_payments_2023_25_xlsx",
+        "vendor_payments_2025_27_xlsx"
+      ],
+      "current_file_url": "https://fiscal.wa.gov/Spending/VendorPayments2527.xlsx"
+    },
+    "retrieval_context": {
+      "file_family": "Fiscal WA VendorPayments{biennium}.xlsx",
+      "local_artifacts": ["raw_source_file", "local_database", "manifest"],
+      "database_table": "payments",
+      "query_grains": ["biennium", "fiscal_year", "fiscal_month", "agency", "category", "subcategory", "vendor"]
+    },
+    "version_boundary": {
+      "historical_biennia": ["2013-15", "2015-17", "2017-19", "2019-21", "2021-23", "2023-25", "2025-27"],
+      "current_biennium": "2025-27",
+      "current_data_through": "2026-04",
+      "current_data_through_label": "Payments through April 2026",
+      "current_file_last_modified": "Tue, 26 May 2026 23:51:24 GMT",
+      "current_file_content_length": 22019618
+    },
+    "row_counts": {
+      "current_file_rows": 382783,
+      "current_file_periods": 10,
+      "historical_files_available": 7
+    },
+    "checks": {
+      "current_file_data_through": "2026-04",
+      "current_file_agency_count": 100,
+      "historical_file_total_content_length": 411417899,
+      "current_file_categories": [
+        "Capital Outlays",
+        "Cost Of Goods Sold",
+        "Debt Service",
+        "Goods and Services",
+        "Grants, Benefits & Client Services",
+        "Interagency Reimbursements",
+        "Intra-Agency Reimbursements",
+        "Personal Service Contracts",
+        "Travel"
+      ]
+    }
+  },
   "powerbi_report_url": "https://app.powerbi.com/view?r=eyJrIjoiOGU4N2VmNjMtZDA4Ny00OGI0LTk0YWYtNDUwZjExNTc1NGJkIiwidCI6ImI0ZWIwY2NmLTAxOTQtNDY2My1hNTZhLTllZDkxZWZkMzMwOCIsImMiOjZ9",
   "current_biennium": "2025-27",
   "current_file_url": "https://fiscal.wa.gov/Spending/VendorPayments2527.xlsx",

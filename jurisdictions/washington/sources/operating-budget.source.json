@@ -40,6 +40,82 @@
       "url": "https://app.powerbi.com/view?r=eyJrIjoiYjMzNmE2MDMtMWY2Ni00NjVkLWFmN2YtZWI4YjE3MjhkNTgzIiwidCI6ImI0ZWIwY2NmLTAxOTQtNDY2My1hNTZhLTllZDkxZWZkMzMwOCIsImMiOjZ9"
     }
   ],
+  "source_fingerprint": {
+    "public_inspection_urls": [
+      "https://fiscal.wa.gov/statebudgets/operatingsummarycomparisonbien",
+      "https://fiscal.wa.gov/statebudgets/operatingsummarygraphicprior",
+      "https://fiscal.wa.gov/statebudgets/operatingbudgetmain",
+      "https://ofm.wa.gov/budget/",
+      "https://app.powerbi.com/view?r=eyJrIjoiYjMzNmE2MDMtMWY2Ni00NjVkLWFmN2YtZWI4YjE3MjhkNTgzIiwidCI6ImI0ZWIwY2NmLTAxOTQtNDY2My1hNTZhLTllZDkxZWZkMzMwOCIsImMiOjZ9"
+    ],
+    "machine_access": {
+      "type": "powerbi",
+      "accepted_source_surfaces": [
+        "current_biennial_summary_powerbi",
+        "prior_summary_powerbi"
+      ],
+      "api_host": "https://wabi-west-us-api.analysis.windows.net",
+      "querydata_endpoint": "https://wabi-west-us-api.analysis.windows.net/public/reports/querydata?synchronous=true"
+    },
+    "retrieval_context": {
+      "current_surface": {
+        "source_surface_id": "current_biennial_summary_powerbi",
+        "powerbi_resource_key": "b336a603-1f66-465d-af7f-eb8b1728d583",
+        "model_id": 12288560,
+        "report_id": "6e5a7010-5733-4b49-9a98-71edd8041d57",
+        "dataset_id": "ae27b156-31b3-420a-a565-9dfb90d76d2d"
+      },
+      "historical_surface": {
+        "source_surface_id": "prior_summary_powerbi",
+        "powerbi_resource_key": "7d2bb9ca-280e-4947-8038-bf6c6324e722",
+        "model_id": 10692770,
+        "report_id": "a86320fb-86a0-4f87-b52b-6012c7d066cf",
+        "dataset_id": "455d50dc-30a0-4ce5-b242-575b33611899"
+      },
+      "filters": {
+        "biennium": "2025-27",
+        "budget_version_filter": "Enacted - 5/20/2025",
+        "fund_views": ["Outlook Funds (NGF-O)", "Total Budgeted"],
+        "default_trend": {
+          "period_type": "biennium",
+          "fund_view": "Total Budgeted",
+          "budget_state": "enacted",
+          "revision_scope": "base",
+          "budget_version": "Enacted",
+          "session_type": "R1"
+        }
+      },
+      "query_templates": [
+        "version_summary",
+        "agency_by_fund_view",
+        "functional_area_by_fund_view",
+        "historical_biennium_summary",
+        "historical_agency_by_biennium",
+        "historical_functional_area_by_biennium"
+      ]
+    },
+    "version_boundary": {
+      "snapshot_version": "2025-27-enacted-2025-05-20",
+      "current_surface_refresh_time": "2025-07-22T17:18:33.94",
+      "historical_surface_refresh_time": "2025-12-29T18:08:24.87",
+      "biennium": "2025-27",
+      "historical_biennia": ["2013-15", "2015-17", "2017-19", "2019-21", "2021-23", "2023-25", "2025-27"]
+    },
+    "row_counts": {
+      "version_summary": 28,
+      "agency_by_fund_view": 187,
+      "functional_area_by_fund_view": 22,
+      "historical_biennium_summary": 7,
+      "historical_agency_by_biennium": 711,
+      "historical_functional_area_by_biennium": 77
+    },
+    "checks": {
+      "default_fund_view_total": 150411096000,
+      "outlook_funds_total": 77857672000,
+      "agency_function_totals_match": true,
+      "historical_current_overlap_matches": true
+    }
+  },
   "powerbi_resource_key": "b336a603-1f66-465d-af7f-eb8b1728d583",
   "powerbi_tenant_id": "b4eb0ccf-0194-4663-a56a-9ed91efd3308",
   "powerbi_api_host": "https://wabi-west-us-api.analysis.windows.net",

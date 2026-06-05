@@ -123,7 +123,7 @@ Do not use Washington for procurement contract terms, invoices, payroll, staffin
 3. Read the matching jurisdiction skill file.
 4. Use that skill's official data sources, query recipes, validation checks, caveats, and answer style.
 5. For managed local database sources such as `washington.open_checkbook`, inspect status first. If setup is missing and the host can run the repo CLI, ensure the source; otherwise report that managed local data is not set up.
-6. For source-backed answers, include a compact trace: source, grain, measure, filters/query logic, validation check or row count when useful, and caveats.
+6. For source-backed answers, include a compact trace: source, public source URL or source-surface id when useful, snapshot/local data version or data-through boundary, grain, measure, filters/query logic, validation check or row count when useful, and caveats.
 7. If the user asks for a chart, compute the data first and then use available chart/data-visualization tools to render it.
 8. If no matching jurisdiction exists, say that Civic Agent does not yet include that jurisdiction.
 

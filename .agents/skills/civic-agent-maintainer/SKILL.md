@@ -1,7 +1,7 @@
 ---
 name: civic-agent-maintainer
 description: Use when maintaining Civic Agent itself: refreshing the local dev plugin, checking package/install freshness, smoke testing source routes, or diagnosing stale @civic-agent installs.
-argument-hint: "[refresh dev | status | verify | smoke | package check]"
+argument-hint: "[refresh dev | status | verify | validate sources | smoke | package check]"
 ---
 
 # Civic Agent Maintainer
@@ -74,6 +74,22 @@ python3 scripts/package_plugin.py --check
 
 If stale generated references are reported, refresh with `python3 scripts/package_plugin.py` unless the user explicitly asked for a read-only check.
 
+### Validate source data
+
+When the user asks whether sources, snapshots, fingerprints, or managed data are ready:
+
+```bash
+python3 scripts/source_data.py --json validate --all
+```
+
+For one source:
+
+```bash
+python3 scripts/source_data.py --json validate <source_id>
+```
+
+Use `--refresh-check` only when the user is explicitly asking whether an official source may have drifted. Default validation is offline: it checks source fingerprints, checked-in snapshots, and existing managed local databases without downloading data. A managed local source can validly report `missing`; if the user wants to answer from it, run `ensure` or `refresh` for that source.
+
 ## Rules
 
 - Keep `jurisdictions/` and `skills/civic-agent/` as the canonical source.
@@ -81,3 +97,4 @@ If stale generated references are reported, refresh with `python3 scripts/packag
 - Do not hand-maintain a second dev router skill in the repo.
 - Do not use `@civic-agent-dev` for generic budget questions unless the user explicitly asks to test local development behavior.
 - Never claim the current thread has loaded a newly installed plugin. Tell the user to open a new thread for `@civic-agent-dev` smoke tests.
+- Do not imply validation audits every row or changes answer routing. Validation checks readiness; normal answers still use the source card's storage policy.

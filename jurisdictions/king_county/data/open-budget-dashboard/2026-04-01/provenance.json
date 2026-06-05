@@ -159,5 +159,103 @@
     "model_id": 897134,
     "observed_model_refresh_time": "2026-04-01T21:37:44.693"
   },
+  "source_fingerprint": {
+    "checks": {
+      "fy2026_department_expenditure_total": 8598795612,
+      "fy2026_department_fte_rows": 21,
+      "fy2026_department_fte_total": 18333,
+      "fy2026_department_revenue_total": 8865634686,
+      "fy2026_department_rows": 22,
+      "fy2026_expenditure_total": 8598795612,
+      "fy2026_fte_total": 18333,
+      "fy2026_revenue_total": 8865634686
+    },
+    "integrity": {
+      "query_templates": {
+        "department_fte_by_year": {
+          "response_sha256": "9190edfe3a271929a2f3924afdd04e681e5fd6184eb9c22ba0dbe686112ffdde",
+          "template_path": "jurisdictions/king_county/data/open-budget-dashboard/query_templates/department-fte-by-year.query.json",
+          "template_sha256": "cc81b6c45279ef9f16ff14e1d2f562af1e010bb02ba8eff214a422ee78d0fa19",
+          "visual_id": "88eb11c1d12ec49a2b4b",
+          "year_filter": 2026
+        },
+        "department_revenue_expenditure_by_year": {
+          "response_sha256": "43f193e46f1422b256c0f9f75da4b12d34897327a24f68042cc09f9525d776d6",
+          "template_path": "jurisdictions/king_county/data/open-budget-dashboard/query_templates/department-revenue-expenditure-by-year.query.json",
+          "template_sha256": "e834bd814b83085b9c5f43cdc3d102edd89d92beb98ad7ded9f68873d384c6ca",
+          "visual_id": "2ad918b7b77cb4d00a40",
+          "year_filter": 2026
+        },
+        "overview_by_year": {
+          "response_sha256": "4c67ce8abc138c19fe608d2f7c07487348264719735b08099508837a417f92e9",
+          "template_path": "jurisdictions/king_county/data/open-budget-dashboard/query_templates/overview-by-year.query.json",
+          "template_sha256": "50601943386ae9299ad770422c3f4a2b2addae5d1b472c2e93b75da5d47a0862",
+          "visual_id": "1b6fddf1e298652e9b58",
+          "year_filter": null
+        }
+      },
+      "response_metrics": {
+        "department_fte_by_year": {
+          "row_count": 23
+        },
+        "department_revenue_expenditure_by_year": {
+          "row_count": 23
+        },
+        "overview_by_year": {
+          "row_count": 11
+        }
+      },
+      "source_card_expected_model": {
+        "dataset_id": "e6354f5d-a44d-4c75-ab7a-a2293b56b83b",
+        "model_id": 897134,
+        "observed_model_refresh_time": "2026-04-01T21:37:44.693"
+      }
+    },
+    "machine_access": {
+      "api_host": "https://wabi-us-gov-iowa-api.analysis.usgovcloudapi.net",
+      "conceptual_schema_endpoint": "https://wabi-us-gov-iowa-api.analysis.usgovcloudapi.net/public/reports/93fc6001-5c9d-4b9e-8e70-d758dc7082a0/conceptualschema",
+      "metadata_endpoint": "https://wabi-us-gov-iowa-api.analysis.usgovcloudapi.net/public/reports/93fc6001-5c9d-4b9e-8e70-d758dc7082a0/modelsAndExploration?preferReadOnlySession=true",
+      "querydata_endpoint": "https://wabi-us-gov-iowa-api.analysis.usgovcloudapi.net/public/reports/querydata?synchronous=true",
+      "type": "powerbi"
+    },
+    "public_inspection_urls": [
+      "https://kingcounty.gov/en/dept/executive/governance-leadership/performance-strategy-budget/budget/budget-dashboard",
+      "https://app.powerbigov.us/view?r=eyJrIjoiOTNmYzYwMDEtNWM5ZC00YjllLThlNzAtZDc1OGRjNzA4MmEwIiwidCI6ImJhZTUwNTlhLTc2ZjAtNDlkNy05OTk2LTcyZGZlOTVkNjljNyJ9"
+    ],
+    "retrieval_context": {
+      "dataset_display_name": "PublicDashboard",
+      "dataset_id": "e6354f5d-a44d-4c75-ab7a-a2293b56b83b",
+      "model_id": 897134,
+      "powerbi_resource_key": "93fc6001-5c9d-4b9e-8e70-d758dc7082a0",
+      "powerbi_tenant_id": "bae5059a-76f0-49d7-9996-72dfe95d69c7",
+      "query_templates": [
+        "overview_by_year",
+        "department_revenue_expenditure_by_year",
+        "department_fte_by_year"
+      ]
+    },
+    "row_counts": {
+      "department_fte_by_year": 21,
+      "department_revenue_expenditure_by_year": 22,
+      "overview_by_year": 11
+    },
+    "version_boundary": {
+      "known_years": [
+        2017,
+        2018,
+        2019,
+        2020,
+        2021,
+        2022,
+        2023,
+        2024,
+        2025,
+        2026,
+        2027
+      ],
+      "observed_model_refresh_time": "2026-04-01T21:37:44.693",
+      "snapshot_version": "2026-04-01"
+    }
+  },
   "source_id": "king_county.open_budget_dashboard"
 }

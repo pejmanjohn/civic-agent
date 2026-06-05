@@ -75,7 +75,7 @@ sum(budgeted_fte)
 
 1. Use the checked-in snapshot files as the normal answer source.
 2. Use `summary.json` for validation checks before trusting totals.
-3. Use `provenance.json` when the answer needs model refresh time, query-template hashes, or Power BI source details.
+3. Use `provenance.json` when the answer needs model refresh time, query-template hashes, source fingerprint details, or Power BI source details.
 4. Use the live Power BI extractor only when refreshing the snapshot, not during normal answer generation.
 5. If a question asks for an unsupported grain, answer with the supported grains and explain the boundary.
 
@@ -223,6 +223,7 @@ Numbers:
 How to read this:
 Trace:
 - Source:
+- Public source or source surface:
 - Snapshot:
 - Grain:
 - Measure:
@@ -238,6 +239,7 @@ Example trace:
 ```text
 Trace:
 - Source: King County Open Budget Dashboard, snapshot 2026-04-01
+- Public source: https://kingcounty.gov/en/dept/executive/governance-leadership/performance-strategy-budget/budget/budget-dashboard
 - Grain: FY2026 department
 - Measure: budgeted_expenditure
 - Filters/query logic: read department-revenue-expenditure-by-year.jsonl, filter year = 2026, sort by budgeted_expenditure desc

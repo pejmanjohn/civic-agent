@@ -136,6 +136,14 @@ If snapshot:
 - Summary checks:
 - Provenance fields:
 
+If managed local database:
+
+- Source file URLs:
+- Local raw-file policy:
+- Local database tables/indexes:
+- Manifest fields:
+- Query grains to validate:
+
 If live:
 
 - Endpoint:
@@ -204,6 +212,32 @@ Partial-period data-through rule:
 | Check | Expected result | How to reproduce |
 |---|---:|---|
 |  |  |  |
+
+## Source Fingerprint
+
+Citation fields:
+
+```text
+<public inspection URLs, source id, source-surface ids, dataset/report/file labels, snapshot/version, data-through boundary>
+```
+
+Retrieval fields:
+
+```text
+<machine URLs/endpoints, dataset ids, report/model ids, file URLs, request parameters, filters, query-template ids, export ids>
+```
+
+Integrity fields:
+
+```text
+<row counts, refresh timestamps, last-modified headers, content lengths, checksums, query-template hashes, response/export hashes>
+```
+
+Spot-check candidates:
+
+```text
+<named totals, top rows, reconciliations, current-period checks, edge cases>
+```
 
 ## Worked Answer Trace
 

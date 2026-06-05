@@ -27,6 +27,8 @@ If the source is accepted, the next implementation step is source-specific:
 
 Every accepted source must also choose a storage tier from `docs/source-data-storage.md`. The tier explains where normal answer data lives: live official source, checked-in snapshot, managed local database, hosted artifact, context-only, watchlist, or reject.
 
+Every accepted source must also define a source fingerprint and representative spot checks from `docs/source-data-validation.md`. The fingerprint is the durable answer to "where did this data come from, how would we retrieve it again, and what should a user-facing trace cite?"
+
 ## Source Type Matrix
 
 Run the matrix before getting deep into any one extraction path. Power BI is one possible branch, not the default assumption.
@@ -76,6 +78,8 @@ Run the storage tier matrix after the source type is understood. Source type des
 5. Validated answers beat source inventory.
 
    A source is accepted only when at least one useful answer pattern can be backed by a validation check: row count, official total, dashboard cross-check, file checksum, model refresh time, or comparable evidence.
+
+   Capture the source fingerprint while probing: public inspection URL, machine endpoint or file URL, dataset/report/model/file identity, request parameters or filters, version/freshness boundary, row counts, checksums or hashes, and spot-check candidates.
 
 6. Snapshots are normal for report-shaped sources.
 
