@@ -1,0 +1,205 @@
+{
+  "id": "washington.revenue_by_biennium",
+  "jurisdiction_id": "washington",
+  "jurisdiction_name": "Washington State",
+  "jurisdiction_level": "state",
+  "budget_family": "revenue",
+  "provider": "Fiscal WA / LEAP / Office of Financial Management / Microsoft ReportViewer",
+  "dataset_name": "Washington State Revenue by Biennium Reports",
+  "access_method": "reportviewer_snapshot",
+  "official_report_page": "https://fiscal.wa.gov/Revenue/RevenueGeneral.aspx",
+  "official_context_page": "https://fiscal.wa.gov/Revenue/RevenueOverview.aspx",
+  "human_inspection_urls": [
+    {
+      "label": "Fiscal WA state revenue overview",
+      "url": "https://fiscal.wa.gov/Revenue/RevenueOverview.aspx"
+    },
+    {
+      "label": "Fiscal WA revenue by biennium - statewide revenue",
+      "url": "https://fiscal.wa.gov/Revenue/RevenueGeneral.aspx"
+    },
+    {
+      "label": "Fiscal WA revenue by biennium - fund detail by revenue source",
+      "url": "https://fiscal.wa.gov/Revenue/RevenueBySource.aspx"
+    },
+    {
+      "label": "Fiscal WA revenue by biennium - revenue source by fund detail",
+      "url": "https://fiscal.wa.gov/Revenue/RevenueByFund.aspx"
+    },
+    {
+      "label": "Washington Economic and Revenue Forecast Council",
+      "url": "https://erfc.wa.gov/forecasts/revenue-forecast"
+    }
+  ],
+  "source_surfaces": {
+    "statewide_revenue_reportviewer": {
+      "status": "accepted",
+      "official_report_page": "https://fiscal.wa.gov/Revenue/RevenueGeneral.aspx",
+      "report_name": "RevenueSW",
+      "report_viewer_file_name": "RevenueSW",
+      "coverage": {
+        "funds": ["General Fund (001)"],
+        "biennia": [
+          "2003-05",
+          "2005-07",
+          "2007-09",
+          "2009-11",
+          "2011-13",
+          "2013-15",
+          "2015-17",
+          "2017-19",
+          "2019-21",
+          "2021-23",
+          "2023-25",
+          "2025-27"
+        ],
+        "grains": [
+          "biennium",
+          "biennium_by_revenue_area_and_account"
+        ],
+        "measures": [
+          "estimated_revenue",
+          "actual_revenue",
+          "actual_minus_estimate"
+        ]
+      }
+    },
+    "fund_detail_by_revenue_source_reportviewer": {
+      "status": "context_only",
+      "official_report_page": "https://fiscal.wa.gov/Revenue/RevenueBySource.aspx",
+      "notes": [
+        "Useful for future selected-source fund detail extraction.",
+        "Not normalized in the first accepted snapshot; the initial source slice uses the statewide revenue report for General Fund history."
+      ]
+    },
+    "revenue_source_by_fund_detail_reportviewer": {
+      "status": "context_only",
+      "official_report_page": "https://fiscal.wa.gov/Revenue/RevenueByFund.aspx",
+      "notes": [
+        "Useful for future selected-fund revenue source detail extraction.",
+        "Not normalized in the first accepted snapshot; the initial source slice uses the statewide revenue report for General Fund history."
+      ]
+    }
+  },
+  "snapshot_version": "2025-27-revenue-through-2026-04",
+  "current_biennium": "2025-27",
+  "default_fund": "General Fund (001)",
+  "default_fund_code": "001",
+  "actual_data_through": "2026-04",
+  "actual_data_through_label": "Actual Data Through April 2026",
+  "actual_data_through_precision": "month",
+  "amount_units_from_report": "thousands_of_dollars",
+  "primary_measures": [
+    "estimated_revenue",
+    "actual_revenue",
+    "actual_minus_estimate"
+  ],
+  "safe_answer_patterns": [
+    "General Fund revenue estimate, actual, and actual-minus-estimate totals by biennium from 2003-05 through 2025-27, with the in-progress 2025-27 biennium limited to data through April 2026.",
+    "General Fund revenue estimate and actual rows by biennium, revenue area, and Fiscal WA account label.",
+    "Historical General Fund revenue trend comparisons across closed biennia, with the current biennium labeled as partial through April 2026.",
+    "Plain-English explanations of what Fiscal WA revenue estimate-vs-actual reports support and do not prove."
+  ],
+  "not_supported_by_this_source": [
+    "Operating, capital, transportation, or agency expenditure budgets.",
+    "Actual spending, vendor payments, checkbook transactions, procurement, invoices, or payroll.",
+    "Revenue funds other than General Fund (001) until additional ReportViewer slicers are extracted and reconciled.",
+    "Selected major-source or selected-fund detail until the companion ReportViewer surfaces are accepted and normalized.",
+    "Revenue forecast assumptions from ERFC notebooks beyond what is visible in this Fiscal WA estimate-vs-actual report.",
+    "Broad policy conclusions that are not directly supported by the report rows."
+  ],
+  "coverage_claims": [
+    {
+      "category": "budget_finance.operating_budget",
+      "status": "unsupported",
+      "unsupported_reason": "Unsupported by this source: the Fiscal WA revenue by biennium reports are revenue estimate-vs-actual reports, not operating budget appropriation reports.",
+      "evidence": ["budget_family", "safe_answer_patterns"]
+    },
+    {
+      "category": "budget_finance.revenue_budget",
+      "status": "partial",
+      "measures": ["estimated_revenue"],
+      "grains": [
+        "biennium",
+        "fund",
+        "revenue_area",
+        "account_or_agency"
+      ],
+      "time_coverage": "General Fund revenue by biennium from 2003-05 through 2025-27; the in-progress 2025-27 estimate and actual columns run through April 2026",
+      "evidence": [
+        "snapshot_version",
+        "actual_data_through",
+        "primary_measures",
+        "validation_checks.historical_biennia",
+        "validation_checks.current_biennium_estimated_revenue",
+        "validation_checks.current_biennium_actual_data_status",
+        "validation_checks.detail_totals_match_statewide_totals"
+      ],
+      "caveats": [
+        "Estimated revenue is treated as the revenue-budget measure for this source.",
+        "The same report also includes actual revenue collected; current-biennium estimate, actual, and difference values are partial through April 2026.",
+        "Do not treat the 2025-27 current-biennium values as a full-biennium forecast or final actual.",
+        "The first accepted snapshot is limited to General Fund (001)."
+      ]
+    },
+    {
+      "category": "workforce.budgeted_fte",
+      "status": "unsupported",
+      "unsupported_reason": "Unsupported by this source: staffing and FTE analysis are not supported by the Fiscal WA revenue by biennium reports.",
+      "evidence": ["not_supported_by_this_source"]
+    },
+    {
+      "category": "budget_finance.actual_spending_checkbook",
+      "status": "unsupported",
+      "unsupported_reason": "Unsupported by this source: actual spending, vendor payments, checkbook transactions, procurement, invoices, and payroll are not supported by the Fiscal WA revenue by biennium reports.",
+      "evidence": ["not_supported_by_this_source"]
+    }
+  ],
+  "fields": [
+    {"name": "source_surface_id", "type": "text"},
+    {"name": "biennium", "type": "text"},
+    {"name": "period_type", "type": "text"},
+    {"name": "fund", "type": "text"},
+    {"name": "fund_code", "type": "text"},
+    {"name": "revenue_area", "type": "text"},
+    {"name": "account_or_agency", "type": "text"},
+    {"name": "estimated_revenue_thousands", "type": "number"},
+    {"name": "actual_revenue_thousands", "type": "number"},
+    {"name": "actual_minus_estimate_thousands", "type": "number"},
+    {"name": "estimated_revenue", "type": "number"},
+    {"name": "actual_revenue", "type": "number"},
+    {"name": "actual_minus_estimate", "type": "number"},
+    {"name": "actual_data_through", "type": "text"},
+    {"name": "actual_data_through_label", "type": "text"},
+    {"name": "actual_data_through_precision", "type": "text"},
+    {"name": "actual_data_status", "type": "text"}
+  ],
+  "validation_checks": {
+    "historical_biennia": [
+      "2003-05",
+      "2005-07",
+      "2007-09",
+      "2009-11",
+      "2011-13",
+      "2013-15",
+      "2015-17",
+      "2017-19",
+      "2019-21",
+      "2021-23",
+      "2023-25",
+      "2025-27"
+    ],
+    "current_biennium_estimated_revenue": 45098726991,
+    "current_biennium_actual_revenue": 46142570002.15,
+    "current_biennium_actual_minus_estimate": 1043843011.15,
+    "current_biennium_actual_data_status": "partial",
+    "detail_totals_match_statewide_totals": true
+  },
+  "caveats": [
+    "Amounts returned by the Fiscal WA report are in thousands of dollars; normalized rows store dollar amounts.",
+    "The current 2025-27 biennium includes partial estimate, actual, and difference data through April 2026.",
+    "Do not treat the 2025-27 current-biennium values as a full-biennium forecast or final actual.",
+    "Closed biennia are marked complete because their biennial end date is before the reported actual-data-through month.",
+    "This first accepted source slice is General Fund (001); companion selected-source and selected-fund report pages remain context-only until normalized."
+  ]
+}
