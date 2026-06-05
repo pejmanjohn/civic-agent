@@ -84,3 +84,5 @@ Source cards may declare `storage_policy` alongside `access_method`:
 ```
 
 `access_method` describes how the official source is reached. `storage_policy` describes where answer data lives and how it is kept trustworthy.
+
+See `docs/washington-checkbook-demo.md` for the first managed-local database example.
