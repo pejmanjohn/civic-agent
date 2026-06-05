@@ -58,7 +58,7 @@ Boundaries:
 
 ### Washington State
 
-Use for Washington state operating budget questions, including 2025-27 enacted totals and enacted base budget trends over time:
+Use for Washington state operating budget, General Fund revenue, and state agency vendor-payment/checkbook questions:
 
 ```text
 https://raw.githubusercontent.com/pejmanjohn/civic-agent/main/jurisdictions/washington/skill.md
@@ -68,6 +68,11 @@ Triggers:
 
 - Washington state budget
 - Washington operating budget
+- Washington state revenue or General Fund revenue
+- Washington actual spending
+- Washington Open Checkbook
+- Washington vendor payments
+- Fiscal WA checkbook
 - Fiscal WA operating budget
 - Washington state agency budget totals
 - 2025-27 enacted Washington operating budget
@@ -77,10 +82,13 @@ Triggers:
 
 Boundaries:
 
-- This source answers from a checked-in Fiscal WA Power BI snapshot.
-- Use budgeted/authorized operating budget language.
+- Washington operating budget answers use a checked-in Fiscal WA Power BI snapshot.
+- Washington revenue answers use a checked-in Fiscal WA ReportViewer snapshot for General Fund (001).
+- Washington checkbook answers use a managed local SQLite database built from official Fiscal WA vendor-payment XLSX files.
+- Use budgeted/authorized operating budget language only for operating budget rows.
+- Use actual vendor-payment language only for Open Checkbook rows.
 - Historical trend coverage is enacted base Total Budgeted by biennium from 2013-15 through 2025-27.
-- Do not use it for actual spending, vendor payments, 2026 supplemental changes, pre-2013-15 trends, capital budget, transportation budget, staffing/FTE, or cross-jurisdiction comparisons.
+- Do not use these sources for procurement contract terms, invoices, payroll, staffing/FTE, 2026 supplemental changes, pre-2013-15 operating-budget trends, capital budget, transportation budget, or cross-jurisdiction comparisons.
 
 ## Routing Examples
 
@@ -166,6 +174,20 @@ Action:
 3. Read `jurisdictions/washington/skill.md`.
 4. Use the Washington snapshot `historical-biennium-summary.jsonl`.
 5. Report enacted base Total Budgeted biennial totals from 2013-15 through 2025-27 with validation checks and caveats.
+
+User:
+
+```text
+Read https://raw.githubusercontent.com/pejmanjohn/civic-agent/main/skill.md and show Washington Open Checkbook spending by category.
+```
+
+Action:
+
+1. Read this router file.
+2. Detect Washington state and spending/checkbook.
+3. Read `jurisdictions/washington/skill.md`.
+4. Inspect or ensure managed source `washington.open_checkbook`.
+5. Query `category_breakdown` for the selected biennium and report actual vendor-payment categories with data-through caveats.
 
 ## Answer Rules
 

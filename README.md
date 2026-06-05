@@ -114,6 +114,8 @@ Current production sources:
 - `seattle.operating_budget`: City of Seattle operating budget, Socrata dataset `8u2j-imqx`
 - `king_county.open_budget_dashboard`: King County Open Budget Dashboard, Power BI Gov snapshot `2026-04-01`
 - `washington.operating_budget`: Washington state operating budget, Fiscal WA Power BI snapshot `2025-27-enacted-2025-05-20`, including 2025-27 enacted agency/function totals and enacted base biennial trends from 2013-15 through 2025-27
+- `washington.revenue_by_biennium`: Washington General Fund revenue by biennium, Fiscal WA ReportViewer snapshot `2025-27-revenue-through-2026-04`, with 2025-27 partial through April 2026
+- `washington.open_checkbook`: Washington state agency vendor-payment actuals, Fiscal WA Open Checkbook, managed local SQLite database from official XLSX files, with the reviewed current file partial through April 2026
 
 Coverage orientation:
 
@@ -124,11 +126,12 @@ Worked examples:
 
 - `docs/seattle-demo.md`: source-backed answers and compact traces for the current dogfood prompts.
 - `docs/king-county-demo.md`: source-backed answers and compact traces for the King County snapshot.
+- `docs/washington-checkbook-demo.md`: managed local database setup, named queries, and trace shape for Washington Open Checkbook.
 - `docs/coverage-matrix.md`: source-level coverage claims and derived jurisdiction rollups.
 - `docs/source-probing.md`: workflow for evaluating new official sources before adding them.
 - `docs/source-probes/seattle-open-data-portal.md`: Socrata/open data portal probe and workflow lessons.
 - `docs/source-probes/washington-state-budget.md`: current Washington state budget source probe.
-- `jurisdictions/washington/skill.md`: source-backed answer recipes for the Washington operating budget snapshot.
+- `jurisdictions/washington/skill.md`: source-backed answer recipes for Washington operating budget, General Fund revenue, and Open Checkbook vendor payments.
 
 ## Packaging
 
@@ -170,19 +173,33 @@ python3 scripts/dev.py install
 
 It refreshes the checked-in package, generates `.generated/civic-agent-dev-marketplace/`, installs `civic-agent-dev@civic-agent-dev`, and verifies that the installed cache contains the current jurisdiction references. `.generated/` is ignored and should not be edited or committed.
 
+## Managed Local Data
+
+Large official sources use `scripts/source_data.py` so agents can inspect freshness, build a local cache, and query quickly after setup:
+
+```bash
+python3 scripts/source_data.py --json inspect washington.open_checkbook
+python3 scripts/source_data.py --json status washington.open_checkbook
+python3 scripts/source_data.py --json ensure washington.open_checkbook
+python3 scripts/source_data.py --json query washington.open_checkbook category_breakdown --param biennium=2025-27 --param limit=10
+```
+
+By default managed data lives under `~/.civic-agent/data`, outside git. Set `CIVIC_AGENT_DATA_HOME` or pass `--data-home` for tests and local experiments.
+
 Future sources should follow the same pattern:
 
-- `washington.spending.checkbook`
 - `san_francisco.operating_budget`
 
 Before adding a future source, run the source-probing workflow in `docs/source-probing.md` and capture the result with `docs/templates/source-probe-brief.md`.
 
 ## Data Strategy
 
-Use live official APIs when they are clean and stable. Use checked-in snapshots when official public data is slow-changing, awkward to scrape, or report-shaped.
+Use live official APIs when they are clean and stable. Use checked-in snapshots when reviewed normalized data is compact enough to keep the repo self-contained. Use managed local databases when official data is too large or slow to parse repeatedly but should still be fast after setup. See `docs/source-data-storage.md` for the full storage policy.
 
 Seattle is the clean example: direct Socrata JSON/CSV plus SoQL.
 
 King County is the first report-shaped example: official Power BI Gov dashboard replayed through reviewed query templates into a checked-in normalized snapshot.
 
-Washington is the second report-shaped example: Fiscal WA Power BI reports replayed through reviewed query templates into a checked-in normalized operating budget snapshot. It also demonstrates the split-time-span pattern: one logical source id with multiple official report surfaces stitched into common historical trend tables and validated by overlap totals. Treat Open Checkbook as a separate actual-spending source.
+Washington is the second report-shaped example: Fiscal WA Power BI reports replayed through reviewed query templates into a checked-in normalized operating budget snapshot. It also demonstrates the split-time-span pattern: one logical source id with multiple official report surfaces stitched into common historical trend tables and validated by overlap totals.
+
+Washington Open Checkbook is the first managed-local-data example: official Fiscal WA vendor-payment XLSX files are too large and detailed for git, so the repo keeps the source card, builder, tests, fixtures, and docs while full raw files and the local database live in the user's Civic Agent data cache.

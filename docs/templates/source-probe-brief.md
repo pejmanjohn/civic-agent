@@ -143,6 +143,50 @@ If live:
 - Rate/freshness caveats:
 - Validation query:
 
+## Storage Policy
+
+Recommended storage tier:
+
+```text
+live | checked_in_snapshot | managed_local_db | hosted_artifact | context_only | watchlist | reject
+```
+
+Why:
+
+```text
+<short rationale>
+```
+
+Normal answer source:
+
+```text
+<official API | repo snapshot | local DB | hosted artifact | none>
+```
+
+Freshness check:
+
+```text
+<API metadata, source file metadata, model refresh, report timestamp, manual snapshot version, custom probe, or none>
+```
+
+Repo artifacts:
+
+```text
+<source card, probe, normalized snapshot, summary, provenance, fixtures, tests, docs>
+```
+
+Local or hosted artifacts:
+
+```text
+<raw files, local database, manifest, hosted artifact, or none>
+```
+
+Partial-period data-through rule:
+
+```text
+<how to record current-period completeness, or none>
+```
+
 ## Supported Questions
 
 - 
@@ -174,6 +218,7 @@ Trace:
 ```text
 Source:
 Access method:
+Storage policy:
 Snapshot/version:
 Grain:
 Measure:

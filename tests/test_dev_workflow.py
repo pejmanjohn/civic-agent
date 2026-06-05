@@ -149,6 +149,22 @@ class DevWorkflowTest(unittest.TestCase):
         }
         self.assertEqual(planned_reference_names, expected_reference_names)
 
+    def test_washington_checkbook_route_is_documented_for_packaging(self):
+        washington_skill = (ROOT / "jurisdictions" / "washington" / "skill.md").read_text(
+            encoding="utf-8"
+        )
+        router = (ROOT / "skills" / "civic-agent" / "SKILL.md").read_text(
+            encoding="utf-8"
+        )
+
+        self.assertIn("washington.open_checkbook", washington_skill)
+        self.assertIn(
+            "python3 scripts/source_data.py --json ensure washington.open_checkbook",
+            washington_skill,
+        )
+        self.assertIn("Open Checkbook answers use actual vendor-payment language", router)
+        self.assertIn("managed local database", router)
+
 
 if __name__ == "__main__":
     unittest.main()

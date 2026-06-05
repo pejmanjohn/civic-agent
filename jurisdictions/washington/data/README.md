@@ -13,6 +13,11 @@ Accepted revenue source surface:
 
 - `https://fiscal.wa.gov/Revenue/RevenueGeneral.aspx`
 
+Accepted Open Checkbook source surface:
+
+- `https://fiscal.wa.gov/Spending/Checkbook.aspx`
+- `https://fiscal.wa.gov/Spending/VendorPayments2527.xlsx`
+
 Snapshot policy:
 
 - Normal Civic Agent answers should use the checked-in normalized snapshot, not live Power BI or ReportViewer calls.
@@ -30,3 +35,4 @@ Interpretation policy:
 - `Outlook Funds (NGF-O)` is narrower than `Total Budgeted`; always state which fund view was used.
 - The revenue snapshot includes General Fund (001) estimated revenue, actual revenue, and actual-minus-estimate rows from 2003-05 through 2025-27.
 - Revenue rows carry `actual_data_through`, `actual_data_through_label`, and `actual_data_status`. For snapshot `2025-27-revenue-through-2026-04`, the 2025-27 values are partial through April 2026 and must not be described as full-biennium final actuals or full-biennium forecasts.
+- Fiscal WA Open Checkbook is separate actual-spending/checkbook data. Its full vendor-payment line items are managed through a local database built from official XLSX files because the historical source files are too large for normal git storage.

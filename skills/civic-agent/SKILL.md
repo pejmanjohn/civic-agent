@@ -76,7 +76,7 @@ Do not use King County for actual spending, actual revenue collected, payments, 
 
 ### Washington State
 
-Read the Washington skill before answering Washington state operating budget questions.
+Read the Washington skill before answering Washington state operating budget, General Fund revenue, or state agency vendor-payment/checkbook questions.
 
 If Civic Agent is installed as a packaged plugin (Codex or Claude Code), use the bundled reference:
 
@@ -100,6 +100,11 @@ Use Washington for:
 
 - Washington state budget
 - Washington operating budget
+- Washington state revenue or General Fund revenue
+- Washington actual spending
+- Washington Open Checkbook
+- Washington vendor payments
+- Fiscal WA checkbook
 - Fiscal WA operating budget
 - Washington state agency budget totals
 - 2025-27 enacted Washington operating budget
@@ -107,7 +112,9 @@ Use Washington for:
 - historical Washington operating budget trends
 - Washington Total Budgeted or Outlook Funds (NGF-O) questions
 
-Do not use Washington for actual spending, vendor payments, procurement, actual revenue collected, Seattle budget analysis, King County budget analysis, 2026 supplemental changes, pre-2013-15 trends, capital budget, transportation budget, staffing/FTE, or cross-jurisdiction comparison.
+Washington has separate source families. Operating budget answers use budgeted/authorized language. Revenue answers use General Fund estimate/actual language. Open Checkbook answers use actual vendor-payment language and require the managed local database for `washington.open_checkbook`.
+
+Do not use Washington for procurement contract terms, invoices, payroll, staffing/FTE, Seattle budget analysis, King County budget analysis, 2026 supplemental changes, pre-2013-15 operating-budget trends, capital budget, transportation budget, or cross-jurisdiction comparison.
 
 ## Workflow
 
@@ -115,9 +122,10 @@ Do not use Washington for actual spending, vendor payments, procurement, actual 
 2. Identify the budget topic: operating budget, capital budget, transportation budget, spending/checkbook, revenue, staffing, school finance, department comparison, program drill-down, fund analysis, or year-over-year comparison.
 3. Read the matching jurisdiction skill file.
 4. Use that skill's official data sources, query recipes, validation checks, caveats, and answer style.
-5. For source-backed answers, include a compact trace: source, grain, measure, filters/query logic, validation check or row count when useful, and caveats.
-6. If the user asks for a chart, compute the data first and then use available chart/data-visualization tools to render it.
-7. If no matching jurisdiction exists, say that Civic Agent does not yet include that jurisdiction.
+5. For managed local database sources such as `washington.open_checkbook`, inspect status first. If setup is missing and the host can run the repo CLI, ensure the source; otherwise report that managed local data is not set up.
+6. For source-backed answers, include a compact trace: source, grain, measure, filters/query logic, validation check or row count when useful, and caveats.
+7. If the user asks for a chart, compute the data first and then use available chart/data-visualization tools to render it.
+8. If no matching jurisdiction exists, say that Civic Agent does not yet include that jurisdiction.
 
 ## Chart Requests
 
@@ -133,7 +141,11 @@ If a data visualization or analytics plugin is available, use it after computing
 
 For King County chart requests, use the checked-in snapshot from `jurisdictions/king_county/data/open-budget-dashboard/2026-04-01/`. Current chart-ready grains are countywide year totals, FY2026 department budgeted revenue/expenditure, and FY2026 department budgeted FTE.
 
-For Washington chart requests, use the checked-in snapshot from `jurisdictions/washington/data/operating-budget/2025-27-enacted-2025-05-20/`. Current chart-ready grains are 2025-27 enacted agency totals and functional area totals by fund view, plus enacted base historical trends by biennium from 2013-15 through 2025-27. Default to `Total Budgeted` unless the user asks for `Outlook Funds (NGF-O)`.
+For Washington operating-budget chart requests, use the checked-in snapshot from `jurisdictions/washington/data/operating-budget/2025-27-enacted-2025-05-20/`. Current chart-ready grains are 2025-27 enacted agency totals and functional area totals by fund view, plus enacted base historical trends by biennium from 2013-15 through 2025-27. Default to `Total Budgeted` unless the user asks for `Outlook Funds (NGF-O)`.
+
+For Washington revenue chart requests, use the checked-in snapshot from `jurisdictions/washington/data/revenue-by-biennium/2025-27-revenue-through-2026-04/`. State that 2025-27 values are partial through April 2026.
+
+For Washington checkbook chart requests, use `scripts/source_data.py query washington.open_checkbook` after the managed local database exists. Current chart-ready grains are category, agency, vendor, and monthly actual-payment totals.
 
 ## Fresh-Agent Prompt
 

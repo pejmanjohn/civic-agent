@@ -1,0 +1,217 @@
+{
+  "id": "washington.open_checkbook",
+  "jurisdiction_id": "washington",
+  "jurisdiction_name": "Washington State",
+  "jurisdiction_level": "state",
+  "budget_family": "actual_spending_checkbook",
+  "provider": "Fiscal WA / LEAP / Office of Financial Management / Microsoft Power BI",
+  "dataset_name": "Washington State Agency Vendor Payments Open Checkbook",
+  "access_method": "official_bulk_download",
+  "storage_policy": {
+    "tier": "managed_local_db",
+    "normal_answer_source": "local_db",
+    "freshness_check": "source_file_metadata",
+    "repo_artifacts": ["source_card", "probe", "builder", "tests", "fixtures", "docs"],
+    "local_artifacts": ["raw_source_file", "local_database", "manifest"],
+    "refresh_behavior": "download_and_rebuild_local_cache"
+  },
+  "official_page": "https://fiscal.wa.gov/Spending/Checkbook.aspx",
+  "official_context_page": "https://fiscal.wa.gov/Spending/SpendingOverview.aspx",
+  "human_inspection_urls": [
+    {
+      "label": "Fiscal WA Open Checkbook",
+      "url": "https://fiscal.wa.gov/Spending/Checkbook.aspx"
+    },
+    {
+      "label": "Current biennium vendor payments XLSX",
+      "url": "https://fiscal.wa.gov/Spending/VendorPayments2527.xlsx"
+    },
+    {
+      "label": "Object and subobject definitions",
+      "url": "https://fiscal.wa.gov/Spending/ObjectSubObjectDefinitions.pdf"
+    },
+    {
+      "label": "Open Checkbook disclaimer",
+      "url": "https://fiscal.wa.gov/Spending/DisclaimerWAVendorCB.pdf"
+    }
+  ],
+  "powerbi_report_url": "https://app.powerbi.com/view?r=eyJrIjoiOGU4N2VmNjMtZDA4Ny00OGI0LTk0YWYtNDUwZjExNTc1NGJkIiwidCI6ImI0ZWIwY2NmLTAxOTQtNDY2My1hNTZhLTllZDkxZWZkMzMwOCIsImMiOjZ9",
+  "current_biennium": "2025-27",
+  "current_file_url": "https://fiscal.wa.gov/Spending/VendorPayments2527.xlsx",
+  "current_data_through": "2026-04",
+  "current_data_through_label": "Payments through April 2026",
+  "current_data_through_precision": "month",
+  "update_cadence_observed": "Fiscal WA says data is added monthly with previous month vendor payments.",
+  "source_surfaces": {
+    "vendor_payments_2013_15_xlsx": {
+      "status": "accepted",
+      "biennium": "2013-15",
+      "url": "https://fiscal.wa.gov/Spending/VendorPayments1315.xlsx",
+      "content_length": 84207908,
+      "last_modified": "Mon, 03 Oct 2022 19:23:45 GMT",
+      "header_variant": "Fiscal Month"
+    },
+    "vendor_payments_2015_17_xlsx": {
+      "status": "accepted",
+      "biennium": "2015-17",
+      "url": "https://fiscal.wa.gov/Spending/VendorPayments1517.xlsx",
+      "content_length": 74216856,
+      "last_modified": "Mon, 03 Oct 2022 19:23:45 GMT",
+      "header_variant": "FMonth"
+    },
+    "vendor_payments_2017_19_xlsx": {
+      "status": "accepted",
+      "biennium": "2017-19",
+      "url": "https://fiscal.wa.gov/Spending/VendorPayments1719.xlsx",
+      "content_length": 69940122,
+      "last_modified": "Mon, 03 Oct 2022 19:23:45 GMT",
+      "header_variant": "FMonth"
+    },
+    "vendor_payments_2019_21_xlsx": {
+      "status": "accepted",
+      "biennium": "2019-21",
+      "url": "https://fiscal.wa.gov/Spending/VendorPayments1921.xlsx",
+      "content_length": 54296355,
+      "last_modified": "Mon, 03 Oct 2022 19:23:45 GMT",
+      "header_variant": "FMonth"
+    },
+    "vendor_payments_2021_23_xlsx": {
+      "status": "accepted",
+      "biennium": "2021-23",
+      "url": "https://fiscal.wa.gov/Spending/VendorPayments2123.xlsx",
+      "content_length": 51471041,
+      "last_modified": "Mon, 28 Aug 2023 18:05:39 GMT",
+      "header_variant": "FMonth"
+    },
+    "vendor_payments_2023_25_xlsx": {
+      "status": "accepted",
+      "biennium": "2023-25",
+      "url": "https://fiscal.wa.gov/Spending/VendorPayments2325.xlsx",
+      "content_length": 55265999,
+      "last_modified": "Thu, 17 Jul 2025 22:26:28 GMT",
+      "header_variant": "FMonth"
+    },
+    "vendor_payments_2025_27_xlsx": {
+      "status": "accepted",
+      "biennium": "2025-27",
+      "url": "https://fiscal.wa.gov/Spending/VendorPayments2527.xlsx",
+      "content_length": 22019618,
+      "last_modified": "Tue, 26 May 2026 23:51:24 GMT",
+      "header_variant": "FMonth",
+      "actual_data_status": "partial",
+      "actual_data_through": "2026-04",
+      "actual_data_through_label": "Payments through April 2026"
+    }
+  },
+  "historical_coverage": {
+    "start_biennium": "2013-15",
+    "end_biennium": "2025-27",
+    "biennia": ["2013-15", "2015-17", "2017-19", "2019-21", "2021-23", "2023-25", "2025-27"]
+  },
+  "primary_measure": "amount",
+  "safe_answer_patterns": [
+    "State agency vendor payment totals by biennium, fiscal year, fiscal month, agency, category, subcategory, or vendor.",
+    "Top agencies, vendors, categories, and subcategories for a selected biennium or fiscal period.",
+    "Month-by-month actual vendor-payment trends, with current-biennium partial-status caveats.",
+    "Plain-English explanations of how actual vendor payments differ from budget authority, revenue estimates, contracts, payroll, invoices, and service outcomes."
+  ],
+  "not_supported_by_this_source": [
+    "Operating, capital, transportation, or revenue budget authority.",
+    "Revenue forecasts, estimated revenue, actual revenue collected, or tax receipts.",
+    "Procurement contract terms, contract obligations, bid processes, or contract amendments.",
+    "Payroll, employee rosters, staffing, FTE, vacancies, or personnel records.",
+    "Invoices, purchase orders, or line-item contract deliverables beyond the vendor-payment rows.",
+    "Service quality, policy outcomes, program performance, or causal explanations.",
+    "Local government spending outside Washington state agency vendor payments."
+  ],
+  "coverage_claims": [
+    {
+      "category": "budget_finance.operating_budget",
+      "status": "unsupported",
+      "unsupported_reason": "Unsupported by this source: Fiscal WA Open Checkbook is actual vendor-payment data, not operating budget authority.",
+      "evidence": ["budget_family", "not_supported_by_this_source"]
+    },
+    {
+      "category": "budget_finance.revenue_budget",
+      "status": "unsupported",
+      "unsupported_reason": "Unsupported by this source: Fiscal WA Open Checkbook is actual vendor-payment data, not revenue budget or forecast data.",
+      "evidence": ["budget_family", "not_supported_by_this_source"]
+    },
+    {
+      "category": "workforce.budgeted_fte",
+      "status": "unsupported",
+      "unsupported_reason": "Unsupported by this source: staffing, FTE, employee rosters, vacancies, payroll, and personnel records are not supported by Fiscal WA Open Checkbook.",
+      "evidence": ["not_supported_by_this_source"]
+    },
+    {
+      "category": "budget_finance.actual_spending_checkbook",
+      "status": "supported",
+      "measures": ["amount"],
+      "grains": [
+        "biennium",
+        "fiscal_year",
+        "fiscal_month",
+        "agency",
+        "object_category",
+        "subobject_category",
+        "vendor"
+      ],
+      "time_coverage": "Vendor payment XLSX files from 2013-15 through 2025-27; the in-progress 2025-27 file is partial through April 2026.",
+      "evidence": [
+        "source_surfaces",
+        "storage_policy",
+        "historical_coverage",
+        "current_data_through",
+        "validation_checks.current_file_rows",
+        "validation_checks.current_file_periods",
+        "validation_checks.current_file_agency_count"
+      ],
+      "caveats": [
+        "Current 2025-27 vendor payments are partial through April 2026.",
+        "Vendor payments are actual payment rows, not budget authority, contract obligations, invoices, payroll, or service outcomes.",
+        "Normal answers require the managed local database to be built or refreshed from official XLSX files."
+      ]
+    }
+  ],
+  "fields": [
+    {"name": "biennium", "type": "text"},
+    {"name": "fiscal_year", "type": "number"},
+    {"name": "fiscal_month", "type": "number"},
+    {"name": "calendar_month", "type": "text"},
+    {"name": "agency_code", "type": "text"},
+    {"name": "agency_name", "type": "text"},
+    {"name": "object_code", "type": "text"},
+    {"name": "category", "type": "text"},
+    {"name": "subobject_code", "type": "text"},
+    {"name": "subcategory", "type": "text"},
+    {"name": "vendor_name", "type": "text"},
+    {"name": "amount", "type": "number"}
+  ],
+  "validation_checks": {
+    "current_file_rows": 382783,
+    "current_file_periods": 10,
+    "current_file_min_fiscal_year_month": "2026-01",
+    "current_file_max_fiscal_year_month": "2026-10",
+    "current_file_data_through": "2026-04",
+    "current_file_agency_count": 100,
+    "current_file_categories": [
+      "Capital Outlays",
+      "Cost Of Goods Sold",
+      "Debt Service",
+      "Goods and Services",
+      "Grants, Benefits & Client Services",
+      "Interagency Reimbursements",
+      "Intra-Agency Reimbursements",
+      "Personal Service Contracts",
+      "Travel"
+    ],
+    "historical_files_available": ["2013-15", "2015-17", "2017-19", "2019-21", "2021-23", "2023-25", "2025-27"],
+    "historical_file_total_content_length": 411417899
+  },
+  "caveats": [
+    "The official page says current-biennium data is added monthly with previous month vendor payments.",
+    "The 2025-27 file is an in-progress biennium and should be labeled partial through April 2026 until refreshed.",
+    "The full historical line-item dataset is managed locally because the official XLSX files are too large for normal git storage.",
+    "Vendor payment rows should not be interpreted as budget authority, contract terms, payroll, invoices, or program outcomes."
+  ]
+}

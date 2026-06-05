@@ -7,6 +7,14 @@
   "provider": "Fiscal WA / LEAP / Office of Financial Management / Microsoft ReportViewer",
   "dataset_name": "Washington State Revenue by Biennium Reports",
   "access_method": "reportviewer_snapshot",
+  "storage_policy": {
+    "tier": "checked_in_snapshot",
+    "normal_answer_source": "repo_snapshot",
+    "freshness_check": "report_timestamp",
+    "repo_artifacts": ["source_card", "normalized_snapshot", "summary", "provenance", "tests", "docs"],
+    "local_artifacts": ["debug_capture"],
+    "refresh_behavior": "rerun_extractor_to_update_repo_snapshot"
+  },
   "official_report_page": "https://fiscal.wa.gov/Revenue/RevenueGeneral.aspx",
   "official_context_page": "https://fiscal.wa.gov/Revenue/RevenueOverview.aspx",
   "human_inspection_urls": [

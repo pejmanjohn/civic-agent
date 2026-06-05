@@ -8,6 +8,14 @@
   "dataset_name": "City of Seattle Operating Budget",
   "dataset_id": "8u2j-imqx",
   "access_method": "socrata",
+  "storage_policy": {
+    "tier": "live",
+    "normal_answer_source": "official_api",
+    "freshness_check": "api_metadata",
+    "repo_artifacts": ["source_card", "tests", "docs"],
+    "local_artifacts": [],
+    "refresh_behavior": "query_official_source_at_answer_time"
+  },
   "json_endpoint": "https://data.seattle.gov/resource/8u2j-imqx.json",
   "csv_endpoint": "https://data.seattle.gov/resource/8u2j-imqx.csv?$limit=50000",
   "metadata_endpoint": "https://data.seattle.gov/api/views/8u2j-imqx",
