@@ -1,7 +1,7 @@
 ---
 title: "feat: Add Source Data Storage Policy And Washington Checkbook"
 type: feat
-status: active
+status: completed
 date: 2026-06-05
 ---
 
