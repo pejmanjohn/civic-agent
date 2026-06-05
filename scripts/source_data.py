@@ -177,11 +177,49 @@ def status_source(context: SourceContext) -> dict[str, Any]:
     ):
         manifest["status"] = "missing"
         manifest["message"] = f"Manifest exists but local database is missing: {database_path}"
+    elif context.source_card.get("storage_policy", {}).get("tier") == "managed_local_db":
+        stale_reason = managed_source_stale_reason(context.source_card, manifest)
+        if stale_reason:
+            manifest["status"] = "stale"
+            manifest["message"] = stale_reason
     manifest.setdefault("ok", True)
     manifest.setdefault("command", "status")
     manifest.setdefault("source_id", context.source_id)
     manifest.setdefault("manifest_path", str(context.manifest_path))
     return manifest
+
+
+def managed_source_stale_reason(
+    source_card: dict[str, Any],
+    manifest: dict[str, Any],
+) -> str | None:
+    accepted_surfaces = {
+        surface_id: surface
+        for surface_id, surface in source_card.get("source_surfaces", {}).items()
+        if surface.get("status") == "accepted"
+    }
+    if not accepted_surfaces:
+        return None
+    manifest_files = {
+        file_info.get("source_surface_id"): file_info
+        for file_info in manifest.get("source_files", [])
+        if file_info.get("source_surface_id")
+    }
+    for surface_id, surface in accepted_surfaces.items():
+        file_info = manifest_files.get(surface_id)
+        if file_info is None:
+            return f"Local manifest is missing accepted source surface: {surface_id}"
+        for field in ("url", "last_modified", "content_length"):
+            expected = surface.get(field)
+            if expected is None:
+                continue
+            observed = file_info.get(field)
+            if observed != expected:
+                return (
+                    f"Local manifest metadata for {surface_id} is stale: "
+                    f"{field} is {observed!r}, expected {expected!r}"
+                )
+    return None
 
 
 def ensure_source(context: SourceContext, *, force: bool) -> dict[str, Any]:

@@ -140,6 +140,80 @@ class SourceDataTest(unittest.TestCase):
         finally:
             source_data.load_source_card = original
 
+    def test_status_reports_stale_when_managed_manifest_metadata_differs(self):
+        source = {
+            "id": "example.source",
+            "storage_policy": {
+                "tier": "managed_local_db",
+                "normal_answer_source": "local_db",
+            },
+            "source_surfaces": {
+                "surface_a": {
+                    "status": "accepted",
+                    "url": "https://example.test/current.xlsx",
+                    "last_modified": "Tue, 26 May 2026 23:51:24 GMT",
+                    "content_length": 100,
+                }
+            },
+        }
+
+        def fake_load_source_card(source_id):
+            if source_id != "example.source":
+                raise source_data.SourceDataError("wrong source")
+            return {**source, "_path": "jurisdictions/example/sources/source.json"}
+
+        original = source_data.load_source_card
+        source_data.load_source_card = fake_load_source_card
+        try:
+            with tempfile.TemporaryDirectory() as tmp:
+                source_dir = Path(tmp) / "sources" / "example" / "source"
+                database_path = source_dir / "current.sqlite"
+                manifest_path = source_dir / "manifest.json"
+                source_dir.mkdir(parents=True)
+                database_path.write_text("", encoding="utf-8")
+                manifest_path.write_text(
+                    json.dumps(
+                        {
+                            "status": "current",
+                            "database_path": str(database_path),
+                            "source_files": [
+                                {
+                                    "source_surface_id": "surface_a",
+                                    "url": "https://example.test/current.xlsx",
+                                    "last_modified": "Mon, 01 Jan 2024 00:00:00 GMT",
+                                    "content_length": 100,
+                                }
+                            ],
+                        }
+                    ),
+                    encoding="utf-8",
+                )
+                args = source_data.parse_args(["--data-home", tmp, "status", "example.source"])
+                result = source_data.run_command(args)
+
+                self.assertEqual(result["status"], "stale")
+                self.assertIn("last_modified", result["message"])
+        finally:
+            source_data.load_source_card = original
+
+    def test_managed_source_stale_reason_detects_missing_accepted_surface(self):
+        source = {
+            "source_surfaces": {
+                "surface_a": {
+                    "status": "accepted",
+                    "url": "https://example.test/a.xlsx",
+                },
+                "surface_b": {
+                    "status": "rejected",
+                    "url": "https://example.test/b.xlsx",
+                },
+            }
+        }
+        manifest = {"source_files": []}
+
+        reason = source_data.managed_source_stale_reason(source, manifest)
+        self.assertEqual(reason, "Local manifest is missing accepted source surface: surface_a")
+
     def test_parse_params_requires_key_value_shape(self):
         self.assertEqual(source_data.parse_params(["agency=300"]), {"agency": "300"})
         with self.assertRaises(source_data.SourceDataError):
