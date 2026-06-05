@@ -169,6 +169,14 @@ def status_source(context: SourceContext) -> dict[str, Any]:
             "message": "No local manifest exists for this source.",
         }
     manifest = read_json(context.manifest_path)
+    database_path = manifest.get("database_path")
+    if (
+        context.source_card.get("storage_policy", {}).get("tier") == "managed_local_db"
+        and database_path
+        and not Path(database_path).is_file()
+    ):
+        manifest["status"] = "missing"
+        manifest["message"] = f"Manifest exists but local database is missing: {database_path}"
     manifest.setdefault("ok", True)
     manifest.setdefault("command", "status")
     manifest.setdefault("source_id", context.source_id)

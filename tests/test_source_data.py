@@ -105,6 +105,41 @@ class SourceDataTest(unittest.TestCase):
         finally:
             source_data.load_source_card = original
 
+    def test_status_reports_missing_when_managed_manifest_points_to_missing_database(self):
+        source = {
+            "id": "example.source",
+            "storage_policy": {
+                "tier": "managed_local_db",
+                "normal_answer_source": "local_db",
+            },
+        }
+
+        def fake_load_source_card(source_id):
+            if source_id != "example.source":
+                raise source_data.SourceDataError("wrong source")
+            return {**source, "_path": "jurisdictions/example/sources/source.json"}
+
+        original = source_data.load_source_card
+        source_data.load_source_card = fake_load_source_card
+        try:
+            with tempfile.TemporaryDirectory() as tmp:
+                manifest_path = (
+                    Path(tmp) / "sources" / "example" / "source" / "manifest.json"
+                )
+                missing_db = Path(tmp) / "sources" / "example" / "source" / "missing.sqlite"
+                manifest_path.parent.mkdir(parents=True)
+                manifest_path.write_text(
+                    json.dumps({"status": "current", "database_path": str(missing_db)}),
+                    encoding="utf-8",
+                )
+                args = source_data.parse_args(["--data-home", tmp, "status", "example.source"])
+                result = source_data.run_command(args)
+
+                self.assertEqual(result["status"], "missing")
+                self.assertIn("local database is missing", result["message"])
+        finally:
+            source_data.load_source_card = original
+
     def test_parse_params_requires_key_value_shape(self):
         self.assertEqual(source_data.parse_params(["agency=300"]), {"agency": "300"})
         with self.assertRaises(source_data.SourceDataError):
