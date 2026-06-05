@@ -11,6 +11,7 @@ EXPECTED_POLICY_TIERS = {
     "king_county.open_budget_dashboard": "checked_in_snapshot",
     "washington.operating_budget": "checked_in_snapshot",
     "washington.revenue_by_biennium": "checked_in_snapshot",
+    "washington.open_checkbook": "managed_local_db",
 }
 ALLOWED_TIERS = {
     "live",

@@ -194,7 +194,12 @@ def ensure_source(context: SourceContext, *, force: bool) -> dict[str, Any]:
     if builder is None:
         raise SourceDataError(f"No local data builder is registered for {context.source_id}")
     context.source_dir.mkdir(parents=True, exist_ok=True)
-    result = builder(context, force)
+    try:
+        result = builder(context, force)
+    except SourceDataError:
+        raise
+    except Exception as exc:
+        raise SourceDataError(str(exc)) from exc
     result.setdefault("ok", True)
     result.setdefault("command", "refresh" if force else "ensure")
     result.setdefault("source_id", context.source_id)
@@ -224,7 +229,12 @@ def query_source(
     runner = QUERY_REGISTRY.get(context.source_id) or load_query_runner(context.source_id)
     if runner is None:
         raise SourceDataError(f"No local query runner is registered for {context.source_id}")
-    return runner(context, named_query, params)
+    try:
+        return runner(context, named_query, params)
+    except SourceDataError:
+        raise
+    except Exception as exc:
+        raise SourceDataError(str(exc)) from exc
 
 
 def load_query_runner(source_id: str) -> QueryRunner | None:
