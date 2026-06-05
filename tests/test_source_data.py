@@ -196,6 +196,83 @@ class SourceDataTest(unittest.TestCase):
         finally:
             source_data.load_source_card = original
 
+    def test_ensure_rebuilds_stale_managed_source(self):
+        source = {
+            "id": "example.source",
+            "storage_policy": {
+                "tier": "managed_local_db",
+                "normal_answer_source": "local_db",
+            },
+            "source_surfaces": {
+                "surface_a": {
+                    "status": "accepted",
+                    "url": "https://example.test/current.xlsx",
+                    "last_modified": "Tue, 26 May 2026 23:51:24 GMT",
+                    "content_length": 100,
+                }
+            },
+        }
+
+        def fake_load_source_card(source_id):
+            if source_id != "example.source":
+                raise source_data.SourceDataError("wrong source")
+            return {**source, "_path": "jurisdictions/example/sources/source.json"}
+
+        def fake_builder(context, force):
+            self.assertTrue(force)
+            return {
+                "status": "current",
+                "storage_tier": "managed_local_db",
+                "normal_answer_source": "local_db",
+                "database_path": str(context.source_dir / "current.sqlite"),
+                "source_files": [
+                    {
+                        "source_surface_id": "surface_a",
+                        "url": "https://example.test/current.xlsx",
+                        "last_modified": "Tue, 26 May 2026 23:51:24 GMT",
+                        "content_length": 100,
+                    }
+                ],
+                "row_count": 10,
+            }
+
+        original = source_data.load_source_card
+        source_data.load_source_card = fake_load_source_card
+        source_data.BUILDER_REGISTRY["example.source"] = fake_builder
+        try:
+            with tempfile.TemporaryDirectory() as tmp:
+                source_dir = Path(tmp) / "sources" / "example" / "source"
+                database_path = source_dir / "current.sqlite"
+                manifest_path = source_dir / "manifest.json"
+                source_dir.mkdir(parents=True)
+                database_path.write_text("", encoding="utf-8")
+                manifest_path.write_text(
+                    json.dumps(
+                        {
+                            "status": "current",
+                            "database_path": str(database_path),
+                            "source_files": [
+                                {
+                                    "source_surface_id": "surface_a",
+                                    "url": "https://example.test/current.xlsx",
+                                    "last_modified": "Mon, 01 Jan 2024 00:00:00 GMT",
+                                    "content_length": 100,
+                                }
+                            ],
+                        }
+                    ),
+                    encoding="utf-8",
+                )
+
+                args = source_data.parse_args(["--data-home", tmp, "ensure", "example.source"])
+                result = source_data.run_command(args)
+
+                self.assertEqual(result["status"], "current")
+                self.assertEqual(result["row_count"], 10)
+                self.assertEqual(load_json(manifest_path)["row_count"], 10)
+        finally:
+            source_data.load_source_card = original
+
     def test_managed_source_stale_reason_detects_missing_accepted_surface(self):
         source = {
             "source_surfaces": {

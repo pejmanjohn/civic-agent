@@ -240,8 +240,15 @@ def ensure_source(context: SourceContext, *, force: bool) -> dict[str, Any]:
     if builder is None:
         raise SourceDataError(f"No local data builder is registered for {context.source_id}")
     context.source_dir.mkdir(parents=True, exist_ok=True)
+    current_status = status_source(context)
+    current_status_value = current_status.get("status")
+    builder_force = (
+        force
+        or current_status_value in {"stale", "refresh_failed"}
+        or (current_status_value == "missing" and context.manifest_path.is_file())
+    )
     try:
-        result = builder(context, force)
+        result = builder(context, builder_force)
     except SourceDataError:
         raise
     except Exception as exc:
