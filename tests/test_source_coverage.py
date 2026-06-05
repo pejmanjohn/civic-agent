@@ -22,6 +22,7 @@ EXPECTED_CURRENT_CLAIMS = {
     "king_county.open_budget_dashboard": EXPECTED_ACTIVE_CATEGORIES,
     "washington.operating_budget": EXPECTED_ACTIVE_CATEGORIES,
     "washington.revenue_by_biennium": EXPECTED_ACTIVE_CATEGORIES,
+    "washington.open_checkbook": EXPECTED_ACTIVE_CATEGORIES,
 }
 ALLOWED_STATUSES = {"supported", "partial", "unsupported"}
 FORBIDDEN_UNSUPPORTED_PATTERNS = [

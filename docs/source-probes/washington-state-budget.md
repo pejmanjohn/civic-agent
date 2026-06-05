@@ -24,6 +24,13 @@ OFM remains an official source for budget proposals, enacted/executive context, 
 
 For budgeted/authorized operating data, Fiscal WA is a Power BI-backed official public dashboard/source family. For revenue estimate-vs-actual data, Fiscal WA also exposes session-based ReportViewer exports. For actual vendor payments, Fiscal WA exposes downloadable XLSX files through Open Checkbook.
 
+Open Checkbook is now tracked as its own actual-spending source because it answers vendor-payment questions, not budget or revenue questions:
+
+```text
+docs/source-probes/washington-open-checkbook.md
+jurisdictions/washington/sources/open-checkbook.source.json
+```
+
 ## Official Source Inventory
 
 | Candidate | Owner | URL | Type | Notes |
