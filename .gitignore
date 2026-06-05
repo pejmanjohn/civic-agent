@@ -3,6 +3,7 @@
 tmp/
 dist/
 .generated/
+.civic-agent-data/
 node_modules/
 .env
 .env.*
