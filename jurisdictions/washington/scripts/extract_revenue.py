@@ -340,7 +340,12 @@ def write_snapshot(
         ),
     )
     summary = build_summary(source, statewide_rows, detail_rows, export_metadata, fetched_at)
-    provenance = build_provenance(source, export_metadata, fetched_at)
+    provenance = build_provenance(
+        source,
+        export_metadata,
+        fetched_at,
+        row_counts=summary["row_counts"],
+    )
 
     normalized_dir = output_dir / "normalized"
     write_jsonl(normalized_dir / "general-fund-revenue-by-biennium.jsonl", statewide_rows)
@@ -695,6 +700,8 @@ def build_provenance(
     source: dict[str, Any],
     export_metadata: dict[str, Any],
     fetched_at: str,
+    *,
+    row_counts: dict[str, Any],
 ) -> dict[str, Any]:
     return {
         "source_id": source["id"],
@@ -716,10 +723,7 @@ def build_provenance(
         "exports": export_metadata,
         "source_fingerprint": source_fingerprint(
             source,
-            row_counts={
-                biennium: metadata["csv_row_count"]
-                for biennium, metadata in export_metadata.items()
-            },
+            row_counts=row_counts,
             checks={
                 "actual_data_through": source["actual_data_through"],
                 "actual_data_through_label": source["actual_data_through_label"],

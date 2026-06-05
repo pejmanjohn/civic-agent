@@ -213,6 +213,59 @@ class SourceDataValidationTest(unittest.TestCase):
         finally:
             source_data.load_source_card = original
 
+    def test_validate_managed_local_db_reports_schema_failure_without_validator_error(self):
+        source = {
+            "id": "example.checkbook",
+            "storage_policy": {
+                "tier": "managed_local_db",
+                "normal_answer_source": "local_db",
+            },
+            "source_fingerprint": fingerprint(),
+            "current_biennium": "2025-27",
+            "source_surfaces": {},
+            "_path": "jurisdictions/example/sources/checkbook.source.json",
+        }
+
+        def fake_load_source_card(source_id):
+            return source
+
+        original = source_data.load_source_card
+        source_data.load_source_card = fake_load_source_card
+        source_data.VALIDATOR_REGISTRY["example.checkbook"] = (
+            source_data.validate_washington_open_checkbook
+        )
+        try:
+            with tempfile.TemporaryDirectory() as tmp:
+                args = source_data.parse_args(
+                    ["--data-home", tmp, "validate", "example.checkbook"]
+                )
+                context = source_data.source_context("example.checkbook", data_home=Path(tmp))
+                context.source_dir.mkdir(parents=True)
+                db_path = context.source_dir / "checkbook.sqlite"
+                create_incomplete_checkbook_fixture_db(db_path)
+                manifest = {
+                    "ok": True,
+                    "status": "current",
+                    "database_path": str(db_path),
+                    "row_count": 1,
+                    "current_biennium": "2025-27",
+                    "data_through": "2026-04",
+                    "source_files": [],
+                    "source_fingerprint": {
+                        "row_counts": {"payments": 1},
+                        "checks": {"current_file_data_through": "2026-04"},
+                    },
+                }
+                source_data.write_json(context.manifest_path, manifest)
+
+                result = source_data.run_command(args)
+                self.assertFalse(result["ok"])
+                self.assertEqual(result["status"], "validation_failed")
+                self.assertIn("local_database_required_tables", check_names(result))
+                self.assertNotIn("validator_error", check_names(result))
+        finally:
+            source_data.load_source_card = original
+
 
 def create_checkbook_fixture_db(path):
     with closing(sqlite3.connect(path)) as conn:
@@ -316,6 +369,22 @@ def create_checkbook_fixture_db(path):
                 "current",
                 "fixture",
             ),
+        )
+        conn.commit()
+
+
+def create_incomplete_checkbook_fixture_db(path):
+    with closing(sqlite3.connect(path)) as conn:
+        conn.execute(
+            """
+            CREATE TABLE refresh_runs (
+              run_id TEXT PRIMARY KEY,
+              started_at TEXT,
+              finished_at TEXT,
+              status TEXT,
+              message TEXT
+            )
+            """
         )
         conn.commit()
 

@@ -1218,6 +1218,8 @@ def sqlite_checkbook_checks(
         ).fetchall()
         tables = {row[0] for row in table_rows}
         compare_value(checks, "local_database_required_tables", tables & required_tables, required_tables)
+        if not required_tables.issubset(tables):
+            return checks
         index_rows = conn.execute("PRAGMA index_list(payments)").fetchall()
         indexes = {row[1] for row in index_rows}
         compare_value(
