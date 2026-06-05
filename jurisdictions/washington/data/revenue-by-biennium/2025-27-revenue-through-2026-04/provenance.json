@@ -1,0 +1,228 @@
+{
+  "access_method": "reportviewer_snapshot",
+  "actual_data_through": "2026-04",
+  "actual_data_through_label": "Actual Data Through April 2026",
+  "actual_data_through_precision": "month",
+  "caveats": [
+    "Amounts returned by the Fiscal WA report are in thousands of dollars; normalized rows store dollar amounts.",
+    "The current 2025-27 biennium includes partial estimate, actual, and difference data through April 2026.",
+    "Do not treat the 2025-27 current-biennium values as a full-biennium forecast or final actual.",
+    "Closed biennia are marked complete because their biennial end date is before the reported actual-data-through month.",
+    "This first accepted source slice is General Fund (001); companion selected-source and selected-fund report pages remain context-only until normalized."
+  ],
+  "dataset_name": "Washington State Revenue by Biennium Reports",
+  "exports": {
+    "2003-05": {
+      "actual_data_status": "complete",
+      "actual_data_through": "2026-04",
+      "actual_data_through_label": "Actual Data Through April 2026",
+      "biennium_value": "12",
+      "csv_row_count": 75,
+      "csv_sha256": "7137124c0a5e2201f2c925d0b089369e4eec009f05bf9ae54fa43eab9d0897c4",
+      "fund": "General Fund (001)",
+      "report_period_label": "2003-05 Biennium",
+      "xlsx_sha256": "c4f9b6aae8b30b8bab2a1f40a699e68fc265c186e24bc0746b0107479a528e03",
+      "xml_sha256": "f9d0fc8f0ce24d59f7425e1fa45e40462232c226d6450d1b2a642dbbb7beea0f"
+    },
+    "2005-07": {
+      "actual_data_status": "complete",
+      "actual_data_through": "2026-04",
+      "actual_data_through_label": "Actual Data Through April 2026",
+      "biennium_value": "11",
+      "csv_row_count": 78,
+      "csv_sha256": "ea655fea9568c84e10113179e8f44f303f574a80e1e3a5f4b3ec1819ee2ee920",
+      "fund": "General Fund (001)",
+      "report_period_label": "2005-07 Biennium",
+      "xlsx_sha256": "ef0e86284032845e5485225c8198aa8ab98f1fe8c8d3b07f13690532d46870a8",
+      "xml_sha256": "6a80b4448611d6946393701029af053cd026280033a3b8107223a11f21053d50"
+    },
+    "2007-09": {
+      "actual_data_status": "complete",
+      "actual_data_through": "2026-04",
+      "actual_data_through_label": "Actual Data Through April 2026",
+      "biennium_value": "10",
+      "csv_row_count": 84,
+      "csv_sha256": "3bb3a661d36c4028197a7a6a12c20a7bd89f6bf4c6c355a1949f6b43e0e5ac2b",
+      "fund": "General Fund (001)",
+      "report_period_label": "2007-09 Biennium",
+      "xlsx_sha256": "c16226b42e33767a75d3f8bb77ce747f1e44677ebf32ba3bb4268e72a1001012",
+      "xml_sha256": "a77fbf2c68336f9fd8360272dac0fa4885d5fb4ea61ba94b3f3dd48ddc9bbfbc"
+    },
+    "2009-11": {
+      "actual_data_status": "complete",
+      "actual_data_through": "2026-04",
+      "actual_data_through_label": "Actual Data Through April 2026",
+      "biennium_value": "9",
+      "csv_row_count": 80,
+      "csv_sha256": "3c42ebde8faf37311253f96a607090228c98949fd4b9e4786a3cc39eb1c3457c",
+      "fund": "General Fund (001)",
+      "report_period_label": "2009-11 Biennium",
+      "xlsx_sha256": "4d67a1e0f636f1ba0907fe5b0e4924d63fbbe7eddbba033a841ac32b5f9901b5",
+      "xml_sha256": "cd3c1d096403f02e9a79441872ea70b45010160d54b824ec1002f27678ee8539"
+    },
+    "2011-13": {
+      "actual_data_status": "complete",
+      "actual_data_through": "2026-04",
+      "actual_data_through_label": "Actual Data Through April 2026",
+      "biennium_value": "8",
+      "csv_row_count": 84,
+      "csv_sha256": "cdf5002e2e5520f9f6d2de772a9bb7e989d09299bc9198da4e8f8bf5b96e2be0",
+      "fund": "General Fund (001)",
+      "report_period_label": "2011-13 Biennium",
+      "xlsx_sha256": "31927f1f73077e25965f419988dfab606249563c1056beffa1afe48e66bf1a87",
+      "xml_sha256": "8cb05e47b3af8337ea4b46cc2676cf4306909490fb136fdefad414b539ffa791"
+    },
+    "2013-15": {
+      "actual_data_status": "complete",
+      "actual_data_through": "2026-04",
+      "actual_data_through_label": "Actual Data Through April 2026",
+      "biennium_value": "7",
+      "csv_row_count": 74,
+      "csv_sha256": "e19cd4df4def6295e0c621045fc03a13af2347e655f2e43055f9ee33799d983f",
+      "fund": "General Fund (001)",
+      "report_period_label": "2013-15 Biennium -- Biennium-To-Date",
+      "xlsx_sha256": "636caed903a85435ebf0e35de498989445184065dcb0a9e4bd6587590a79daf5",
+      "xml_sha256": "f8c6ffe1ab8557d720df1ca088c731457e3ef68bf4bdf4b90c6b659dcfe5affe"
+    },
+    "2015-17": {
+      "actual_data_status": "complete",
+      "actual_data_through": "2026-04",
+      "actual_data_through_label": "Actual Data Through April 2026",
+      "biennium_value": "6",
+      "csv_row_count": 76,
+      "csv_sha256": "5c316ec610b36cc550cd387c006decf9373064e59a7e56d8f8b39e83f2ff9bd5",
+      "fund": "General Fund (001)",
+      "report_period_label": "2015-17 Biennium",
+      "xlsx_sha256": "8a2544942ce9ad869bde0d784d6863746000de8cc754f4c58ba4298a819e2473",
+      "xml_sha256": "a455cdce3b2124d904605b83b88986d695e905658b31b45e85ec59ed1a697abe"
+    },
+    "2017-19": {
+      "actual_data_status": "complete",
+      "actual_data_through": "2026-04",
+      "actual_data_through_label": "Actual Data Through April 2026",
+      "biennium_value": "5",
+      "csv_row_count": 77,
+      "csv_sha256": "b0c3da98c9d98456a27652ce97343a14ffbbc61b4a17bf93d8dfe854959874b0",
+      "fund": "General Fund (001)",
+      "report_period_label": "2017-19 Biennium",
+      "xlsx_sha256": "317dd952ca82580c5747693b9f1965d0a98fca149e2bc64366eb948cc41a2518",
+      "xml_sha256": "9376e424a85a09fc953c438cb9b4839d62a2cdf37f4dedf1f293f236542a526a"
+    },
+    "2019-21": {
+      "actual_data_status": "complete",
+      "actual_data_through": "2026-04",
+      "actual_data_through_label": "Actual Data Through April 2026",
+      "biennium_value": "4",
+      "csv_row_count": 80,
+      "csv_sha256": "3ff01363dc880c9edc244414cb020e38772c329f62419d1cf6569d2ca0a3fece",
+      "fund": "General Fund (001)",
+      "report_period_label": "2019-21 Biennium",
+      "xlsx_sha256": "6320f4259ee582913a50b36fda3085ef867ea0f3dbf4a3d0d4bf7679e6314e08",
+      "xml_sha256": "5b8350fad9dc0351f001b5e5a73519089ea5261fb441bdf50570963d00027b0d"
+    },
+    "2021-23": {
+      "actual_data_status": "complete",
+      "actual_data_through": "2026-04",
+      "actual_data_through_label": "Actual Data Through April 2026",
+      "biennium_value": "3",
+      "csv_row_count": 85,
+      "csv_sha256": "cc09e22cb6509fdcf301943fe31255e423d0acacb7b2be142a3327023c564480",
+      "fund": "General Fund (001)",
+      "report_period_label": "2021-23 Biennium",
+      "xlsx_sha256": "c248f4eaf74e883c5025f032941c71d7dadd054ba12938e0065af3ccec2ddf07",
+      "xml_sha256": "74b11ca6f4d709e7f56d7313c3a4facdc1bf7b8d8f0cfd1b6ef70496d2be0523"
+    },
+    "2023-25": {
+      "actual_data_status": "complete",
+      "actual_data_through": "2026-04",
+      "actual_data_through_label": "Actual Data Through April 2026",
+      "biennium_value": "2",
+      "csv_row_count": 86,
+      "csv_sha256": "8d7a478cdca86bbbc34d3a19654455b7c049f39455244d7595aa00c5f71ebe7d",
+      "fund": "General Fund (001)",
+      "report_period_label": "2023-25 Biennium",
+      "xlsx_sha256": "8118ef59c57e2fb27e14418628c1c696349c869431e545c45d8d3c49c9f20f8a",
+      "xml_sha256": "db951e85e7c04697fbaa6192030cff4ba04226d7bc4119a5d4be6fdaf53c6173"
+    },
+    "2025-27": {
+      "actual_data_status": "partial",
+      "actual_data_through": "2026-04",
+      "actual_data_through_label": "Actual Data Through April 2026",
+      "biennium_value": "1",
+      "csv_row_count": 68,
+      "csv_sha256": "19251de81df37fb0c361411e636a3d4817115fd57d9516d88b026d3f98746eda",
+      "fund": "General Fund (001)",
+      "report_period_label": "2025-27 Biennium",
+      "xlsx_sha256": "9690a96a0e58f4a3d34f2296f19357b1de923d949a843dbea2d98d97c85255d7",
+      "xml_sha256": "a6341de09f88c6f0cb3fd978da8defd1852c46242bda6699b0942a695a3abceb"
+    }
+  },
+  "normalization": {
+    "actual_data_status": "complete when actual_data_through is on or after the biennium end month; otherwise partial",
+    "difference_semantics": "actual_minus_estimate",
+    "normalized_units": "dollars",
+    "source_units": "thousands_of_dollars"
+  },
+  "provider": "Fiscal WA / LEAP / Office of Financial Management / Microsoft ReportViewer",
+  "report_parameters": {
+    "biennium_field": "ReportViewer1$ctl08$ctl03$ddValue",
+    "fund": "General Fund (001)",
+    "fund_field": "ReportViewer1$ctl08$ctl05$ddValue",
+    "fund_value": "192"
+  },
+  "snapshot_fetched_at": "2026-06-04T23:44:06.438417+00:00",
+  "snapshot_version": "2025-27-revenue-through-2026-04",
+  "source_id": "washington.revenue_by_biennium",
+  "source_surfaces": {
+    "fund_detail_by_revenue_source_reportviewer": {
+      "notes": [
+        "Useful for future selected-source fund detail extraction.",
+        "Not normalized in the first accepted snapshot; the initial source slice uses the statewide revenue report for General Fund history."
+      ],
+      "official_report_page": "https://fiscal.wa.gov/Revenue/RevenueBySource.aspx",
+      "status": "context_only"
+    },
+    "revenue_source_by_fund_detail_reportviewer": {
+      "notes": [
+        "Useful for future selected-fund revenue source detail extraction.",
+        "Not normalized in the first accepted snapshot; the initial source slice uses the statewide revenue report for General Fund history."
+      ],
+      "official_report_page": "https://fiscal.wa.gov/Revenue/RevenueByFund.aspx",
+      "status": "context_only"
+    },
+    "statewide_revenue_reportviewer": {
+      "coverage": {
+        "biennia": [
+          "2003-05",
+          "2005-07",
+          "2007-09",
+          "2009-11",
+          "2011-13",
+          "2013-15",
+          "2015-17",
+          "2017-19",
+          "2019-21",
+          "2021-23",
+          "2023-25",
+          "2025-27"
+        ],
+        "funds": [
+          "General Fund (001)"
+        ],
+        "grains": [
+          "biennium",
+          "biennium_by_revenue_area_and_account"
+        ],
+        "measures": [
+          "estimated_revenue",
+          "actual_revenue",
+          "actual_minus_estimate"
+        ]
+      },
+      "official_report_page": "https://fiscal.wa.gov/Revenue/RevenueGeneral.aspx",
+      "report_name": "RevenueSW",
+      "report_viewer_file_name": "RevenueSW",
+      "status": "accepted"
+    }
+  }
+}

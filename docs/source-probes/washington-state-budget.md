@@ -1,6 +1,6 @@
 # Washington State Budget Source Probe
 
-Status: accepted and implemented for operating budget summary snapshots; additional Fiscal WA surfaces remain candidates/context
+Status: accepted and implemented for operating budget summary snapshots and General Fund revenue by biennium snapshots; additional Fiscal WA surfaces remain candidates/context
 
 Date: 2026-06-04
 
@@ -22,7 +22,7 @@ OFM remains an official source for budget proposals, enacted/executive context, 
 
 - `https://ofm.wa.gov/budget/`
 
-For budgeted/authorized data, Fiscal WA is a Power BI-backed official public dashboard/source family. For actual vendor payments, Fiscal WA also exposes downloadable XLSX files through Open Checkbook.
+For budgeted/authorized operating data, Fiscal WA is a Power BI-backed official public dashboard/source family. For revenue estimate-vs-actual data, Fiscal WA also exposes session-based ReportViewer exports. For actual vendor payments, Fiscal WA exposes downloadable XLSX files through Open Checkbook.
 
 ## Official Source Inventory
 
@@ -32,6 +32,9 @@ For budgeted/authorized data, Fiscal WA is a Power BI-backed official public das
 | Fiscal WA state budgets | LEAP and OFM | `https://fiscal.wa.gov/statebudgets/statebudgetsoverview` | portal/dashboard | Best official budget data hub. Separates operating, capital, transportation, and combined budgets. |
 | Fiscal WA biennial operating summary comparison | LEAP and OFM | `https://fiscal.wa.gov/statebudgets/operatingsummarycomparisonbien` | Power BI dashboard | Accepted current 2025-27 operating budget summary surface. |
 | Fiscal WA prior operating summary | LEAP and OFM | `https://fiscal.wa.gov/statebudgets/operatingsummarygraphicprior` | Power BI dashboard | Accepted historical enacted base trend surface. |
+| Fiscal WA revenue by biennium | LEAP and OFM | `https://fiscal.wa.gov/Revenue/RevenueGeneral.aspx` | ReportViewer export | Accepted General Fund revenue estimate-vs-actual surface, with biennia back to 2003-05 and current 2025-27 values partial through April 2026. |
+| Fiscal WA fund detail by revenue source | LEAP and OFM | `https://fiscal.wa.gov/Revenue/RevenueBySource.aspx` | ReportViewer export | Context-only companion surface for future selected-source fund detail extraction. |
+| Fiscal WA revenue source by fund detail | LEAP and OFM | `https://fiscal.wa.gov/Revenue/RevenueByFund.aspx` | ReportViewer export | Context-only companion surface for future selected-fund revenue source detail extraction. |
 | Fiscal WA operating search | LEAP and OFM | `https://fiscal.wa.gov/Search/OperatingDataSearch` | Power BI dashboard | Context-only for this source; useful for line-item search investigation, but not accepted for full historical summary trends because totals did not reconcile to the summary report. |
 | Fiscal WA agency information | LEAP and OFM | `https://fiscal.wa.gov/statebudgets/AgencyInfo` | portal/dashboard links | Maps agency-related reports across operating, capital, transportation, budget bills, LEAP docs, and search. |
 | Fiscal WA Open Checkbook | LEAP and OFM | `https://fiscal.wa.gov/Spending/Checkbook` | Power BI plus XLSX downloads | Actual vendor payments by biennium, monthly updates. Not a budget source. |
@@ -45,6 +48,13 @@ washington.operating_budget
 access_method: powerbi_snapshot
 ```
 
+Accepted revenue companion source:
+
+```text
+washington.revenue_by_biennium
+access_method: reportviewer_snapshot
+```
+
 Useful companion source:
 
 ```text
@@ -52,7 +62,7 @@ washington_state.open_checkbook
 access_method: official_bulk_download
 ```
 
-Do not mix these in one source. Operating budget answers and actual vendor-payment answers have different measures, grains, and caveats.
+Do not mix these in one source. Operating budget answers, revenue estimate-vs-actual answers, and actual vendor-payment answers have different measures, grains, and caveats.
 
 Probe methods used:
 
@@ -62,16 +72,22 @@ Probe methods used:
 - Bulk file probe
 - Document/portal context review
 
-Primary access surface:
+Primary operating access surface:
 
 ```text
 Power BI public report snapshots for Fiscal WA operating budget summary data
 ```
 
+Primary revenue access surface:
+
+```text
+ReportViewer XML/XLSX/CSV exports for Fiscal WA RevenueSW, snapshotted by biennium
+```
+
 Companion and candidate surfaces:
 
 ```text
-OFM budget hub and budget documents for context; Fiscal WA Operating Search for line-item investigation; Fiscal WA Open Checkbook XLSX for separate actual-spending questions
+OFM budget hub and budget documents for context; ERFC revenue forecast notebooks for forecast context; Fiscal WA Operating Search for line-item investigation; Fiscal WA Open Checkbook XLSX for separate actual-spending questions
 ```
 
 ## How The Site Was Probed
