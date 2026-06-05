@@ -7,6 +7,14 @@
   "provider": "King County / Microsoft Power BI Gov",
   "dataset_name": "King County Open Budget Dashboard",
   "access_method": "powerbi_snapshot",
+  "storage_policy": {
+    "tier": "checked_in_snapshot",
+    "normal_answer_source": "repo_snapshot",
+    "freshness_check": "model_refresh",
+    "repo_artifacts": ["source_card", "query_templates", "normalized_snapshot", "summary", "provenance", "tests", "docs"],
+    "local_artifacts": ["debug_capture"],
+    "refresh_behavior": "rerun_extractor_to_update_repo_snapshot"
+  },
   "official_dashboard_page": "https://kingcounty.gov/en/dept/executive/governance-leadership/performance-strategy-budget/budget/budget-dashboard",
   "powerbi_report_url": "https://app.powerbigov.us/view?r=eyJrIjoiOTNmYzYwMDEtNWM5ZC00YjllLThlNzAtZDc1OGRjNzA4MmEwIiwidCI6ImJhZTUwNTlhLTc2ZjAtNDlkNy05OTk2LTcyZGZlOTVkNjljNyJ9",
   "human_inspection_urls": [

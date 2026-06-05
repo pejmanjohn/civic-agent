@@ -71,6 +71,8 @@ Source metadata:
 
 Source metadata acts as a source card: it identifies the official source, human inspection URLs, fields, known checks, caveats, safe answer patterns, and claims that source should not support.
 
+Source cards may include a `storage_policy` block that declares where normal answer data lives. Valid tiers are documented in `docs/source-data-storage.md`: `live`, `checked_in_snapshot`, `managed_local_db`, `hosted_artifact`, `context_only`, `watchlist`, and `reject`. `access_method` still describes how the official source is reached; `storage_policy` describes whether answers read from the official source, repo snapshot, local database, hosted artifact, or nowhere yet.
+
 Each source card should include `human_inspection_urls`: a short list of public URLs a reader can open to inspect the official source. Keep those separate from machine-oriented API, metadata, and query endpoints.
 
 When one logical source is split across time spans or report pages, keep the source id stable and represent the pieces as `source_surfaces` in the source card. Each accepted surface should carry its official inspection URL, machine endpoint or file metadata, coverage, and status. Normalized rows should include `source_surface_id`, semantic filters such as budget state/fund view/period type, and official dimension codes where available. Snapshot summaries should include overlap reconciliation and period-by-period grouped-total checks before a stitched historical table is treated as answerable.
@@ -96,6 +98,8 @@ Report-shaped sources may use a multi-artifact snapshot directory when one offic
 - `jurisdictions/<jurisdiction>/data/<dataset>/<version>/provenance.json`
 
 Raw report responses are local/debug artifacts by default unless a specific payload is reviewed and intentionally committed.
+
+Large raw files, full line-item dumps, and user-local databases are managed local artifacts by default. They should live outside git unless a compact artifact is deliberately reviewed and useful enough for repository storage.
 
 ## Routing Rules
 

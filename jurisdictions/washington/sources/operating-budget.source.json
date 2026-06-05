@@ -7,6 +7,14 @@
   "provider": "Fiscal WA / LEAP / Office of Financial Management / Microsoft Power BI",
   "dataset_name": "Washington Operating Budget Summary Reports",
   "access_method": "powerbi_snapshot",
+  "storage_policy": {
+    "tier": "checked_in_snapshot",
+    "normal_answer_source": "repo_snapshot",
+    "freshness_check": "model_refresh",
+    "repo_artifacts": ["source_card", "query_templates", "normalized_snapshot", "summary", "provenance", "tests", "docs"],
+    "local_artifacts": ["debug_capture"],
+    "refresh_behavior": "rerun_extractor_to_update_repo_snapshot"
+  },
   "official_dashboard_page": "https://fiscal.wa.gov/statebudgets/operatingsummarycomparisonbien",
   "official_context_page": "https://ofm.wa.gov/budget/",
   "powerbi_report_url": "https://app.powerbi.com/view?r=eyJrIjoiYjMzNmE2MDMtMWY2Ni00NjVkLWFmN2YtZWI4YjE3MjhkNTgzIiwidCI6ImI0ZWIwY2NmLTAxOTQtNDY2My1hNTZhLTllZDkxZWZkMzMwOCIsImMiOjZ9",

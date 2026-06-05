@@ -25,6 +25,8 @@ If the source is accepted, the next implementation step is source-specific:
 - Official public dashboard: add a source card, reviewed query/capture templates, normalized snapshot, summary, and provenance.
 - PDF/document-only source: usually keep as context or a citation source until the extraction need is narrow and validated.
 
+Every accepted source must also choose a storage tier from `docs/source-data-storage.md`. The tier explains where normal answer data lives: live official source, checked-in snapshot, managed local database, hosted artifact, context-only, watchlist, or reject.
+
 ## Source Type Matrix
 
 Run the matrix before getting deep into any one extraction path. Power BI is one possible branch, not the default assumption.
@@ -38,6 +40,20 @@ Run the matrix before getting deep into any one extraction path. Power BI is one
 | Document source | PDF, budget book, ordinance, adopted budget document | `accept-context-only` or `accept-snapshot` | Identify whether the document supplies citations/context or a narrow extractable table. | Source note, citation workflow, or narrow parser. |
 | HTML tables/pages | Static tables, server-rendered pages, no API/download | `watchlist` or `accept-snapshot` | Prove official ownership, table stability, headers, and a validation total. | Source card plus narrow scraper only if better options do not exist. |
 | Unofficial mirror | Third-party API, civic project, media graphic | `reject` or context only | Check whether it points back to an official source. | Usually none. |
+
+## Storage Tier Matrix
+
+Run the storage tier matrix after the source type is understood. Source type describes how to reach official data; storage tier describes where normal Civic Agent answers should read from.
+
+| Storage tier | Use when | Normal answer source | Example |
+|---|---|---|---|
+| `live` | Official source is fast, structured, stable, and cheaply validated at answer time. | Official API or official query endpoint. | Seattle Socrata operating budget. |
+| `checked_in_snapshot` | Normalized data is compact, slow-changing, and useful in git for tests and default answers. | Checked-in normalized rows plus summary and provenance. | King County dashboard, Washington operating budget, Washington revenue. |
+| `managed_local_db` | Source data is official but too large, detailed, slow, or awkward for git and repeated answer-time parsing. | Local database under Civic Agent's data cache. | Washington Open Checkbook full vendor-payment history. |
+| `hosted_artifact` | Repeated local rebuild cost, bandwidth, or validation burden justifies central publishing. | Hosted artifact or service, cached locally when useful. | Future scale tier. |
+| `context_only` | Source is useful for citations or explanation but not accepted for normal answers. | Human inspection or citation only. | Budget documents without narrow extraction. |
+| `watchlist` | Source might become useful but access, semantics, or validation are not acceptable yet. | None. | Unstable dashboards. |
+| `reject` | Source is unofficial, misleading, unreproducible, or outside scope. | None. | Unofficial mirrors without official backing. |
 
 ## Principles
 
@@ -65,7 +81,11 @@ Run the matrix before getting deep into any one extraction path. Power BI is one
 
    If the official source is slow-changing and awkward to query live, prefer a checked-in normalized snapshot with provenance over a fragile live-only answer path.
 
-7. One source can have multiple official surfaces.
+7. Checked-in snapshots and managed local databases solve different problems.
+
+   Use checked-in snapshots when normalized data is compact enough to review and keep in git. Use a managed local database when full-detail data is too large or slow for git but still needs fast repeated local analysis. Do not commit raw historical bulk files or local databases unless a payload is deliberately reviewed and small enough to justify repository storage.
+
+8. One source can have multiple official surfaces.
 
    If a jurisdiction splits the same budget family across current, prior, yearly, or biennial report pages, keep one logical source id when the provider, measures, caveats, and answer contract are the same. Model each official page/report/file as a `source_surface`, normalize rows into shared tables, and include a row-level `source_surface_id`.
 
@@ -112,7 +132,7 @@ Acceptance rules:
 
 When a source is split by year with separate CSV/XLSX files, use the same shape: one source card, one `source_surfaces` entry per file or file family, shared normalized historical tables, row-level provenance, checksums/file metadata for each accepted file, and period-by-period reconciliation checks.
 
-8. Coverage categories are promoted only after probes.
+9. Coverage categories are promoted only after probes.
 
    `docs/coverage-taxonomy.md` carries the full civic coverage map and the currently active source-card categories. A backlog category such as demographics, crime, transportation, housing, procurement, health, service requests, governance, or elections should not appear in `coverage_claims` until this workflow proves what an official source can answer or explicitly cannot answer.
 
@@ -141,6 +161,7 @@ Record:
 - Coverage target from `docs/coverage-taxonomy.md`: active category for current budget/public-finance work, or backlog family if the source is being investigated for future coverage.
 - Desired grain: agency, department, program, fund, project, vendor, fiscal year, biennium, version
 - Desired measure: budgeted amount, actual spending, revenue, FTE, contract amount, project appropriation
+- Candidate storage tier from `docs/source-data-storage.md`, if already obvious.
 
 ### 2. Build The Official Source Inventory
 
@@ -492,6 +513,24 @@ Use this preference order:
 
 Prefer `official_dashboard_snapshot` for report-shaped Power BI/Tableau sources unless the provider documents a stable API. The snapshot should carry query templates, normalized rows, summary checks, and provenance.
 
+### 6a. Choose The Storage Tier
+
+Choose the storage tier separately from access method:
+
+```text
+live | checked_in_snapshot | managed_local_db | hosted_artifact | context_only | watchlist | reject
+```
+
+Record:
+
+- Normal answer source: official API, repo snapshot, local DB, hosted artifact, or none.
+- Freshness check: API metadata, source file metadata, model refresh, report timestamp, manual snapshot version, or custom probe.
+- Repo artifacts: source card, probe, normalized snapshot, summary, provenance, fixtures, tests, docs.
+- Local artifacts: raw source files, local database, manifest, debug captures.
+- Data-through rule for partial current-period data.
+
+Use `checked_in_snapshot` for compact reviewed normalized data. Use `managed_local_db` when official full-detail data is too large or slow for git but should be fast after setup.
+
 ### 7. Prove One Answer
 
 Before accepting a source, answer one representative question and write the trace.
@@ -501,6 +540,7 @@ Trace shape:
 ```text
 Source:
 Access method:
+Storage policy:
 Snapshot/version:
 Grain:
 Measure:

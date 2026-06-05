@@ -179,10 +179,12 @@ Before adding a future source, run the source-probing workflow in `docs/source-p
 
 ## Data Strategy
 
-Use live official APIs when they are clean and stable. Use checked-in snapshots when official public data is slow-changing, awkward to scrape, or report-shaped.
+Use live official APIs when they are clean and stable. Use checked-in snapshots when reviewed normalized data is compact enough to keep the repo self-contained. Use managed local databases when official data is too large or slow to parse repeatedly but should still be fast after setup. See `docs/source-data-storage.md` for the full storage policy.
 
 Seattle is the clean example: direct Socrata JSON/CSV plus SoQL.
 
 King County is the first report-shaped example: official Power BI Gov dashboard replayed through reviewed query templates into a checked-in normalized snapshot.
 
-Washington is the second report-shaped example: Fiscal WA Power BI reports replayed through reviewed query templates into a checked-in normalized operating budget snapshot. It also demonstrates the split-time-span pattern: one logical source id with multiple official report surfaces stitched into common historical trend tables and validated by overlap totals. Treat Open Checkbook as a separate actual-spending source.
+Washington is the second report-shaped example: Fiscal WA Power BI reports replayed through reviewed query templates into a checked-in normalized operating budget snapshot. It also demonstrates the split-time-span pattern: one logical source id with multiple official report surfaces stitched into common historical trend tables and validated by overlap totals.
+
+Washington Open Checkbook is the first managed-local-data example: official Fiscal WA vendor-payment XLSX files are too large and detailed for git, so the repo keeps the source card, builder, tests, fixtures, and docs while full raw files and the local database live in the user's Civic Agent data cache.
