@@ -1,16 +1,17 @@
 ---
 name: washington-budget-analyst
-description: Use when answering questions about Washington state operating budget totals, enacted budget trends, or General Fund revenue estimate-vs-actual trends from Fiscal WA.
+description: Use when answering questions about Washington state operating budget totals, enacted budget trends, General Fund revenue estimate-vs-actual trends, or state agency vendor-payment/checkbook actual spending from Fiscal WA.
 ---
 
 # Washington Budget Analyst
 
-Use this skill for Washington state budget and revenue questions that can be answered from checked-in Fiscal WA snapshots:
+Use this skill for Washington state budget, revenue, and actual vendor-payment questions that can be answered from reviewed Fiscal WA sources:
 
 - Operating budget: 2025-27 enacted agency/function totals and enacted base biennial trends from 2013-15 through 2025-27.
 - Revenue by biennium: General Fund (001) estimated revenue, actual revenue, and actual-minus-estimate trends from 2003-05 through 2025-27, with 2025-27 partial through April 2026.
+- Open Checkbook: state agency vendor payments from 2013-15 through the current 2025-27 partial biennium, backed by a managed local SQLite database built from official Fiscal WA XLSX files.
 
-Do not use this for actual spending, vendor payments, checkbook transactions, procurement, staffing/FTE, capital budget, transportation budget, Seattle budget analysis, King County budget analysis, or cross-jurisdiction comparison unless a separate source explicitly supports that question. Do not treat the 2025-27 revenue values as full-biennium final actuals or full-biennium forecasts.
+Do not mix these three source families. Operating budget rows are budget authority, revenue rows are General Fund estimate/actual revenue, and Open Checkbook rows are actual vendor payments. Do not use this skill for procurement contract terms, payroll, staffing/FTE, capital budget, transportation budget, Seattle budget analysis, King County budget analysis, or cross-jurisdiction comparison unless a separate source explicitly supports that question. Do not treat the 2025-27 revenue or checkbook values as full-biennium final actuals.
 
 ## Operating Source Of Truth
 
@@ -77,6 +78,37 @@ https://raw.githubusercontent.com/pejmanjohn/civic-agent/main/jurisdictions/wash
 
 Treat revenue `estimated_revenue` as the revenue-budget measure for this source. The same rows include actual revenue collected and actual-minus-estimate. For the in-progress 2025-27 biennium, all three measures are partial through April 2026.
 
+## Open Checkbook Source Of Truth
+
+- Dataset: Washington State Agency Vendor Payments Open Checkbook
+- Provider: Fiscal WA / LEAP / Office of Financial Management / Microsoft Power BI
+- Official checkbook page: `https://fiscal.wa.gov/Spending/Checkbook.aspx`
+- Fiscal WA spending overview: `https://fiscal.wa.gov/Spending/SpendingOverview.aspx`
+- Source card: `jurisdictions/washington/sources/open-checkbook.source.json`
+- Storage policy: `managed_local_db`
+- Normal answer source: local SQLite database built from official XLSX files
+- Current official XLSX: `https://fiscal.wa.gov/Spending/VendorPayments2527.xlsx`
+- Historical official XLSX coverage: `2013-15` through `2025-27`
+- Current actual data through: `2026-04` (`Payments through April 2026`)
+
+For source-checking before answering:
+
+```bash
+python3 scripts/source_data.py --json inspect washington.open_checkbook
+python3 scripts/source_data.py --json status washington.open_checkbook
+```
+
+If the status is `missing`, `stale`, `refresh_failed`, or the local database path is missing, ensure or refresh the managed source before answering checkbook questions:
+
+```bash
+python3 scripts/source_data.py --json ensure washington.open_checkbook
+python3 scripts/source_data.py --json refresh washington.open_checkbook
+```
+
+Do not parse the XLSX files during normal answer generation. The first ensure/refresh may download large official files and build the local database; repeated answers should query the indexed SQLite database. If the agent host cannot run this repo's CLI or access the local database, say the managed local checkbook data is not set up rather than answering from memory.
+
+Treat this as actual state agency vendor-payment data, not budget authority, revenue, contracts, invoices, payroll, staffing, or service outcomes.
+
 ## Safe Answer Patterns
 
 The operating source can safely support:
@@ -100,6 +132,15 @@ The revenue source can safely support:
 - Current-biennium revenue estimates and actuals only when labeled as partial through April 2026.
 
 Do not use the revenue source for funds beyond General Fund (001), selected major-source detail, selected-fund source detail, ERFC forecast assumptions, final 2025-27 actuals, full-biennium 2025-27 forecasts, or expenditure budget questions.
+
+The Open Checkbook source can safely support:
+
+- State agency vendor-payment totals by biennium, fiscal year, fiscal month, calendar month, agency, object category, subobject category, or vendor.
+- Category, agency, vendor, and monthly actual-payment rankings for a selected biennium or fiscal period.
+- Historical vendor-payment trends from 2013-15 through 2025-27, with the current biennium labeled partial through April 2026 until refreshed.
+- Plain-English explanations of how checkbook actual payments differ from budget authority, revenue, contracts, invoices, payroll, staffing, and service outcomes.
+
+Do not use Open Checkbook for budget authority, appropriations, revenue, procurement contract terms, invoices, purchase orders, payroll, employee compensation, FTE, staffing, service quality, program outcomes, or local government spending outside Washington state agency vendor payments.
 
 ## Data Model
 
@@ -189,13 +230,55 @@ sum(actual_revenue)
 sum(actual_minus_estimate)
 ```
 
+Open Checkbook local database:
+
+- Managed source id: `washington.open_checkbook`
+- Database: `open_checkbook.sqlite` under the configured Civic Agent data cache
+- Manifest: `manifest.json` under the same managed source cache
+- Raw files: official `VendorPayments*.xlsx` files under the managed source cache, not git
+
+Open Checkbook payment fields:
+
+- `biennium`: `2013-15` through `2025-27`
+- `fiscal_year`: official Fiscal WA fiscal year
+- `fiscal_month`: official Fiscal WA fiscal month, where fiscal month 1 is July
+- `calendar_month`: derived `YYYY-MM`
+- `agency_code`, `agency_name`
+- `object_code`, `category`
+- `subobject_code`, `subcategory`
+- `vendor_name`
+- `amount`: normalized payment amount in dollars
+
+Open Checkbook primary measure:
+
+```text
+sum(amount)
+```
+
+Supported named queries through `scripts/source_data.py query washington.open_checkbook`:
+
+- `category_breakdown`: top payment categories by amount
+- `agency_totals`: top agencies by payment amount
+- `vendor_totals`: top vendors by payment amount
+- `monthly_trend`: month-by-month payment totals
+
+Common parameters:
+
+```text
+biennium=2025-27
+limit=10
+agency_code=<optional agency code>
+category=<optional exact category label>
+```
+
 ## Retrieval Strategy
 
-1. Use the checked-in snapshot files as the normal answer source.
+1. Use the checked-in operating and revenue snapshot files as the normal answer source for budget authority and revenue questions.
 2. Use `summary.json` for validation checks before trusting totals.
 3. Use `provenance.json` when the answer needs model refresh time, query-template hashes, or Power BI source details.
 4. Use the live Power BI or ReportViewer extractors only when refreshing snapshots, not during normal answer generation.
-5. If a question asks for an unsupported grain, answer with the supported grains and explain the boundary.
+5. For Open Checkbook questions, run `scripts/source_data.py --json status washington.open_checkbook` first. Use `ensure` or `refresh` when the managed local database is missing or stale, then query the local SQLite database through named queries.
+6. If a question asks for an unsupported grain, answer with the supported grains and explain the boundary.
 
 ## Query Recipes
 
@@ -390,6 +473,46 @@ jurisdictions/washington/data/revenue-by-biennium/2025-27-revenue-through-2026-0
 
 Use this only for General Fund (001) revenue rows by biennium, `revenue_area`, and `account_or_agency`. Known check: 934 detail rows, and detail totals reconcile to the statewide biennium totals within rounding tolerance.
 
+### Open Checkbook category breakdown
+
+Ensure the managed local database exists, then run:
+
+```bash
+python3 scripts/source_data.py --json query washington.open_checkbook category_breakdown --param biennium=2025-27 --param limit=10
+```
+
+Use this for questions like "What categories drive Washington state vendor payments?" State that this is actual vendor-payment data and that 2025-27 is partial through April 2026 unless the manifest reports a newer `data_through`.
+
+### Open Checkbook agency totals
+
+Run:
+
+```bash
+python3 scripts/source_data.py --json query washington.open_checkbook agency_totals --param biennium=2025-27 --param limit=10
+```
+
+Use this for top agency actual-payment rankings. Do not describe the result as largest agency budgets; use "vendor payments" or "actual payments."
+
+### Open Checkbook vendor totals
+
+Run:
+
+```bash
+python3 scripts/source_data.py --json query washington.open_checkbook vendor_totals --param biennium=2025-27 --param limit=10
+```
+
+Use this for top vendors by actual payment amount. Caveat that the rows are payments, not contract obligations or procurement terms.
+
+### Open Checkbook monthly trend
+
+Run:
+
+```bash
+python3 scripts/source_data.py --json query washington.open_checkbook monthly_trend --param biennium=2025-27
+```
+
+Use this for current-biennium or historical payment timing questions. Include the manifest `data_through`, row count, and any current-biennium partial-status caveat.
+
 ## Analysis Patterns
 
 ### Where does Washington budget the most?
@@ -416,6 +539,8 @@ Say the current Washington snapshot is the 2025-27 enacted biennial operating bu
 
 For current Washington revenue questions, say the current revenue snapshot is `2025-27-revenue-through-2026-04`; 2025-27 revenue values are partial through April 2026.
 
+For current Washington checkbook questions, inspect the managed local manifest. The source card's reviewed current boundary is `Payments through April 2026`; a refreshed local database may report a newer `data_through`. Always use the manifest value when it exists.
+
 ## Interpretation Rules
 
 - Use "budgeted amount" or "authorized operating budget," not actual spending.
@@ -425,8 +550,11 @@ For current Washington revenue questions, say the current revenue snapshot is `2
 - Historical trend answers default to enacted base biennial Total Budgeted rows from 2013-15 through 2025-27.
 - Do not answer 2026 supplemental changes unless the supplemental snapshot is added.
 - For revenue answers, state `actual_data_through` whenever using `actual_revenue` or `actual_minus_estimate`, and whenever using the in-progress 2025-27 `estimated_revenue`.
+- For checkbook answers, use "actual vendor payments" or "payment amount," not "budget."
+- For checkbook answers, state the managed local database status, data-through month, selected biennium, grain, measure, row count or query check, and caveats.
 - Do not answer pre-2013-15 Washington operating-budget trends from this snapshot.
 - Do not answer proposal-stage, House, Senate, Governor, supplemental, or revised historical comparisons unless a matching normalized table is added.
+- Do not infer procurement contract terms, invoice details, payroll, staffing, service quality, policy outcomes, or operational performance from checkbook rows.
 - Do not infer service quality, policy outcomes, or operational performance from budget rows alone.
 - Do not compare Washington to Seattle or King County until accounting definitions and normalized dimensions are explicit.
 
@@ -459,6 +587,20 @@ Known revenue checks from snapshot `2025-27-revenue-through-2026-04`:
 - 2025-27 estimated revenue: $45.099B
 - 2025-27 actual revenue: $46.143B
 - Detail totals reconcile to statewide biennium totals within rounding tolerance
+
+Known Open Checkbook checks from source card `washington.open_checkbook`:
+
+- Current official file: `VendorPayments2527.xlsx`
+- Current file rows: 382,783
+- Current file periods: 10
+- Current file fiscal year/month range: `2026-01` through `2026-10`
+- Current file data through: April 2026
+- Current file agencies: 100
+- Current file categories: 9
+- Historical XLSX coverage: 2013-15 through 2025-27
+- Historical official file total content length: 411,417,899 bytes
+
+When answering from the local database, prefer the manifest and query result over the source-card probe values. If the manifest and source card disagree, report the local manifest as the active answer source and note the source-card probe date may be older.
 
 ## Answer Style
 
@@ -500,4 +642,17 @@ Trace:
 - Filters/query logic: read general-fund-revenue-by-biennium.jsonl; fund = "General Fund (001)"
 - Check: 12 biennium rows; detail totals reconcile to statewide totals
 - Caveats: 2025-27 values are partial through April 2026; General Fund (001) only; not operating budget or actual spending
+```
+
+Open Checkbook trace example:
+
+```text
+Trace:
+- Source: Fiscal WA Open Checkbook, managed local DB for washington.open_checkbook
+- Storage: managed_local_db; manifest data_through = 2026-04
+- Grain: category
+- Measure: amount
+- Filters/query logic: source_data.py query washington.open_checkbook category_breakdown --param biennium=2025-27 --param limit=10
+- Check: local manifest row_count and source_files row counts; current source-card probe observed 382,783 current-file rows
+- Caveats: actual vendor payments, not budget authority, revenue, contracts, invoices, payroll, staffing, or outcomes; 2025-27 is partial through April 2026 unless refreshed
 ```
