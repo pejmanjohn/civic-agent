@@ -4,6 +4,8 @@ Civic Agent prefers live official data when the official source is fast, structu
 
 This policy applies during source probing and source-card review. It does not replace source-specific validation, provenance, or answer caveats.
 
+See `docs/source-data-validation.md` for the validation result shape, source-fingerprint contract, spot-check expectations, and drift classifications that apply across these tiers.
+
 ## Storage Tiers
 
 | Tier | Normal answer source | Use when | Git policy | Current examples |
@@ -33,6 +35,14 @@ Every non-live source must define how freshness is checked:
 - `downloaded_at` or `snapshot_fetched_at` time for local or repo artifacts.
 - Row counts and validation totals for normalized data.
 - Data-through boundary when current-period data is partial.
+
+Every accepted source should also declare a `source_fingerprint` that keeps citation fields and retrieval fields together:
+
+- Public inspection URL or URLs.
+- Machine URL, endpoint, report URL, file URL, or accepted source-surface ids.
+- Dataset, report, model, source-surface, file, query-template, parameter, or export identity.
+- Snapshot version, refresh timestamp, fetched timestamp, last-modified header, or data-through boundary.
+- Row counts, checksums, query-template hashes, response/export hashes, and named spot checks when applicable.
 
 For managed local databases, status should be reported as one of:
 
@@ -84,5 +94,7 @@ Source cards may declare `storage_policy` alongside `access_method`:
 ```
 
 `access_method` describes how the official source is reached. `storage_policy` describes where answer data lives and how it is kept trustworthy.
+
+`source_fingerprint` describes how maintainers and agents can retrieve, validate, and cite the source later. It should distinguish user-facing public source URLs from machine-oriented endpoints, parameters, file headers, and hashes.
 
 See `docs/washington-checkbook-demo.md` for the first managed-local database example.

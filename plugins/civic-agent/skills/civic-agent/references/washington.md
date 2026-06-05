@@ -96,6 +96,7 @@ For source-checking before answering:
 ```bash
 python3 scripts/source_data.py --json inspect washington.open_checkbook
 python3 scripts/source_data.py --json status washington.open_checkbook
+python3 scripts/source_data.py --json validate washington.open_checkbook
 ```
 
 If the status is `missing`, `stale`, `refresh_failed`, or the local database path is missing, ensure or refresh the managed source before answering checkbook questions:
@@ -275,9 +276,9 @@ category=<optional exact category label>
 
 1. Use the checked-in operating and revenue snapshot files as the normal answer source for budget authority and revenue questions.
 2. Use `summary.json` for validation checks before trusting totals.
-3. Use `provenance.json` when the answer needs model refresh time, query-template hashes, or Power BI source details.
+3. Use `provenance.json` when the answer needs model refresh time, query-template hashes, source fingerprint details, or Power BI/ReportViewer source details.
 4. Use the live Power BI or ReportViewer extractors only when refreshing snapshots, not during normal answer generation.
-5. For Open Checkbook questions, run `scripts/source_data.py --json status washington.open_checkbook` first. Use `ensure` or `refresh` when the managed local database is missing or stale, then query the local SQLite database through named queries.
+5. For Open Checkbook questions, run `scripts/source_data.py --json status washington.open_checkbook` and `scripts/source_data.py --json validate washington.open_checkbook` first. Use `ensure` or `refresh` when the managed local database is missing or stale, then query the local SQLite database through named queries.
 6. If a question asks for an unsupported grain, answer with the supported grains and explain the boundary.
 
 ## Query Recipes
@@ -612,7 +613,9 @@ Numbers:
 How to read this:
 Trace:
 - Source:
+- Public source or source surface:
 - Snapshot:
+- Data-through:
 - Grain:
 - Measure:
 - Filters/query logic:
@@ -625,6 +628,8 @@ Example trace:
 ```text
 Trace:
 - Source: Fiscal WA 2025-27 Biennial Omnibus Operating Budget Summary Comparison, snapshot 2025-27-enacted-2025-05-20
+- Public source: https://fiscal.wa.gov/statebudgets/operatingsummarycomparisonbien
+- Data-through: not applicable; this is the 2025-27 enacted budget snapshot
 - Grain: agency
 - Measure: budgeted_amount
 - Filters/query logic: read agency-by-fund-view.jsonl, filter fund_view = "Total Budgeted", sort by budgeted_amount desc
@@ -637,6 +642,8 @@ Revenue trace example:
 ```text
 Trace:
 - Source: Fiscal WA Revenue by Biennium, snapshot 2025-27-revenue-through-2026-04
+- Public source: https://fiscal.wa.gov/Revenue/RevenueGeneral.aspx
+- Data-through: Actual Data Through April 2026
 - Grain: biennium
 - Measure: estimated_revenue, actual_revenue, actual_minus_estimate
 - Filters/query logic: read general-fund-revenue-by-biennium.jsonl; fund = "General Fund (001)"
@@ -649,7 +656,9 @@ Open Checkbook trace example:
 ```text
 Trace:
 - Source: Fiscal WA Open Checkbook, managed local DB for washington.open_checkbook
+- Public source: https://fiscal.wa.gov/Spending/Checkbook.aspx
 - Storage: managed_local_db; manifest data_through = 2026-04
+- Data-through: Payments through April 2026, or the newer manifest value after refresh
 - Grain: category
 - Measure: amount
 - Filters/query logic: source_data.py query washington.open_checkbook category_breakdown --param biennium=2025-27 --param limit=10

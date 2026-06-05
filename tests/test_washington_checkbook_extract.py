@@ -5,6 +5,7 @@ import sqlite3
 import sys
 import tempfile
 import unittest
+from contextlib import closing
 from pathlib import Path
 from types import SimpleNamespace
 from zipfile import ZipFile
@@ -243,9 +244,15 @@ class WashingtonCheckbookExtractTest(unittest.TestCase):
             self.assertEqual(manifest["data_through"], "2026-04")
             self.assertEqual(manifest["data_through_label"], "Payments through April 2026")
             self.assertEqual(manifest["source_files"][0]["row_count"], 2)
+            self.assertEqual(manifest["validation_checks"]["payment_rows"], 2)
+            self.assertEqual(manifest["source_fingerprint"]["row_counts"]["payments"], 2)
+            self.assertEqual(
+                manifest["source_fingerprint"]["integrity"]["source_files"][0]["sha256"],
+                manifest["source_files"][0]["sha256"],
+            )
             self.assertTrue(db_path.is_file())
 
-            with sqlite3.connect(db_path) as conn:
+            with closing(sqlite3.connect(db_path)) as conn:
                 amount = conn.execute("SELECT SUM(amount) FROM payments").fetchone()[0]
                 self.assertEqual(amount, 150)
                 source_file_count = conn.execute("SELECT COUNT(*) FROM source_files").fetchone()[0]

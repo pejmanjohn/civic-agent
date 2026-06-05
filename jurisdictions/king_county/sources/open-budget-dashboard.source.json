@@ -27,6 +27,48 @@
       "url": "https://app.powerbigov.us/view?r=eyJrIjoiOTNmYzYwMDEtNWM5ZC00YjllLThlNzAtZDc1OGRjNzA4MmEwIiwidCI6ImJhZTUwNTlhLTc2ZjAtNDlkNy05OTk2LTcyZGZlOTVkNjljNyJ9"
     }
   ],
+  "source_fingerprint": {
+    "public_inspection_urls": [
+      "https://kingcounty.gov/en/dept/executive/governance-leadership/performance-strategy-budget/budget/budget-dashboard",
+      "https://app.powerbigov.us/view?r=eyJrIjoiOTNmYzYwMDEtNWM5ZC00YjllLThlNzAtZDc1OGRjNzA4MmEwIiwidCI6ImJhZTUwNTlhLTc2ZjAtNDlkNy05OTk2LTcyZGZlOTVkNjljNyJ9"
+    ],
+    "machine_access": {
+      "type": "powerbi",
+      "api_host": "https://wabi-us-gov-iowa-api.analysis.usgovcloudapi.net",
+      "metadata_endpoint": "https://wabi-us-gov-iowa-api.analysis.usgovcloudapi.net/public/reports/93fc6001-5c9d-4b9e-8e70-d758dc7082a0/modelsAndExploration?preferReadOnlySession=true",
+      "conceptual_schema_endpoint": "https://wabi-us-gov-iowa-api.analysis.usgovcloudapi.net/public/reports/93fc6001-5c9d-4b9e-8e70-d758dc7082a0/conceptualschema",
+      "querydata_endpoint": "https://wabi-us-gov-iowa-api.analysis.usgovcloudapi.net/public/reports/querydata?synchronous=true"
+    },
+    "retrieval_context": {
+      "powerbi_resource_key": "93fc6001-5c9d-4b9e-8e70-d758dc7082a0",
+      "powerbi_tenant_id": "bae5059a-76f0-49d7-9996-72dfe95d69c7",
+      "model_id": 897134,
+      "dataset_id": "e6354f5d-a44d-4c75-ab7a-a2293b56b83b",
+      "dataset_display_name": "PublicDashboard",
+      "query_templates": [
+        "overview_by_year",
+        "department_revenue_expenditure_by_year",
+        "department_fte_by_year"
+      ]
+    },
+    "version_boundary": {
+      "snapshot_version": "2026-04-01",
+      "observed_model_refresh_time": "2026-04-01T21:37:44.693",
+      "known_years": [2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026, 2027]
+    },
+    "row_counts": {
+      "overview_by_year": 11,
+      "department_revenue_expenditure_by_year": 22,
+      "department_fte_by_year": 21
+    },
+    "checks": {
+      "fy2026_revenue_total": 8865634686,
+      "fy2026_expenditure_total": 8598795612,
+      "fy2026_fte_total": 18333,
+      "fy2026_department_rows": 22,
+      "fy2026_department_fte_rows": 21
+    }
+  },
   "powerbi_resource_key": "93fc6001-5c9d-4b9e-8e70-d758dc7082a0",
   "powerbi_tenant_id": "bae5059a-76f0-49d7-9996-72dfe95d69c7",
   "powerbi_api_host": "https://wabi-us-gov-iowa-api.analysis.usgovcloudapi.net",

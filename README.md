@@ -175,14 +175,26 @@ It refreshes the checked-in package, generates `.generated/civic-agent-dev-marke
 
 ## Managed Local Data
 
-Large official sources use `scripts/source_data.py` so agents can inspect freshness, build a local cache, and query quickly after setup:
+Large official sources use `scripts/source_data.py` so agents can validate source readiness, inspect freshness, build a local cache, and query quickly after setup:
 
 ```bash
+python3 scripts/source_data.py --json validate washington.open_checkbook
 python3 scripts/source_data.py --json inspect washington.open_checkbook
 python3 scripts/source_data.py --json status washington.open_checkbook
 python3 scripts/source_data.py --json ensure washington.open_checkbook
 python3 scripts/source_data.py --json query washington.open_checkbook category_breakdown --param biennium=2025-27 --param limit=10
 ```
+
+Use validation for all source tiers:
+
+```bash
+python3 scripts/source_data.py --json validate seattle.operating_budget
+python3 scripts/source_data.py --json validate king_county.open_budget_dashboard
+python3 scripts/source_data.py --json validate washington.revenue_by_biennium
+python3 scripts/source_data.py --json validate --all
+```
+
+`validate` is offline by default. It checks source fingerprints, checked-in snapshot summaries/provenance/normalized rows, and existing managed local databases without downloading data. Use `--refresh-check` only when explicitly checking source drift; normal answers still use each source card's `storage_policy.normal_answer_source`.
 
 By default managed data lives under `~/.civic-agent/data`, outside git. Set `CIVIC_AGENT_DATA_HOME` or pass `--data-home` for tests and local experiments.
 
@@ -194,7 +206,7 @@ Before adding a future source, run the source-probing workflow in `docs/source-p
 
 ## Data Strategy
 
-Use live official APIs when they are clean and stable. Use checked-in snapshots when reviewed normalized data is compact enough to keep the repo self-contained. Use managed local databases when official data is too large or slow to parse repeatedly but should still be fast after setup. See `docs/source-data-storage.md` for the full storage policy.
+Use live official APIs when they are clean and stable. Use checked-in snapshots when reviewed normalized data is compact enough to keep the repo self-contained. Use managed local databases when official data is too large or slow to parse repeatedly but should still be fast after setup. See `docs/source-data-storage.md` for the storage policy and `docs/source-data-validation.md` for the source fingerprint and validation contract.
 
 Seattle is the clean example: direct Socrata JSON/CSV plus SoQL.
 

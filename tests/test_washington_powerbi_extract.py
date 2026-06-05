@@ -59,6 +59,8 @@ class WashingtonPowerBiExtractTest(unittest.TestCase):
     def test_snapshot_summary_has_known_validation_checks(self):
         summary = load_json(SNAPSHOT_DIR / "summary.json")
         checks = summary["validation_checks"]
+        self.assertEqual(summary["source_fingerprint"]["row_counts"], summary["row_counts"])
+        self.assertEqual(summary["source_fingerprint"]["checks"], checks)
         self.assertEqual(checks["default_fund_view_total"], 150411096000)
         self.assertEqual(checks["totals_by_fund_view"]["Total Budgeted"], 150411096000)
         self.assertEqual(checks["totals_by_fund_view"]["Outlook Funds (NGF-O)"], 77857672000)
@@ -178,6 +180,8 @@ class WashingtonPowerBiExtractTest(unittest.TestCase):
     def test_provenance_records_multiple_surfaces_and_template_routes(self):
         provenance = load_json(SNAPSHOT_DIR / "provenance.json")
         self.assertIn("source_surfaces", provenance)
+        self.assertIn("source_fingerprint", provenance)
+        self.assertIn("query_templates", provenance["source_fingerprint"]["integrity"])
         self.assertEqual(
             provenance["source_surfaces"]["current_biennial_summary_powerbi"]["status"],
             "accepted",

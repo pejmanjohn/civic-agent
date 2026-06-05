@@ -1055,6 +1055,11 @@ def write_snapshot(
             ),
         ],
     }
+    summary["source_fingerprint"] = source_fingerprint(
+        source,
+        row_counts=summary["row_counts"],
+        checks=summary["validation_checks"],
+    )
     write_json(output_dir / "summary.json", summary)
 
     provenance = {
@@ -1108,7 +1113,32 @@ def write_snapshot(
             for key, response in responses.items()
         },
     }
+    provenance["source_fingerprint"] = source_fingerprint(
+        source,
+        row_counts=summary["row_counts"],
+        checks=summary["validation_checks"],
+        integrity={
+            "query_templates": provenance["query_templates"],
+            "response_metrics": provenance["response_metrics"],
+            "source_card_expected_models": provenance["source_card_expected_models"],
+        },
+    )
     write_json(output_dir / "provenance.json", provenance)
+
+
+def source_fingerprint(
+    source: dict[str, Any],
+    *,
+    row_counts: dict[str, Any],
+    checks: dict[str, Any],
+    integrity: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    fingerprint = dict(source.get("source_fingerprint", {}))
+    fingerprint["row_counts"] = row_counts
+    fingerprint["checks"] = checks
+    if integrity:
+        fingerprint["integrity"] = integrity
+    return fingerprint
 
 
 def verify_unique_keys(

@@ -75,6 +75,8 @@ Source cards may include a `storage_policy` block that declares where normal ans
 
 Each source card should include `human_inspection_urls`: a short list of public URLs a reader can open to inspect the official source. Keep those separate from machine-oriented API, metadata, and query endpoints.
 
+Each accepted source card should also include `source_fingerprint`, the structured retrieval and citation contract described in `docs/source-data-validation.md`. The fingerprint should tie public source URLs, machine surfaces, source-surface ids, request parameters, version or data-through boundaries, row counts, checksums, and named spot checks into one place so future validators and answer traces do not have to reverse-engineer source-specific prose.
+
 When one logical source is split across time spans or report pages, keep the source id stable and represent the pieces as `source_surfaces` in the source card. Each accepted surface should carry its official inspection URL, machine endpoint or file metadata, coverage, and status. Normalized rows should include `source_surface_id`, semantic filters such as budget state/fund view/period type, and official dimension codes where available. Snapshot summaries should include overlap reconciliation and period-by-period grouped-total checks before a stitched historical table is treated as answerable.
 
 Source cards may also include optional `coverage_claims`: compact, source-level claims that connect a reviewed source to the active categories in `docs/coverage-taxonomy.md`. Supported and partial claims should name measures, grains, time coverage or snapshot version, evidence references, and caveats. Unsupported claims must use source-level wording such as "unsupported by this source" and must not imply the jurisdiction lacks that data elsewhere.
@@ -107,7 +109,7 @@ Large raw files, full line-item dumps, and user-local databases are managed loca
 2. Detect budget family or question type.
 3. Read the matching jurisdiction skill under `jurisdictions/<jurisdiction>/skill.md`.
 4. Use that skill's official sources and validation checks.
-5. For source-backed answers, include a compact trace: source, grain, measure, filters/query logic, validation check or row count when useful, and caveats.
+5. For source-backed answers, include a compact trace: source, grain, measure, filters/query logic, public source URL or source-surface id, snapshot/local data version or data-through boundary, validation check or row count when useful, and caveats.
 
 For composed prompts such as:
 

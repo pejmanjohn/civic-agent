@@ -30,6 +30,36 @@
       "url": "https://data.seattle.gov/City-Administration/City-of-Seattle-Operating-Budget/8u2j-imqx"
     }
   ],
+  "source_fingerprint": {
+    "public_inspection_urls": [
+      "https://openbudget.seattle.gov/#!/year/2026/operating/0/department",
+      "https://data.seattle.gov/City-Administration/City-of-Seattle-Operating-Budget/8u2j-imqx"
+    ],
+    "machine_access": {
+      "type": "socrata",
+      "json_endpoint": "https://data.seattle.gov/resource/8u2j-imqx.json",
+      "csv_endpoint": "https://data.seattle.gov/resource/8u2j-imqx.csv?$limit=50000",
+      "metadata_endpoint": "https://data.seattle.gov/api/views/8u2j-imqx"
+    },
+    "retrieval_context": {
+      "dataset_id": "8u2j-imqx",
+      "year_field": "fiscal_year",
+      "primary_measure": "approved_amount",
+      "answer_filters": ["fiscal_year", "service", "department", "program", "fund", "expense_type"]
+    },
+    "version_boundary": {
+      "known_years": [2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026],
+      "freshness_check": "api_metadata",
+      "refresh_frequency_observed": "One Time"
+    },
+    "row_counts": {
+      "fy2026_rows": 7622
+    },
+    "checks": {
+      "fy2026_total_approx": 7311905121.57,
+      "fy2026_departments": 44
+    }
+  },
   "known_years": [2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026],
   "refresh_frequency_observed": "One Time",
   "primary_measure": "approved_amount",

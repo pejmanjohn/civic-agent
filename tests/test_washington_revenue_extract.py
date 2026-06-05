@@ -65,6 +65,8 @@ class WashingtonRevenueExtractTest(unittest.TestCase):
     def test_snapshot_summary_captures_historical_coverage_and_current_partial_status(self):
         summary = load_json(SNAPSHOT_DIR / "summary.json")
         self.assertEqual(summary["source_id"], "washington.revenue_by_biennium")
+        self.assertEqual(summary["source_fingerprint"]["row_counts"], summary["row_counts"])
+        self.assertIn("exports", summary["source_fingerprint"]["integrity"])
         self.assertEqual(summary["actual_data_through"], "2026-04")
         self.assertEqual(summary["actual_data_through_label"], "Actual Data Through April 2026")
         self.assertEqual(summary["row_counts"]["general_fund_revenue_by_biennium"], 12)
@@ -147,6 +149,8 @@ class WashingtonRevenueExtractTest(unittest.TestCase):
     def test_provenance_records_reportviewer_exports(self):
         provenance = load_json(SNAPSHOT_DIR / "provenance.json")
         self.assertEqual(provenance["access_method"], "reportviewer_snapshot")
+        self.assertIn("source_fingerprint", provenance)
+        self.assertIn("exports", provenance["source_fingerprint"]["integrity"])
         self.assertEqual(provenance["actual_data_through"], "2026-04")
         self.assertEqual(provenance["actual_data_through_label"], "Actual Data Through April 2026")
         self.assertEqual(provenance["actual_data_through_precision"], "month")

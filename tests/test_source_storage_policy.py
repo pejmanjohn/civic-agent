@@ -128,6 +128,52 @@ class SourceStoragePolicyTest(unittest.TestCase):
                 source["id"],
             )
 
+    def test_accepted_source_cards_expose_common_source_fingerprint(self):
+        required_keys = {
+            "public_inspection_urls",
+            "machine_access",
+            "retrieval_context",
+            "version_boundary",
+            "row_counts",
+            "checks",
+        }
+        for source in source_cards():
+            if source["id"] not in EXPECTED_POLICY_TIERS:
+                continue
+            fingerprint = source.get("source_fingerprint")
+            self.assertIsInstance(fingerprint, dict, source["id"])
+            self.assertTrue(required_keys.issubset(fingerprint), source["id"])
+            self.assertTrue(fingerprint["public_inspection_urls"], source["id"])
+            self.assertIsInstance(fingerprint["machine_access"], dict, source["id"])
+            self.assertIsInstance(fingerprint["retrieval_context"], dict, source["id"])
+            self.assertIsInstance(fingerprint["version_boundary"], dict, source["id"])
+            self.assertIsInstance(fingerprint["row_counts"], dict, source["id"])
+            self.assertIsInstance(fingerprint["checks"], dict, source["id"])
+
+    def test_current_stored_artifacts_expose_source_fingerprint(self):
+        artifact_dirs = [
+            SOURCE_ROOT / "king_county" / "data" / "open-budget-dashboard" / "2026-04-01",
+            SOURCE_ROOT
+            / "washington"
+            / "data"
+            / "operating-budget"
+            / "2025-27-enacted-2025-05-20",
+            SOURCE_ROOT
+            / "washington"
+            / "data"
+            / "revenue-by-biennium"
+            / "2025-27-revenue-through-2026-04",
+        ]
+        for artifact_dir in artifact_dirs:
+            summary = load_json(artifact_dir / "summary.json")
+            provenance = load_json(artifact_dir / "provenance.json")
+            for artifact in (summary, provenance):
+                fingerprint = artifact.get("source_fingerprint")
+                self.assertIsInstance(fingerprint, dict, artifact_dir.as_posix())
+                self.assertEqual(fingerprint["row_counts"], summary["row_counts"])
+                self.assertIn("checks", fingerprint)
+                self.assertIn("public_inspection_urls", fingerprint)
+
 
 if __name__ == "__main__":
     unittest.main()

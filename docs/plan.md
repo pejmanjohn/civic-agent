@@ -66,8 +66,7 @@ King County intentionally stays narrow: budgeted revenue, budgeted expenditures,
 - [x] Add source-level coverage claims for current production source cards.
 - [x] Add a generated coverage matrix and reviewed-source jurisdiction rollup.
 - [ ] Define normalized schema for cross-jurisdiction comparison.
-- [ ] Add snapshot provenance format.
-- [ ] Add validation checks per source.
+- [ ] Add a durable source-fingerprint and validation workflow across live, checked-in snapshot, and managed local data tiers.
 - [ ] Add examples for city-to-city and city-to-state comparisons.
 
 ## Design Principles

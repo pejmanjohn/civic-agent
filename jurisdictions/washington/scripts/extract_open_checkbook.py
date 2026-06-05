@@ -10,6 +10,7 @@ import os
 import shutil
 import sqlite3
 import sys
+from contextlib import closing
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
@@ -174,7 +175,7 @@ def run_named_query(context: Any, named_query: str, params: dict[str, str]) -> d
     if named_query not in query_map:
         raise CheckbookExtractError(f"Unknown Open Checkbook query: {named_query}")
     grain, sql = query_map[named_query]
-    with sqlite3.connect(db_path) as conn:
+    with closing(sqlite3.connect(db_path)) as conn:
         conn.row_factory = sqlite3.Row
         rows = [dict(row) for row in conn.execute(sql, [*values, limit])]
     return {
@@ -215,7 +216,7 @@ def build_database_from_files(
     current_months: list[str] = []
     started_at = utc_now()
 
-    with sqlite3.connect(temp_path) as conn:
+    with closing(sqlite3.connect(temp_path)) as conn:
         create_schema(conn)
         for entry in file_entries:
             rows = parse_xlsx_rows(entry["path"])
@@ -277,6 +278,7 @@ def build_database_from_files(
 
     shutil.move(str(temp_path), db_path)
     data_through = max(current_months) if current_months else source.get("current_data_through")
+    checks = local_database_checks(db_path, source, total_rows, data_through)
     return {
         "ok": True,
         "status": "partial_current_period" if data_through else "current",
@@ -291,8 +293,91 @@ def build_database_from_files(
         "data_through_label": (
             f"Payments through {month_label(data_through)}" if data_through else None
         ),
+        "validation_checks": checks,
+        "source_fingerprint": source_fingerprint(
+            source,
+            source_files=source_file_results,
+            row_count=total_rows,
+            data_through=data_through,
+            checks=checks,
+        ),
         "built_at": utc_now(),
         "message": "Built Washington Open Checkbook local database.",
+    }
+
+
+def source_fingerprint(
+    source: dict[str, Any],
+    *,
+    source_files: list[dict[str, Any]],
+    row_count: int,
+    data_through: str | None,
+    checks: dict[str, Any],
+) -> dict[str, Any]:
+    fingerprint = dict(source.get("source_fingerprint", {}))
+    fingerprint["row_counts"] = {
+        "payments": row_count,
+        "source_files": len(source_files),
+    }
+    fingerprint["checks"] = checks
+    fingerprint["integrity"] = {
+        "source_files": [
+            {
+                "source_surface_id": entry["source_surface_id"],
+                "biennium": entry["biennium"],
+                "url": entry["url"],
+                "path": entry["path"],
+                "last_modified": entry.get("last_modified"),
+                "content_length": entry["content_length"],
+                "sha256": entry["sha256"],
+                "row_count": entry["row_count"],
+            }
+            for entry in source_files
+        ]
+    }
+    fingerprint["version_boundary"] = {
+        **fingerprint.get("version_boundary", {}),
+        "data_through": data_through,
+    }
+    return fingerprint
+
+
+def local_database_checks(
+    db_path: Path,
+    source: dict[str, Any],
+    total_rows: int,
+    data_through: str | None,
+) -> dict[str, Any]:
+    with closing(sqlite3.connect(db_path)) as conn:
+        current_biennium = source.get("current_biennium")
+        current_row = conn.execute(
+            "SELECT COUNT(*) FROM payments WHERE biennium = ?",
+            (current_biennium,),
+        ).fetchone()
+        current_rows = int(current_row[0]) if current_row else 0
+        category_rows = conn.execute(
+            """
+            SELECT category
+            FROM payments
+            WHERE biennium = ?
+            GROUP BY category
+            ORDER BY category
+            """,
+            (current_biennium,),
+        ).fetchall()
+        agency_row = conn.execute(
+            "SELECT COUNT(DISTINCT agency_code) FROM payments WHERE biennium = ?",
+            (current_biennium,),
+        ).fetchone()
+        source_file_row = conn.execute("SELECT COUNT(*) FROM source_files").fetchone()
+    return {
+        "payment_rows": total_rows,
+        "source_file_rows": int(source_file_row[0]) if source_file_row else 0,
+        "current_biennium": current_biennium,
+        "current_file_rows": current_rows,
+        "current_file_data_through": data_through,
+        "current_file_agency_count": int(agency_row[0]) if agency_row else 0,
+        "current_file_categories": [row[0] for row in category_rows],
     }
 
 

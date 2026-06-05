@@ -4,9 +4,12 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import os
+import sqlite3
 import sys
+from contextlib import closing
 from dataclasses import dataclass
 from datetime import datetime, timezone
 from pathlib import Path
@@ -33,9 +36,11 @@ class SourceContext:
 
 Builder = Callable[[SourceContext, bool], dict[str, Any]]
 QueryRunner = Callable[[SourceContext, str, dict[str, str]], dict[str, Any]]
+Validator = Callable[[SourceContext, bool], dict[str, Any]]
 
 BUILDER_REGISTRY: dict[str, Builder] = {}
 QUERY_REGISTRY: dict[str, QueryRunner] = {}
+VALIDATOR_REGISTRY: dict[str, Validator] = {}
 
 
 def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
@@ -67,6 +72,20 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
         help="Named query parameter as key=value. May be passed multiple times.",
     )
 
+    validate = subcommands.add_parser("validate")
+    validate.add_argument("source_id", nargs="?")
+    validate.add_argument(
+        "--all",
+        action="store_true",
+        dest="all_sources",
+        help="Validate every reviewed source card.",
+    )
+    validate.add_argument(
+        "--refresh-check",
+        action="store_true",
+        help="Run optional source-specific drift checks when available.",
+    )
+
     return parser.parse_args(argv)
 
 
@@ -88,6 +107,16 @@ def main(argv: list[str] | None = None) -> None:
 
 
 def run_command(args: argparse.Namespace) -> dict[str, Any]:
+    if args.command == "validate":
+        if args.all_sources:
+            return validate_all(data_home=args.data_home, refresh_check=args.refresh_check)
+        if not args.source_id:
+            raise SourceDataError("validate requires a source_id or --all")
+        return validate_source(
+            source_context(args.source_id, data_home=args.data_home),
+            refresh_check=args.refresh_check,
+        )
+
     context = source_context(args.source_id, data_home=args.data_home)
     if args.command == "inspect":
         return inspect_source(context)
@@ -139,6 +168,16 @@ def load_source_card(source_id: str) -> dict[str, Any]:
     if len(matches) > 1:
         raise SourceDataError(f"Source id is not unique: {source_id}")
     return matches[0]
+
+
+def load_source_cards() -> list[dict[str, Any]]:
+    sources = []
+    for path in sorted(SOURCE_ROOT.glob("*/sources/*.source.json")):
+        with path.open(encoding="utf-8") as handle:
+            source = json.load(handle)
+        source["_path"] = path.relative_to(ROOT).as_posix()
+        sources.append(source)
+    return sources
 
 
 def inspect_source(context: SourceContext) -> dict[str, Any]:
@@ -222,6 +261,254 @@ def managed_source_stale_reason(
     return None
 
 
+def validate_all(*, data_home: Path | None, refresh_check: bool) -> dict[str, Any]:
+    home = data_home or data_home_from_env()
+    results = []
+    for source_card in load_source_cards():
+        if "storage_policy" not in source_card:
+            continue
+        context = SourceContext(
+            source_id=source_card["id"],
+            source_card=source_card,
+            data_home=home,
+            source_dir=home / "sources" / safe_source_path(source_card["id"]),
+            manifest_path=home
+            / "sources"
+            / safe_source_path(source_card["id"])
+            / "manifest.json",
+        )
+        results.append(validate_source(context, refresh_check=refresh_check))
+    ok = all(result.get("ok") for result in results)
+    return {
+        "ok": ok,
+        "command": "validate",
+        "status": "valid" if ok else "validation_failed",
+        "source_count": len(results),
+        "results": results,
+    }
+
+
+def validate_source(context: SourceContext, *, refresh_check: bool = False) -> dict[str, Any]:
+    validator = VALIDATOR_REGISTRY.get(context.source_id) or load_validator(context.source_id)
+    if validator is None:
+        validator = validate_by_storage_tier
+    try:
+        result = validator(context, refresh_check)
+    except SourceDataError:
+        raise
+    except Exception as exc:
+        result = {
+            "ok": False,
+            "command": "validate",
+            "source_id": context.source_id,
+            "status": "validation_failed",
+            "storage_tier": context.source_card.get("storage_policy", {}).get("tier"),
+            "normal_answer_source": context.source_card.get("storage_policy", {}).get(
+                "normal_answer_source"
+            ),
+            "checks": [failed_check("validator_error", message=str(exc))],
+            "warnings": [],
+            "message": str(exc),
+        }
+    if not isinstance(result, dict):
+        raise SourceDataError(f"Validator returned non-object result for {context.source_id}")
+    return normalize_validation_result(context, result)
+
+
+def load_validator(source_id: str) -> Validator | None:
+    validators: dict[str, Validator] = {
+        "seattle.operating_budget": validate_live_source,
+        "king_county.open_budget_dashboard": validate_king_county_open_budget_snapshot,
+        "washington.operating_budget": validate_washington_operating_budget_snapshot,
+        "washington.revenue_by_biennium": validate_washington_revenue_snapshot,
+        "washington.open_checkbook": validate_washington_open_checkbook,
+    }
+    return validators.get(source_id)
+
+
+def validate_by_storage_tier(context: SourceContext, refresh_check: bool) -> dict[str, Any]:
+    tier = context.source_card.get("storage_policy", {}).get("tier")
+    if tier == "live":
+        return validate_live_source(context, refresh_check)
+    return validation_result(
+        context,
+        status="validation_failed",
+        checks=source_fingerprint_contract_checks(context.source_card)
+        + [
+            failed_check(
+                "validator_registered",
+                message=f"No validator is registered for storage tier {tier!r}.",
+            )
+        ],
+    )
+
+
+def normalize_validation_result(context: SourceContext, result: dict[str, Any]) -> dict[str, Any]:
+    policy = context.source_card.get("storage_policy", {})
+    result.setdefault("command", "validate")
+    result.setdefault("source_id", context.source_id)
+    result.setdefault("storage_tier", policy.get("tier"))
+    result.setdefault("normal_answer_source", policy.get("normal_answer_source"))
+    result.setdefault("source_card_path", context.source_card.get("_path"))
+    result.setdefault("source_fingerprint", context.source_card.get("source_fingerprint", {}))
+    result.setdefault("checks", [])
+    result.setdefault("warnings", [])
+    result.setdefault("status", status_from_checks(result["checks"]))
+    result.setdefault("ok", result["status"] in {"valid", "partial_current_period"})
+    return result
+
+
+def validation_result(
+    context: SourceContext,
+    *,
+    status: str | None = None,
+    checks: list[dict[str, Any]] | None = None,
+    warnings: list[str] | None = None,
+    source_fingerprint: dict[str, Any] | None = None,
+    **extra: Any,
+) -> dict[str, Any]:
+    checks = checks or []
+    status = status or status_from_checks(checks)
+    return {
+        "ok": status in {"valid", "partial_current_period"},
+        "command": "validate",
+        "source_id": context.source_id,
+        "storage_tier": context.source_card.get("storage_policy", {}).get("tier"),
+        "normal_answer_source": context.source_card.get("storage_policy", {}).get(
+            "normal_answer_source"
+        ),
+        "status": status,
+        "source_card_path": context.source_card.get("_path"),
+        "source_fingerprint": source_fingerprint
+        if source_fingerprint is not None
+        else context.source_card.get("source_fingerprint", {}),
+        "checks": checks,
+        "warnings": warnings or [],
+        **extra,
+    }
+
+
+def status_from_checks(checks: list[dict[str, Any]]) -> str:
+    if any(check.get("status") == "failed" for check in checks):
+        return "validation_failed"
+    return "valid"
+
+
+def passed_check(
+    name: str,
+    *,
+    evidence: dict[str, Any] | None = None,
+    message: str = "",
+) -> dict[str, Any]:
+    return validation_check(name, "passed", evidence=evidence, message=message)
+
+
+def failed_check(
+    name: str,
+    *,
+    evidence: dict[str, Any] | None = None,
+    message: str = "",
+) -> dict[str, Any]:
+    return validation_check(name, "failed", evidence=evidence, message=message)
+
+
+def skipped_check(
+    name: str,
+    *,
+    evidence: dict[str, Any] | None = None,
+    message: str = "",
+) -> dict[str, Any]:
+    return validation_check(name, "skipped", evidence=evidence, message=message)
+
+
+def validation_check(
+    name: str,
+    status: str,
+    *,
+    evidence: dict[str, Any] | None = None,
+    message: str = "",
+) -> dict[str, Any]:
+    check = {"name": name, "status": status}
+    if evidence is not None:
+        check["evidence"] = evidence
+    if message:
+        check["message"] = message
+    return check
+
+
+def source_fingerprint_contract_checks(source_card: dict[str, Any]) -> list[dict[str, Any]]:
+    required = {
+        "public_inspection_urls",
+        "machine_access",
+        "retrieval_context",
+        "version_boundary",
+        "row_counts",
+        "checks",
+    }
+    fingerprint = source_card.get("source_fingerprint")
+    if not isinstance(fingerprint, dict):
+        return [
+            failed_check(
+                "source_fingerprint_present",
+                message="Source card is missing source_fingerprint.",
+            )
+        ]
+    checks = [
+        passed_check(
+            "source_fingerprint_present",
+            evidence={"fields": sorted(fingerprint)},
+        )
+    ]
+    missing = sorted(required - set(fingerprint))
+    if missing:
+        checks.append(
+            failed_check(
+                "source_fingerprint_required_fields",
+                evidence={"missing": missing},
+                message="Source fingerprint is missing required fields.",
+            )
+        )
+    else:
+        checks.append(
+            passed_check(
+                "source_fingerprint_required_fields",
+                evidence={"required": sorted(required)},
+            )
+        )
+    public_urls = fingerprint.get("public_inspection_urls")
+    if isinstance(public_urls, list) and public_urls:
+        checks.append(
+            passed_check(
+                "source_fingerprint_public_urls",
+                evidence={"count": len(public_urls)},
+            )
+        )
+    else:
+        checks.append(
+            failed_check(
+                "source_fingerprint_public_urls",
+                message="Source fingerprint must include at least one public inspection URL.",
+            )
+        )
+    return checks
+
+
+def refresh_check_placeholder(refresh_check: bool) -> tuple[list[dict[str, Any]], list[str]]:
+    if not refresh_check:
+        return [], []
+    message = (
+        "Refresh-check requested, but this source currently supports offline "
+        "validation only; normal answer routing is unchanged."
+    )
+    return [
+        skipped_check(
+            "refresh_check",
+            evidence={"mode": "offline_only"},
+            message=message,
+        )
+    ], [message]
+
+
 def ensure_source(context: SourceContext, *, force: bool) -> dict[str, Any]:
     policy = context.source_card.get("storage_policy", {})
     tier = policy.get("tier")
@@ -301,6 +588,711 @@ def load_query_runner(source_id: str) -> QueryRunner | None:
             return None
         return extract_open_checkbook.run_named_query
     return None
+
+
+def validate_live_source(context: SourceContext, refresh_check: bool) -> dict[str, Any]:
+    checks = source_fingerprint_contract_checks(context.source_card)
+    refresh_checks, warnings = refresh_check_placeholder(refresh_check)
+    checks.extend(refresh_checks)
+    checks.append(
+        passed_check(
+            "live_artifact_not_required",
+            evidence={"storage_tier": "live"},
+            message="Live source validation checks the source-card contract only.",
+        )
+    )
+    return validation_result(context, checks=checks, warnings=warnings)
+
+
+def validate_king_county_open_budget_snapshot(
+    context: SourceContext,
+    refresh_check: bool,
+) -> dict[str, Any]:
+    snapshot_dir = (
+        ROOT
+        / "jurisdictions"
+        / "king_county"
+        / "data"
+        / "open-budget-dashboard"
+        / context.source_card["snapshot_version"]
+    )
+    checks = source_fingerprint_contract_checks(context.source_card)
+    refresh_checks, warnings = refresh_check_placeholder(refresh_check)
+    checks.extend(refresh_checks)
+    summary, provenance = load_snapshot_artifacts(snapshot_dir, checks)
+    if summary is None or provenance is None:
+        return validation_result(
+            context,
+            status="validation_failed",
+            checks=checks,
+            warnings=warnings,
+            snapshot_path=str(snapshot_dir),
+        )
+    checks.extend(artifact_fingerprint_checks(summary, provenance))
+
+    overview_rows = load_jsonl_artifact(
+        snapshot_dir / "normalized" / "overview-by-year.jsonl",
+        checks,
+        "overview_by_year_jsonl",
+    )
+    department_rows = load_jsonl_artifact(
+        snapshot_dir / "normalized" / "department-revenue-expenditure-by-year.jsonl",
+        checks,
+        "department_revenue_expenditure_by_year_jsonl",
+    )
+    fte_rows = load_jsonl_artifact(
+        snapshot_dir / "normalized" / "department-fte-by-year.jsonl",
+        checks,
+        "department_fte_by_year_jsonl",
+    )
+
+    if overview_rows is not None and department_rows is not None and fte_rows is not None:
+        row_counts = {
+            "overview_by_year": len(overview_rows),
+            "department_revenue_expenditure_by_year": len(department_rows),
+            "department_fte_by_year": len(fte_rows),
+        }
+        compare_value(checks, "row_counts", row_counts, summary.get("row_counts"))
+        fy2026 = next((row for row in overview_rows if row.get("year") == 2026), None)
+        if fy2026:
+            compare_value(
+                checks,
+                "fy2026_revenue_total",
+                int(fy2026["budgeted_revenue"]),
+                summary["validation_checks"]["fy2026_revenue_total"],
+            )
+            compare_value(
+                checks,
+                "fy2026_expenditure_total",
+                int(fy2026["budgeted_expenditure"]),
+                summary["validation_checks"]["fy2026_expenditure_total"],
+            )
+            compare_value(
+                checks,
+                "fy2026_fte_total",
+                int(fy2026["budgeted_fte"]),
+                summary["validation_checks"]["fy2026_fte_total"],
+            )
+        else:
+            checks.append(failed_check("fy2026_overview_row", message="Missing FY2026 row."))
+        compare_value(
+            checks,
+            "fy2026_department_revenue_total",
+            sum(int(row["budgeted_revenue"]) for row in department_rows),
+            summary["validation_checks"]["fy2026_department_revenue_total"],
+        )
+        compare_value(
+            checks,
+            "fy2026_department_expenditure_total",
+            sum(int(row["budgeted_expenditure"]) for row in department_rows),
+            summary["validation_checks"]["fy2026_department_expenditure_total"],
+        )
+        compare_value(
+            checks,
+            "fy2026_department_fte_total",
+            sum(int(row["budgeted_fte"]) for row in fte_rows),
+            summary["validation_checks"]["fy2026_department_fte_total"],
+        )
+    checks.extend(query_template_hash_checks(provenance))
+    return validation_result(
+        context,
+        checks=checks,
+        warnings=warnings,
+        source_fingerprint=summary.get("source_fingerprint"),
+        snapshot_path=str(snapshot_dir),
+    )
+
+
+def validate_washington_operating_budget_snapshot(
+    context: SourceContext,
+    refresh_check: bool,
+) -> dict[str, Any]:
+    snapshot_dir = (
+        ROOT
+        / "jurisdictions"
+        / "washington"
+        / "data"
+        / "operating-budget"
+        / context.source_card["snapshot_version"]
+    )
+    checks = source_fingerprint_contract_checks(context.source_card)
+    refresh_checks, warnings = refresh_check_placeholder(refresh_check)
+    checks.extend(refresh_checks)
+    summary, provenance = load_snapshot_artifacts(snapshot_dir, checks)
+    if summary is None or provenance is None:
+        return validation_result(
+            context,
+            status="validation_failed",
+            checks=checks,
+            warnings=warnings,
+            snapshot_path=str(snapshot_dir),
+        )
+    checks.extend(artifact_fingerprint_checks(summary, provenance))
+
+    normalized_dir = snapshot_dir / "normalized"
+    agency_rows = load_jsonl_artifact(normalized_dir / "agency-by-fund-view.jsonl", checks, "agency_jsonl")
+    function_rows = load_jsonl_artifact(
+        normalized_dir / "functional-area-by-fund-view.jsonl",
+        checks,
+        "functional_area_jsonl",
+    )
+    historical_summary_rows = load_jsonl_artifact(
+        normalized_dir / "historical-biennium-summary.jsonl",
+        checks,
+        "historical_summary_jsonl",
+    )
+    historical_agency_rows = load_jsonl_artifact(
+        normalized_dir / "historical-agency-by-biennium.jsonl",
+        checks,
+        "historical_agency_jsonl",
+    )
+    historical_function_rows = load_jsonl_artifact(
+        normalized_dir / "historical-functional-area-by-biennium.jsonl",
+        checks,
+        "historical_functional_area_jsonl",
+    )
+    version_rows = load_jsonl_artifact(
+        normalized_dir / "version-summary.jsonl",
+        checks,
+        "version_summary_jsonl",
+    )
+    if all(
+        rows is not None
+        for rows in (
+            agency_rows,
+            function_rows,
+            historical_summary_rows,
+            historical_agency_rows,
+            historical_function_rows,
+            version_rows,
+        )
+    ):
+        row_counts = {
+            "agency_by_fund_view": len(agency_rows),
+            "functional_area_by_fund_view": len(function_rows),
+            "historical_agency_by_biennium": len(historical_agency_rows),
+            "historical_biennium_summary": len(historical_summary_rows),
+            "historical_functional_area_by_biennium": len(historical_function_rows),
+            "version_summary": len(version_rows),
+        }
+        compare_value(checks, "row_counts", row_counts, summary.get("row_counts"))
+        agency_totals = amount_totals_by(agency_rows, "fund_view")
+        function_totals = amount_totals_by(function_rows, "fund_view")
+        compare_value(
+            checks,
+            "totals_by_fund_view",
+            agency_totals,
+            summary["validation_checks"]["totals_by_fund_view"],
+        )
+        compare_value(
+            checks,
+            "agency_function_totals_match",
+            agency_totals,
+            function_totals,
+        )
+        historical_totals = amount_totals_by(historical_summary_rows, "biennium")
+        compare_value(
+            checks,
+            "historical_totals_by_biennium",
+            historical_totals,
+            summary["validation_checks"]["historical_totals_by_biennium"],
+        )
+        compare_value(
+            checks,
+            "historical_agency_totals_match",
+            amount_totals_by(historical_agency_rows, "biennium"),
+            historical_totals,
+        )
+        compare_value(
+            checks,
+            "historical_functional_area_totals_match",
+            amount_totals_by(historical_function_rows, "biennium"),
+            historical_totals,
+        )
+        compare_value(
+            checks,
+            "historical_current_overlap_total",
+            historical_totals.get(context.source_card["biennium"]),
+            summary["validation_checks"]["historical_current_overlap_total"],
+        )
+    checks.extend(query_template_hash_checks(provenance))
+    return validation_result(
+        context,
+        checks=checks,
+        warnings=warnings,
+        source_fingerprint=summary.get("source_fingerprint"),
+        snapshot_path=str(snapshot_dir),
+    )
+
+
+def validate_washington_revenue_snapshot(
+    context: SourceContext,
+    refresh_check: bool,
+) -> dict[str, Any]:
+    snapshot_dir = (
+        ROOT
+        / "jurisdictions"
+        / "washington"
+        / "data"
+        / "revenue-by-biennium"
+        / context.source_card["snapshot_version"]
+    )
+    checks = source_fingerprint_contract_checks(context.source_card)
+    refresh_checks, warnings = refresh_check_placeholder(refresh_check)
+    checks.extend(refresh_checks)
+    summary, provenance = load_snapshot_artifacts(snapshot_dir, checks)
+    if summary is None or provenance is None:
+        return validation_result(
+            context,
+            status="validation_failed",
+            checks=checks,
+            warnings=warnings,
+            snapshot_path=str(snapshot_dir),
+        )
+    checks.extend(artifact_fingerprint_checks(summary, provenance))
+    statewide_rows = load_jsonl_artifact(
+        snapshot_dir / "normalized" / "general-fund-revenue-by-biennium.jsonl",
+        checks,
+        "statewide_revenue_jsonl",
+    )
+    detail_rows = load_jsonl_artifact(
+        snapshot_dir / "normalized" / "general-fund-revenue-by-area-account.jsonl",
+        checks,
+        "detail_revenue_jsonl",
+    )
+    status = "valid"
+    if statewide_rows is not None and detail_rows is not None:
+        row_counts = {
+            "general_fund_revenue_by_area_account": len(detail_rows),
+            "general_fund_revenue_by_biennium": len(statewide_rows),
+        }
+        compare_value(checks, "row_counts", row_counts, summary.get("row_counts"))
+        statewide_totals = {
+            row["biennium"]: {
+                "actual_minus_estimate": row["actual_minus_estimate"],
+                "actual_revenue": row["actual_revenue"],
+                "estimated_revenue": row["estimated_revenue"],
+            }
+            for row in statewide_rows
+        }
+        compare_value(
+            checks,
+            "totals_by_biennium",
+            statewide_totals,
+            summary["validation_checks"]["totals_by_biennium"],
+        )
+        detail_totals = revenue_detail_totals(detail_rows)
+        compare_value(
+            checks,
+            "detail_totals_by_biennium",
+            detail_totals,
+            summary["validation_checks"]["detail_totals_by_biennium"],
+        )
+        current = next(
+            row for row in statewide_rows if row["biennium"] == context.source_card["current_biennium"]
+        )
+        compare_value(
+            checks,
+            "current_biennium_actual_data_status",
+            current["actual_data_status"],
+            summary["validation_checks"]["current_biennium_actual_data_status"],
+        )
+        if current["actual_data_status"] == "partial":
+            status = "partial_current_period"
+    checks.extend(export_metadata_checks(provenance))
+    return validation_result(
+        context,
+        status=status if not any(check.get("status") == "failed" for check in checks) else None,
+        checks=checks,
+        warnings=warnings,
+        source_fingerprint=summary.get("source_fingerprint"),
+        snapshot_path=str(snapshot_dir),
+        data_through=summary.get("actual_data_through"),
+    )
+
+
+def validate_washington_open_checkbook(
+    context: SourceContext,
+    refresh_check: bool,
+) -> dict[str, Any]:
+    checks = source_fingerprint_contract_checks(context.source_card)
+    refresh_checks, warnings = refresh_check_placeholder(refresh_check)
+    checks.extend(refresh_checks)
+    status = status_source(context)
+    if status.get("status") == "missing":
+        checks.append(
+            failed_check(
+                "local_manifest_and_database_present",
+                evidence={"manifest_path": str(context.manifest_path)},
+                message=status.get("message", "Local Open Checkbook cache is missing."),
+            )
+        )
+        return validation_result(
+            context,
+            status="missing",
+            checks=checks,
+            warnings=warnings,
+            manifest_path=str(context.manifest_path),
+            message=status.get("message"),
+        )
+    manifest = status
+    if manifest.get("status") == "stale":
+        checks.append(
+            failed_check(
+                "source_file_metadata_current",
+                message=manifest.get("message", "Local manifest is stale."),
+            )
+        )
+    else:
+        checks.append(passed_check("source_file_metadata_current"))
+    checks.extend(manifest_fingerprint_checks(manifest))
+    db_path = Path(manifest.get("database_path", ""))
+    if not db_path.is_file():
+        checks.append(
+            failed_check(
+                "local_database_present",
+                evidence={"database_path": str(db_path)},
+                message="Manifest exists but local database is missing.",
+            )
+        )
+        return validation_result(
+            context,
+            status="missing",
+            checks=checks,
+            warnings=warnings,
+            manifest_path=str(context.manifest_path),
+            database_path=str(db_path),
+        )
+    checks.extend(sqlite_checkbook_checks(context.source_card, manifest, db_path))
+    result_status = "stale" if manifest.get("status") == "stale" else manifest.get("status", "valid")
+    if result_status == "current":
+        result_status = "valid"
+    if any(check.get("status") == "failed" for check in checks) and result_status not in {
+        "stale",
+    }:
+        result_status = "validation_failed"
+    return validation_result(
+        context,
+        status=result_status,
+        checks=checks,
+        warnings=warnings,
+        source_fingerprint=manifest.get("source_fingerprint", context.source_card.get("source_fingerprint")),
+        manifest_path=str(context.manifest_path),
+        database_path=str(db_path),
+        data_through=manifest.get("data_through"),
+        row_count=manifest.get("row_count"),
+    )
+
+
+def load_snapshot_artifacts(
+    snapshot_dir: Path,
+    checks: list[dict[str, Any]],
+) -> tuple[dict[str, Any] | None, dict[str, Any] | None]:
+    summary = load_json_artifact(snapshot_dir / "summary.json", checks, "summary_json")
+    provenance = load_json_artifact(
+        snapshot_dir / "provenance.json",
+        checks,
+        "provenance_json",
+    )
+    return summary, provenance
+
+
+def load_json_artifact(
+    path: Path,
+    checks: list[dict[str, Any]],
+    check_name: str,
+) -> dict[str, Any] | None:
+    if not path.is_file():
+        checks.append(
+            failed_check(
+                check_name,
+                evidence={"path": path.relative_to(ROOT).as_posix()},
+                message="Required JSON artifact is missing.",
+            )
+        )
+        return None
+    try:
+        data = read_json(path)
+    except json.JSONDecodeError as exc:
+        checks.append(
+            failed_check(
+                check_name,
+                evidence={"path": path.relative_to(ROOT).as_posix()},
+                message=f"JSON artifact is malformed: {exc}",
+            )
+        )
+        return None
+    checks.append(
+        passed_check(
+            check_name,
+            evidence={"path": path.relative_to(ROOT).as_posix()},
+        )
+    )
+    return data
+
+
+def load_jsonl_artifact(
+    path: Path,
+    checks: list[dict[str, Any]],
+    check_name: str,
+) -> list[dict[str, Any]] | None:
+    if not path.is_file():
+        checks.append(
+            failed_check(
+                check_name,
+                evidence={"path": path.relative_to(ROOT).as_posix()},
+                message="Required JSONL artifact is missing.",
+            )
+        )
+        return None
+    rows = []
+    try:
+        with path.open(encoding="utf-8") as handle:
+            for line_number, line in enumerate(handle, start=1):
+                if not line.strip():
+                    continue
+                rows.append(json.loads(line))
+    except json.JSONDecodeError as exc:
+        checks.append(
+            failed_check(
+                check_name,
+                evidence={
+                    "path": path.relative_to(ROOT).as_posix(),
+                    "line": line_number,
+                },
+                message=f"JSONL artifact is malformed: {exc}",
+            )
+        )
+        return None
+    checks.append(
+        passed_check(
+            check_name,
+            evidence={"path": path.relative_to(ROOT).as_posix(), "rows": len(rows)},
+        )
+    )
+    return rows
+
+
+def artifact_fingerprint_checks(
+    summary: dict[str, Any],
+    provenance: dict[str, Any],
+) -> list[dict[str, Any]]:
+    checks = []
+    for label, artifact in (("summary", summary), ("provenance", provenance)):
+        fingerprint = artifact.get("source_fingerprint")
+        if not isinstance(fingerprint, dict):
+            checks.append(
+                failed_check(
+                    f"{label}_source_fingerprint",
+                    message=f"{label}.json is missing source_fingerprint.",
+                )
+            )
+            continue
+        checks.append(passed_check(f"{label}_source_fingerprint"))
+        compare_value(
+            checks,
+            f"{label}_fingerprint_row_counts",
+            fingerprint.get("row_counts"),
+            summary.get("row_counts"),
+        )
+    return checks
+
+
+def manifest_fingerprint_checks(manifest: dict[str, Any]) -> list[dict[str, Any]]:
+    fingerprint = manifest.get("source_fingerprint")
+    if not isinstance(fingerprint, dict):
+        return [
+            failed_check(
+                "manifest_source_fingerprint",
+                message="Managed local manifest is missing source_fingerprint.",
+            )
+        ]
+    checks = [passed_check("manifest_source_fingerprint")]
+    compare_value(
+        checks,
+        "manifest_fingerprint_payment_rows",
+        fingerprint.get("row_counts", {}).get("payments"),
+        manifest.get("row_count"),
+    )
+    return checks
+
+
+def compare_value(
+    checks: list[dict[str, Any]],
+    name: str,
+    observed: Any,
+    expected: Any,
+) -> None:
+    evidence = {"observed": json_safe(observed), "expected": json_safe(expected)}
+    if observed == expected:
+        checks.append(passed_check(name, evidence=evidence))
+    else:
+        checks.append(
+            failed_check(
+                name,
+                evidence=evidence,
+                message="Observed value does not match expected value.",
+            )
+        )
+
+
+def json_safe(value: Any) -> Any:
+    if isinstance(value, set):
+        return sorted(value)
+    if isinstance(value, dict):
+        return {key: json_safe(item) for key, item in value.items()}
+    if isinstance(value, list):
+        return [json_safe(item) for item in value]
+    return value
+
+
+def query_template_hash_checks(provenance: dict[str, Any]) -> list[dict[str, Any]]:
+    checks = []
+    for name, info in provenance.get("query_templates", {}).items():
+        template_path = ROOT / info["template_path"]
+        if not template_path.is_file():
+            checks.append(
+                failed_check(
+                    f"query_template_{name}",
+                    evidence={"template_path": info["template_path"]},
+                    message="Query template is missing.",
+                )
+            )
+            continue
+        observed = sha256_json(read_json(template_path))
+        expected = info.get("template_sha256")
+        compare_value(checks, f"query_template_hash_{name}", observed, expected)
+    return checks
+
+
+def export_metadata_checks(provenance: dict[str, Any]) -> list[dict[str, Any]]:
+    checks = []
+    exports = provenance.get("exports", {})
+    if not exports:
+        return [failed_check("reportviewer_exports", message="No export metadata found.")]
+    for biennium, metadata in exports.items():
+        missing = [
+            field
+            for field in ("csv_row_count", "csv_sha256", "xlsx_sha256", "xml_sha256")
+            if field not in metadata
+        ]
+        if missing:
+            checks.append(
+                failed_check(
+                    f"reportviewer_export_{biennium}",
+                    evidence={"missing": missing},
+                    message="Export metadata is incomplete.",
+                )
+            )
+        else:
+            checks.append(
+                passed_check(
+                    f"reportviewer_export_{biennium}",
+                    evidence={
+                        "csv_row_count": metadata["csv_row_count"],
+                        "hashes": ["csv_sha256", "xlsx_sha256", "xml_sha256"],
+                    },
+                )
+            )
+    return checks
+
+
+def sqlite_checkbook_checks(
+    source_card: dict[str, Any],
+    manifest: dict[str, Any],
+    db_path: Path,
+) -> list[dict[str, Any]]:
+    checks: list[dict[str, Any]] = []
+    required_tables = {"payments", "source_files", "refresh_runs"}
+    required_indexes = {
+        "idx_payments_biennium",
+        "idx_payments_period",
+        "idx_payments_month",
+        "idx_payments_agency",
+        "idx_payments_category",
+        "idx_payments_vendor",
+    }
+    with closing(sqlite3.connect(db_path)) as conn:
+        table_rows = conn.execute(
+            "SELECT name FROM sqlite_master WHERE type = 'table'"
+        ).fetchall()
+        tables = {row[0] for row in table_rows}
+        compare_value(checks, "local_database_required_tables", tables & required_tables, required_tables)
+        index_rows = conn.execute("PRAGMA index_list(payments)").fetchall()
+        indexes = {row[1] for row in index_rows}
+        compare_value(
+            checks,
+            "local_database_required_indexes",
+            indexes & required_indexes,
+            required_indexes,
+        )
+        payment_count = int(conn.execute("SELECT COUNT(*) FROM payments").fetchone()[0])
+        source_file_count = int(conn.execute("SELECT COUNT(*) FROM source_files").fetchone()[0])
+        compare_value(checks, "local_database_payment_rows", payment_count, manifest.get("row_count"))
+        compare_value(
+            checks,
+            "local_database_source_file_rows",
+            source_file_count,
+            len(manifest.get("source_files", [])),
+        )
+        current_biennium = manifest.get("current_biennium") or source_card.get("current_biennium")
+        current_data_through = conn.execute(
+            "SELECT MAX(calendar_month) FROM payments WHERE biennium = ?",
+            (current_biennium,),
+        ).fetchone()[0]
+        compare_value(
+            checks,
+            "local_database_data_through",
+            current_data_through,
+            manifest.get("data_through"),
+        )
+        category_count = int(
+            conn.execute(
+                "SELECT COUNT(DISTINCT category) FROM payments WHERE biennium = ?",
+                (current_biennium,),
+            ).fetchone()[0]
+        )
+        checks.append(
+            passed_check(
+                "local_database_category_aggregate",
+                evidence={"current_biennium": current_biennium, "category_count": category_count},
+            )
+        )
+    return checks
+
+
+def amount_totals_by(rows: list[dict[str, Any]], key: str) -> dict[str, int]:
+    totals: dict[str, int] = {}
+    for row in rows:
+        totals[row[key]] = totals.get(row[key], 0) + int(row["budgeted_amount"])
+    return dict(sorted(totals.items()))
+
+
+def revenue_detail_totals(rows: list[dict[str, Any]]) -> dict[str, dict[str, Any]]:
+    totals: dict[str, dict[str, float]] = {}
+    for row in rows:
+        bucket = totals.setdefault(
+            row["biennium"],
+            {
+                "actual_minus_estimate": 0,
+                "actual_revenue": 0,
+                "estimated_revenue": 0,
+            },
+        )
+        for key in bucket:
+            bucket[key] += row[key]
+    return {
+        biennium: {
+            key: int(value) if float(value).is_integer() else round(value, 2)
+            for key, value in values.items()
+        }
+        for biennium, values in sorted(totals.items())
+    }
+
+
+def sha256_json(data: Any) -> str:
+    payload = json.dumps(data, sort_keys=True, separators=(",", ":")).encode("utf-8")
+    return hashlib.sha256(payload).hexdigest()
 
 
 def parse_params(raw_params: list[str]) -> dict[str, str]:

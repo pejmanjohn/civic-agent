@@ -604,6 +604,21 @@ def build_summary(
     detail_totals = detail_totals_by_biennium(detail_rows)
     detail_totals_match = detail_totals_match_statewide(totals, detail_totals)
     current = next(row for row in statewide_rows if row["biennium"] == source["current_biennium"])
+    row_counts = {
+        "general_fund_revenue_by_biennium": len(statewide_rows),
+        "general_fund_revenue_by_area_account": len(detail_rows),
+    }
+    validation_checks = {
+        "historical_biennia": [row["biennium"] for row in statewide_rows],
+        "totals_by_biennium": totals,
+        "detail_totals_by_biennium": detail_totals,
+        "detail_totals_match_statewide_totals": detail_totals_match,
+        "current_biennium": source["current_biennium"],
+        "current_biennium_estimated_revenue": current["estimated_revenue"],
+        "current_biennium_actual_revenue": current["actual_revenue"],
+        "current_biennium_actual_minus_estimate": current["actual_minus_estimate"],
+        "current_biennium_actual_data_status": current["actual_data_status"],
+    }
     return {
         "source_id": source["id"],
         "snapshot_version": source["snapshot_version"],
@@ -614,10 +629,7 @@ def build_summary(
         "actual_data_through": source["actual_data_through"],
         "actual_data_through_label": source["actual_data_through_label"],
         "actual_data_through_precision": source["actual_data_through_precision"],
-        "row_counts": {
-            "general_fund_revenue_by_biennium": len(statewide_rows),
-            "general_fund_revenue_by_area_account": len(detail_rows),
-        },
+        "row_counts": row_counts,
         "historical_coverage": {
             "start_biennium": statewide_rows[0]["biennium"],
             "end_biennium": statewide_rows[-1]["biennium"],
@@ -626,17 +638,13 @@ def build_summary(
         "actual_data_status_by_biennium": {
             row["biennium"]: row["actual_data_status"] for row in statewide_rows
         },
-        "validation_checks": {
-            "historical_biennia": [row["biennium"] for row in statewide_rows],
-            "totals_by_biennium": totals,
-            "detail_totals_by_biennium": detail_totals,
-            "detail_totals_match_statewide_totals": detail_totals_match,
-            "current_biennium": source["current_biennium"],
-            "current_biennium_estimated_revenue": current["estimated_revenue"],
-            "current_biennium_actual_revenue": current["actual_revenue"],
-            "current_biennium_actual_minus_estimate": current["actual_minus_estimate"],
-            "current_biennium_actual_data_status": current["actual_data_status"],
-        },
+        "validation_checks": validation_checks,
+        "source_fingerprint": source_fingerprint(
+            source,
+            row_counts=row_counts,
+            checks=validation_checks,
+            integrity=export_integrity(export_metadata),
+        ),
         "exports": export_metadata,
         "caveats": source["caveats"],
     }
@@ -706,6 +714,19 @@ def build_provenance(
             "fund": GENERAL_FUND_LABEL,
         },
         "exports": export_metadata,
+        "source_fingerprint": source_fingerprint(
+            source,
+            row_counts={
+                biennium: metadata["csv_row_count"]
+                for biennium, metadata in export_metadata.items()
+            },
+            checks={
+                "actual_data_through": source["actual_data_through"],
+                "actual_data_through_label": source["actual_data_through_label"],
+                "exports": list(export_metadata),
+            },
+            integrity=export_integrity(export_metadata),
+        ),
         "normalization": {
             "source_units": source["amount_units_from_report"],
             "normalized_units": "dollars",
@@ -713,6 +734,35 @@ def build_provenance(
             "actual_data_status": "complete when actual_data_through is on or after the biennium end month; otherwise partial",
         },
         "caveats": source["caveats"],
+    }
+
+
+def source_fingerprint(
+    source: dict[str, Any],
+    *,
+    row_counts: dict[str, Any],
+    checks: dict[str, Any],
+    integrity: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    fingerprint = dict(source.get("source_fingerprint", {}))
+    fingerprint["row_counts"] = row_counts
+    fingerprint["checks"] = checks
+    if integrity:
+        fingerprint["integrity"] = integrity
+    return fingerprint
+
+
+def export_integrity(export_metadata: dict[str, Any]) -> dict[str, Any]:
+    return {
+        "exports": {
+            biennium: {
+                "csv_row_count": metadata["csv_row_count"],
+                "csv_sha256": metadata["csv_sha256"],
+                "xlsx_sha256": metadata["xlsx_sha256"],
+                "xml_sha256": metadata["xml_sha256"],
+            }
+            for biennium, metadata in export_metadata.items()
+        }
     }
 
 

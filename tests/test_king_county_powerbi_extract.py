@@ -139,6 +139,14 @@ class KingCountyPowerBiExtractTest(unittest.TestCase):
             )
             provenance = load_json(output_dir / "provenance.json")
             self.assertFalse(provenance["generated_from_live_powerbi"])
+            self.assertEqual(
+                summary["source_fingerprint"]["row_counts"],
+                summary["row_counts"],
+            )
+            self.assertEqual(
+                provenance["source_fingerprint"]["integrity"]["response_metrics"],
+                provenance["response_metrics"],
+            )
             self.assertIn(
                 "template_sha256",
                 provenance["query_templates"]["overview_by_year"],
