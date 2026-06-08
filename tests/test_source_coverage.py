@@ -16,15 +16,104 @@ EXPECTED_ACTIVE_CATEGORIES = {
     "budget_finance.revenue_budget",
     "workforce.budgeted_fte",
     "budget_finance.actual_spending_checkbook",
+    "population_demographics.population_denominator",
+}
+EXPECTED_BUDGET_CATEGORIES = EXPECTED_ACTIVE_CATEGORIES - {
+    "population_demographics.population_denominator",
 }
 EXPECTED_CURRENT_CLAIMS = {
-    "seattle.operating_budget": EXPECTED_ACTIVE_CATEGORIES,
-    "king_county.open_budget_dashboard": EXPECTED_ACTIVE_CATEGORIES,
-    "washington.operating_budget": EXPECTED_ACTIVE_CATEGORIES,
-    "washington.revenue_by_biennium": EXPECTED_ACTIVE_CATEGORIES,
-    "washington.open_checkbook": EXPECTED_ACTIVE_CATEGORIES,
+    "seattle.operating_budget": EXPECTED_BUDGET_CATEGORIES,
+    "king_county.open_budget_dashboard": EXPECTED_BUDGET_CATEGORIES,
+    "washington.operating_budget": EXPECTED_BUDGET_CATEGORIES,
+    "washington.revenue_by_biennium": EXPECTED_BUDGET_CATEGORIES,
+    "washington.open_checkbook": EXPECTED_BUDGET_CATEGORIES,
+    "washington.ofm_population": {"population_demographics.population_denominator"},
 }
 ALLOWED_STATUSES = {"supported", "partial", "unsupported"}
+REQUIRED_SEMANTIC_FIELDS = {
+    "amount_basis",
+    "budget_frame",
+    "period_type",
+    "period_status",
+    "unit",
+    "government_scope",
+    "geography_basis",
+    "comparability_notes",
+}
+REQUIRED_DENOMINATOR_SEMANTIC_FIELDS = {
+    "denominator_basis",
+    "period_type",
+    "period_status",
+    "unit",
+    "government_scope",
+    "geography_basis",
+    "comparability_notes",
+}
+ALLOWED_SEMANTICS = {
+    "amount_basis": {
+        "actual",
+        "adopted",
+        "approved",
+        "budgeted",
+        "estimated",
+        "projected",
+        "proposed",
+        "appropriated",
+    },
+    "budget_frame": {
+        "actual_spending_checkbook",
+        "general_fund_revenue",
+        "operating",
+        "operating_dashboard",
+        "revenue_dashboard",
+        "workforce",
+    },
+    "period_type": {
+        "biennium",
+        "calendar_year",
+        "fiscal_year",
+        "quarter",
+        "month",
+        "current_period_to_date",
+        "point_in_time",
+    },
+    "period_status": {
+        "actualized",
+        "adopted",
+        "amended",
+        "approved",
+        "budgeted",
+        "enacted",
+        "partial_current_period",
+        "proposed",
+        "official_estimate",
+    },
+    "unit": {
+        "dollars",
+        "fte",
+        "residents",
+    },
+    "government_scope": {
+        "city",
+        "county",
+        "state",
+        "federal",
+        "multi_jurisdiction",
+        "regional_authority",
+        "school_district",
+        "special_district",
+    },
+    "geography_basis": {
+        "resident_jurisdiction",
+        "service_area",
+        "statewide",
+        "taxing_district",
+        "regional_service_area",
+    },
+    "denominator_basis": {
+        "resident_population",
+    },
+}
 FORBIDDEN_UNSUPPORTED_PATTERNS = [
     re.compile(r"\bseattle\s+(does not|doesn't|lacks|has no)\b", re.I),
     re.compile(r"\bking county\s+(does not|doesn't|lacks|has no)\b", re.I),
@@ -97,6 +186,34 @@ def source_has_evidence_ref(source, ref):
     return ref in source
 
 
+def validate_claim_semantics(source_id, claim):
+    semantics = claim.get("semantics")
+    if claim["status"] in {"supported", "partial"}:
+        if not isinstance(semantics, dict):
+            raise AssertionError(f"{source_id} {claim['category']} missing semantics")
+        if claim["category"] == "population_demographics.population_denominator":
+            required_fields = REQUIRED_DENOMINATOR_SEMANTIC_FIELDS
+        else:
+            required_fields = REQUIRED_SEMANTIC_FIELDS
+        missing = required_fields.difference(semantics)
+        if missing:
+            raise AssertionError(f"{source_id} {claim['category']} missing {sorted(missing)}")
+        for field in required_fields - {"comparability_notes"}:
+            allowed_values = ALLOWED_SEMANTICS[field]
+            if semantics[field] not in allowed_values:
+                raise AssertionError(
+                    f"{source_id} {claim['category']} has unknown {field}: "
+                    f"{semantics[field]!r}"
+                )
+        notes = semantics["comparability_notes"]
+        if not isinstance(notes, list):
+            raise AssertionError(f"{source_id} {claim['category']} notes must be a list")
+        if not notes:
+            raise AssertionError(f"{source_id} {claim['category']} notes must not be empty")
+    elif "semantics" in claim:
+        raise AssertionError(f"{source_id} unsupported claim should not have semantics")
+
+
 class SourceCoverageTest(unittest.TestCase):
     def test_taxonomy_declares_expected_active_categories(self):
         self.assertEqual(active_categories_from_taxonomy(), EXPECTED_ACTIVE_CATEGORIES)
@@ -146,6 +263,23 @@ class SourceCoverageTest(unittest.TestCase):
                         f"{source['id']} claim {claim['category']} missing {evidence_ref}",
                     )
 
+    def test_supported_and_partial_claims_have_composition_semantics(self):
+        for source in source_cards():
+            for claim in source.get("coverage_claims", []):
+                validate_claim_semantics(source["id"], claim)
+
+    def test_semantic_validation_rejects_unknown_vocabulary(self):
+        source, supported_claim = next(
+            (source, claim)
+            for source in source_cards()
+            for claim in source.get("coverage_claims", [])
+            if claim["status"] in {"supported", "partial"}
+        )
+        claim = json.loads(json.dumps(supported_claim))
+        claim["semantics"]["amount_basis"] = "made_up_basis"
+        with self.assertRaisesRegex(AssertionError, "unknown amount_basis"):
+            validate_claim_semantics(source["id"], claim)
+
     def test_unsupported_claims_use_source_level_wording(self):
         for source in source_cards():
             for claim in source.get("coverage_claims", []):
@@ -188,6 +322,22 @@ class CoverageRendererTest(unittest.TestCase):
             coverage_renderer.load_source_cards(),
         )
         self.assertEqual(MATRIX_PATH.read_text(encoding="utf-8"), rendered)
+
+    def test_statewide_population_source_rolls_up_to_covered_local_jurisdictions(self):
+        rendered = coverage_renderer.render_markdown(
+            coverage_renderer.parse_taxonomy(TAXONOMY_PATH),
+            coverage_renderer.load_source_cards(),
+        )
+        self.assertIn(
+            "| City of Seattle | `population_demographics.population_denominator` | "
+            "`supported` | washington.ofm_population |",
+            rendered,
+        )
+        self.assertIn(
+            "| King County, Washington | `population_demographics.population_denominator` | "
+            "`supported` | washington.ofm_population |",
+            rendered,
+        )
 
     def test_renderer_has_no_network_fetch_dependencies(self):
         script = SCRIPT_PATH.read_text(encoding="utf-8")

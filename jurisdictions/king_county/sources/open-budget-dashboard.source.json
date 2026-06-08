@@ -11,8 +11,18 @@
     "tier": "checked_in_snapshot",
     "normal_answer_source": "repo_snapshot",
     "freshness_check": "model_refresh",
-    "repo_artifacts": ["source_card", "query_templates", "normalized_snapshot", "summary", "provenance", "tests", "docs"],
-    "local_artifacts": ["debug_capture"],
+    "repo_artifacts": [
+      "source_card",
+      "query_templates",
+      "normalized_snapshot",
+      "summary",
+      "provenance",
+      "tests",
+      "docs"
+    ],
+    "local_artifacts": [
+      "debug_capture"
+    ],
     "refresh_behavior": "rerun_extractor_to_update_repo_snapshot"
   },
   "official_dashboard_page": "https://kingcounty.gov/en/dept/executive/governance-leadership/performance-strategy-budget/budget/budget-dashboard",
@@ -54,7 +64,19 @@
     "version_boundary": {
       "snapshot_version": "2026-04-01",
       "observed_model_refresh_time": "2026-04-01T21:37:44.693",
-      "known_years": [2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026, 2027]
+      "known_years": [
+        2017,
+        2018,
+        2019,
+        2020,
+        2021,
+        2022,
+        2023,
+        2024,
+        2025,
+        2026,
+        2027
+      ]
     },
     "row_counts": {
       "overview_by_year": 11,
@@ -80,7 +102,19 @@
   "dataset_id": "e6354f5d-a44d-4c75-ab7a-a2293b56b83b",
   "observed_model_refresh_time": "2026-04-01T21:37:44.693",
   "snapshot_version": "2026-04-01",
-  "known_years": [2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026, 2027],
+  "known_years": [
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024,
+    2025,
+    2026,
+    2027
+  ],
   "primary_measures": [
     "budgeted_revenue",
     "budgeted_expenditure",
@@ -106,8 +140,13 @@
     {
       "category": "budget_finance.operating_budget",
       "status": "supported",
-      "measures": ["budgeted_expenditure"],
-      "grains": ["year", "department"],
+      "measures": [
+        "budgeted_expenditure"
+      ],
+      "grains": [
+        "year",
+        "department"
+      ],
       "time_coverage": "Dashboard years 2017-2027; snapshot version 2026-04-01",
       "evidence": [
         "known_years",
@@ -120,13 +159,31 @@
       "caveats": [
         "The dashboard shows authorized or budgeted amounts, not actual spending.",
         "Future years in the dashboard are budget years, not completed actuals."
-      ]
+      ],
+      "semantics": {
+        "amount_basis": "budgeted",
+        "budget_frame": "operating_dashboard",
+        "period_type": "fiscal_year",
+        "period_status": "budgeted",
+        "unit": "dollars",
+        "government_scope": "county",
+        "geography_basis": "resident_jurisdiction",
+        "comparability_notes": [
+          "Dashboard budgeted expenditure is annual and should not be treated as identical to adopted biennial budget totals.",
+          "Department budgets are organizational views, not complete policy-area spending."
+        ]
+      }
     },
     {
       "category": "budget_finance.revenue_budget",
       "status": "supported",
-      "measures": ["budgeted_revenue"],
-      "grains": ["year", "department"],
+      "measures": [
+        "budgeted_revenue"
+      ],
+      "grains": [
+        "year",
+        "department"
+      ],
       "time_coverage": "Dashboard years 2017-2027; snapshot version 2026-04-01",
       "evidence": [
         "known_years",
@@ -139,13 +196,31 @@
       "caveats": [
         "The dashboard shows budgeted revenue, not actual revenue earned.",
         "Future years in the dashboard are budget years, not completed actuals."
-      ]
+      ],
+      "semantics": {
+        "amount_basis": "budgeted",
+        "budget_frame": "revenue_dashboard",
+        "period_type": "fiscal_year",
+        "period_status": "budgeted",
+        "unit": "dollars",
+        "government_scope": "county",
+        "geography_basis": "resident_jurisdiction",
+        "comparability_notes": [
+          "Budgeted revenue is not actual revenue collected.",
+          "Dashboard annual values are not adopted biennial budget totals."
+        ]
+      }
     },
     {
       "category": "workforce.budgeted_fte",
       "status": "supported",
-      "measures": ["budgeted_fte"],
-      "grains": ["year", "department"],
+      "measures": [
+        "budgeted_fte"
+      ],
+      "grains": [
+        "year",
+        "department"
+      ],
       "time_coverage": "Dashboard years 2017-2027; snapshot version 2026-04-01",
       "evidence": [
         "known_years",
@@ -156,29 +231,91 @@
       ],
       "caveats": [
         "Budgeted FTE is not an employee roster, vacancy count, payroll, or active headcount."
-      ]
+      ],
+      "semantics": {
+        "amount_basis": "budgeted",
+        "budget_frame": "workforce",
+        "period_type": "fiscal_year",
+        "period_status": "budgeted",
+        "unit": "fte",
+        "government_scope": "county",
+        "geography_basis": "resident_jurisdiction",
+        "comparability_notes": [
+          "Budgeted FTE is not an employee roster, active headcount, vacancy count, or payroll measure.",
+          "FTE is a separate unit and should not be plotted or compared as dollars."
+        ]
+      }
     },
     {
       "category": "budget_finance.actual_spending_checkbook",
       "status": "unsupported",
       "unsupported_reason": "Unsupported by this source: actual spending, payments, invoices, checkbook transactions, procurement activity, and actual revenue collected are not supported.",
-      "evidence": ["not_supported_by_this_source"]
+      "evidence": [
+        "not_supported_by_this_source"
+      ]
     }
   ],
   "fields": [
-    {"name": "year", "type": "number"},
-    {"name": "department", "type": "text"},
-    {"name": "budgeted_revenue", "type": "number"},
-    {"name": "budgeted_expenditure", "type": "number"},
-    {"name": "budgeted_fte", "type": "number"}
+    {
+      "name": "year",
+      "type": "number"
+    },
+    {
+      "name": "department",
+      "type": "text"
+    },
+    {
+      "name": "budgeted_revenue",
+      "type": "number"
+    },
+    {
+      "name": "budgeted_expenditure",
+      "type": "number"
+    },
+    {
+      "name": "budgeted_fte",
+      "type": "number"
+    }
   ],
   "source_entities": {
-    "Year": ["Year"],
-    "AssignmentbyDetailedEntity": ["Department", "Division", "Fund", "Fund Name", "GF", "Type"],
-    "Revenues": ["Year", "Revenues", "Type", "Type Number", "Division", "App / CIP Fund2"],
-    "Expenditures": ["Year", "Expenditures", "Type", "Type Number", "Division", "App / CIP Fund2"],
-    "FTEData": ["Year", "Full Time Employees", "App / CIP Fund2"],
-    "deferred": ["2025CIPDecision", "LatitudeAndLongitude", "FAQ", "KCPopulation"]
+    "Year": [
+      "Year"
+    ],
+    "AssignmentbyDetailedEntity": [
+      "Department",
+      "Division",
+      "Fund",
+      "Fund Name",
+      "GF",
+      "Type"
+    ],
+    "Revenues": [
+      "Year",
+      "Revenues",
+      "Type",
+      "Type Number",
+      "Division",
+      "App / CIP Fund2"
+    ],
+    "Expenditures": [
+      "Year",
+      "Expenditures",
+      "Type",
+      "Type Number",
+      "Division",
+      "App / CIP Fund2"
+    ],
+    "FTEData": [
+      "Year",
+      "Full Time Employees",
+      "App / CIP Fund2"
+    ],
+    "deferred": [
+      "2025CIPDecision",
+      "LatitudeAndLongitude",
+      "FAQ",
+      "KCPopulation"
+    ]
   },
   "validation_checks": {
     "overview_years": 11,

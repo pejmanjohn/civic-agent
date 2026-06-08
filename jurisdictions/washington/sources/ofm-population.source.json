@@ -1,0 +1,219 @@
+{
+  "id": "washington.ofm_population",
+  "jurisdiction_id": "washington",
+  "jurisdiction_name": "Washington State",
+  "jurisdiction_level": "state",
+  "coverage_jurisdictions": [
+    {
+      "jurisdiction_id": "washington",
+      "jurisdiction_name": "Washington State"
+    },
+    {
+      "jurisdiction_id": "seattle",
+      "jurisdiction_name": "City of Seattle"
+    },
+    {
+      "jurisdiction_id": "king_county",
+      "jurisdiction_name": "King County, Washington"
+    }
+  ],
+  "budget_family": "population_denominator",
+  "provider": "Washington Office of Financial Management, Forecasting and Research Division",
+  "dataset_name": "April 1 Official Population Estimates",
+  "access_method": "official_bulk_download",
+  "storage_policy": {
+    "tier": "checked_in_snapshot",
+    "normal_answer_source": "repo_snapshot",
+    "freshness_check": "source_file_metadata",
+    "repo_artifacts": [
+      "source_card",
+      "probe",
+      "normalized_snapshot",
+      "summary",
+      "provenance",
+      "tests",
+      "docs"
+    ],
+    "local_artifacts": [
+      "debug_capture"
+    ],
+    "refresh_behavior": "rerun_extractor_to_update_repo_snapshot"
+  },
+  "official_page": "https://ofm.wa.gov/data-research/population-demographics/estimates/april-1-official/",
+  "official_pdf_url": "https://ofm.wa.gov/wp-content/uploads/sites/default/files/public/dataresearch/pop/april1/ofm_april1_population_final.pdf",
+  "source_file_url": "https://ofm.wa.gov/wp-content/uploads/sites/default/files/public/dataresearch/pop/april1/ofm_april1_population_final.xlsx",
+  "source_file_last_modified": "Tue, 24 Feb 2026 08:05:27 GMT",
+  "source_file_etag": "\"699d5bc7-10aab\"",
+  "source_file_content_length": 68267,
+  "source_file_sha256": "d39be7d23b0f41c6ceadeb888aadc6e1484b1072119998ef43cac260d108e42e",
+  "human_inspection_urls": [
+    {
+      "label": "OFM April 1 official population estimates",
+      "url": "https://ofm.wa.gov/data-research/population-demographics/estimates/april-1-official/"
+    },
+    {
+      "label": "April 1, 2025 population final PDF",
+      "url": "https://ofm.wa.gov/wp-content/uploads/sites/default/files/public/dataresearch/pop/april1/ofm_april1_population_final.pdf"
+    },
+    {
+      "label": "April 1, 2025 population final XLSX",
+      "url": "https://ofm.wa.gov/wp-content/uploads/sites/default/files/public/dataresearch/pop/april1/ofm_april1_population_final.xlsx"
+    }
+  ],
+  "source_fingerprint": {
+    "public_inspection_urls": [
+      "https://ofm.wa.gov/data-research/population-demographics/estimates/april-1-official/",
+      "https://ofm.wa.gov/wp-content/uploads/sites/default/files/public/dataresearch/pop/april1/ofm_april1_population_final.xlsx",
+      "https://ofm.wa.gov/wp-content/uploads/sites/default/files/public/dataresearch/pop/april1/ofm_april1_population_final.pdf"
+    ],
+    "machine_access": {
+      "type": "official_bulk_download",
+      "accepted_source_surfaces": [
+        "april1_population_final_xlsx"
+      ],
+      "file_url": "https://ofm.wa.gov/wp-content/uploads/sites/default/files/public/dataresearch/pop/april1/ofm_april1_population_final.xlsx",
+      "content_type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+    },
+    "retrieval_context": {
+      "source_surface_id": "april1_population_final_xlsx",
+      "workbook_sheet": "Population",
+      "notation_sheet": "Notations",
+      "normalized_table": "population-estimates.jsonl"
+    },
+    "version_boundary": {
+      "snapshot_version": "2025-04-01",
+      "release": "April 1, 2025 official population estimates",
+      "latest_estimate_date": "2025-04-01",
+      "file_last_modified": "Tue, 24 Feb 2026 08:05:27 GMT",
+      "file_etag": "\"699d5bc7-10aab\"",
+      "file_sha256": "d39be7d23b0f41c6ceadeb888aadc6e1484b1072119998ef43cac260d108e42e"
+    },
+    "row_counts": {
+      "geography_rows": 409,
+      "population_estimates": 2454,
+      "county_rows": 39,
+      "unincorporated_county_rows": 39,
+      "incorporated_county_rows": 39,
+      "city_town_rows": 289,
+      "state_total_rows": 1,
+      "separator_rows": 39
+    },
+    "checks": {
+      "latest_estimate_year": 2025,
+      "latest_estimate_date": "2025-04-01",
+      "seattle_2025_population": 816600,
+      "king_county_2025_population": 2411700,
+      "state_total_2025_population": 8115100,
+      "king_county_unincorporated_2025_population": 250225,
+      "king_county_incorporated_2025_population": 2161475,
+      "king_county_city_town_sum_2025": 2161475,
+      "king_county_incorporated_reconciles": true,
+      "king_county_total_reconciles": true
+    }
+  },
+  "source_surfaces": {
+    "april1_population_final_xlsx": {
+      "status": "accepted",
+      "url": "https://ofm.wa.gov/wp-content/uploads/sites/default/files/public/dataresearch/pop/april1/ofm_april1_population_final.xlsx",
+      "release": "April 1, 2025 official population estimates",
+      "latest_estimate_date": "2025-04-01",
+      "content_length": 68267,
+      "last_modified": "Tue, 24 Feb 2026 08:05:27 GMT",
+      "etag": "\"699d5bc7-10aab\"",
+      "sha256": "d39be7d23b0f41c6ceadeb888aadc6e1484b1072119998ef43cac260d108e42e",
+      "coverage": {
+        "row_types": [
+          "county",
+          "unincorporated_county",
+          "incorporated_county",
+          "city_town",
+          "state_total",
+          "unincorporated_state_total",
+          "incorporated_state_total"
+        ],
+        "years": [
+          2020,
+          2021,
+          2022,
+          2023,
+          2024,
+          2025
+        ],
+        "measures": [
+          "population"
+        ]
+      }
+    }
+  },
+  "snapshot_version": "2025-04-01",
+  "release": "April 1, 2025 official population estimates",
+  "latest_estimate_date": "2025-04-01",
+  "primary_measure": "population",
+  "safe_answer_patterns": [
+    "Official April 1 resident population estimates for Washington counties, cities, towns, and state totals.",
+    "Population denominators for per-resident Scale answers when paired with a reviewed budget source and explicit estimate-date caveats.",
+    "County incorporated and unincorporated population splits that reconcile to county totals."
+  ],
+  "not_supported_by_this_source": [
+    "Budget amounts, spending, revenue, tax base, or fiscal capacity.",
+    "Service population, daytime population, taxpayers, households, utility customers, or visitors.",
+    "Age, sex, race, ethnicity, income, housing, or other demographic composition from this final population workbook.",
+    "Population outside Washington state.",
+    "Claims that city and county budgets are service-comparable merely because resident denominators exist."
+  ],
+  "coverage_claims": [
+    {
+      "category": "population_demographics.population_denominator",
+      "status": "supported",
+      "measures": [
+        "population"
+      ],
+      "grains": [
+        "estimate_year",
+        "estimate_date",
+        "county",
+        "jurisdiction",
+        "row_type"
+      ],
+      "time_coverage": "2020 census baseline and April 1 population estimates for 2021-2025; current denominator estimate date 2025-04-01",
+      "evidence": [
+        "snapshot_version",
+        "latest_estimate_date",
+        "primary_measure",
+        "validation_checks.seattle_2025_population",
+        "validation_checks.king_county_2025_population",
+        "validation_checks.king_county_total_reconciles"
+      ],
+      "caveats": [
+        "Use this as a resident population denominator, not a service population or taxpayer denominator.",
+        "State the April 1 estimate date when pairing with fiscal-year or biennial budget values.",
+        "Do not imply Seattle and King County budgets are service-comparable merely because both can be divided by resident population."
+      ],
+      "semantics": {
+        "denominator_basis": "resident_population",
+        "period_type": "point_in_time",
+        "period_status": "official_estimate",
+        "unit": "residents",
+        "government_scope": "multi_jurisdiction",
+        "geography_basis": "resident_jurisdiction",
+        "comparability_notes": [
+          "OFM population estimates are point-in-time April 1 resident estimates.",
+          "Budget periods may be fiscal years or biennia and should be named separately from the population estimate date.",
+          "Resident denominators do not resolve differences in government responsibilities or service scope."
+        ]
+      }
+    }
+  ],
+  "validation_checks": {
+    "latest_estimate_year": 2025,
+    "latest_estimate_date": "2025-04-01",
+    "seattle_2025_population": 816600,
+    "king_county_2025_population": 2411700,
+    "state_total_2025_population": 8115100,
+    "king_county_unincorporated_2025_population": 250225,
+    "king_county_incorporated_2025_population": 2161475,
+    "king_county_city_town_sum_2025": 2161475,
+    "king_county_incorporated_reconciles": true,
+    "king_county_total_reconciles": true
+  }
+}

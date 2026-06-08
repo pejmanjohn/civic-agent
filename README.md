@@ -127,6 +127,7 @@ Worked examples:
 - `docs/seattle-demo.md`: source-backed answers and compact traces for the current dogfood prompts.
 - `docs/king-county-demo.md`: source-backed answers and compact traces for the King County snapshot.
 - `docs/washington-checkbook-demo.md`: managed local database setup, named queries, and trace shape for Washington Open Checkbook.
+- `benchmarks/scale/`: manual benchmark contract for Scale questions, with seed cases, scoring rubric, and the June 6 baseline.
 - `docs/coverage-matrix.md`: source-level coverage claims and derived jurisdiction rollups.
 - `docs/source-probing.md`: workflow for evaluating new official sources before adding them.
 - `docs/source-probes/seattle-open-data-portal.md`: Socrata/open data portal probe and workflow lessons.

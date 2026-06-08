@@ -108,15 +108,15 @@ def render_markdown(taxonomy: dict[str, list[dict[str, str]]], cards: list[dict]
             "",
             "## Source Coverage Claims",
             "",
-            "| Jurisdiction | Source | Category | Status | Measures | Grains | Time/version | Evidence | Limits and caveats |",
-            "|---|---|---|---|---|---|---|---|---|",
+            "| Jurisdiction | Source | Category | Status | Measures | Grains | Time/version | Semantics | Evidence | Limits and caveats |",
+            "|---|---|---|---|---|---|---|---|---|---|",
         ]
     )
     source_rows = source_claim_rows(cards)
     if source_rows:
         lines.extend(source_rows)
     else:
-        lines.append("| - | - | - | No reviewed source-level coverage claims. | - | - | - | - | - |")
+        lines.append("| - | - | - | No reviewed source-level coverage claims. | - | - | - | - | - | - |")
 
     lines.extend(
         [
@@ -136,7 +136,7 @@ def render_markdown(taxonomy: dict[str, list[dict[str, str]]], cards: list[dict]
             "",
             "## Backlog Families",
             "",
-            "Backlog families are part of the full civic coverage map. They remain not-yet-probed for current jurisdictions until an official source probe promotes a specific category.",
+            "Backlog families are part of the full civic coverage map. They remain not-yet-probed in this source-card matrix until an official source probe promotes a specific category; a separate probe artifact may exist before acceptance.",
             "",
             "| Jurisdiction | Backlog family | Rollup status | Common source types |",
             "|---|---|---|---|",
@@ -161,6 +161,7 @@ def source_claim_rows(cards: list[dict]) -> list[str]:
                         escape_cell(join_values(claim.get("measures", []))),
                         escape_cell(join_values(claim.get("grains", []))),
                         escape_cell(claim.get("time_coverage", "-")),
+                        escape_cell(semantics_summary(claim)),
                         escape_cell(join_values(claim.get("evidence", []))),
                         escape_cell(claim_limits(claim)),
                     ]
@@ -174,11 +175,12 @@ def jurisdiction_rollup_rows(cards: list[dict], active_categories: list[dict[str
     rows = []
     cards_by_jurisdiction: dict[str, list[dict]] = {}
     for card in cards:
-        cards_by_jurisdiction.setdefault(card["jurisdiction_id"], []).append(card)
+        for jurisdiction in card_rollup_jurisdictions(card):
+            cards_by_jurisdiction.setdefault(jurisdiction["jurisdiction_id"], []).append(card)
 
     for jurisdiction_id in sorted(cards_by_jurisdiction):
         jurisdiction_cards = sorted(cards_by_jurisdiction[jurisdiction_id], key=lambda c: c["id"])
-        jurisdiction_name = jurisdiction_cards[0]["jurisdiction_name"]
+        jurisdiction_name = rollup_jurisdiction_name(jurisdiction_id, jurisdiction_cards)
         for category in active_categories:
             claims = [
                 (card, claim)
@@ -227,7 +229,11 @@ def rollup_status(claims: list[tuple[dict, dict]]) -> tuple[str, list[str], str]
 def backlog_rows(cards: list[dict], backlog_families: list[dict[str, str]]) -> list[str]:
     rows = []
     jurisdictions = sorted(
-        {(card["jurisdiction_id"], card["jurisdiction_name"]) for card in cards}
+        {
+            (jurisdiction["jurisdiction_id"], jurisdiction["jurisdiction_name"])
+            for card in cards
+            for jurisdiction in card_rollup_jurisdictions(card)
+        }
     )
     for _, jurisdiction_name in jurisdictions:
         for family in backlog_families:
@@ -246,6 +252,26 @@ def backlog_rows(cards: list[dict], backlog_families: list[dict[str, str]]) -> l
     return rows
 
 
+def card_rollup_jurisdictions(card: dict) -> list[dict[str, str]]:
+    jurisdictions = card.get("coverage_jurisdictions")
+    if jurisdictions:
+        return jurisdictions
+    return [
+        {
+            "jurisdiction_id": card["jurisdiction_id"],
+            "jurisdiction_name": card["jurisdiction_name"],
+        }
+    ]
+
+
+def rollup_jurisdiction_name(jurisdiction_id: str, cards: list[dict]) -> str:
+    for card in cards:
+        for jurisdiction in card_rollup_jurisdictions(card):
+            if jurisdiction["jurisdiction_id"] == jurisdiction_id:
+                return jurisdiction["jurisdiction_name"]
+    return cards[0]["jurisdiction_name"]
+
+
 def claim_limits(claim: dict) -> str:
     values = []
     unsupported_reason = claim.get("unsupported_reason")
@@ -253,6 +279,31 @@ def claim_limits(claim: dict) -> str:
         values.append(unsupported_reason)
     values.extend(claim.get("caveats", []))
     return join_values(values) if values else "-"
+
+
+def semantics_summary(claim: dict) -> str:
+    semantics = claim.get("semantics")
+    if not semantics:
+        return "-"
+    summary_fields = [
+        "denominator_basis",
+        "amount_basis",
+        "budget_frame",
+        "period_type",
+        "period_status",
+        "unit",
+        "government_scope",
+        "geography_basis",
+    ]
+    parts = [
+        f"{field}={semantics[field]}"
+        for field in summary_fields
+        if semantics.get(field)
+    ]
+    notes = semantics.get("comparability_notes", [])
+    if notes:
+        parts.append(f"comparability_notes={join_values(notes)}")
+    return "; ".join(parts) if parts else "-"
 
 
 def join_values(values: list[str]) -> str:

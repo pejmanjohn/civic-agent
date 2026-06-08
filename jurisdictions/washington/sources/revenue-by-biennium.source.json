@@ -11,8 +11,17 @@
     "tier": "checked_in_snapshot",
     "normal_answer_source": "repo_snapshot",
     "freshness_check": "report_timestamp",
-    "repo_artifacts": ["source_card", "normalized_snapshot", "summary", "provenance", "tests", "docs"],
-    "local_artifacts": ["debug_capture"],
+    "repo_artifacts": [
+      "source_card",
+      "normalized_snapshot",
+      "summary",
+      "provenance",
+      "tests",
+      "docs"
+    ],
+    "local_artifacts": [
+      "debug_capture"
+    ],
     "refresh_behavior": "rerun_extractor_to_update_repo_snapshot"
   },
   "official_report_page": "https://fiscal.wa.gov/Revenue/RevenueGeneral.aspx",
@@ -49,7 +58,9 @@
     ],
     "machine_access": {
       "type": "reportviewer",
-      "accepted_source_surfaces": ["statewide_revenue_reportviewer"],
+      "accepted_source_surfaces": [
+        "statewide_revenue_reportviewer"
+      ],
       "official_report_page": "https://fiscal.wa.gov/Revenue/RevenueGeneral.aspx"
     },
     "retrieval_context": {
@@ -75,14 +86,31 @@
           "2003-05": "12"
         }
       },
-      "exports": ["xml", "xlsx", "csv"]
+      "exports": [
+        "xml",
+        "xlsx",
+        "csv"
+      ]
     },
     "version_boundary": {
       "snapshot_version": "2025-27-revenue-through-2026-04",
       "current_biennium": "2025-27",
       "actual_data_through": "2026-04",
       "actual_data_through_label": "Actual Data Through April 2026",
-      "historical_biennia": ["2003-05", "2005-07", "2007-09", "2009-11", "2011-13", "2013-15", "2015-17", "2017-19", "2019-21", "2021-23", "2023-25", "2025-27"]
+      "historical_biennia": [
+        "2003-05",
+        "2005-07",
+        "2007-09",
+        "2009-11",
+        "2011-13",
+        "2013-15",
+        "2015-17",
+        "2017-19",
+        "2019-21",
+        "2021-23",
+        "2023-25",
+        "2025-27"
+      ]
     },
     "row_counts": {
       "general_fund_revenue_by_biennium": 12,
@@ -102,7 +130,9 @@
       "report_name": "RevenueSW",
       "report_viewer_file_name": "RevenueSW",
       "coverage": {
-        "funds": ["General Fund (001)"],
+        "funds": [
+          "General Fund (001)"
+        ],
         "biennia": [
           "2003-05",
           "2005-07",
@@ -177,12 +207,17 @@
       "category": "budget_finance.operating_budget",
       "status": "unsupported",
       "unsupported_reason": "Unsupported by this source: the Fiscal WA revenue by biennium reports are revenue estimate-vs-actual reports, not operating budget appropriation reports.",
-      "evidence": ["budget_family", "safe_answer_patterns"]
+      "evidence": [
+        "budget_family",
+        "safe_answer_patterns"
+      ]
     },
     {
       "category": "budget_finance.revenue_budget",
       "status": "partial",
-      "measures": ["estimated_revenue"],
+      "measures": [
+        "estimated_revenue"
+      ],
       "grains": [
         "biennium",
         "fund",
@@ -204,39 +239,107 @@
         "The same report also includes actual revenue collected; current-biennium estimate, actual, and difference values are partial through April 2026.",
         "Do not treat the 2025-27 current-biennium values as a full-biennium forecast or final actual.",
         "The first accepted snapshot is limited to General Fund (001)."
-      ]
+      ],
+      "semantics": {
+        "amount_basis": "estimated",
+        "budget_frame": "general_fund_revenue",
+        "period_type": "biennium",
+        "period_status": "partial_current_period",
+        "unit": "dollars",
+        "government_scope": "state",
+        "geography_basis": "statewide",
+        "comparability_notes": [
+          "Estimated General Fund revenue is not operating-budget authority.",
+          "Current-biennium actual and difference values are partial through the stated data-through month."
+        ]
+      }
     },
     {
       "category": "workforce.budgeted_fte",
       "status": "unsupported",
       "unsupported_reason": "Unsupported by this source: staffing and FTE analysis are not supported by the Fiscal WA revenue by biennium reports.",
-      "evidence": ["not_supported_by_this_source"]
+      "evidence": [
+        "not_supported_by_this_source"
+      ]
     },
     {
       "category": "budget_finance.actual_spending_checkbook",
       "status": "unsupported",
       "unsupported_reason": "Unsupported by this source: actual spending, vendor payments, checkbook transactions, procurement, invoices, and payroll are not supported by the Fiscal WA revenue by biennium reports.",
-      "evidence": ["not_supported_by_this_source"]
+      "evidence": [
+        "not_supported_by_this_source"
+      ]
     }
   ],
   "fields": [
-    {"name": "source_surface_id", "type": "text"},
-    {"name": "biennium", "type": "text"},
-    {"name": "period_type", "type": "text"},
-    {"name": "fund", "type": "text"},
-    {"name": "fund_code", "type": "text"},
-    {"name": "revenue_area", "type": "text"},
-    {"name": "account_or_agency", "type": "text"},
-    {"name": "estimated_revenue_thousands", "type": "number"},
-    {"name": "actual_revenue_thousands", "type": "number"},
-    {"name": "actual_minus_estimate_thousands", "type": "number"},
-    {"name": "estimated_revenue", "type": "number"},
-    {"name": "actual_revenue", "type": "number"},
-    {"name": "actual_minus_estimate", "type": "number"},
-    {"name": "actual_data_through", "type": "text"},
-    {"name": "actual_data_through_label", "type": "text"},
-    {"name": "actual_data_through_precision", "type": "text"},
-    {"name": "actual_data_status", "type": "text"}
+    {
+      "name": "source_surface_id",
+      "type": "text"
+    },
+    {
+      "name": "biennium",
+      "type": "text"
+    },
+    {
+      "name": "period_type",
+      "type": "text"
+    },
+    {
+      "name": "fund",
+      "type": "text"
+    },
+    {
+      "name": "fund_code",
+      "type": "text"
+    },
+    {
+      "name": "revenue_area",
+      "type": "text"
+    },
+    {
+      "name": "account_or_agency",
+      "type": "text"
+    },
+    {
+      "name": "estimated_revenue_thousands",
+      "type": "number"
+    },
+    {
+      "name": "actual_revenue_thousands",
+      "type": "number"
+    },
+    {
+      "name": "actual_minus_estimate_thousands",
+      "type": "number"
+    },
+    {
+      "name": "estimated_revenue",
+      "type": "number"
+    },
+    {
+      "name": "actual_revenue",
+      "type": "number"
+    },
+    {
+      "name": "actual_minus_estimate",
+      "type": "number"
+    },
+    {
+      "name": "actual_data_through",
+      "type": "text"
+    },
+    {
+      "name": "actual_data_through_label",
+      "type": "text"
+    },
+    {
+      "name": "actual_data_through_precision",
+      "type": "text"
+    },
+    {
+      "name": "actual_data_status",
+      "type": "text"
+    }
   ],
   "validation_checks": {
     "historical_biennia": [

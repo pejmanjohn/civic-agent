@@ -36,6 +36,8 @@ This source can safely support:
 
 Do not use this source for actual spending, payments, realtime city activity, staffing/headcount, capital budget, or non-Seattle budget analysis.
 
+For composed Scale questions, defer to the router's Scale recipes before comparing Seattle to another jurisdiction or computing per-capita values. This source can supply Seattle approved operating-budget facts, but it does not supply inflation adjustments or non-operating budget frames. Per-capita answers may compose this source with `washington.ofm_population`; cite both sources, use the OFM April 1 estimate date, and keep service-scope caveats explicit.
+
 ## Data Model
 
 Fields:

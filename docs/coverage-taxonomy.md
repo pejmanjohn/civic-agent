@@ -16,7 +16,7 @@ Source cards remain the source of truth for current capabilities. A category app
 | `partial` | Source card claim | The reviewed source can answer a constrained slice of the category, but important expected grains, measures, years, or source surfaces are missing. |
 | `unsupported` | Source card claim | The reviewed source has been checked and should not be used for the category. Use source-level wording: unsupported by this source. |
 | `unsupported-by-reviewed-source` | Derived jurisdiction rollup | Reviewed source cards for the jurisdiction explicitly say the category is unsupported by those sources. This is not a claim that the jurisdiction lacks the data elsewhere. |
-| `not-yet-probed` | Derived jurisdiction rollup | No reviewed source card currently carries a claim for the category. Absence of a claim means not evaluated, not unavailable. |
+| `not-yet-probed` | Derived jurisdiction rollup | No reviewed source card currently carries a claim for the category. A separate source probe may exist; the matrix status means no accepted source-card claim has been promoted yet. |
 
 ## Active Source-Card Categories
 
@@ -28,6 +28,7 @@ These are the only category keys that may appear in `coverage_claims` for this r
 | `budget_finance.revenue_budget` | active | Revenue budget | Budgeted or projected revenue amounts, not actual revenue collected. |
 | `workforce.budgeted_fte` | active | Budgeted FTE | Authorized or budgeted full-time-equivalent staffing totals. |
 | `budget_finance.actual_spending_checkbook` | active | Actual spending/checkbook | Actual spending, vendor payments, invoices, or checkbook-style transactions. |
+| `population_demographics.population_denominator` | active | Population denominator | Official point-in-time resident population estimates used only as per-resident denominators. |
 
 ## Backlog Civic Coverage Families
 
@@ -35,7 +36,7 @@ Backlog families guide source probes and jurisdiction gap views. They must not a
 
 | family_key | tier | Resident questions | Common source types |
 |---|---|---|---|
-| `population_demographics` | backlog | Who lives here, how is the population changing, and what demographic context matters? | Census ACS API, local demographic dashboards, planning data portals. |
+| `population_demographics` | backlog | Who lives here, how is the population changing, and what demographic context matters? | Census ACS API, official population estimates, local demographic dashboards, planning data portals. |
 | `public_safety_crime` | backlog | What crimes, incidents, response patterns, and safety outcomes are reported? | Police open data, 911/CAD datasets, FBI Crime Data API, public safety dashboards. |
 | `transportation_infrastructure` | backlog | What streets, transit, traffic, collisions, projects, and infrastructure assets are tracked? | DOT dashboards, ArcGIS services, traffic counts, capital project portals. |
 | `housing_permitting_land` | backlog | What permits, housing units, parcels, zoning, inspections, and land records are public? | Planning/permitting portals, assessor data, building inspection data, GIS. |
@@ -61,9 +62,29 @@ A backlog family becomes an active source-card category only after a source prob
 
 Promotion should add the new active category here, update coverage tests, and add source-card claims only for reviewed sources. Do not add unsupported rows just to fill the matrix.
 
+Probe note: `docs/source-probes/washington-ofm-population.md` evaluates Washington OFM April 1 population estimates. The accepted source-card category is intentionally narrow: `population_demographics.population_denominator` supports resident denominators for Scale recipes, not broad demographic composition.
+
 ## Comparability Rule
 
 Shared labels are navigation aids, not accounting mappings. `budget_finance.operating_budget` can refer to Seattle `approved_amount`, King County `budgeted_expenditure`, and Washington `budgeted_amount`; those measures are not directly comparable until separate mapping and caveat work exists.
+
+## Source Claim Semantics
+
+Supported and partial `coverage_claims` should include a compact `semantics` block when the claim may feed a recipe or comparison. This block is source metadata, not a universal civic schema. Its job is to help recipes decide whether facts can be compared, should be shown side by side, or should be refused with a missing-source path.
+
+Current v0 fields:
+
+- `amount_basis`: approved, adopted, proposed, budgeted, actual, estimated, projected, or appropriated.
+- `budget_frame`: broad source frame such as operating, operating dashboard, revenue dashboard, General Fund revenue, workforce, or actual spending/checkbook.
+- `denominator_basis`: resident population when a claim is a population denominator rather than a budget amount.
+- `period_type`: fiscal year, calendar year, biennium, quarter, month, current period to date, or point in time.
+- `period_status`: approved, adopted, amended, budgeted, enacted, actualized, partial current period, proposed, or official estimate.
+- `unit`: dollars, FTE, or residents for the current active categories.
+- `government_scope`: city, county, state, multi-jurisdiction, federal, regional authority, school district, or special district.
+- `geography_basis`: resident jurisdiction, service area, statewide, taxing district, or regional service area.
+- `comparability_notes`: source-specific warnings that a recipe should preserve before comparing or charting values.
+
+Unsupported claims do not need `semantics`; their source-level unsupported reason remains the contract.
 
 ## Research Anchors
 

@@ -1,0 +1,115 @@
+{
+  "id": "king_county.adopted_budget",
+  "jurisdiction_id": "king_county",
+  "jurisdiction_name": "King County, Washington",
+  "jurisdiction_level": "county",
+  "budget_family": "adopted_budget_context",
+  "provider": "King County Council",
+  "dataset_name": "King County 2026-2027 Adopted Biennial Budget",
+  "access_method": "official_context_document",
+  "storage_policy": {
+    "tier": "context_only",
+    "normal_answer_source": "none",
+    "freshness_check": "none",
+    "repo_artifacts": [
+      "source_card",
+      "probe",
+      "docs"
+    ],
+    "local_artifacts": [],
+    "refresh_behavior": "manual_review_of_official_budget_page_and_document_metadata"
+  },
+  "official_page": "https://kingcounty.gov/en/dept/council/governance-leadership/county-council/budget-review-2026-27",
+  "adopted_budget_book_url": "https://cdn.kingcounty.gov/-/media/king-county/depts/council/budget/2026/2026-2027-adopted-budget-book.pdf?rev=9cbb996d2da046b8a37ff02ff8009e73&hash=A256B6946888EE7A4A6BB3BA3D6A82FA",
+  "legislation_url": "https://mkcclegisearch.kingcounty.gov/LegislationDetail.aspx?ID=7680373&GUID=B4E9E09C-A982-4A8C-A0DA-6CC195D69EE0&Options=Advanced&Search=",
+  "human_inspection_urls": [
+    {
+      "label": "King County 2026-27 Budget Process",
+      "url": "https://kingcounty.gov/en/dept/council/governance-leadership/county-council/budget-review-2026-27"
+    },
+    {
+      "label": "Adopted Budget Book",
+      "url": "https://cdn.kingcounty.gov/-/media/king-county/depts/council/budget/2026/2026-2027-adopted-budget-book.pdf?rev=9cbb996d2da046b8a37ff02ff8009e73&hash=A256B6946888EE7A4A6BB3BA3D6A82FA"
+    },
+    {
+      "label": "Adopted budget legislation file 2025-0288",
+      "url": "https://mkcclegisearch.kingcounty.gov/LegislationDetail.aspx?ID=7680373&GUID=B4E9E09C-A982-4A8C-A0DA-6CC195D69EE0&Options=Advanced&Search="
+    }
+  ],
+  "source_fingerprint": {
+    "public_inspection_urls": [
+      "https://kingcounty.gov/en/dept/council/governance-leadership/county-council/budget-review-2026-27",
+      "https://cdn.kingcounty.gov/-/media/king-county/depts/council/budget/2026/2026-2027-adopted-budget-book.pdf?rev=9cbb996d2da046b8a37ff02ff8009e73&hash=A256B6946888EE7A4A6BB3BA3D6A82FA",
+      "https://mkcclegisearch.kingcounty.gov/LegislationDetail.aspx?ID=7680373&GUID=B4E9E09C-A982-4A8C-A0DA-6CC195D69EE0&Options=Advanced&Search="
+    ],
+    "machine_access": {
+      "type": "official_context_document",
+      "accepted_source_surfaces": [
+        "council_budget_process_page",
+        "adopted_budget_book_pdf",
+        "legislation_page"
+      ]
+    },
+    "retrieval_context": {
+      "public_page": "King County 2026-27 Budget Process",
+      "document": "2026-2027 Adopted Budget Book",
+      "legislation_file": "2025-0288",
+      "normal_answer_role": "context_only"
+    },
+    "version_boundary": {
+      "adopted_period": "2026-2027",
+      "adopted_amount_label": "$20.16 billion",
+      "adopted_amount": 20160000000,
+      "pdf_last_modified": "Thu, 05 Mar 2026 21:03:17 GMT",
+      "pdf_content_length": 8833003,
+      "pdf_etag": "18a342e254d24a50b6c93d9e5f23e16b"
+    },
+    "row_counts": {
+      "normalized_rows": 0
+    },
+    "checks": {
+      "adopted_amount": 20160000000,
+      "adopted_amount_label": "$20.16 billion",
+      "adopted_period": "2026-2027",
+      "pdf_content_length": 8833003,
+      "pdf_last_modified": "Thu, 05 Mar 2026 21:03:17 GMT"
+    }
+  },
+  "source_surfaces": {
+    "council_budget_process_page": {
+      "status": "accepted_context",
+      "url": "https://kingcounty.gov/en/dept/council/governance-leadership/county-council/budget-review-2026-27",
+      "observed_claims": [
+        "Council reviewed and adopted a two-year $20.16 billion budget for 2026 and 2027.",
+        "Council approved a $20.16 billion spending plan."
+      ]
+    },
+    "adopted_budget_book_pdf": {
+      "status": "accepted_context",
+      "url": "https://cdn.kingcounty.gov/-/media/king-county/depts/council/budget/2026/2026-2027-adopted-budget-book.pdf?rev=9cbb996d2da046b8a37ff02ff8009e73&hash=A256B6946888EE7A4A6BB3BA3D6A82FA",
+      "content_length": 8833003,
+      "last_modified": "Thu, 05 Mar 2026 21:03:17 GMT",
+      "etag": "18a342e254d24a50b6c93d9e5f23e16b"
+    },
+    "legislation_page": {
+      "status": "accepted_context",
+      "url": "https://mkcclegisearch.kingcounty.gov/LegislationDetail.aspx?ID=7680373&GUID=B4E9E09C-A982-4A8C-A0DA-6CC195D69EE0&Options=Advanced&Search=",
+      "legislation_file": "2025-0288"
+    }
+  },
+  "adopted_period": "2026-2027",
+  "adopted_amount": 20160000000,
+  "adopted_amount_label": "$20.16 billion",
+  "safe_answer_patterns": [
+    "Use the adopted biennial amount as context for broad King County budget-size questions.",
+    "Present the adopted 2026-2027 two-year $20.16 billion budget beside, not instead of, annual Open Budget Dashboard values.",
+    "Explain that adopted biennial budget context and annual dashboard budgeted expenditure are different frames."
+  ],
+  "not_supported_by_this_source": [
+    "Annual dashboard budgeted expenditure, revenue, or FTE totals.",
+    "Department-level normalized adopted budget rows.",
+    "Actual spending, actual revenue collected, payments, invoices, checkbook transactions, procurement, or payroll.",
+    "A claim that adopted biennial totals and annual dashboard totals are directly comparable."
+  ],
+  "coverage_claims": []
+}

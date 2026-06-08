@@ -44,7 +44,7 @@ Use Seattle for:
 
 ### King County
 
-Read the King County skill before answering King County, Washington Open Budget Dashboard questions.
+Read the King County skill before answering King County, Washington Open Budget Dashboard or adopted budget context questions.
 
 If Civic Agent is installed as a packaged plugin (Codex or Claude Code), use the bundled reference:
 
@@ -68,15 +68,18 @@ Use King County for:
 
 - King County budget
 - King County Open Budget Dashboard
+- King County adopted 2026-2027 biennial budget context
 - King County budgeted revenue, budgeted expenditures, departments, or FTE
 - DCHS, DNRP, Metro Transit, Public Health, or Sheriff's Office budget questions
 - King County 2017-2027 countywide budget trend questions
 
 Do not use King County for actual spending, actual revenue collected, payments, procurement, personnel rosters, Seattle budget analysis, Washington state budget analysis, or cross-jurisdiction comparison.
 
+For broad King County budget-size questions, use `king_county.open_budget_dashboard` for annual dashboard budgeted expenditure and `king_county.adopted_budget` for the official 2026-2027 adopted biennial headline. Present those frames side by side; do not add, average, or reconcile annual dashboard values with adopted two-year context.
+
 ### Washington State
 
-Read the Washington skill before answering Washington state operating budget, General Fund revenue, or state agency vendor-payment/checkbook questions.
+Read the Washington skill before answering Washington state operating budget, General Fund revenue, state agency vendor-payment/checkbook, or OFM population-denominator questions.
 
 If Civic Agent is installed as a packaged plugin (Codex or Claude Code), use the bundled reference:
 
@@ -111,8 +114,10 @@ Use Washington for:
 - Washington operating budget over time
 - historical Washington operating budget trends
 - Washington Total Budgeted or Outlook Funds (NGF-O) questions
+- Washington OFM population estimates
+- Seattle or King County per-resident budget denominators
 
-Washington has separate source families. Operating budget answers use budgeted/authorized language. Revenue answers use General Fund estimate/actual language. Open Checkbook answers use actual vendor-payment language and require the managed local database for `washington.open_checkbook`.
+Washington has separate source families. Operating budget answers use budgeted/authorized language. Revenue answers use General Fund estimate/actual language. Open Checkbook answers use actual vendor-payment language and require the managed local database for `washington.open_checkbook`. OFM population answers use resident population denominator language.
 
 Do not use Washington for procurement contract terms, invoices, payroll, staffing/FTE, Seattle budget analysis, King County budget analysis, 2026 supplemental changes, pre-2013-15 operating-budget trends, capital budget, transportation budget, or cross-jurisdiction comparison.
 
@@ -123,9 +128,24 @@ Do not use Washington for procurement contract terms, invoices, payroll, staffin
 3. Read the matching jurisdiction skill file.
 4. Use that skill's official data sources, query recipes, validation checks, caveats, and answer style.
 5. For managed local database sources such as `washington.open_checkbook`, inspect status first. If setup is missing and the host can run the repo CLI, ensure the source; otherwise report that managed local data is not set up.
-6. For source-backed answers, include a compact trace: source, public source URL or source-surface id when useful, snapshot/local data version or data-through boundary, grain, measure, filters/query logic, validation check or row count when useful, and caveats.
-7. If the user asks for a chart, compute the data first and then use available chart/data-visualization tools to render it.
-8. If no matching jurisdiction exists, say that Civic Agent does not yet include that jurisdiction.
+6. For composed Scale questions, use the Scale recipe planning sequence before answering: question -> recipe -> required claims -> available sources -> compatibility check -> answer mode.
+7. For source-backed answers, include a compact trace: source, public source URL or source-surface id when useful, snapshot/local data version or data-through boundary, grain, measure, filters/query logic, validation check or row count when useful, and caveats.
+8. If the user asks for a chart, compute the data first and then use available chart/data-visualization tools to render it.
+9. If no matching jurisdiction exists, say that Civic Agent does not yet include that jurisdiction.
+
+## Scale Recipes And Answer Modes
+
+Use `docs/recipes/scale.md` in the source repo, or the bundled router guidance in this skill when installed, for resident-facing budget-size questions. Current recipe ids are `budget_scale.current_total`, `budget_scale.trend`, `budget_scale.per_capita`, and `budget_scale.cross_jurisdiction`.
+
+Answer modes:
+
+- `exact`: all required source claims exist, semantics are compatible, and freshness is acceptable.
+- `partial`: supported pieces can be answered, but a source, denominator, adjustment, or frame is missing.
+- `side_by_side_only`: facts are useful but frames, periods, units, or scopes should not be numerically compared.
+- `unsupported_with_path`: no safe source-backed answer exists yet, but the missing source family or probe path is clear.
+- `needs_refresh`: source exists, but validation or freshness blocks confident use.
+
+Do not compare jurisdictions, periods, or budget frames until source-card semantics show compatible amount basis, budget frame, period type, period status, unit, government scope, and geography basis. If semantics are incompatible, present source-backed facts side by side with caveats or name the missing source path.
 
 ## Chart Requests
 
@@ -146,6 +166,8 @@ For Washington operating-budget chart requests, use the checked-in snapshot from
 For Washington revenue chart requests, use the checked-in snapshot from `jurisdictions/washington/data/revenue-by-biennium/2025-27-revenue-through-2026-04/`. State that 2025-27 values are partial through April 2026.
 
 For Washington checkbook chart requests, use `scripts/source_data.py query washington.open_checkbook` after the managed local database exists. Current chart-ready grains are category, agency, vendor, and monthly actual-payment totals.
+
+For per-resident Scale answers involving Seattle or King County, compose the budget source with `washington.ofm_population`. Current checked-in OFM April 1, 2025 population estimates are Seattle = 816,600 and King County = 2,411,700. Cite both sources and state that resident denominators do not make city and county service responsibilities or budget frames directly comparable.
 
 ## Fresh-Agent Prompt
 

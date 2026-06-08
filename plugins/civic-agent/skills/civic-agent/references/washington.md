@@ -10,8 +10,13 @@ Use this skill for Washington state budget, revenue, and actual vendor-payment q
 - Operating budget: 2025-27 enacted agency/function totals and enacted base biennial trends from 2013-15 through 2025-27.
 - Revenue by biennium: General Fund (001) estimated revenue, actual revenue, and actual-minus-estimate trends from 2003-05 through 2025-27, with 2025-27 partial through April 2026.
 - Open Checkbook: state agency vendor payments from 2013-15 through the current 2025-27 partial biennium, backed by a managed local SQLite database built from official Fiscal WA XLSX files.
+- OFM population: April 1 official resident population estimates for counties, cities, towns, and state totals, used only as denominator context for Scale recipes.
 
-Do not mix these three source families. Operating budget rows are budget authority, revenue rows are General Fund estimate/actual revenue, and Open Checkbook rows are actual vendor payments. Do not use this skill for procurement contract terms, payroll, staffing/FTE, capital budget, transportation budget, Seattle budget analysis, King County budget analysis, or cross-jurisdiction comparison unless a separate source explicitly supports that question. Do not treat the 2025-27 revenue or checkbook values as full-biennium final actuals.
+Do not mix these source families. Operating budget rows are budget authority, revenue rows are General Fund estimate/actual revenue, Open Checkbook rows are actual vendor payments, and OFM population rows are resident denominators. Do not use this skill for procurement contract terms, payroll, staffing/FTE, capital budget, transportation budget, Seattle budget analysis, King County budget analysis, or cross-jurisdiction comparison unless a separate source explicitly supports that question. Do not treat the 2025-27 revenue or checkbook values as full-biennium final actuals.
+
+For composed Scale questions, defer to the router's Scale recipes before comparing Washington state to city or county sources. Washington operating-budget claims are biennial state budget facts and should not be treated as directly comparable to annual city or county dashboard values without an explicit compatibility check.
+
+Population denominator claims are separate from budget claims. `washington.ofm_population` can supply resident population denominators such as Seattle 816,600 and King County 2,411,700 from OFM April 1, 2025 estimates, but it does not supply budget amounts or service-scope comparability.
 
 ## Operating Source Of Truth
 
@@ -110,6 +115,35 @@ Do not parse the XLSX files during normal answer generation. The first ensure/re
 
 Treat this as actual state agency vendor-payment data, not budget authority, revenue, contracts, invoices, payroll, staffing, or service outcomes.
 
+## OFM Population Source Of Truth
+
+- Dataset: April 1 Official Population Estimates
+- Provider: Washington Office of Financial Management, Forecasting and Research Division
+- Official page: `https://ofm.wa.gov/data-research/population-demographics/estimates/april-1-official/`
+- Official XLSX: `https://ofm.wa.gov/wp-content/uploads/sites/default/files/public/dataresearch/pop/april1/ofm_april1_population_final.xlsx`
+- Source card: `jurisdictions/washington/sources/ofm-population.source.json`
+- Snapshot version: `2025-04-01`
+- Latest estimate date: `2025-04-01`
+- Snapshot generated from the official XLSX: see `jurisdictions/washington/data/ofm-population/2025-04-01/provenance.json`
+
+For hosted/fresh-agent use after the source is pushed, checked-in snapshot files will be available under:
+
+```text
+https://raw.githubusercontent.com/pejmanjohn/civic-agent/main/jurisdictions/washington/data/ofm-population/2025-04-01/normalized/population-estimates.jsonl
+https://raw.githubusercontent.com/pejmanjohn/civic-agent/main/jurisdictions/washington/data/ofm-population/2025-04-01/summary.json
+https://raw.githubusercontent.com/pejmanjohn/civic-agent/main/jurisdictions/washington/data/ofm-population/2025-04-01/provenance.json
+```
+
+Known denominator checks:
+
+```text
+Seattle 2025 resident population estimate = 816600
+King County 2025 resident population estimate = 2411700
+State Total 2025 resident population estimate = 8115100
+```
+
+Treat this as resident population denominator data, not budget authority, service population, households, taxpayers, or broad demographic composition.
+
 ## Safe Answer Patterns
 
 The operating source can safely support:
@@ -142,6 +176,14 @@ The Open Checkbook source can safely support:
 - Plain-English explanations of how checkbook actual payments differ from budget authority, revenue, contracts, invoices, payroll, staffing, and service outcomes.
 
 Do not use Open Checkbook for budget authority, appropriations, revenue, procurement contract terms, invoices, purchase orders, payroll, employee compensation, FTE, staffing, service quality, program outcomes, or local government spending outside Washington state agency vendor payments.
+
+The OFM population source can safely support:
+
+- April 1 resident population estimates for Washington counties, cities, towns, and state totals.
+- Seattle and King County denominator values for per-resident Scale answers.
+- County incorporated and unincorporated population splits that reconcile to county totals.
+
+Do not use OFM population for budget amounts, service population, daytime population, households, taxpayers, broad demographic composition, or claims that city and county budgets are service-comparable.
 
 ## Data Model
 
@@ -231,6 +273,39 @@ sum(actual_revenue)
 sum(actual_minus_estimate)
 ```
 
+OFM population snapshot files:
+
+- `population-estimates.jsonl`: one row per source geography and year for the 2020 census baseline and April 1 estimates from 2021 through 2025
+- `summary.json`: row counts, source file metadata, and validation checks
+- `provenance.json`: official page/file identity, workbook sheet names, and source fingerprint
+
+OFM population fields:
+
+- `source_line`: official workbook row number
+- `row_type`: `county`, `unincorporated_county`, `incorporated_county`, `city_town`, `state_total`, `unincorporated_state_total`, or `incorporated_state_total`
+- `county`: county grouping from the workbook
+- `jurisdiction`: county, city, town, or state-total label
+- `year`: census or estimate year
+- `value_kind`: `census` for 2020 rows or `estimate` for 2021-2025 rows
+- `estimate_date`: April 1 estimate date on estimate rows
+- `geography_basis`: `resident_jurisdiction`
+- `population`: resident population value
+
+OFM population primary measure:
+
+```text
+population
+```
+
+Default denominator filter:
+
+```text
+value_kind = "estimate"
+estimate_date = "2025-04-01"
+row_type = "city_town" for Seattle
+row_type = "county" for King County
+```
+
 Open Checkbook local database:
 
 - Managed source id: `washington.open_checkbook`
@@ -274,7 +349,7 @@ category=<optional exact category label>
 
 ## Retrieval Strategy
 
-1. Use the checked-in operating and revenue snapshot files as the normal answer source for budget authority and revenue questions.
+1. Use the checked-in operating, revenue, and OFM population snapshot files as the normal answer source for budget authority, revenue, and resident denominator questions.
 2. Use `summary.json` for validation checks before trusting totals.
 3. Use `provenance.json` when the answer needs model refresh time, query-template hashes, source fingerprint details, or Power BI/ReportViewer source details.
 4. Use the live Power BI or ReportViewer extractors only when refreshing snapshots, not during normal answer generation.
@@ -282,6 +357,33 @@ category=<optional exact category label>
 6. If a question asks for an unsupported grain, answer with the supported grains and explain the boundary.
 
 ## Query Recipes
+
+### OFM population denominator lookup
+
+Read:
+
+```text
+jurisdictions/washington/data/ofm-population/2025-04-01/normalized/population-estimates.jsonl
+```
+
+Filter:
+
+```text
+value_kind = "estimate"
+estimate_date = "2025-04-01"
+jurisdiction = "Seattle" and row_type = "city_town"
+jurisdiction = "King County" and row_type = "county"
+```
+
+Known checks:
+
+```text
+Seattle 2025 population estimate = 816600
+King County 2025 population estimate = 2411700
+State Total 2025 population estimate = 8115100
+```
+
+Use these rows only as resident denominators. A per-capita budget answer should cite the budget source and `washington.ofm_population`, then state the estimate date and budget-period mismatch.
 
 ### Largest agencies in the 2025-27 enacted operating budget
 
