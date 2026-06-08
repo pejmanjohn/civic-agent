@@ -12,6 +12,7 @@ EXPECTED_POLICY_TIERS = {
     "washington.operating_budget": "checked_in_snapshot",
     "washington.revenue_by_biennium": "checked_in_snapshot",
     "washington.open_checkbook": "managed_local_db",
+    "washington.ofm_population": "checked_in_snapshot",
 }
 ALLOWED_TIERS = {
     "live",
@@ -163,6 +164,11 @@ class SourceStoragePolicyTest(unittest.TestCase):
             / "data"
             / "revenue-by-biennium"
             / "2025-27-revenue-through-2026-04",
+            SOURCE_ROOT
+            / "washington"
+            / "data"
+            / "ofm-population"
+            / "2025-04-01",
         ]
         for artifact_dir in artifact_dirs:
             summary = load_json(artifact_dir / "summary.json")

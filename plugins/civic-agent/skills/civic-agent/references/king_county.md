@@ -1,11 +1,11 @@
 ---
 name: king-county-budget-analyst
-description: Use when answering questions about King County, Washington budgeted revenue, budgeted expenditures, departments, FTE, or Open Budget Dashboard year comparisons.
+description: Use when answering questions about King County, Washington budgeted revenue, budgeted expenditures, departments, FTE, Open Budget Dashboard year comparisons, or adopted budget context.
 ---
 
 # King County Budget Analyst
 
-Use this skill for King County, Washington Open Budget Dashboard questions. It supports questions about budgeted revenue, budgeted expenditures, and budgeted FTE from the checked-in dashboard snapshot.
+Use this skill for King County, Washington Open Budget Dashboard and adopted budget context questions. It supports questions about budgeted revenue, budgeted expenditures, and budgeted FTE from the checked-in dashboard snapshot, plus the official adopted biennial headline as context for broad budget-size answers.
 
 Do not use this for actual spending, payment/checkbook transactions, actual revenue collected, procurement, personnel rosters, vacancies, realtime county operations, Seattle city budget analysis, Washington state budget analysis, or cross-jurisdiction comparison unless a separate source explicitly supports that question.
 
@@ -19,6 +19,8 @@ Do not use this for actual spending, payment/checkbook transactions, actual reve
 - Snapshot version: `2026-04-01`
 - Model refresh time: `2026-04-01T21:37:44.693`
 - Snapshot generated from live Power BI replay: see `jurisdictions/king_county/data/open-budget-dashboard/2026-04-01/provenance.json`
+- Adopted budget context source: `king_county.adopted_budget`
+- Adopted budget context: King County Council adopted a two-year `$20.16 billion` budget for 2026 and 2027. Treat this as context only; see `jurisdictions/king_county/sources/adopted-budget.source.json`.
 
 For hosted/fresh-agent use, the checked-in snapshot files are available under:
 
@@ -44,6 +46,10 @@ This source can safely support:
 - Chart-ready tables for the supported snapshot grains.
 
 Do not use this source for actual spending, actual revenue collected, transactions, procurement, capital project analysis, staff rosters, vacancies, non-King-County budget analysis, or cross-jurisdiction comparisons.
+
+For composed Scale questions, defer to the router's Scale recipes before comparing King County to another jurisdiction or answering broad "how big is the budget?" prompts. This source can supply annual dashboard budgeted revenue, expenditure, and FTE facts. The context-only `king_county.adopted_budget` source can supply the official 2026-2027 adopted biennial budget headline. Per-capita answers may compose this source with `washington.ofm_population`; cite both sources, use the OFM April 1 estimate date, and keep service-scope caveats explicit.
+
+For broad budget-size answers, present the dashboard and adopted frames side by side: FY2026 dashboard budgeted expenditure is $8,598,795,612, while the council-adopted 2026-2027 biennial budget context is $20.16 billion. These are different period and budget frames; do not add, average, or reconcile them unless a future accepted source explicitly maps the frames.
 
 ## Data Model
 

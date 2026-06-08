@@ -158,12 +158,86 @@ class DevWorkflowTest(unittest.TestCase):
         )
 
         self.assertIn("washington.open_checkbook", washington_skill)
+        self.assertIn("washington.ofm_population", washington_skill)
         self.assertIn(
             "python3 scripts/source_data.py --json ensure washington.open_checkbook",
             washington_skill,
         )
         self.assertIn("Open Checkbook answers use actual vendor-payment language", router)
+        self.assertIn("OFM population-denominator questions", router)
+        self.assertIn("Washington OFM population estimates", router)
+        self.assertIn("OFM population answers use resident population denominator language", router)
         self.assertIn("managed local database", router)
+
+    def test_scale_recipe_guidance_is_packaged_with_router_and_references(self):
+        recipe_doc = (ROOT / "docs" / "recipes" / "scale.md").read_text(
+            encoding="utf-8"
+        )
+        recipe_ids = [
+            "budget_scale.current_total",
+            "budget_scale.trend",
+            "budget_scale.per_capita",
+            "budget_scale.cross_jurisdiction",
+        ]
+        answer_modes = [
+            "exact",
+            "partial",
+            "side_by_side_only",
+            "unsupported_with_path",
+            "needs_refresh",
+        ]
+
+        for recipe_id in recipe_ids:
+            self.assertIn(recipe_id, recipe_doc)
+        self.assertIn(
+            "If no accepted denominator source exists, return `unsupported_with_path`",
+            recipe_doc,
+        )
+        self.assertIn(
+            "compatible units, period types, amount basis, budget frames, "
+            "government scopes, and geography bases",
+            recipe_doc,
+        )
+        self.assertIn("washington.ofm_population", recipe_doc)
+
+        router_paths = [
+            ROOT / "skill.md",
+            ROOT / "skills" / "civic-agent" / "SKILL.md",
+        ]
+        for router_path in router_paths:
+            router = router_path.read_text(encoding="utf-8")
+            self.assertIn("Scale Recipes And Answer Modes", router)
+            self.assertIn(
+                "question -> recipe -> required claims -> available sources -> "
+                "compatibility check -> answer mode",
+                router,
+            )
+            for recipe_id in recipe_ids:
+                self.assertIn(recipe_id, router)
+            for answer_mode in answer_modes:
+                self.assertIn(answer_mode, router)
+
+        planned = package_plugin.collect_outputs(update_cachebuster=False)
+        packaged_router = planned[
+            package_plugin.PLUGIN_SKILL_ROOT / "SKILL.md"
+        ]
+        for recipe_id in recipe_ids:
+            self.assertIn(recipe_id, packaged_router)
+        for answer_mode in answer_modes:
+            self.assertIn(answer_mode, packaged_router)
+        self.assertIn("washington.ofm_population", packaged_router)
+
+        expected_reference_fragments = {
+            "seattle.md": "compose this source with `washington.ofm_population`",
+            "king_county.md": "king_county.adopted_budget",
+            "washington.md": "Seattle 816,600 and King County 2,411,700",
+        }
+        for reference_name, fragment in expected_reference_fragments.items():
+            reference = planned[
+                package_plugin.references_root_path() / reference_name
+            ]
+            self.assertIn("For composed Scale questions", reference)
+            self.assertIn(fragment, reference)
 
 
 if __name__ == "__main__":

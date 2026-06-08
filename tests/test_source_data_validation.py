@@ -53,6 +53,7 @@ class SourceDataValidationTest(unittest.TestCase):
             "king_county.open_budget_dashboard": "valid",
             "washington.operating_budget": "valid",
             "washington.revenue_by_biennium": "partial_current_period",
+            "washington.ofm_population": "valid",
         }
         with tempfile.TemporaryDirectory() as tmp:
             for source_id, status in expected.items():

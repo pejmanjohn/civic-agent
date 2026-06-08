@@ -11,8 +11,19 @@
     "tier": "managed_local_db",
     "normal_answer_source": "local_db",
     "freshness_check": "source_file_metadata",
-    "repo_artifacts": ["source_card", "probe", "builder", "tests", "fixtures", "docs"],
-    "local_artifacts": ["raw_source_file", "local_database", "manifest"],
+    "repo_artifacts": [
+      "source_card",
+      "probe",
+      "builder",
+      "tests",
+      "fixtures",
+      "docs"
+    ],
+    "local_artifacts": [
+      "raw_source_file",
+      "local_database",
+      "manifest"
+    ],
     "refresh_behavior": "download_and_rebuild_local_cache"
   },
   "official_page": "https://fiscal.wa.gov/Spending/Checkbook.aspx",
@@ -57,12 +68,32 @@
     },
     "retrieval_context": {
       "file_family": "Fiscal WA VendorPayments{biennium}.xlsx",
-      "local_artifacts": ["raw_source_file", "local_database", "manifest"],
+      "local_artifacts": [
+        "raw_source_file",
+        "local_database",
+        "manifest"
+      ],
       "database_table": "payments",
-      "query_grains": ["biennium", "fiscal_year", "fiscal_month", "agency", "category", "subcategory", "vendor"]
+      "query_grains": [
+        "biennium",
+        "fiscal_year",
+        "fiscal_month",
+        "agency",
+        "category",
+        "subcategory",
+        "vendor"
+      ]
     },
     "version_boundary": {
-      "historical_biennia": ["2013-15", "2015-17", "2017-19", "2019-21", "2021-23", "2023-25", "2025-27"],
+      "historical_biennia": [
+        "2013-15",
+        "2015-17",
+        "2017-19",
+        "2019-21",
+        "2021-23",
+        "2023-25",
+        "2025-27"
+      ],
       "current_biennium": "2025-27",
       "current_data_through": "2026-04",
       "current_data_through_label": "Payments through April 2026",
@@ -162,7 +193,15 @@
   "historical_coverage": {
     "start_biennium": "2013-15",
     "end_biennium": "2025-27",
-    "biennia": ["2013-15", "2015-17", "2017-19", "2019-21", "2021-23", "2023-25", "2025-27"]
+    "biennia": [
+      "2013-15",
+      "2015-17",
+      "2017-19",
+      "2019-21",
+      "2021-23",
+      "2023-25",
+      "2025-27"
+    ]
   },
   "primary_measure": "amount",
   "safe_answer_patterns": [
@@ -185,24 +224,34 @@
       "category": "budget_finance.operating_budget",
       "status": "unsupported",
       "unsupported_reason": "Unsupported by this source: Fiscal WA Open Checkbook is actual vendor-payment data, not operating budget authority.",
-      "evidence": ["budget_family", "not_supported_by_this_source"]
+      "evidence": [
+        "budget_family",
+        "not_supported_by_this_source"
+      ]
     },
     {
       "category": "budget_finance.revenue_budget",
       "status": "unsupported",
       "unsupported_reason": "Unsupported by this source: Fiscal WA Open Checkbook is actual vendor-payment data, not revenue budget or forecast data.",
-      "evidence": ["budget_family", "not_supported_by_this_source"]
+      "evidence": [
+        "budget_family",
+        "not_supported_by_this_source"
+      ]
     },
     {
       "category": "workforce.budgeted_fte",
       "status": "unsupported",
       "unsupported_reason": "Unsupported by this source: staffing, FTE, employee rosters, vacancies, payroll, and personnel records are not supported by Fiscal WA Open Checkbook.",
-      "evidence": ["not_supported_by_this_source"]
+      "evidence": [
+        "not_supported_by_this_source"
+      ]
     },
     {
       "category": "budget_finance.actual_spending_checkbook",
       "status": "supported",
-      "measures": ["amount"],
+      "measures": [
+        "amount"
+      ],
       "grains": [
         "biennium",
         "fiscal_year",
@@ -226,22 +275,71 @@
         "Current 2025-27 vendor payments are partial through April 2026.",
         "Vendor payments are actual payment rows, not budget authority, contract obligations, invoices, payroll, or service outcomes.",
         "Normal answers require the managed local database to be built or refreshed from official XLSX files."
-      ]
+      ],
+      "semantics": {
+        "amount_basis": "actual",
+        "budget_frame": "actual_spending_checkbook",
+        "period_type": "biennium",
+        "period_status": "partial_current_period",
+        "unit": "dollars",
+        "government_scope": "state",
+        "geography_basis": "statewide",
+        "comparability_notes": [
+          "Vendor payments are actual payment rows, not budget authority, contract obligations, invoices, payroll, or service outcomes.",
+          "The current biennium file is partial through the stated data-through month."
+        ]
+      }
     }
   ],
   "fields": [
-    {"name": "biennium", "type": "text"},
-    {"name": "fiscal_year", "type": "number"},
-    {"name": "fiscal_month", "type": "number"},
-    {"name": "calendar_month", "type": "text"},
-    {"name": "agency_code", "type": "text"},
-    {"name": "agency_name", "type": "text"},
-    {"name": "object_code", "type": "text"},
-    {"name": "category", "type": "text"},
-    {"name": "subobject_code", "type": "text"},
-    {"name": "subcategory", "type": "text"},
-    {"name": "vendor_name", "type": "text"},
-    {"name": "amount", "type": "number"}
+    {
+      "name": "biennium",
+      "type": "text"
+    },
+    {
+      "name": "fiscal_year",
+      "type": "number"
+    },
+    {
+      "name": "fiscal_month",
+      "type": "number"
+    },
+    {
+      "name": "calendar_month",
+      "type": "text"
+    },
+    {
+      "name": "agency_code",
+      "type": "text"
+    },
+    {
+      "name": "agency_name",
+      "type": "text"
+    },
+    {
+      "name": "object_code",
+      "type": "text"
+    },
+    {
+      "name": "category",
+      "type": "text"
+    },
+    {
+      "name": "subobject_code",
+      "type": "text"
+    },
+    {
+      "name": "subcategory",
+      "type": "text"
+    },
+    {
+      "name": "vendor_name",
+      "type": "text"
+    },
+    {
+      "name": "amount",
+      "type": "number"
+    }
   ],
   "validation_checks": {
     "current_file_rows": 382783,
@@ -261,7 +359,15 @@
       "Personal Service Contracts",
       "Travel"
     ],
-    "historical_files_available": ["2013-15", "2015-17", "2017-19", "2019-21", "2021-23", "2023-25", "2025-27"],
+    "historical_files_available": [
+      "2013-15",
+      "2015-17",
+      "2017-19",
+      "2019-21",
+      "2021-23",
+      "2023-25",
+      "2025-27"
+    ],
     "historical_file_total_content_length": 411417899
   },
   "caveats": [

@@ -1,0 +1,128 @@
+[
+  {
+    "id": "scale.seattle.current_operating_total",
+    "bucket": "scale",
+    "question": "How big is Seattle's operating budget?",
+    "recipe": "budget_scale.current_total",
+    "jurisdictions": ["seattle"],
+    "plugin_prompt": "Using @civic-agent-dev, answer this as Civic Agent with source trace: How big is Seattle's operating budget?",
+    "web_prompt": "Using official web sources where possible, answer: How big is Seattle's operating budget?",
+    "expected_source_ids": ["seattle.operating_budget"],
+    "expected_missing_sources": [],
+    "expected_answer_mode": "exact",
+    "expected_failure_mode": "none",
+    "required_caveats": [
+      "Use operating-budget language, not total-appropriations language.",
+      "State that approved budget rows are not actual spending.",
+      "Include fiscal year, measure, query/filter logic, and a validation check or row count."
+    ],
+    "score_dimensions": [
+      "correctness",
+      "traceability",
+      "coverage_awareness",
+      "comparability",
+      "civic_usefulness",
+      "freshness",
+      "improvement_path"
+    ],
+    "improvement_path": "Add accepted official context sources for adjacent budget frames, such as total appropriations and General Fund, before showing those values beside the operating total."
+  },
+  {
+    "id": "scale.king_county.current_budget_size",
+    "bucket": "scale",
+    "question": "How big is King County's budget?",
+    "recipe": "budget_scale.current_total",
+    "jurisdictions": ["king_county"],
+    "plugin_prompt": "Using @civic-agent-dev, answer this as Civic Agent with source trace: How big is King County's budget?",
+    "web_prompt": "Using official web sources where possible, answer: How big is King County's budget?",
+    "expected_source_ids": [
+      "king_county.open_budget_dashboard",
+      "king_county.adopted_budget"
+    ],
+    "expected_missing_sources": [],
+    "expected_answer_mode": "side_by_side_only",
+    "expected_failure_mode": "semantic_mismatch",
+    "required_caveats": [
+      "Use dashboard budgeted-expenditure language for the checked-in snapshot.",
+      "Present FY2026 annual dashboard budgeted expenditure beside the adopted 2026-2027 two-year $20.16 billion budget context.",
+      "Do not treat annual dashboard budgeted expenditure as identical to adopted biennial budget totals.",
+      "State snapshot version or model refresh time when using the dashboard source."
+    ],
+    "score_dimensions": [
+      "correctness",
+      "traceability",
+      "coverage_awareness",
+      "comparability",
+      "civic_usefulness",
+      "freshness",
+      "improvement_path"
+    ],
+    "improvement_path": "Add a narrow adopted-budget parser only if department-level adopted budget detail is needed; until then, keep annual dashboard and adopted biennial frames side by side."
+  },
+  {
+    "id": "scale.seattle_king_county.trend",
+    "bucket": "scale",
+    "question": "How have Seattle's and King County's budgets changed over the last 5-10 years?",
+    "recipe": "budget_scale.trend",
+    "jurisdictions": ["seattle", "king_county"],
+    "plugin_prompt": "Using @civic-agent-dev, answer this as Civic Agent with source trace: How have Seattle's and King County's budgets changed over the last 5-10 years?",
+    "web_prompt": "Using official web sources where possible, answer: How have Seattle's and King County's budgets changed over the last 5-10 years?",
+    "expected_source_ids": [
+      "seattle.operating_budget",
+      "king_county.open_budget_dashboard"
+    ],
+    "expected_missing_sources": [
+      "inflation adjustment source",
+      "population denominator source"
+    ],
+    "expected_answer_mode": "partial",
+    "expected_failure_mode": "missing_recipe",
+    "required_caveats": [
+      "State that trend values are nominal unless an accepted inflation source is used.",
+      "Warn that Seattle operating-budget approved amounts and King County dashboard budgeted expenditures are different budget frames.",
+      "Flag department, accounting, or source-surface changes as comparability risks."
+    ],
+    "score_dimensions": [
+      "correctness",
+      "traceability",
+      "coverage_awareness",
+      "comparability",
+      "civic_usefulness",
+      "freshness",
+      "improvement_path"
+    ],
+    "improvement_path": "Add Scale trend recipe semantics for nominal versus adjusted trends, then add accepted population and inflation context sources when those adjustments are requested."
+  },
+  {
+    "id": "scale.seattle_king_county.per_resident",
+    "bucket": "scale",
+    "question": "What is the per-resident budget for Seattle and King County?",
+    "recipe": "budget_scale.per_capita",
+    "jurisdictions": ["seattle", "king_county"],
+    "plugin_prompt": "Using @civic-agent-dev, answer this as Civic Agent with source trace: What is the per-resident budget for Seattle and King County?",
+    "web_prompt": "Using official web sources where possible, answer: What is the per-resident budget for Seattle and King County?",
+    "expected_source_ids": [
+      "seattle.operating_budget",
+      "king_county.open_budget_dashboard",
+      "washington.ofm_population"
+    ],
+    "expected_missing_sources": [],
+    "expected_answer_mode": "partial",
+    "expected_failure_mode": "semantic_mismatch",
+    "required_caveats": [
+      "Cite Washington OFM April 1 population estimates as the denominator source.",
+      "State the April 1, 2025 estimate date and resident-jurisdiction boundary.",
+      "Warn that Seattle and King County budget frames, fiscal periods, and service responsibilities are not directly comparable."
+    ],
+    "score_dimensions": [
+      "correctness",
+      "traceability",
+      "coverage_awareness",
+      "comparability",
+      "civic_usefulness",
+      "freshness",
+      "improvement_path"
+    ],
+    "improvement_path": "Add service-scope or responsibility-map context before presenting Seattle and King County per-resident values as directly comparable."
+  }
+]

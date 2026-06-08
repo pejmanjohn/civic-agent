@@ -322,6 +322,7 @@ def load_validator(source_id: str) -> Validator | None:
         "washington.operating_budget": validate_washington_operating_budget_snapshot,
         "washington.revenue_by_biennium": validate_washington_revenue_snapshot,
         "washington.open_checkbook": validate_washington_open_checkbook,
+        "washington.ofm_population": validate_washington_ofm_population_snapshot,
     }
     return validators.get(source_id)
 
@@ -911,6 +912,135 @@ def validate_washington_revenue_snapshot(
     )
 
 
+def validate_washington_ofm_population_snapshot(
+    context: SourceContext,
+    refresh_check: bool,
+) -> dict[str, Any]:
+    snapshot_dir = (
+        ROOT
+        / "jurisdictions"
+        / "washington"
+        / "data"
+        / "ofm-population"
+        / context.source_card["snapshot_version"]
+    )
+    checks = source_fingerprint_contract_checks(context.source_card)
+    refresh_checks, warnings = refresh_check_placeholder(refresh_check)
+    checks.extend(refresh_checks)
+    summary, provenance = load_snapshot_artifacts(snapshot_dir, checks)
+    if summary is None or provenance is None:
+        return validation_result(
+            context,
+            status="validation_failed",
+            checks=checks,
+            warnings=warnings,
+            snapshot_path=str(snapshot_dir),
+        )
+    checks.extend(artifact_fingerprint_checks(summary, provenance))
+    rows = load_jsonl_artifact(
+        snapshot_dir / "normalized" / "population-estimates.jsonl",
+        checks,
+        "population_estimates_jsonl",
+    )
+    if rows is not None:
+        row_counts = {
+            "population_estimates": len(rows),
+            "geography_rows": len(
+                {
+                    (
+                        row["source_line"],
+                        row["row_type"],
+                        row["county"],
+                        row["jurisdiction"],
+                    )
+                    for row in rows
+                }
+            ),
+            "county_rows": count_population_rows(rows, "county"),
+            "unincorporated_county_rows": count_population_rows(
+                rows,
+                "unincorporated_county",
+            ),
+            "incorporated_county_rows": count_population_rows(
+                rows,
+                "incorporated_county",
+            ),
+            "city_town_rows": count_population_rows(rows, "city_town"),
+            "state_total_rows": count_population_rows(rows, "state_total"),
+            "separator_rows": summary["row_counts"].get("separator_rows"),
+        }
+        compare_value(checks, "row_counts", row_counts, summary.get("row_counts"))
+        latest_rows = [
+            row
+            for row in rows
+            if row.get("value_kind") == "estimate"
+            and row.get("estimate_date") == context.source_card["latest_estimate_date"]
+        ]
+        compare_value(
+            checks,
+            "latest_estimate_row_count",
+            len(latest_rows),
+            summary["row_counts"]["geography_rows"],
+        )
+        compare_value(
+            checks,
+            "seattle_2025_population",
+            population_for(rows, "Seattle", "city_town", 2025),
+            summary["validation_checks"]["seattle_2025_population"],
+        )
+        compare_value(
+            checks,
+            "king_county_2025_population",
+            population_for(rows, "King County", "county", 2025),
+            summary["validation_checks"]["king_county_2025_population"],
+        )
+        compare_value(
+            checks,
+            "state_total_2025_population",
+            population_for(rows, "State Total", "state_total", 2025),
+            summary["validation_checks"]["state_total_2025_population"],
+        )
+        king_city_town_sum = sum(
+            int(row["population"])
+            for row in rows
+            if row.get("county") == "King"
+            and row.get("row_type") == "city_town"
+            and row.get("year") == 2025
+        )
+        compare_value(
+            checks,
+            "king_county_city_town_sum_2025",
+            king_city_town_sum,
+            summary["validation_checks"]["king_county_city_town_sum_2025"],
+        )
+        king_unincorporated = population_for(
+            rows,
+            "Unincorporated King County",
+            "unincorporated_county",
+            2025,
+        )
+        king_incorporated = population_for(
+            rows,
+            "Incorporated King County",
+            "incorporated_county",
+            2025,
+        )
+        king_county = population_for(rows, "King County", "county", 2025)
+        compare_value(
+            checks,
+            "king_county_total_reconciles",
+            king_unincorporated + king_incorporated,
+            king_county,
+        )
+    return validation_result(
+        context,
+        checks=checks,
+        warnings=warnings,
+        source_fingerprint=summary.get("source_fingerprint"),
+        snapshot_path=str(snapshot_dir),
+    )
+
+
 def validate_washington_open_checkbook(
     context: SourceContext,
     refresh_check: bool,
@@ -1290,6 +1420,32 @@ def revenue_detail_totals(rows: list[dict[str, Any]]) -> dict[str, dict[str, Any
         }
         for biennium, values in sorted(totals.items())
     }
+
+
+def count_population_rows(rows: list[dict[str, Any]], row_type: str) -> int:
+    return len(
+        {
+            row["source_line"]
+            for row in rows
+            if row.get("row_type") == row_type and row.get("year") == 2025
+        }
+    )
+
+
+def population_for(
+    rows: list[dict[str, Any]],
+    jurisdiction: str,
+    row_type: str,
+    year: int,
+) -> int:
+    for row in rows:
+        if (
+            row.get("jurisdiction") == jurisdiction
+            and row.get("row_type") == row_type
+            and row.get("year") == year
+        ):
+            return int(row["population"])
+    raise SourceDataError(f"Missing population row: {jurisdiction} {row_type} {year}")
 
 
 def sha256_json(data: Any) -> str:

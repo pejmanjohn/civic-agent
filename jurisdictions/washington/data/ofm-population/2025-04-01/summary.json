@@ -1,0 +1,88 @@
+{
+  "latest_estimate_date": "2025-04-01",
+  "release": "April 1, 2025 official population estimates",
+  "row_counts": {
+    "city_town_rows": 289,
+    "county_rows": 39,
+    "geography_rows": 409,
+    "incorporated_county_rows": 39,
+    "population_estimates": 2454,
+    "separator_rows": 39,
+    "state_total_rows": 1,
+    "unincorporated_county_rows": 39
+  },
+  "snapshot_version": "2025-04-01",
+  "source_file": {
+    "content_length": 68267,
+    "content_type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+    "etag": "\"699d5bc7-10aab\"",
+    "fetched_at": "2026-06-08T14:59:46+00:00",
+    "last_modified": "Tue, 24 Feb 2026 08:05:27 GMT",
+    "sha256": "d39be7d23b0f41c6ceadeb888aadc6e1484b1072119998ef43cac260d108e42e",
+    "url": "https://ofm.wa.gov/wp-content/uploads/sites/default/files/public/dataresearch/pop/april1/ofm_april1_population_final.xlsx"
+  },
+  "source_fingerprint": {
+    "checks": {
+      "king_county_2025_population": 2411700,
+      "king_county_city_town_sum_2025": 2161475,
+      "king_county_incorporated_2025_population": 2161475,
+      "king_county_incorporated_reconciles": true,
+      "king_county_total_reconciles": true,
+      "king_county_unincorporated_2025_population": 250225,
+      "latest_estimate_date": "2025-04-01",
+      "latest_estimate_year": 2025,
+      "seattle_2025_population": 816600,
+      "state_total_2025_population": 8115100
+    },
+    "machine_access": {
+      "accepted_source_surfaces": [
+        "april1_population_final_xlsx"
+      ],
+      "content_type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+      "file_url": "https://ofm.wa.gov/wp-content/uploads/sites/default/files/public/dataresearch/pop/april1/ofm_april1_population_final.xlsx",
+      "type": "official_bulk_download"
+    },
+    "public_inspection_urls": [
+      "https://ofm.wa.gov/data-research/population-demographics/estimates/april-1-official/",
+      "https://ofm.wa.gov/wp-content/uploads/sites/default/files/public/dataresearch/pop/april1/ofm_april1_population_final.xlsx",
+      "https://ofm.wa.gov/wp-content/uploads/sites/default/files/public/dataresearch/pop/april1/ofm_april1_population_final.pdf"
+    ],
+    "retrieval_context": {
+      "normalized_table": "population-estimates.jsonl",
+      "notation_sheet": "Notations",
+      "source_surface_id": "april1_population_final_xlsx",
+      "workbook_sheet": "Population"
+    },
+    "row_counts": {
+      "city_town_rows": 289,
+      "county_rows": 39,
+      "geography_rows": 409,
+      "incorporated_county_rows": 39,
+      "population_estimates": 2454,
+      "separator_rows": 39,
+      "state_total_rows": 1,
+      "unincorporated_county_rows": 39
+    },
+    "version_boundary": {
+      "file_etag": "\"699d5bc7-10aab\"",
+      "file_last_modified": "Tue, 24 Feb 2026 08:05:27 GMT",
+      "file_sha256": "d39be7d23b0f41c6ceadeb888aadc6e1484b1072119998ef43cac260d108e42e",
+      "latest_estimate_date": "2025-04-01",
+      "release": "April 1, 2025 official population estimates",
+      "snapshot_version": "2025-04-01"
+    }
+  },
+  "source_id": "washington.ofm_population",
+  "validation_checks": {
+    "king_county_2025_population": 2411700,
+    "king_county_city_town_sum_2025": 2161475,
+    "king_county_incorporated_2025_population": 2161475,
+    "king_county_incorporated_reconciles": true,
+    "king_county_total_reconciles": true,
+    "king_county_unincorporated_2025_population": 250225,
+    "latest_estimate_date": "2025-04-01",
+    "latest_estimate_year": 2025,
+    "seattle_2025_population": 816600,
+    "state_total_2025_population": 8115100
+  }
+}
