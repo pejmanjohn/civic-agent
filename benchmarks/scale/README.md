@@ -45,6 +45,10 @@ These cases intentionally expose recurring national source shapes:
    - recommended source, recipe, or metadata improvement.
 5. Keep model judgment separate from contract validation. `tests/test_benchmark_contract.py` checks benchmark metadata only; it does not score answers.
 
+## Improvement Loop
+
+After a benchmark run changes or validates the project direction, run the goal loop in `docs/processes/civic-agent-improvement-loop.md`. Use `docs/goals/templates/civic-agent-goal-brief.md` before implementation to rank goals and expected eval movement, then use `docs/goals/templates/civic-agent-post-eval.md` after implementation to record score deltas, packaging validity, what improved, and what did not.
+
 ## Updating Cases
 
 Update `cases.json` when a milestone changes the expected answer contract. Examples:

@@ -54,6 +54,9 @@ ALLOWED_FAILURE_MODES = {
     "weak_trace",
     "freshness_unclear",
     "unsupported_question",
+    "packaging_or_install_drift",
+    "validation_gap",
+    "scorer_gap",
 }
 
 
