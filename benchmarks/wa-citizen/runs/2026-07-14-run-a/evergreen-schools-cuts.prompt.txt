@@ -1,0 +1,1 @@
+Using @civic-agent-dev, answer this as Civic Agent with source trace: Evergreen Public Schools keeps cutting teachers - is the district actually getting less money than it used to?

@@ -1,0 +1,1 @@
+Using @civic-agent-dev, answer this as Civic Agent with source trace: How much have Seattle and King County spent on homelessness, and where did it go?

@@ -38,3 +38,7 @@ Deliberate divergence from the goal appendix: `kc-cuts-despite-20b` seeded as `p
 - `kc-property-tax-why-up`: `unsupported_with_path` -> `partial`. District-level levy amounts, rates, YoY change, and 101%-limit context answerable; the parcel-level stack (assessor tax-code areas, PDF-only) and ballot-measure linkage remain out of scope - the partial ceiling reasons.
 - `school-levy-household-cost`: `unsupported_with_path` -> `partial`. District EP&O/bond levy rates and amounts answerable; household math stays illustrative without parcel assessed value.
 - `kc-cuts-despite-20b`: mode unchanged (`partial`); the levy-capacity adjunct is now supported, so the caveat flips from naming a missing source to explaining the 101% mechanics.
+
+## 2026-07-14 - SPD fact correction (scorer_gap caught by the first Tier 1 runs)
+
+- `spd-budget-2020-vs-2026`: `expected_facts` corrected. The seeded values ($437.1M FY2020 / $513.6M FY2026) summed every department matching %POLICE% - including the Community Police Commission and Police Relief and Pension - while the question and both captured answers correctly scope to the Seattle Police Department alone ($408,611,750 / $488,586,234.95, verified live 2026-07-14). Both Tier 1 runs failed these facts identically, which is what exposed the benchmark bug. Answer mode unchanged; classic scorer_gap.

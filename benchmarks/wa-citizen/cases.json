@@ -445,19 +445,19 @@
     "expected_facts": [
       {
         "id": "spd-fy2020-approved-total",
-        "value": 437092309,
+        "value": 408611750,
         "tolerance": 3000000,
         "unit": "dollars",
         "description": "Seattle Police Department FY2020 approved operating budget",
-        "reproduction_ref": "SoQL: department like '%Police%' AND fiscal_year=2020 on 8u2j-imqx (verified 2026-07-13)"
+        "reproduction_ref": "SoQL: department='Seattle Police Department' AND fiscal_year=2020 on 8u2j-imqx (corrected 2026-07-14; the original value wrongly summed all %POLICE% departments incl. Community Police Commission and Police Relief and Pension)"
       },
       {
         "id": "spd-fy2026-approved-total",
-        "value": 513592953.07,
+        "value": 488586234.95,
         "tolerance": 3000000,
         "unit": "dollars",
         "description": "Seattle Police Department FY2026 approved operating budget",
-        "reproduction_ref": "SoQL: department like '%Police%' AND fiscal_year=2026 on 8u2j-imqx (verified 2026-07-13)"
+        "reproduction_ref": "SoQL: department='Seattle Police Department' AND fiscal_year=2026 on 8u2j-imqx (corrected 2026-07-14, same reason)"
       }
     ],
     "required_caveats": [

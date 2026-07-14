@@ -1,0 +1,11 @@
+{
+  "branch": "feat/dor-property-tax",
+  "capture_notes": "Answers captured by fresh Claude subagents (effort=medium) instructed to read skill.md and follow the router from this repo checkout. Managed local checkbook database treated as UNAVAILABLE to emulate the hosted path (hosted aggregates route exercised). Agents barred from reading benchmarks/ and docs/goals/ so the evaluation cannot see its own answer key. Not the installed @civic-agent-dev plugin surface; deltas against future plugin-surface runs must note this.",
+  "capture_protocol": "Run each .prompt.txt in a FRESH agent session with the dev plugin installed (python3 scripts/dev.py status first); paste the full answer into the matching .md below its front matter and set answer_mode to the mode the answer actually claims. Do not edit answers. Score with: python3 scripts/eval.py --score <run_dir>",
+  "cases": 20,
+  "commit": "231675d21b4d1d36035fb02f8566808c34871fa6",
+  "created": "2026-07-14",
+  "dirty": true,
+  "run": "2026-07-14-run-b",
+  "surface": "repo-skills (hosted-path emulation)"
+}
