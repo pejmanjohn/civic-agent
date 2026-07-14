@@ -1,0 +1,1 @@
+Using @civic-agent-dev, answer this as Civic Agent with source trace: How has Seattle's police budget changed since 2020?
