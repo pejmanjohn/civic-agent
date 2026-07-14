@@ -15,8 +15,33 @@
     {
       "jurisdiction_id": "king_county",
       "jurisdiction_name": "King County, Washington"
+    },
+    {
+      "jurisdiction_id": "pierce_county",
+      "jurisdiction_name": "Pierce County, Washington"
+    },
+    {
+      "jurisdiction_id": "spokane",
+      "jurisdiction_name": "City of Spokane"
+    },
+    {
+      "jurisdiction_id": "tacoma",
+      "jurisdiction_name": "City of Tacoma"
+    },
+    {
+      "jurisdiction_id": "vancouver",
+      "jurisdiction_name": "City of Vancouver"
+    },
+    {
+      "jurisdiction_id": "everett",
+      "jurisdiction_name": "City of Everett"
+    },
+    {
+      "jurisdiction_id": "walla_walla",
+      "jurisdiction_name": "City of Walla Walla"
     }
   ],
+  "coverage_jurisdictions_note": "The official OFM April 1 file covers every Washington county, city, and town. Entries above are the jurisdictions promoted for recipes and benchmark claims so far; promote more by verifying the snapshot row and adding the entry. School districts and special-purpose districts are NOT in this source.",
   "budget_family": "population_denominator",
   "provider": "Washington Office of Financial Management, Forecasting and Research Division",
   "dataset_name": "April 1 Official Population Estimates",

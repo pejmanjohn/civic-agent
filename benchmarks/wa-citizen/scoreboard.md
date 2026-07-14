@@ -21,13 +21,13 @@ Achievable mode is what current coverage can support, computed from source-card 
 | `wa-operating-total-2025-27` | T1 | state | - | `exact` | `exact` | 1/1 | - |
 | `wa-checkbook-vendor-lookup` | T1 | state | yes | `exact` | `exact` | 1/1 | - |
 | `pierce-county-budget-size` | T1 | county | - | `unsupported_with_path` | `unsupported_with_path` | 0/2 | - |
-| `walla-walla-city-budget` | T1 | city | - | `unsupported_with_path` | `unsupported_with_path` | 0/3 | - |
+| `walla-walla-city-budget` | T1 | city | - | `unsupported_with_path` | `unsupported_with_path` | 1/3 | - |
 | `spd-budget-2020-vs-2026` | T2 | city | - | `exact` | `exact` | 1/1 | - |
 | `spokane-police-vs-housing` | T2 | city | - | `unsupported_with_path` | `unsupported_with_path` | 0/1 | - |
 | `evergreen-schools-cuts` | T2 | school_district | - | `unsupported_with_path` | `unsupported_with_path` | 0/2 | - |
 | `sound-transit-car-tabs` | T2 | special_district | - | `unsupported_with_path` | `unsupported_with_path` | 0/1 | - |
 | `kc-actuals-vs-budget-trap` | T2 | county | - | `unsupported_with_path` | `unsupported_with_path` | 1/2 | - |
-| `pierce-vs-king-per-resident` | T2 | multi | yes | `partial` | `partial` | 2/4 | - |
+| `pierce-vs-king-per-resident` | T2 | multi | yes | `partial` | `partial` | 3/4 | - |
 | `wa-new-taxes-actually-collecting` | T2 | state | - | `needs_refresh` | `needs_refresh` | 1/2 | stale: washington.revenue_by_biennium (data through 2026-04-01 exceeds the case's 60-day freshness bound) partial-status claim: Washington State / budget_finance.revenue_budget |
 | `school-levy-household-cost` | T2 | school_district | - | `unsupported_with_path` | `unsupported_with_path` | 0/1 | - |
 | `sps-deficit-school-closures` | T3 | school_district | - | `unsupported_with_path` | `unsupported_with_path` | 0/2 | - |

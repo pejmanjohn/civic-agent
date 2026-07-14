@@ -46,16 +46,46 @@ This rollup is derived from reviewed source-card claims. It is not a score and s
 
 | Jurisdiction | Category | Rollup status | Reviewed sources | Notes |
 |---|---|---|---|---|
+| City of Everett | `budget_finance.operating_budget` | `not-yet-probed` | - | No reviewed source card claim. |
+| City of Everett | `budget_finance.revenue_budget` | `not-yet-probed` | - | No reviewed source card claim. |
+| City of Everett | `workforce.budgeted_fte` | `not-yet-probed` | - | No reviewed source card claim. |
+| City of Everett | `budget_finance.actual_spending_checkbook` | `not-yet-probed` | - | No reviewed source card claim. |
+| City of Everett | `population_demographics.population_denominator` | `supported` | washington.ofm_population | At least one reviewed source supports this category. |
 | King County, Washington | `budget_finance.operating_budget` | `supported` | king_county.open_budget_dashboard | At least one reviewed source supports this category. |
 | King County, Washington | `budget_finance.revenue_budget` | `supported` | king_county.open_budget_dashboard | At least one reviewed source supports this category. |
 | King County, Washington | `workforce.budgeted_fte` | `supported` | king_county.open_budget_dashboard | At least one reviewed source supports this category. |
 | King County, Washington | `budget_finance.actual_spending_checkbook` | `unsupported-by-reviewed-source` | king_county.open_budget_dashboard | Reviewed source claim is source-scoped; probe another official source before treating this as unavailable. |
 | King County, Washington | `population_demographics.population_denominator` | `supported` | washington.ofm_population | At least one reviewed source supports this category. |
+| Pierce County, Washington | `budget_finance.operating_budget` | `not-yet-probed` | - | No reviewed source card claim. |
+| Pierce County, Washington | `budget_finance.revenue_budget` | `not-yet-probed` | - | No reviewed source card claim. |
+| Pierce County, Washington | `workforce.budgeted_fte` | `not-yet-probed` | - | No reviewed source card claim. |
+| Pierce County, Washington | `budget_finance.actual_spending_checkbook` | `not-yet-probed` | - | No reviewed source card claim. |
+| Pierce County, Washington | `population_demographics.population_denominator` | `supported` | washington.ofm_population | At least one reviewed source supports this category. |
 | City of Seattle | `budget_finance.operating_budget` | `supported` | seattle.operating_budget | At least one reviewed source supports this category. |
 | City of Seattle | `budget_finance.revenue_budget` | `unsupported-by-reviewed-source` | seattle.operating_budget | Reviewed source claim is source-scoped; probe another official source before treating this as unavailable. |
 | City of Seattle | `workforce.budgeted_fte` | `unsupported-by-reviewed-source` | seattle.operating_budget | Reviewed source claim is source-scoped; probe another official source before treating this as unavailable. |
 | City of Seattle | `budget_finance.actual_spending_checkbook` | `unsupported-by-reviewed-source` | seattle.operating_budget | Reviewed source claim is source-scoped; probe another official source before treating this as unavailable. |
 | City of Seattle | `population_demographics.population_denominator` | `supported` | washington.ofm_population | At least one reviewed source supports this category. |
+| City of Spokane | `budget_finance.operating_budget` | `not-yet-probed` | - | No reviewed source card claim. |
+| City of Spokane | `budget_finance.revenue_budget` | `not-yet-probed` | - | No reviewed source card claim. |
+| City of Spokane | `workforce.budgeted_fte` | `not-yet-probed` | - | No reviewed source card claim. |
+| City of Spokane | `budget_finance.actual_spending_checkbook` | `not-yet-probed` | - | No reviewed source card claim. |
+| City of Spokane | `population_demographics.population_denominator` | `supported` | washington.ofm_population | At least one reviewed source supports this category. |
+| City of Tacoma | `budget_finance.operating_budget` | `not-yet-probed` | - | No reviewed source card claim. |
+| City of Tacoma | `budget_finance.revenue_budget` | `not-yet-probed` | - | No reviewed source card claim. |
+| City of Tacoma | `workforce.budgeted_fte` | `not-yet-probed` | - | No reviewed source card claim. |
+| City of Tacoma | `budget_finance.actual_spending_checkbook` | `not-yet-probed` | - | No reviewed source card claim. |
+| City of Tacoma | `population_demographics.population_denominator` | `supported` | washington.ofm_population | At least one reviewed source supports this category. |
+| City of Vancouver | `budget_finance.operating_budget` | `not-yet-probed` | - | No reviewed source card claim. |
+| City of Vancouver | `budget_finance.revenue_budget` | `not-yet-probed` | - | No reviewed source card claim. |
+| City of Vancouver | `workforce.budgeted_fte` | `not-yet-probed` | - | No reviewed source card claim. |
+| City of Vancouver | `budget_finance.actual_spending_checkbook` | `not-yet-probed` | - | No reviewed source card claim. |
+| City of Vancouver | `population_demographics.population_denominator` | `supported` | washington.ofm_population | At least one reviewed source supports this category. |
+| City of Walla Walla | `budget_finance.operating_budget` | `not-yet-probed` | - | No reviewed source card claim. |
+| City of Walla Walla | `budget_finance.revenue_budget` | `not-yet-probed` | - | No reviewed source card claim. |
+| City of Walla Walla | `workforce.budgeted_fte` | `not-yet-probed` | - | No reviewed source card claim. |
+| City of Walla Walla | `budget_finance.actual_spending_checkbook` | `not-yet-probed` | - | No reviewed source card claim. |
+| City of Walla Walla | `population_demographics.population_denominator` | `supported` | washington.ofm_population | At least one reviewed source supports this category. |
 | Washington State | `budget_finance.operating_budget` | `supported` | washington.open_checkbook; washington.operating_budget; washington.revenue_by_biennium | At least one reviewed source supports this category. |
 | Washington State | `budget_finance.revenue_budget` | `partial` | washington.open_checkbook; washington.operating_budget; washington.revenue_by_biennium | At least one reviewed source partially supports this category. |
 | Washington State | `workforce.budgeted_fte` | `unsupported-by-reviewed-source` | washington.open_checkbook; washington.operating_budget; washington.revenue_by_biennium | Reviewed source claim is source-scoped; probe another official source before treating this as unavailable. |
@@ -68,6 +98,18 @@ Backlog families are part of the full civic coverage map. They remain not-yet-pr
 
 | Jurisdiction | Backlog family | Rollup status | Common source types |
 |---|---|---|---|
+| City of Everett | `population_demographics` | `not-yet-probed` | Census ACS API, official population estimates, local demographic dashboards, planning data portals. |
+| City of Everett | `public_safety_crime` | `not-yet-probed` | Police open data, 911/CAD datasets, FBI Crime Data API, public safety dashboards. |
+| City of Everett | `transportation_infrastructure` | `not-yet-probed` | DOT dashboards, ArcGIS services, traffic counts, capital project portals. |
+| City of Everett | `housing_permitting_land` | `not-yet-probed` | Planning/permitting portals, assessor data, building inspection data, GIS. |
+| City of Everett | `procurement_contracts` | `not-yet-probed` | Contract search portals, procurement systems, vendor payment data. |
+| City of Everett | `economic_labor_context` | `not-yet-probed` | BLS LAUS, Census, state labor data, economic development dashboards. |
+| City of Everett | `health_human_services` | `not-yet-probed` | Health department dashboards, City Health Dashboard, human-services datasets. |
+| City of Everett | `environment_climate_utilities` | `not-yet-probed` | Environment dashboards, utility open data, energy benchmarking, climate plans. |
+| City of Everett | `service_requests_311` | `not-yet-probed` | 311/service request portals, case-management dashboards, open-data datasets. |
+| City of Everett | `performance_outcomes` | `not-yet-probed` | Performance dashboards, strategic plans, What Works Cities-style reporting. |
+| City of Everett | `governance_meetings` | `not-yet-probed` | Meeting agendas, minutes, legislative systems, ordinance databases. |
+| City of Everett | `elections_campaigns` | `not-yet-probed` | Election offices, campaign-finance portals, ethics datasets. |
 | King County, Washington | `population_demographics` | `not-yet-probed` | Census ACS API, official population estimates, local demographic dashboards, planning data portals. |
 | King County, Washington | `public_safety_crime` | `not-yet-probed` | Police open data, 911/CAD datasets, FBI Crime Data API, public safety dashboards. |
 | King County, Washington | `transportation_infrastructure` | `not-yet-probed` | DOT dashboards, ArcGIS services, traffic counts, capital project portals. |
@@ -80,6 +122,18 @@ Backlog families are part of the full civic coverage map. They remain not-yet-pr
 | King County, Washington | `performance_outcomes` | `not-yet-probed` | Performance dashboards, strategic plans, What Works Cities-style reporting. |
 | King County, Washington | `governance_meetings` | `not-yet-probed` | Meeting agendas, minutes, legislative systems, ordinance databases. |
 | King County, Washington | `elections_campaigns` | `not-yet-probed` | Election offices, campaign-finance portals, ethics datasets. |
+| Pierce County, Washington | `population_demographics` | `not-yet-probed` | Census ACS API, official population estimates, local demographic dashboards, planning data portals. |
+| Pierce County, Washington | `public_safety_crime` | `not-yet-probed` | Police open data, 911/CAD datasets, FBI Crime Data API, public safety dashboards. |
+| Pierce County, Washington | `transportation_infrastructure` | `not-yet-probed` | DOT dashboards, ArcGIS services, traffic counts, capital project portals. |
+| Pierce County, Washington | `housing_permitting_land` | `not-yet-probed` | Planning/permitting portals, assessor data, building inspection data, GIS. |
+| Pierce County, Washington | `procurement_contracts` | `not-yet-probed` | Contract search portals, procurement systems, vendor payment data. |
+| Pierce County, Washington | `economic_labor_context` | `not-yet-probed` | BLS LAUS, Census, state labor data, economic development dashboards. |
+| Pierce County, Washington | `health_human_services` | `not-yet-probed` | Health department dashboards, City Health Dashboard, human-services datasets. |
+| Pierce County, Washington | `environment_climate_utilities` | `not-yet-probed` | Environment dashboards, utility open data, energy benchmarking, climate plans. |
+| Pierce County, Washington | `service_requests_311` | `not-yet-probed` | 311/service request portals, case-management dashboards, open-data datasets. |
+| Pierce County, Washington | `performance_outcomes` | `not-yet-probed` | Performance dashboards, strategic plans, What Works Cities-style reporting. |
+| Pierce County, Washington | `governance_meetings` | `not-yet-probed` | Meeting agendas, minutes, legislative systems, ordinance databases. |
+| Pierce County, Washington | `elections_campaigns` | `not-yet-probed` | Election offices, campaign-finance portals, ethics datasets. |
 | City of Seattle | `population_demographics` | `not-yet-probed` | Census ACS API, official population estimates, local demographic dashboards, planning data portals. |
 | City of Seattle | `public_safety_crime` | `not-yet-probed` | Police open data, 911/CAD datasets, FBI Crime Data API, public safety dashboards. |
 | City of Seattle | `transportation_infrastructure` | `not-yet-probed` | DOT dashboards, ArcGIS services, traffic counts, capital project portals. |
@@ -92,6 +146,54 @@ Backlog families are part of the full civic coverage map. They remain not-yet-pr
 | City of Seattle | `performance_outcomes` | `not-yet-probed` | Performance dashboards, strategic plans, What Works Cities-style reporting. |
 | City of Seattle | `governance_meetings` | `not-yet-probed` | Meeting agendas, minutes, legislative systems, ordinance databases. |
 | City of Seattle | `elections_campaigns` | `not-yet-probed` | Election offices, campaign-finance portals, ethics datasets. |
+| City of Spokane | `population_demographics` | `not-yet-probed` | Census ACS API, official population estimates, local demographic dashboards, planning data portals. |
+| City of Spokane | `public_safety_crime` | `not-yet-probed` | Police open data, 911/CAD datasets, FBI Crime Data API, public safety dashboards. |
+| City of Spokane | `transportation_infrastructure` | `not-yet-probed` | DOT dashboards, ArcGIS services, traffic counts, capital project portals. |
+| City of Spokane | `housing_permitting_land` | `not-yet-probed` | Planning/permitting portals, assessor data, building inspection data, GIS. |
+| City of Spokane | `procurement_contracts` | `not-yet-probed` | Contract search portals, procurement systems, vendor payment data. |
+| City of Spokane | `economic_labor_context` | `not-yet-probed` | BLS LAUS, Census, state labor data, economic development dashboards. |
+| City of Spokane | `health_human_services` | `not-yet-probed` | Health department dashboards, City Health Dashboard, human-services datasets. |
+| City of Spokane | `environment_climate_utilities` | `not-yet-probed` | Environment dashboards, utility open data, energy benchmarking, climate plans. |
+| City of Spokane | `service_requests_311` | `not-yet-probed` | 311/service request portals, case-management dashboards, open-data datasets. |
+| City of Spokane | `performance_outcomes` | `not-yet-probed` | Performance dashboards, strategic plans, What Works Cities-style reporting. |
+| City of Spokane | `governance_meetings` | `not-yet-probed` | Meeting agendas, minutes, legislative systems, ordinance databases. |
+| City of Spokane | `elections_campaigns` | `not-yet-probed` | Election offices, campaign-finance portals, ethics datasets. |
+| City of Tacoma | `population_demographics` | `not-yet-probed` | Census ACS API, official population estimates, local demographic dashboards, planning data portals. |
+| City of Tacoma | `public_safety_crime` | `not-yet-probed` | Police open data, 911/CAD datasets, FBI Crime Data API, public safety dashboards. |
+| City of Tacoma | `transportation_infrastructure` | `not-yet-probed` | DOT dashboards, ArcGIS services, traffic counts, capital project portals. |
+| City of Tacoma | `housing_permitting_land` | `not-yet-probed` | Planning/permitting portals, assessor data, building inspection data, GIS. |
+| City of Tacoma | `procurement_contracts` | `not-yet-probed` | Contract search portals, procurement systems, vendor payment data. |
+| City of Tacoma | `economic_labor_context` | `not-yet-probed` | BLS LAUS, Census, state labor data, economic development dashboards. |
+| City of Tacoma | `health_human_services` | `not-yet-probed` | Health department dashboards, City Health Dashboard, human-services datasets. |
+| City of Tacoma | `environment_climate_utilities` | `not-yet-probed` | Environment dashboards, utility open data, energy benchmarking, climate plans. |
+| City of Tacoma | `service_requests_311` | `not-yet-probed` | 311/service request portals, case-management dashboards, open-data datasets. |
+| City of Tacoma | `performance_outcomes` | `not-yet-probed` | Performance dashboards, strategic plans, What Works Cities-style reporting. |
+| City of Tacoma | `governance_meetings` | `not-yet-probed` | Meeting agendas, minutes, legislative systems, ordinance databases. |
+| City of Tacoma | `elections_campaigns` | `not-yet-probed` | Election offices, campaign-finance portals, ethics datasets. |
+| City of Vancouver | `population_demographics` | `not-yet-probed` | Census ACS API, official population estimates, local demographic dashboards, planning data portals. |
+| City of Vancouver | `public_safety_crime` | `not-yet-probed` | Police open data, 911/CAD datasets, FBI Crime Data API, public safety dashboards. |
+| City of Vancouver | `transportation_infrastructure` | `not-yet-probed` | DOT dashboards, ArcGIS services, traffic counts, capital project portals. |
+| City of Vancouver | `housing_permitting_land` | `not-yet-probed` | Planning/permitting portals, assessor data, building inspection data, GIS. |
+| City of Vancouver | `procurement_contracts` | `not-yet-probed` | Contract search portals, procurement systems, vendor payment data. |
+| City of Vancouver | `economic_labor_context` | `not-yet-probed` | BLS LAUS, Census, state labor data, economic development dashboards. |
+| City of Vancouver | `health_human_services` | `not-yet-probed` | Health department dashboards, City Health Dashboard, human-services datasets. |
+| City of Vancouver | `environment_climate_utilities` | `not-yet-probed` | Environment dashboards, utility open data, energy benchmarking, climate plans. |
+| City of Vancouver | `service_requests_311` | `not-yet-probed` | 311/service request portals, case-management dashboards, open-data datasets. |
+| City of Vancouver | `performance_outcomes` | `not-yet-probed` | Performance dashboards, strategic plans, What Works Cities-style reporting. |
+| City of Vancouver | `governance_meetings` | `not-yet-probed` | Meeting agendas, minutes, legislative systems, ordinance databases. |
+| City of Vancouver | `elections_campaigns` | `not-yet-probed` | Election offices, campaign-finance portals, ethics datasets. |
+| City of Walla Walla | `population_demographics` | `not-yet-probed` | Census ACS API, official population estimates, local demographic dashboards, planning data portals. |
+| City of Walla Walla | `public_safety_crime` | `not-yet-probed` | Police open data, 911/CAD datasets, FBI Crime Data API, public safety dashboards. |
+| City of Walla Walla | `transportation_infrastructure` | `not-yet-probed` | DOT dashboards, ArcGIS services, traffic counts, capital project portals. |
+| City of Walla Walla | `housing_permitting_land` | `not-yet-probed` | Planning/permitting portals, assessor data, building inspection data, GIS. |
+| City of Walla Walla | `procurement_contracts` | `not-yet-probed` | Contract search portals, procurement systems, vendor payment data. |
+| City of Walla Walla | `economic_labor_context` | `not-yet-probed` | BLS LAUS, Census, state labor data, economic development dashboards. |
+| City of Walla Walla | `health_human_services` | `not-yet-probed` | Health department dashboards, City Health Dashboard, human-services datasets. |
+| City of Walla Walla | `environment_climate_utilities` | `not-yet-probed` | Environment dashboards, utility open data, energy benchmarking, climate plans. |
+| City of Walla Walla | `service_requests_311` | `not-yet-probed` | 311/service request portals, case-management dashboards, open-data datasets. |
+| City of Walla Walla | `performance_outcomes` | `not-yet-probed` | Performance dashboards, strategic plans, What Works Cities-style reporting. |
+| City of Walla Walla | `governance_meetings` | `not-yet-probed` | Meeting agendas, minutes, legislative systems, ordinance databases. |
+| City of Walla Walla | `elections_campaigns` | `not-yet-probed` | Election offices, campaign-finance portals, ethics datasets. |
 | Washington State | `population_demographics` | `not-yet-probed` | Census ACS API, official population estimates, local demographic dashboards, planning data portals. |
 | Washington State | `public_safety_crime` | `not-yet-probed` | Police open data, 911/CAD datasets, FBI Crime Data API, public safety dashboards. |
 | Washington State | `transportation_infrastructure` | `not-yet-probed` | DOT dashboards, ArcGIS services, traffic counts, capital project portals. |
