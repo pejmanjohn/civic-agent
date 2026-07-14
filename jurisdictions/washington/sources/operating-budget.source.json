@@ -25,6 +25,17 @@
     ],
     "refresh_behavior": "rerun_extractor_to_update_repo_snapshot"
   },
+  "freshness": {
+    "data_through": "2025-27",
+    "data_through_kind": "biennium",
+    "observed_at": "2025-07-22",
+    "cadence": {
+      "expected_interval_days": 365,
+      "expected_lag_days": 60,
+      "pattern": "enacted budget plus an annual supplemental each spring; the 2026 supplemental exists upstream and is not yet an accepted slice"
+    },
+    "upstream_probe": "none:power_bi_probe_planned; the known 2026 supplemental makes this source probably_behind by design until accepted"
+  },
   "official_dashboard_page": "https://fiscal.wa.gov/statebudgets/operatingsummarycomparisonbien",
   "official_context_page": "https://ofm.wa.gov/budget/",
   "powerbi_report_url": "https://app.powerbi.com/view?r=eyJrIjoiYjMzNmE2MDMtMWY2Ni00NjVkLWFmN2YtZWI4YjE3MjhkNTgzIiwidCI6ImI0ZWIwY2NmLTAxOTQtNDY2My1hNTZhLTllZDkxZWZkMzMwOCIsImMiOjZ9",

@@ -19,6 +19,17 @@
     "local_artifacts": [],
     "refresh_behavior": "manual_review_of_official_budget_page_and_document_metadata"
   },
+  "freshness": {
+    "data_through": "2026-2027",
+    "data_through_kind": "biennium",
+    "observed_at": "2026-03-05",
+    "cadence": {
+      "expected_interval_days": 730,
+      "expected_lag_days": 0,
+      "pattern": "biennial adopted budget book; next edition late 2027"
+    },
+    "upstream_probe": "drift:king_county.adopted_budget"
+  },
   "official_page": "https://kingcounty.gov/en/dept/council/governance-leadership/county-council/budget-review-2026-27",
   "adopted_budget_book_url": "https://cdn.kingcounty.gov/-/media/king-county/depts/council/budget/2026/2026-2027-adopted-budget-book.pdf?rev=9cbb996d2da046b8a37ff02ff8009e73&hash=A256B6946888EE7A4A6BB3BA3D6A82FA",
   "legislation_url": "https://mkcclegisearch.kingcounty.gov/LegislationDetail.aspx?ID=7680373&GUID=B4E9E09C-A982-4A8C-A0DA-6CC195D69EE0&Options=Advanced&Search=",

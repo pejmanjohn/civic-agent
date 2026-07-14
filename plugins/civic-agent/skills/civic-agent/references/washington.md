@@ -1,6 +1,6 @@
 ---
 name: washington-budget-analyst
-description: Use when answering questions about Washington state operating budget totals, enacted budget trends, General Fund revenue estimate-vs-actual trends, or state agency vendor-payment/checkbook actual spending from Fiscal WA.
+description: Use when answering questions about Washington state operating budget totals, enacted budget trends, General Fund revenue estimate-vs-actual trends, state agency vendor-payment/checkbook actual spending from Fiscal WA, or filed annual actuals for reviewed Washington local governments (cities, counties, school districts, special districts) from the State Auditor's FIT.
 ---
 
 # Washington Budget Analyst
@@ -11,6 +11,8 @@ Use this skill for Washington state budget, revenue, and actual vendor-payment q
 - Revenue by biennium: General Fund (001) estimated revenue, actual revenue, and actual-minus-estimate trends from 2003-05 through 2025-27, with 2025-27 partial through April 2026.
 - Open Checkbook: state agency vendor payments from 2013-15 through the current 2025-27 partial biennium, backed by a managed local SQLite database built from official Fiscal WA XLSX files.
 - OFM population: April 1 official resident population estimates for counties, cities, towns, and state totals, used only as denominator context for Scale recipes.
+- FIT filed actuals: annual total revenues and expenditures as filed with the State Auditor (and OSPI for school districts) for the REVIEWED local governments in `washington.fit_filed_actuals` - currently Spokane, Tacoma, Walla Walla, Vancouver, Everett, King County, Pierce County, Snohomish County, Sound Transit, the King County Regional Homelessness Authority, Seattle School District No. 1, and Evergreen School District (Clark County).
+- DOR property tax levies: certified levy amounts and rates for every taxing district statewide, tax years due 2024-2025, used for "who levies property tax and how much did it change" questions at district level.
 
 Do not mix these source families. Operating budget rows are budget authority, revenue rows are General Fund estimate/actual revenue, Open Checkbook rows are actual vendor payments, and OFM population rows are resident denominators. Do not use this skill for procurement contract terms, payroll, staffing/FTE, capital budget, transportation budget, Seattle budget analysis, King County budget analysis, or cross-jurisdiction comparison unless a separate source explicitly supports that question. Do not treat the 2025-27 revenue or checkbook values as full-biennium final actuals.
 
@@ -34,10 +36,10 @@ Population denominator claims are separate from budget claims. `washington.ofm_p
 - Historical model refresh time: `2025-12-29T18:08:24.87`
 - Snapshot generated from live Power BI replay: see `jurisdictions/washington/data/operating-budget/2025-27-enacted-2025-05-20/provenance.json`
 
-For local dev-plugin testing, read snapshot files from this source checkout:
+For local dev-plugin testing, read snapshot files from the repo checkout at this relative path:
 
 ```text
-/Users/pejman/code/civic-agent/jurisdictions/washington/data/operating-budget/2025-27-enacted-2025-05-20/
+jurisdictions/washington/data/operating-budget/2025-27-enacted-2025-05-20/
 ```
 
 For hosted/fresh-agent use after the source is pushed, checked-in snapshot files will be available under:
@@ -62,23 +64,23 @@ Treat this as budgeted/authorized operating budget data, not actual spending. Am
 - Official report page: `https://fiscal.wa.gov/Revenue/RevenueGeneral.aspx`
 - Context page: `https://fiscal.wa.gov/Revenue/RevenueOverview.aspx`
 - Source card: `jurisdictions/washington/sources/revenue-by-biennium.source.json`
-- Snapshot version: `2025-27-revenue-through-2026-04`
-- Snapshot generated from live ReportViewer exports: see `jurisdictions/washington/data/revenue-by-biennium/2025-27-revenue-through-2026-04/provenance.json`
+- Snapshot version: `2025-27-revenue-through-2026-05`
+- Snapshot generated from live ReportViewer exports: see `jurisdictions/washington/data/revenue-by-biennium/2025-27-revenue-through-2026-05/provenance.json`
 - Actual data through: `2026-04` (`Actual Data Through April 2026`)
 
-For local dev-plugin testing, read revenue snapshot files from this source checkout:
+For local dev-plugin testing, read revenue snapshot files from the repo checkout at this relative path:
 
 ```text
-/Users/pejman/code/civic-agent/jurisdictions/washington/data/revenue-by-biennium/2025-27-revenue-through-2026-04/
+jurisdictions/washington/data/revenue-by-biennium/2025-27-revenue-through-2026-05/
 ```
 
 For hosted/fresh-agent use after the source is pushed, checked-in revenue snapshot files will be available under:
 
 ```text
-https://raw.githubusercontent.com/pejmanjohn/civic-agent/main/jurisdictions/washington/data/revenue-by-biennium/2025-27-revenue-through-2026-04/normalized/general-fund-revenue-by-biennium.jsonl
-https://raw.githubusercontent.com/pejmanjohn/civic-agent/main/jurisdictions/washington/data/revenue-by-biennium/2025-27-revenue-through-2026-04/normalized/general-fund-revenue-by-area-account.jsonl
-https://raw.githubusercontent.com/pejmanjohn/civic-agent/main/jurisdictions/washington/data/revenue-by-biennium/2025-27-revenue-through-2026-04/summary.json
-https://raw.githubusercontent.com/pejmanjohn/civic-agent/main/jurisdictions/washington/data/revenue-by-biennium/2025-27-revenue-through-2026-04/provenance.json
+https://raw.githubusercontent.com/pejmanjohn/civic-agent/main/jurisdictions/washington/data/revenue-by-biennium/2025-27-revenue-through-2026-05/normalized/general-fund-revenue-by-biennium.jsonl
+https://raw.githubusercontent.com/pejmanjohn/civic-agent/main/jurisdictions/washington/data/revenue-by-biennium/2025-27-revenue-through-2026-05/normalized/general-fund-revenue-by-area-account.jsonl
+https://raw.githubusercontent.com/pejmanjohn/civic-agent/main/jurisdictions/washington/data/revenue-by-biennium/2025-27-revenue-through-2026-05/summary.json
+https://raw.githubusercontent.com/pejmanjohn/civic-agent/main/jurisdictions/washington/data/revenue-by-biennium/2025-27-revenue-through-2026-05/provenance.json
 ```
 
 Treat revenue `estimated_revenue` as the revenue-budget measure for this source. The same rows include actual revenue collected and actual-minus-estimate. For the in-progress 2025-27 biennium, all three measures are partial through April 2026.
@@ -94,7 +96,8 @@ Treat revenue `estimated_revenue` as the revenue-budget measure for this source.
 - Normal answer source: local SQLite database built from official XLSX files
 - Current official XLSX: `https://fiscal.wa.gov/Spending/VendorPayments2527.xlsx`
 - Historical official XLSX coverage: `2013-15` through `2025-27`
-- Current actual data through: `2026-04` (`Payments through April 2026`)
+- Current actual data through: `2026-05` (`Payments through May 2026`)
+- Hosted aggregate snapshot: `jurisdictions/washington/data/open-checkbook/2025-27-through-2026-05/`
 
 For source-checking before answering:
 
@@ -111,9 +114,89 @@ python3 scripts/source_data.py --json ensure washington.open_checkbook
 python3 scripts/source_data.py --json refresh washington.open_checkbook
 ```
 
-Do not parse the XLSX files during normal answer generation. The first ensure/refresh may download large official files and build the local database; repeated answers should query the indexed SQLite database. If the agent host cannot run this repo's CLI or access the local database, say the managed local checkbook data is not set up rather than answering from memory.
+Do not parse the XLSX files during normal answer generation. The first ensure/refresh may download large official files and build the local database; repeated answers should query the indexed SQLite database.
+
+If the agent host cannot run this repo's CLI or access the local database (the hosted/fresh-agent path), answer aggregate checkbook questions from the checked-in hosted aggregate snapshot instead of dead-ending:
+
+```text
+jurisdictions/washington/data/open-checkbook/2025-27-through-2026-05/aggregates/category-breakdown.jsonl
+jurisdictions/washington/data/open-checkbook/2025-27-through-2026-05/aggregates/agency-totals.jsonl
+jurisdictions/washington/data/open-checkbook/2025-27-through-2026-05/aggregates/vendor-totals.jsonl
+jurisdictions/washington/data/open-checkbook/2025-27-through-2026-05/aggregates/monthly-trend.jsonl
+jurisdictions/washington/data/open-checkbook/2025-27-through-2026-05/summary.json
+jurisdictions/washington/data/open-checkbook/2025-27-through-2026-05/provenance.json
+```
+
+Hosted equivalents are available under `https://raw.githubusercontent.com/pejmanjohn/civic-agent/main/` plus the same relative paths.
+
+Hosted aggregate answer rules:
+
+- Supported grains: per-biennium totals by category, by agency, by calendar month, and top-100 vendors per biennium. Rows carry `biennium`, `name`, `amount`, `payment_rows` (vendor rows add `rank`).
+- `vendor-totals.jsonl` is truncated to the top 100 vendors per biennium by total amount. For top-N questions ("which vendors got the MOST money"), the truncated aggregate FULLY answers the question - declare `exact`, with the truncation stated as a caveat for anyone wanting the deeper tail. Route exhaustive vendor, sub-object, or filtered questions to the managed local database path.
+- Label answers with the snapshot version `2025-27-through-2026-05` and the `data_through` boundary from `summary.json`; the in-progress 2025-27 biennium is partial through May 2026.
+- `summary.json` records per-biennium totals with a category/agency/monthly reconciliation check; cite it as the validation evidence in traces.
 
 Treat this as actual state agency vendor-payment data, not budget authority, revenue, contracts, invoices, payroll, staffing, or service outcomes.
+
+## Local Government Filed Actuals Source Of Truth (FIT)
+
+- Dataset: FIT Filed Annual Actuals (reviewed governments)
+- Provider: Washington State Auditor's Office Financial Intelligence Tool; school data as reported to OSPI
+- Official portal: `https://portal.sao.wa.gov/FIT/`
+- Source card: `jurisdictions/washington/sources/fit-filed-actuals.source.json`
+- Snapshot version: `milestone-2025-published-2026-06-30` (FIT milestone Snapshot 33, published 2026-06-30)
+- Coverage: filed years 2015-2024 complete for reviewed governments, 2025 early-cycle PARTIAL; school districts 2020-2025 (school fiscal years ending August 31)
+
+Checked-in snapshot files (repo-relative; hosted equivalents under `https://raw.githubusercontent.com/pejmanjohn/civic-agent/main/` plus the same paths):
+
+```text
+jurisdictions/washington/data/fit-filed-actuals/milestone-2025-published-2026-06-30/normalized/government-annual-totals.jsonl
+jurisdictions/washington/data/fit-filed-actuals/milestone-2025-published-2026-06-30/normalized/school-district-annual-totals.jsonl
+jurisdictions/washington/data/fit-filed-actuals/milestone-2025-published-2026-06-30/summary.json
+jurisdictions/washington/data/fit-filed-actuals/milestone-2025-published-2026-06-30/provenance.json
+```
+
+Rows carry `government`, `mcag`, year, `total_revenues`, `total_expenditures`, and `amount_basis`. Government rows use the FIT headline basis (excludes internal service funds); school rows are OSPI modified accrual with `school_fiscal_year_ending_aug31`.
+
+Interpretation rules (vocabulary walls):
+
+- Filed actuals are NOT budgets. Never answer a "what is the budget" question with filed actuals without saying these are actual revenues/expenditures as filed, and never mix them numerically with adopted/approved budget frames without an explicit alignment recipe.
+- These are NOT checkbook transactions: no vendors, payees, or invoices at this grain.
+- Label 2025 values partial (early filing cycle); some filers report in round thousands (Sound Transit, King County).
+- School fiscal years end August 31 and use a different accounting basis than cities/counties - never compare school and city/county values without labeling both bases.
+- Only the reviewed governments listed in the source card are claimable. For any other WA local government, follow the router's unsupported-jurisdiction protocol and point at `https://portal.sao.wa.gov/FIT/` as the official path.
+- Category-comparison questions ("police vs housing spending"): the reviewed claim is TOTALS ONLY. The expected `partial` answer gives the government's total revenues/expenditures, states plainly that the category breakdown is not yet a reviewed claim, and names the drill-down path (the government's own budget book and the FIT portal's category views). Do not refuse outright, and do not improvise category numbers.
+- DENOMINATOR WALL: `fit_population` on FIT rows is context only. Per-resident and per-capita math ALWAYS uses `washington.ofm_population` April 1 estimates - never the FIT population field.
+- LIVE FALLBACK (labeled): when the freshness ledger marks this source `refresh_available`, or a question needs a filed year newer than the snapshot, you MAY query the live API for a REVIEWED government only - `https://portal.sao.wa.gov/FIT/api/Snapshots(<latest>)/GovernmentMetrics?$filter=mcag eq '<mcag>' and year eq <year>` - if you first cross-check one snapshot-known value live (for example Spokane 2024 revenues 729,876,646) to validate the connection. Label the result "live-fetched (FIT API, snapshot <id>), snapshot-validated" and cite both. Never live-fetch non-reviewed governments; that path stays unsupported_with_path.
+- Spot checks for traces: City of Spokane 2024 revenues 729,876,646 / expenditures 648,638,448; Sound Transit 2024 revenues 2,599,304,000; KCRHA 2024 expenditures 191,618,113 (against 180,707,326 revenues - a deficit year); Seattle SD No. 1 school year 2024-25 revenues 1,518,641,110.55.
+
+## Property Tax Levies Source Of Truth (DOR)
+
+- Dataset: Local Taxing District Levy Detail (statewide, every taxing district)
+- Provider: Washington State Department of Revenue, Research and Fiscal Analysis
+- Official landing page: `https://dor.wa.gov/about/statistics-reports/data-statistics/local-taxing-district-levy-detail`
+- Source card: `jurisdictions/washington/sources/dor-property-tax-levies.source.json`
+- Snapshot version: `levies-due-2025` (tax years due 2024 and 2025; 4,593 levy rows; DOR series reaches back to 2002)
+
+Checked-in snapshot files (repo-relative; hosted equivalents under `https://raw.githubusercontent.com/pejmanjohn/civic-agent/main/` plus the same paths):
+
+```text
+jurisdictions/washington/data/dor-property-tax-levies/levies-due-2025/normalized/levy-detail.jsonl
+jurisdictions/washington/data/dor-property-tax-levies/levies-due-2025/summary.json
+jurisdictions/washington/data/dor-property-tax-levies/levies-due-2025/provenance.json
+```
+
+Rows carry `year_due`, `tdcode`, `district_key`, `county`, `district_type`, `levy_type`, `district_name`, `assessed_value`, `levy_rate_per_1000`, `district_levy`, and `statutory_maximum_rate`.
+
+Interpretation rules (vocabulary walls):
+
+- These are CERTIFIED LEVY AMOUNTS DUE per taxing district - not tax bills, not collections, not budgets.
+- One row per LEVY: a district's base levy, lid lifts, and bonds are separate rows. District-level statements aggregate `district_key` and name the lines. Verified trap: Seattle city's base rate fell 1.44409 -> 1.05837 from 2024 to 2025 while its lid-lift line rose 0.87332 -> 1.57835 after the November 2024 transportation levy - quoting only the base line misleads.
+- Rates are dollars per $1,000 of assessed value, district-level only. Household math requires the parcel's assessed value; any per-household figure must be labeled illustrative. The parcel-level levy stack ("which districts tax MY address") needs county tax-code-area data - point at the county assessor (King County publishes PDF rate books).
+- No ballot-measure metadata: voter-approved levies are identifiable by levy-type codes and names ("Temp Lid Lift", "Bond"), but measure numbers, dates, and approval percentages need an elections source.
+- The levy-lid story is answerable: rows carry the 101%-limit and statutory-maximum columns.
+- If the resident's city or school district is unknown, ASK (or offer to look it up by place name): the levy detail supports district-level lookups, so "which levies changed for YOUR districts" is answerable once the place is known. A generic county answer should end by offering that lookup.
+- Spot checks for traces: statewide 2025 total $18,450,110,007; King County 2025 total $7,724,787,822 (+1.6% from $7,603,197,998); statewide school enrichment levies $2,814,008,373; Seattle SD #1 enrichment 0.65422/$194,678,891 (2025) vs 0.63479/$190,239,286 (2024). All reconcile with DOR Tables 8/12/14 to the dollar (verified 2026-07-13).
 
 ## OFM Population Source Of Truth
 
@@ -172,7 +255,7 @@ The Open Checkbook source can safely support:
 
 - State agency vendor-payment totals by biennium, fiscal year, fiscal month, calendar month, agency, object category, subobject category, or vendor.
 - Category, agency, vendor, and monthly actual-payment rankings for a selected biennium or fiscal period.
-- Historical vendor-payment trends from 2013-15 through 2025-27, with the current biennium labeled partial through April 2026 until refreshed.
+- Historical vendor-payment trends from 2013-15 through 2025-27, with the current biennium labeled partial through May 2026 until refreshed.
 - Plain-English explanations of how checkbook actual payments differ from budget authority, revenue, contracts, invoices, payroll, staffing, and service outcomes.
 
 Do not use Open Checkbook for budget authority, appropriations, revenue, procurement contract terms, invoices, purchase orders, payroll, employee compensation, FTE, staffing, service quality, program outcomes, or local government spending outside Washington state agency vendor payments.
@@ -549,7 +632,7 @@ Use this as the supported high-level policy grouping for historical Washington o
 Read:
 
 ```text
-jurisdictions/washington/data/revenue-by-biennium/2025-27-revenue-through-2026-04/normalized/general-fund-revenue-by-biennium.jsonl
+jurisdictions/washington/data/revenue-by-biennium/2025-27-revenue-through-2026-05/normalized/general-fund-revenue-by-biennium.jsonl
 ```
 
 Known checks:
@@ -557,9 +640,9 @@ Known checks:
 ```text
 rows = 12
 coverage = 2003-05 through 2025-27
-2025-27 estimated_revenue = 45098726991
-2025-27 actual_revenue = 46142570002.15
-2025-27 actual_minus_estimate = 1043843011.15
+2025-27 estimated_revenue = 51267621520
+2025-27 actual_revenue = 50914382425.63
+2025-27 actual_minus_estimate = -353239094.37
 2025-27 actual_data_status = partial
 actual_data_through = 2026-04
 ```
@@ -571,7 +654,7 @@ Use this for General Fund revenue trend questions. For closed biennia, `actual_d
 Read:
 
 ```text
-jurisdictions/washington/data/revenue-by-biennium/2025-27-revenue-through-2026-04/normalized/general-fund-revenue-by-area-account.jsonl
+jurisdictions/washington/data/revenue-by-biennium/2025-27-revenue-through-2026-05/normalized/general-fund-revenue-by-area-account.jsonl
 ```
 
 Use this only for General Fund (001) revenue rows by biennium, `revenue_area`, and `account_or_agency`. Known check: 934 detail rows, and detail totals reconcile to the statewide biennium totals within rounding tolerance.
@@ -584,7 +667,7 @@ Ensure the managed local database exists, then run:
 python3 scripts/source_data.py --json query washington.open_checkbook category_breakdown --param biennium=2025-27 --param limit=10
 ```
 
-Use this for questions like "What categories drive Washington state vendor payments?" State that this is actual vendor-payment data and that 2025-27 is partial through April 2026 unless the manifest reports a newer `data_through`.
+Use this for questions like "What categories drive Washington state vendor payments?" State that this is actual vendor-payment data and that 2025-27 is partial through May 2026 unless the manifest reports a newer `data_through`.
 
 ### Open Checkbook agency totals
 
@@ -640,7 +723,7 @@ Use `historical-biennium-summary.jsonl` for statewide trends. Use the historical
 
 Say the current Washington snapshot is the 2025-27 enacted biennial operating budget with current model refresh time `2025-07-22T17:18:33.94`. Historical trend rows use the prior summary model with refresh time `2025-12-29T18:08:24.87`. The separate 2026 supplemental report has been probed but is not implemented in this source slice.
 
-For current Washington revenue questions, say the current revenue snapshot is `2025-27-revenue-through-2026-04`; 2025-27 revenue values are partial through April 2026.
+For current Washington revenue questions, say the current revenue snapshot is `2025-27-revenue-through-2026-05`; 2025-27 revenue values are partial through April 2026.
 
 For current Washington checkbook questions, inspect the managed local manifest. The source card's reviewed current boundary is `Payments through April 2026`; a refreshed local database may report a newer `data_through`. Always use the manifest value when it exists.
 
@@ -680,7 +763,7 @@ Known checks from snapshot `2025-27-enacted-2025-05-20`:
 
 If a result differs materially, verify the snapshot version, budget version filter, fund view, and whether the user asked for budgeted values or actuals.
 
-Known revenue checks from snapshot `2025-27-revenue-through-2026-04`:
+Known revenue checks from snapshot `2025-27-revenue-through-2026-05`:
 
 - General Fund revenue biennium rows: 12
 - General Fund revenue detail rows: 934
@@ -743,7 +826,7 @@ Revenue trace example:
 
 ```text
 Trace:
-- Source: Fiscal WA Revenue by Biennium, snapshot 2025-27-revenue-through-2026-04
+- Source: Fiscal WA Revenue by Biennium, snapshot 2025-27-revenue-through-2026-05
 - Public source: https://fiscal.wa.gov/Revenue/RevenueGeneral.aspx
 - Data-through: Actual Data Through April 2026
 - Grain: biennium
@@ -765,5 +848,5 @@ Trace:
 - Measure: amount
 - Filters/query logic: source_data.py query washington.open_checkbook category_breakdown --param biennium=2025-27 --param limit=10
 - Check: local manifest row_count and source_files row counts; current source-card probe observed 382,783 current-file rows
-- Caveats: actual vendor payments, not budget authority, revenue, contracts, invoices, payroll, staffing, or outcomes; 2025-27 is partial through April 2026 unless refreshed
+- Caveats: actual vendor payments, not budget authority, revenue, contracts, invoices, payroll, staffing, or outcomes; 2025-27 is partial through May 2026 unless refreshed
 ```

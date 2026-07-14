@@ -8,6 +8,10 @@ SOURCE_ROOT = ROOT / "jurisdictions"
 
 EXPECTED_POLICY_TIERS = {
     "seattle.operating_budget": "live",
+    "pierce_county.open_budget": "live",
+    "pierce_county.open_checkbook": "live",
+    "washington.fit_filed_actuals": "checked_in_snapshot",
+    "washington.dor_property_tax_levies": "checked_in_snapshot",
     "king_county.open_budget_dashboard": "checked_in_snapshot",
     "washington.operating_budget": "checked_in_snapshot",
     "washington.revenue_by_biennium": "checked_in_snapshot",
@@ -51,6 +55,7 @@ ALLOWED_REPO_ARTIFACTS = {
     "fixtures",
     "docs",
     "query_recipes",
+    "hosted_aggregates",
   }
 ALLOWED_LOCAL_ARTIFACTS = {
     "raw_source_file",
@@ -163,12 +168,17 @@ class SourceStoragePolicyTest(unittest.TestCase):
             / "washington"
             / "data"
             / "revenue-by-biennium"
-            / "2025-27-revenue-through-2026-04",
+            / "2025-27-revenue-through-2026-05",
             SOURCE_ROOT
             / "washington"
             / "data"
             / "ofm-population"
             / "2025-04-01",
+            SOURCE_ROOT
+            / "washington"
+            / "data"
+            / "fit-filed-actuals"
+            / "milestone-2025-published-2026-06-30",
         ]
         for artifact_dir in artifact_dirs:
             summary = load_json(artifact_dir / "summary.json")

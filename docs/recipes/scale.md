@@ -100,7 +100,8 @@ Required source claims:
 Behavior:
 
 - Use `exact` only when source semantics are compatible, including government scope and geography basis.
-- Use `side_by_side_only` when the facts are useful but not apples to apples.
+- Period alignment rule: a biennial budget MAY be compared against annual values by dividing the biennium by two, ONLY when the answer labels the division as an approximation ("~$1.75B/yr, biennial budget halved") and names both original periods. Unlabeled halving or annualizing is never allowed.
+- Use `side_by_side_only` when the facts are useful but not apples to apples even after labeled period alignment.
 - Use `partial` when one jurisdiction has an accepted source and another is missing a matching frame or denominator.
 - Preserve source-specific caveats in the final answer trace.
 

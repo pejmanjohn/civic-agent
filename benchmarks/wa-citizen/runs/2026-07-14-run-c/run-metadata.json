@@ -1,0 +1,11 @@
+{
+  "branch": "feat/freshness-machinery",
+  "capture_notes": "Same capture config as runs a/b (fresh Claude subagents, effort=medium, local checkbook DB unavailable, benchmarks/ off-limits). Measures: source-card-id trace mandate, router Freshness Posture rule, revenue snapshot refresh (2026-05), case-13 calibration. Compare against run-a/run-b; noise floor is 9 case/check flips.",
+  "capture_protocol": "Run each .prompt.txt in a FRESH agent session with the dev plugin installed (python3 scripts/dev.py status first); paste the full answer into the matching .md below its front matter and set answer_mode to the mode the answer actually claims. Do not edit answers. Score with: python3 scripts/eval.py --score <run_dir>",
+  "cases": 20,
+  "commit": "b5258b82eeb065983bd94e2f4d525061c3d52f01",
+  "created": "2026-07-14",
+  "dirty": true,
+  "run": "2026-07-14-run-c",
+  "surface": "repo-skills (hosted-path emulation)"
+}

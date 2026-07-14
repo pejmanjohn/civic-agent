@@ -20,6 +20,17 @@
     "local_artifacts": [],
     "refresh_behavior": "query_official_source_at_answer_time"
   },
+  "freshness": {
+    "data_through": "2026",
+    "data_through_kind": "fiscal_year",
+    "observed_at": "2026-07-13",
+    "cadence": {
+      "expected_interval_days": 365,
+      "expected_lag_days": 60,
+      "pattern": "annual budget publication; FY2027 rows expected with the fall 2026 budget cycle"
+    },
+    "upstream_probe": "drift:seattle.operating_budget"
+  },
   "json_endpoint": "https://data.seattle.gov/resource/8u2j-imqx.json",
   "csv_endpoint": "https://data.seattle.gov/resource/8u2j-imqx.csv?$limit=50000",
   "metadata_endpoint": "https://data.seattle.gov/api/views/8u2j-imqx",

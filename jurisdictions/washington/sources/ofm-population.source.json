@@ -15,8 +15,33 @@
     {
       "jurisdiction_id": "king_county",
       "jurisdiction_name": "King County, Washington"
+    },
+    {
+      "jurisdiction_id": "pierce_county",
+      "jurisdiction_name": "Pierce County, Washington"
+    },
+    {
+      "jurisdiction_id": "spokane",
+      "jurisdiction_name": "City of Spokane"
+    },
+    {
+      "jurisdiction_id": "tacoma",
+      "jurisdiction_name": "City of Tacoma"
+    },
+    {
+      "jurisdiction_id": "vancouver",
+      "jurisdiction_name": "City of Vancouver"
+    },
+    {
+      "jurisdiction_id": "everett",
+      "jurisdiction_name": "City of Everett"
+    },
+    {
+      "jurisdiction_id": "walla_walla",
+      "jurisdiction_name": "City of Walla Walla"
     }
   ],
+  "coverage_jurisdictions_note": "The official OFM April 1 file covers every Washington county, city, and town. Entries above are the jurisdictions promoted for recipes and benchmark claims so far; promote more by verifying the snapshot row and adding the entry. School districts and special-purpose districts are NOT in this source.",
   "budget_family": "population_denominator",
   "provider": "Washington Office of Financial Management, Forecasting and Research Division",
   "dataset_name": "April 1 Official Population Estimates",
@@ -38,6 +63,17 @@
       "debug_capture"
     ],
     "refresh_behavior": "rerun_extractor_to_update_repo_snapshot"
+  },
+  "freshness": {
+    "data_through": "2025-04-01",
+    "data_through_kind": "date",
+    "observed_at": "2026-07-14",
+    "cadence": {
+      "expected_interval_days": 365,
+      "expected_lag_days": 170,
+      "pattern": "annual April 1 vintage added to the final XLSX, typically published Jun-Sep of the same year; as of 2026-07-14 the 2025 vintage is still the latest (a 2026-06-30 re-publication only revised footnote notation on the 2025 data - files can revise in place without a new vintage)"
+    },
+    "upstream_probe": "drift:washington.ofm_population"
   },
   "official_page": "https://ofm.wa.gov/data-research/population-demographics/estimates/april-1-official/",
   "official_pdf_url": "https://ofm.wa.gov/wp-content/uploads/sites/default/files/public/dataresearch/pop/april1/ofm_april1_population_final.pdf",
@@ -84,9 +120,9 @@
       "snapshot_version": "2025-04-01",
       "release": "April 1, 2025 official population estimates",
       "latest_estimate_date": "2025-04-01",
-      "file_last_modified": "Tue, 24 Feb 2026 08:05:27 GMT",
-      "file_etag": "\"699d5bc7-10aab\"",
-      "file_sha256": "d39be7d23b0f41c6ceadeb888aadc6e1484b1072119998ef43cac260d108e42e"
+      "file_last_modified": "Tue, 30 Jun 2026 20:40:26 GMT",
+      "file_etag": "\"6a4429ba-11ca1\"",
+      "file_sha256": "1a5bc5ea6927b6037741344df67e2161f3507fed25ac6ad0e9008f3941df5598"
     },
     "row_counts": {
       "geography_rows": 409,
@@ -215,5 +251,8 @@
     "king_county_city_town_sum_2025": 2161475,
     "king_county_incorporated_reconciles": true,
     "king_county_total_reconciles": true
-  }
+  },
+  "caveats": [
+    "The official file revises in place (2026-06-30: notation-only changes to the 2025 vintage, same values). Verify the vintage, not just the file date, before declaring newer data."
+  ]
 }

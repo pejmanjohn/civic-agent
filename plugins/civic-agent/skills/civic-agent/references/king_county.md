@@ -244,7 +244,7 @@ Example trace:
 
 ```text
 Trace:
-- Source: King County Open Budget Dashboard, snapshot 2026-04-01
+- Source: `king_county.open_budget_dashboard` (King County Open Budget Dashboard), snapshot 2026-04-01 - always name the source card id
 - Public source: https://kingcounty.gov/en/dept/executive/governance-leadership/performance-strategy-budget/budget/budget-dashboard
 - Grain: FY2026 department
 - Measure: budgeted_expenditure

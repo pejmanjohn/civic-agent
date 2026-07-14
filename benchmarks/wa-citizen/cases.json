@@ -1,0 +1,1468 @@
+[
+  {
+    "id": "seattle-parks-2026-lookup",
+    "bucket": "wa-citizen",
+    "question": "What does Seattle budget for parks in 2026?",
+    "paraphrases": [
+      "How much money does Seattle Parks and Recreation get in the 2026 budget?",
+      "What's the parks budget for Seattle this year?"
+    ],
+    "persona": "Green Lake resident curious after a park maintenance complaint",
+    "altitude": "city",
+    "jurisdiction": "City of Seattle",
+    "archetype": "6 - what's in Seattle's budget (department slice)",
+    "difficulty": "T1_lookup",
+    "anchor": true,
+    "plugin_prompt": "Using @civic-agent-dev, answer this as Civic Agent with source trace: What does Seattle budget for parks in 2026?",
+    "web_prompt": "Using official web sources where possible, answer: What does Seattle budget for parks in 2026?",
+    "required_claims": [
+      {
+        "jurisdiction": "City of Seattle",
+        "category": "budget_finance.operating_budget",
+        "role": "core"
+      }
+    ],
+    "mode_ceiling": "exact",
+    "expected_answer_mode": "exact",
+    "expected_failure_mode": "none",
+    "expected_source_ids": [
+      "seattle.operating_budget"
+    ],
+    "expected_missing_sources": [],
+    "expected_facts": [
+      {
+        "id": "parks-fy2026-approved-total",
+        "value": 272607622.34,
+        "tolerance": 3000000,
+        "unit": "dollars",
+        "description": "Seattle Parks and Recreation FY2026 approved operating budget total",
+        "reproduction_ref": "SoQL: $select=department,sum(approved_amount) $where=fiscal_year=2026 AND department like '%Park%' on data.seattle.gov/resource/8u2j-imqx (verified 2026-07-13: 272,607,622.34 over 707 rows)"
+      }
+    ],
+    "required_caveats": [
+      {
+        "id": "approved-not-actual",
+        "pattern": "(approved|budget(ed)?)[^.]{0,80}not[^.]{0,40}(actual|spending|spent)|not actual spending",
+        "description": "States that approved budget rows are not actual spending."
+      },
+      {
+        "id": "source-trace",
+        "pattern": "8u2j-imqx|data\\.seattle\\.gov|seattle\\.operating_budget",
+        "description": "Names the Socrata dataset or source id."
+      }
+    ],
+    "unlocked_by": "none - covered today (quality anchor)",
+    "improvement_path": "None required for the lookup; adjacent capital-budget context (m6va-m4qe) would enrich the parks answer.",
+    "score_dimensions": [
+      "correctness",
+      "traceability",
+      "coverage_awareness",
+      "comparability",
+      "civic_usefulness",
+      "freshness",
+      "improvement_path"
+    ]
+  },
+  {
+    "id": "kc-sheriff-budgeted-fte-2026",
+    "bucket": "wa-citizen",
+    "question": "How many positions does the King County Sheriff's Office have in the 2026 budget?",
+    "paraphrases": [
+      "How many deputies does King County budget for?",
+      "What's the budgeted staffing for the King County Sheriff?"
+    ],
+    "persona": "Council staffer preparing a public-safety committee memo",
+    "altitude": "county",
+    "jurisdiction": "King County, Washington",
+    "archetype": "8 - police/public-safety budget and staffing (county variant)",
+    "difficulty": "T1_lookup",
+    "anchor": false,
+    "plugin_prompt": "Using @civic-agent-dev, answer this as Civic Agent with source trace: How many positions does the King County Sheriff's Office have in the 2026 budget?",
+    "web_prompt": "Using official web sources where possible, answer: How many positions does the King County Sheriff's Office have in the 2026 budget?",
+    "required_claims": [
+      {
+        "jurisdiction": "King County, Washington",
+        "category": "workforce.budgeted_fte",
+        "role": "core"
+      }
+    ],
+    "mode_ceiling": "exact",
+    "expected_answer_mode": "exact",
+    "expected_failure_mode": "none",
+    "expected_source_ids": [
+      "king_county.open_budget_dashboard"
+    ],
+    "expected_missing_sources": [],
+    "expected_facts": [
+      {
+        "id": "kcso-2026-budgeted-fte",
+        "value": 1246,
+        "tolerance": 0,
+        "unit": "fte",
+        "description": "KCSO - Sheriff's Office budgeted FTE for 2026 in the dashboard snapshot",
+        "reproduction_ref": "jurisdictions/king_county/data/open-budget-dashboard/2026-04-01/normalized/department-fte-by-year.jsonl row: KCSO - Sheriff's Office, year 2026"
+      }
+    ],
+    "required_caveats": [
+      {
+        "id": "fte-not-headcount",
+        "pattern": "budgeted FTE|not[^.]{0,50}(headcount|roster|active (employees|deputies)|vacanc)",
+        "description": "States budgeted FTE is not an active headcount or roster."
+      },
+      {
+        "id": "snapshot-version",
+        "pattern": "2026-04-01|snapshot",
+        "description": "Names the snapshot version or refresh boundary."
+      }
+    ],
+    "unlocked_by": "none - covered today",
+    "improvement_path": "Department-level FTE history (2017-2027) from the same dashboard would enable staffing trends.",
+    "score_dimensions": [
+      "correctness",
+      "traceability",
+      "coverage_awareness",
+      "comparability",
+      "civic_usefulness",
+      "freshness",
+      "improvement_path"
+    ]
+  },
+  {
+    "id": "wa-operating-total-2025-27",
+    "bucket": "wa-citizen",
+    "question": "How big is Washington state's operating budget?",
+    "paraphrases": [
+      "What is the total Washington state budget right now?",
+      "How much does Washington state government spend in a budget cycle?"
+    ],
+    "persona": "First-time voter trying to size state government",
+    "altitude": "state",
+    "jurisdiction": "Washington State",
+    "archetype": "3-adjacent - state budget scale",
+    "difficulty": "T1_lookup",
+    "anchor": false,
+    "plugin_prompt": "Using @civic-agent-dev, answer this as Civic Agent with source trace: How big is Washington state's operating budget?",
+    "web_prompt": "Using official web sources where possible, answer: How big is Washington state's operating budget?",
+    "required_claims": [
+      {
+        "jurisdiction": "Washington State",
+        "category": "budget_finance.operating_budget",
+        "role": "core"
+      }
+    ],
+    "mode_ceiling": "exact",
+    "expected_answer_mode": "exact",
+    "expected_failure_mode": "none",
+    "expected_source_ids": [
+      "washington.operating_budget"
+    ],
+    "expected_missing_sources": [],
+    "expected_facts": [
+      {
+        "id": "wa-2025-27-total-budgeted",
+        "value": 150411096000,
+        "tolerance": 0,
+        "unit": "dollars",
+        "description": "2025-27 enacted biennial operating budget, Total Budgeted fund view",
+        "reproduction_ref": "washington.operating_budget snapshot 2025-27-enacted-2025-05-20, validation_checks.default_fund_view_total"
+      }
+    ],
+    "required_caveats": [
+      {
+        "id": "fund-view-named",
+        "pattern": "total budgeted|outlook funds|NGF-?O",
+        "description": "Names which fund view the total uses."
+      },
+      {
+        "id": "biennium-not-annual",
+        "pattern": "biennium|biennial|two[- ]year|2025-27",
+        "description": "States the total is a two-year biennial figure."
+      },
+      {
+        "id": "supplemental-excluded",
+        "pattern": "supplemental",
+        "description": "Notes the 2026 supplemental budget is not reflected in the snapshot."
+      }
+    ],
+    "unlocked_by": "none - covered today; 2026 supplemental slice is a probed-but-unimplemented extension",
+    "improvement_path": "Add the 2026 supplemental as a source slice so the most current state-budget question is answerable.",
+    "score_dimensions": [
+      "correctness",
+      "traceability",
+      "coverage_awareness",
+      "comparability",
+      "civic_usefulness",
+      "freshness",
+      "improvement_path"
+    ]
+  },
+  {
+    "id": "wa-checkbook-vendor-lookup",
+    "bucket": "wa-citizen",
+    "question": "Which vendors got the most money from Washington state last year?",
+    "paraphrases": [
+      "Who are the biggest recipients of Washington state payments?",
+      "Show me the top companies paid by Washington state agencies."
+    ],
+    "persona": "Journalist checking procurement concentration",
+    "altitude": "state",
+    "jurisdiction": "Washington State",
+    "archetype": "14 - who exactly got paid (open checkbook)",
+    "difficulty": "T1_lookup",
+    "anchor": true,
+    "plugin_prompt": "Using @civic-agent-dev, answer this as Civic Agent with source trace: Which vendors got the most money from Washington state last year?",
+    "web_prompt": "Using official web sources where possible, answer: Which vendors got the most money from Washington state last year?",
+    "required_claims": [
+      {
+        "jurisdiction": "Washington State",
+        "category": "budget_finance.actual_spending_checkbook",
+        "role": "core"
+      }
+    ],
+    "mode_ceiling": "exact",
+    "expected_answer_mode": "exact",
+    "expected_failure_mode": "none",
+    "expected_source_ids": [
+      "washington.open_checkbook"
+    ],
+    "expected_missing_sources": [],
+    "expected_facts": [],
+    "max_data_age_days": 180,
+    "required_caveats": [
+      {
+        "id": "payments-not-budget",
+        "pattern": "vendor payments?[^.]{0,80}(actual|not[^.]{0,40}(budget|authority))|actual payment",
+        "description": "States vendor payments are actuals, not budget authority."
+      },
+      {
+        "id": "partial-period",
+        "pattern": "partial|through (april|[0-9]{4}-[0-9]{2})|data[- ]through",
+        "description": "States the current biennium file is partial through the data-through month."
+      },
+      {
+        "id": "salary-exclusions",
+        "pattern": "exclud|salar|payroll|not[^.]{0,40}(payroll|salaries)",
+        "description": "Discloses that salaries/payroll and some exempt payments are not in the checkbook."
+      }
+    ],
+    "unlocked_by": "none - covered today; hosted aggregates checked in (M3, snapshot 2025-27-through-2026-05)",
+    "improvement_path": "Full vendor grain beyond the top-100 aggregate still routes to the managed local database; a hosted_artifact SQLite would remove that last gap.",
+    "score_dimensions": [
+      "correctness",
+      "traceability",
+      "coverage_awareness",
+      "comparability",
+      "civic_usefulness",
+      "freshness",
+      "improvement_path"
+    ]
+  },
+  {
+    "id": "pierce-county-budget-size",
+    "bucket": "wa-citizen",
+    "question": "How big is Pierce County's budget and what do they spend it on?",
+    "paraphrases": [
+      "What's Pierce County's total budget this year?",
+      "Where does Pierce County's money go by department?"
+    ],
+    "persona": "Tacoma small-business owner near the Dome District",
+    "altitude": "county",
+    "jurisdiction": "Pierce County, Washington",
+    "archetype": "11-adjacent - county budget scale (Pierce variant)",
+    "difficulty": "T1_lookup",
+    "anchor": false,
+    "plugin_prompt": "Using @civic-agent-dev, answer this as Civic Agent with source trace: How big is Pierce County's budget and what do they spend it on?",
+    "web_prompt": "Using official web sources where possible, answer: How big is Pierce County's budget and what do they spend it on?",
+    "required_claims": [
+      {
+        "jurisdiction": "Pierce County, Washington",
+        "category": "budget_finance.operating_budget",
+        "role": "core"
+      },
+      {
+        "jurisdiction": "Pierce County, Washington",
+        "category": "budget_finance.actual_spending_checkbook",
+        "role": "adjunct",
+        "note": "Pierce publishes a transaction-level open checkbook (iwu2-biyj); 'what do they spend it on' is fully answerable once both land."
+      }
+    ],
+    "mode_ceiling": "exact",
+    "expected_answer_mode": "exact",
+    "expected_failure_mode": "none",
+    "expected_source_ids": [
+      "pierce_county.open_budget",
+      "pierce_county.open_checkbook"
+    ],
+    "expected_missing_sources": [],
+    "expected_facts": [
+      {
+        "id": "pierce-2026-2027-budget-total",
+        "value": 3500588070,
+        "tolerance": 0,
+        "unit": "dollars",
+        "description": "Pierce County 2026-2027 biennial budgeted expenditure total",
+        "reproduction_ref": "SoQL: sum(budget) where fiscal_year=\"2026-2027\" on open.piercecountywa.gov/resource/w2wc-2pqu (verified 2026-07-13: 3,500,588,070 over 10,362 rows)"
+      }
+    ],
+    "required_caveats": [
+      {
+        "id": "biennial-not-annual",
+        "pattern": "biennium|biennial|two[- ]year|2026-2027",
+        "description": "Names the two-year budget period; never presents the total as annual."
+      },
+      {
+        "id": "budgeted-not-actual",
+        "pattern": "budget(ed)?[^.]{0,80}not[^.]{0,40}(actual|spent|spending)|budget authority",
+        "description": "Distinguishes budgeted expenditure authority from actual spending."
+      },
+      {
+        "id": "expenditure-only",
+        "pattern": "(revenue|staffing)[^.]{0,90}(no|not)[^.]{0,60}(source|supported|covered)|expenditure[- ](side|only|data)",
+        "description": "Notes the accepted Pierce sources are expenditure-side only."
+      }
+    ],
+    "unlocked_by": "covered as of 2026-07-13 (pierce_county.open_budget + open_checkbook, live Socrata)",
+    "improvement_path": "Probe a Pierce County revenue source and budgeted-FTE source to complete the county picture.",
+    "score_dimensions": [
+      "correctness",
+      "traceability",
+      "coverage_awareness",
+      "comparability",
+      "civic_usefulness",
+      "freshness",
+      "improvement_path"
+    ]
+  },
+  {
+    "id": "walla-walla-city-budget",
+    "bucket": "wa-citizen",
+    "question": "What is the City of Walla Walla's budget?",
+    "paraphrases": [
+      "How much does Walla Walla spend per year?",
+      "Where can I see the Walla Walla city budget?"
+    ],
+    "persona": "Walla Walla retiree on a fixed income",
+    "altitude": "city",
+    "jurisdiction": "City of Walla Walla",
+    "archetype": "small-town coverage / fabrication trap",
+    "difficulty": "T1_lookup",
+    "anchor": false,
+    "plugin_prompt": "Using @civic-agent-dev, answer this as Civic Agent with source trace: What is the City of Walla Walla's budget?",
+    "web_prompt": "Using official web sources where possible, answer: What is the City of Walla Walla's budget?",
+    "required_claims": [
+      {
+        "jurisdiction": "City of Walla Walla",
+        "category": "budget_finance.filed_annual_actuals",
+        "role": "core",
+        "note": "FIT (SAO filed Schedule 01 actuals) is the planned statewide path for small cities."
+      },
+      {
+        "jurisdiction": "City of Walla Walla",
+        "category": "budget_finance.operating_budget",
+        "role": "adjunct",
+        "note": "Adopted budget would come from the city itself (PDF-only today)."
+      },
+      {
+        "jurisdiction": "City of Walla Walla",
+        "category": "population_demographics.population_denominator",
+        "role": "adjunct",
+        "note": "OFM already holds every WA city's population; extending the card's coverage jurisdictions makes graceful failure richer (M5)."
+      }
+    ],
+    "mode_ceiling": "exact",
+    "expected_answer_mode": "partial",
+    "expected_failure_mode": "missing_source",
+    "expected_source_ids": [
+      "washington.fit_filed_actuals"
+    ],
+    "expected_missing_sources": [
+      "City of Walla Walla adopted budget (PDF-only today)"
+    ],
+    "expected_facts": [
+      {
+        "id": "walla-walla-2024-expenditures",
+        "value": 96284787,
+        "tolerance": 0,
+        "unit": "dollars",
+        "description": "City of Walla Walla 2024 filed total expenditures (FIT headline basis)",
+        "reproduction_ref": "jurisdictions/washington/data/fit-filed-actuals/milestone-2025-published-2026-06-30/normalized/government-annual-totals.jsonl (verified live 2026-07-13)"
+      }
+    ],
+    "required_caveats": [
+      {
+        "id": "filed-actuals-not-budget",
+        "pattern": "filed|state auditor|FIT|actuals?[^.]{0,60}not[^.]{0,40}budget|not[^.]{0,30}(a|the) budget",
+        "description": "Presents FIT numbers as filed actuals, never as a budget."
+      },
+      {
+        "id": "adopted-budget-path",
+        "pattern": "adopted budget|wallawallawa\\.gov|budget (book|document)",
+        "description": "Names the missing adopted-budget half and where it lives."
+      }
+    ],
+    "unlocked_by": "washington.fit_filed_actuals (accepted 2026-07-13); adopted budget remains the missing half",
+    "improvement_path": "Small-city adopted budgets are PDF-only; treat FIT actuals as the standing answer and revisit only on demand signal.",
+    "score_dimensions": [
+      "correctness",
+      "traceability",
+      "coverage_awareness",
+      "comparability",
+      "civic_usefulness",
+      "freshness",
+      "improvement_path"
+    ]
+  },
+  {
+    "id": "spd-budget-2020-vs-2026",
+    "bucket": "wa-citizen",
+    "question": "How has Seattle's police budget changed since 2020?",
+    "paraphrases": [
+      "Did Seattle defund the police? What happened to SPD's budget after 2020?",
+      "Compare SPD's budget in 2020 and 2026."
+    ],
+    "persona": "Seattle renter who followed the 2020 budget fights",
+    "altitude": "city",
+    "jurisdiction": "City of Seattle",
+    "archetype": "8 - police budget over time",
+    "difficulty": "T2_composition",
+    "anchor": false,
+    "plugin_prompt": "Using @civic-agent-dev, answer this as Civic Agent with source trace: How has Seattle's police budget changed since 2020?",
+    "web_prompt": "Using official web sources where possible, answer: How has Seattle's police budget changed since 2020?",
+    "required_claims": [
+      {
+        "jurisdiction": "City of Seattle",
+        "category": "budget_finance.operating_budget",
+        "role": "core"
+      }
+    ],
+    "mode_ceiling": "exact",
+    "expected_answer_mode": "exact",
+    "expected_failure_mode": "none",
+    "expected_source_ids": [
+      "seattle.operating_budget"
+    ],
+    "expected_missing_sources": [],
+    "expected_facts": [
+      {
+        "id": "spd-fy2020-approved-total",
+        "value": 408611750,
+        "tolerance": 3000000,
+        "unit": "dollars",
+        "description": "Seattle Police Department FY2020 approved operating budget",
+        "reproduction_ref": "SoQL: department='Seattle Police Department' AND fiscal_year=2020 on 8u2j-imqx (corrected 2026-07-14; the original value wrongly summed all %POLICE% departments incl. Community Police Commission and Police Relief and Pension)"
+      },
+      {
+        "id": "spd-fy2026-approved-total",
+        "value": 488586234.95,
+        "tolerance": 3000000,
+        "unit": "dollars",
+        "description": "Seattle Police Department FY2026 approved operating budget",
+        "reproduction_ref": "SoQL: department='Seattle Police Department' AND fiscal_year=2026 on 8u2j-imqx (corrected 2026-07-14, same reason)"
+      }
+    ],
+    "required_caveats": [
+      {
+        "id": "nominal-not-inflation",
+        "pattern": "nominal|not[^.]{0,50}inflation|inflation[- ]adjust",
+        "description": "States the change is nominal, not inflation-adjusted."
+      },
+      {
+        "id": "dept-structure",
+        "pattern": "(department|organizational|accounting)[^.]{0,60}(change|reorganiz|moved|transfer)|comparab",
+        "description": "Flags department restructures (e.g., functions moved out of SPD) as comparability risks."
+      },
+      {
+        "id": "approved-not-actual",
+        "pattern": "(approved|budget(ed)?)[^.]{0,80}not[^.]{0,40}(actual|spending|spent)|not actual spending",
+        "description": "States budgets are not actual spending or overtime actuals."
+      }
+    ],
+    "unlocked_by": "none - covered today (trend anchor); staffing/overtime actuals remain out of scope",
+    "improvement_path": "Seattle wage/position data (2khk-5ukd) and quarterly staffing reports would let the staffing half of the question be answered.",
+    "score_dimensions": [
+      "correctness",
+      "traceability",
+      "coverage_awareness",
+      "comparability",
+      "civic_usefulness",
+      "freshness",
+      "improvement_path"
+    ]
+  },
+  {
+    "id": "spokane-police-vs-housing",
+    "bucket": "wa-citizen",
+    "question": "How much does the City of Spokane spend on police compared to housing and homelessness?",
+    "paraphrases": [
+      "What's the Spokane police budget versus what Spokane puts into housing?",
+      "Where does Spokane's money go - is it mostly public safety?"
+    ],
+    "persona": "Spokane renter active in a tenants' union",
+    "altitude": "city",
+    "jurisdiction": "City of Spokane",
+    "archetype": "8 - police budget (non-Seattle variant)",
+    "difficulty": "T2_composition",
+    "anchor": false,
+    "plugin_prompt": "Using @civic-agent-dev, answer this as Civic Agent with source trace: How much does the City of Spokane spend on police compared to housing and homelessness?",
+    "web_prompt": "Using official web sources where possible, answer: How much does the City of Spokane spend on police compared to housing and homelessness?",
+    "required_claims": [
+      {
+        "jurisdiction": "City of Spokane",
+        "category": "budget_finance.filed_annual_actuals",
+        "role": "core",
+        "note": "FIT BARS expenditure categories (public safety vs housing/community services) are the only machine-readable Spokane path; the city is PDF-only."
+      }
+    ],
+    "mode_ceiling": "partial",
+    "expected_answer_mode": "partial",
+    "expected_failure_mode": "semantic_mismatch",
+    "expected_source_ids": [
+      "washington.fit_filed_actuals"
+    ],
+    "expected_missing_sources": [
+      "BARS function-category breakdown as a reviewed claim (totals only today)"
+    ],
+    "expected_facts": [],
+    "required_caveats": [
+      {
+        "id": "filed-actuals-not-budget",
+        "pattern": "filed|state auditor|FIT|actuals?[^.]{0,60}not[^.]{0,40}budget|not[^.]{0,30}(a|the) budget",
+        "description": "Presents FIT numbers as filed actuals, never as a budget."
+      },
+      {
+        "id": "category-mapping",
+        "pattern": "BARS|categor(y|ies)[^.]{0,80}(not|don.t|do not)[^.]{0,50}(match|map)|function[^.]{0,60}mapping|totals?[^.]{0,60}only",
+        "description": "States police-vs-housing needs a category breakdown that is not yet a reviewed claim; totals alone cannot answer it."
+      },
+      {
+        "id": "path-named",
+        "pattern": "spokanecity\\.org|budget (book|document)|portal\\.sao\\.wa\\.gov|FIT",
+        "description": "Points at the official drill-down path."
+      }
+    ],
+    "unlocked_by": "FIT totals accepted 2026-07-13; the BARS category cube is the probed-but-unreviewed drill-down",
+    "improvement_path": "Review the FIT Schedule1 cube category grain (BARS function categories) as a claim extension; map BARS categories to resident language with explicit caveats.",
+    "score_dimensions": [
+      "correctness",
+      "traceability",
+      "coverage_awareness",
+      "comparability",
+      "civic_usefulness",
+      "freshness",
+      "improvement_path"
+    ]
+  },
+  {
+    "id": "evergreen-schools-cuts",
+    "bucket": "wa-citizen",
+    "question": "Evergreen Public Schools keeps cutting teachers - is the district actually getting less money than it used to?",
+    "paraphrases": [
+      "Has Evergreen school district's revenue gone down, or are costs just up?",
+      "Show me Evergreen (Vancouver) school district's budget over the last few years."
+    ],
+    "persona": "Vancouver WA parent with a middle-schooler in Evergreen Public Schools",
+    "altitude": "school_district",
+    "jurisdiction": "Evergreen School District (Clark County)",
+    "archetype": "5 - school district cuts (~100 districts cutting)",
+    "difficulty": "T2_composition",
+    "anchor": false,
+    "plugin_prompt": "Using @civic-agent-dev, answer this as Civic Agent with source trace: Evergreen Public Schools keeps cutting teachers - is the district actually getting less money than it used to?",
+    "web_prompt": "Using official web sources where possible, answer: Evergreen Public Schools keeps cutting teachers - is the district actually getting less money than it used to?",
+    "required_claims": [
+      {
+        "jurisdiction": "Evergreen School District (Clark County)",
+        "category": "budget_finance.filed_annual_actuals",
+        "role": "core",
+        "note": "FIT Schools route (OSPI-sourced) provides filed revenues/expenditures for all 295 districts."
+      },
+      {
+        "jurisdiction": "Evergreen School District (Clark County)",
+        "category": "proposed:population_demographics.enrollment",
+        "role": "adjunct",
+        "note": "OSPI enrollment (P-223) is required for per-pupil framing; revenue-up-but-per-pupil-down is the common trap."
+      }
+    ],
+    "mode_ceiling": "exact",
+    "expected_answer_mode": "partial",
+    "expected_failure_mode": "missing_source",
+    "expected_source_ids": [
+      "washington.fit_filed_actuals"
+    ],
+    "expected_missing_sources": [
+      "OSPI enrollment time series (per-pupil framing)"
+    ],
+    "expected_facts": [
+      {
+        "id": "evergreen-2025-revenues",
+        "value": 488762832.47,
+        "tolerance": 0,
+        "unit": "dollars",
+        "description": "Evergreen SD No. 114 filed revenues, school year ending Aug 31 2025 (OSPI)",
+        "reproduction_ref": "jurisdictions/washington/data/fit-filed-actuals/milestone-2025-published-2026-06-30/normalized/school-district-annual-totals.jsonl"
+      }
+    ],
+    "required_caveats": [
+      {
+        "id": "ospi-basis",
+        "pattern": "OSPI|modified accrual|aug(ust)? ?31|school fiscal year|F-196",
+        "description": "Labels the OSPI basis and Aug 31 school fiscal year."
+      },
+      {
+        "id": "nominal-vs-perpupil",
+        "pattern": "per[- ](pupil|student)|enrollment|inflation",
+        "description": "Distinguishes total revenue from per-pupil purchasing power; names the missing enrollment source."
+      },
+      {
+        "id": "filed-actuals-not-budget",
+        "pattern": "filed|state auditor|FIT|actuals?[^.]{0,60}not[^.]{0,40}budget|not[^.]{0,30}(a|the) budget",
+        "description": "Presents FIT numbers as filed actuals, never as a budget."
+      }
+    ],
+    "unlocked_by": "FIT Schools route accepted 2026-07-13; OSPI enrollment remains for per-pupil depth",
+    "improvement_path": "Probe OSPI P-223 enrollment as an adjunct denominator source to complete per-pupil trends.",
+    "score_dimensions": [
+      "correctness",
+      "traceability",
+      "coverage_awareness",
+      "comparability",
+      "civic_usefulness",
+      "freshness",
+      "improvement_path"
+    ]
+  },
+  {
+    "id": "sound-transit-car-tabs",
+    "bucket": "wa-citizen",
+    "question": "I pay Sound Transit car tabs every year - how much money does Sound Transit actually take in and spend?",
+    "paraphrases": [
+      "Where do my ST3 car-tab dollars go?",
+      "What are Sound Transit's total revenues and spending?"
+    ],
+    "persona": "Tacoma commuter paying MVET on two vehicles",
+    "altitude": "special_district",
+    "jurisdiction": "Sound Transit",
+    "archetype": "9 - Sound Transit ST3 gap + car tabs",
+    "difficulty": "T2_composition",
+    "anchor": false,
+    "plugin_prompt": "Using @civic-agent-dev, answer this as Civic Agent with source trace: I pay Sound Transit car tabs every year - how much money does Sound Transit actually take in and spend?",
+    "web_prompt": "Using official web sources where possible, answer: I pay Sound Transit car tabs every year - how much money does Sound Transit actually take in and spend?",
+    "required_claims": [
+      {
+        "jurisdiction": "Sound Transit",
+        "category": "budget_finance.filed_annual_actuals",
+        "role": "core",
+        "note": "Sound Transit files with SAO (Central Puget Sound Regional Transit Authority); FIT is the machine-readable path."
+      }
+    ],
+    "mode_ceiling": "exact",
+    "expected_answer_mode": "exact",
+    "expected_failure_mode": "none",
+    "expected_source_ids": [
+      "washington.fit_filed_actuals"
+    ],
+    "expected_missing_sources": [
+      "revenue-stream breakdown (MVET vs sales vs property tax) as a reviewed claim",
+      "ST3 capital-plan projections (out of scope)"
+    ],
+    "expected_facts": [
+      {
+        "id": "sound-transit-2024-revenues",
+        "value": 2599304000,
+        "tolerance": 0,
+        "unit": "dollars",
+        "description": "Sound Transit 2024 filed total revenues (reported in round thousands)",
+        "reproduction_ref": "jurisdictions/washington/data/fit-filed-actuals/milestone-2025-published-2026-06-30/normalized/government-annual-totals.jsonl"
+      }
+    ],
+    "required_caveats": [
+      {
+        "id": "filed-actuals-not-budget",
+        "pattern": "filed|state auditor|FIT|actuals?[^.]{0,60}not[^.]{0,40}budget|not[^.]{0,30}(a|the) budget",
+        "description": "Presents FIT numbers as filed actuals, never as a budget."
+      },
+      {
+        "id": "st3-gap-out-of-scope",
+        "pattern": "(ST3|capital (plan|program|buildout))[^.]{0,140}(project|construction|future|expansion|separate|estimate|out of scope)|(affordability|program) gap",
+        "description": "Separates filed actuals from the ST3 capital program (buildout/plan framing counts)."
+      },
+      {
+        "id": "mvet-one-stream",
+        "pattern": "MVET|car[- ]tab|one[^.]{0,40}(stream|source)|sales tax|property tax",
+        "description": "Notes car tabs are one revenue stream among several; the per-stream split is not yet a reviewed claim."
+      }
+    ],
+    "unlocked_by": "covered (FIT filed actuals); ceiling raised to exact per 2026-07-14 maintainer calibration - the asked question (total in/out) is fully answered by filed totals",
+    "improvement_path": "Revenue-stream split (MVET vs sales vs property tax) via the FIT cube would enrich the answer; ST3 capital-plan questions need their own source.",
+    "score_dimensions": [
+      "correctness",
+      "traceability",
+      "coverage_awareness",
+      "comparability",
+      "civic_usefulness",
+      "freshness",
+      "improvement_path"
+    ]
+  },
+  {
+    "id": "kc-actuals-vs-budget-trap",
+    "bucket": "wa-citizen",
+    "question": "Did King County actually spend what it budgeted last year?",
+    "paraphrases": [
+      "How close was King County's real spending to its budget?",
+      "Show me King County budget versus actuals."
+    ],
+    "persona": "Auditor-minded resident who reads county budget coverage",
+    "altitude": "county",
+    "jurisdiction": "King County, Washington",
+    "archetype": "budget-vs-actual reconciliation / fabrication trap",
+    "difficulty": "T2_composition",
+    "anchor": false,
+    "plugin_prompt": "Using @civic-agent-dev, answer this as Civic Agent with source trace: Did King County actually spend what it budgeted last year?",
+    "web_prompt": "Using official web sources where possible, answer: Did King County actually spend what it budgeted last year?",
+    "required_claims": [
+      {
+        "jurisdiction": "King County, Washington",
+        "category": "budget_finance.filed_annual_actuals",
+        "role": "core",
+        "note": "No actuals source exists for King County today; only budgeted values. Honest behavior is refusal with a path."
+      },
+      {
+        "jurisdiction": "King County, Washington",
+        "category": "budget_finance.operating_budget",
+        "role": "adjunct",
+        "note": "The budgeted side of the comparison is already covered."
+      }
+    ],
+    "mode_ceiling": "partial",
+    "expected_answer_mode": "side_by_side_only",
+    "expected_failure_mode": "semantic_mismatch",
+    "expected_source_ids": [
+      "king_county.open_budget_dashboard",
+      "washington.fit_filed_actuals"
+    ],
+    "expected_missing_sources": [
+      "frame-alignment recipe: filed annual actuals vs annual dashboard budgeted values"
+    ],
+    "expected_facts": [
+      {
+        "id": "king-county-2024-expenditures",
+        "value": 5312711000,
+        "tolerance": 0,
+        "unit": "dollars",
+        "description": "King County 2024 filed total expenditures (FIT headline basis, round thousands)",
+        "reproduction_ref": "jurisdictions/washington/data/fit-filed-actuals/milestone-2025-published-2026-06-30/normalized/government-annual-totals.jsonl"
+      }
+    ],
+    "required_caveats": [
+      {
+        "id": "filed-actuals-not-budget",
+        "pattern": "filed|state auditor|FIT|actuals?[^.]{0,60}not[^.]{0,40}budget|not[^.]{0,30}(a|the) budget",
+        "description": "Presents FIT numbers as filed actuals, never as a budget."
+      },
+      {
+        "id": "frame-mismatch",
+        "pattern": "(annual|biennial|filed|dashboard)[^.]{0,80}(frame|basis|not[^.]{0,40}identical|different|side by side)",
+        "description": "Presents filed actuals and dashboard budgeted values side by side as different frames, never as a reconciled verdict."
+      },
+      {
+        "id": "internal-service-basis",
+        "pattern": "internal service|headline basis|excludes",
+        "description": "Names the excludes-internal-service-funds basis of the FIT headline number."
+      }
+    ],
+    "unlocked_by": "covered (FIT actuals + KC dashboard); side_by_side_only per 2026-07-14 maintainer calibration - the recipe definition fits: frames shown side by side, never reconciled",
+    "improvement_path": "A budget-vs-actual recipe that presents the two frames side by side with basis caveats is the remaining contract.",
+    "score_dimensions": [
+      "correctness",
+      "traceability",
+      "coverage_awareness",
+      "comparability",
+      "civic_usefulness",
+      "freshness",
+      "improvement_path"
+    ]
+  },
+  {
+    "id": "pierce-vs-king-per-resident",
+    "bucket": "wa-citizen",
+    "question": "Does Pierce County spend more or less per resident than King County?",
+    "paraphrases": [
+      "Compare Pierce and King County budgets per person.",
+      "Per capita, which county government is bigger - Pierce or King?"
+    ],
+    "persona": "Regional reporter building a comparison table",
+    "altitude": "multi",
+    "jurisdiction": "Pierce County, Washington; King County, Washington",
+    "archetype": "cross-jurisdiction per-capita comparison",
+    "difficulty": "T2_composition",
+    "anchor": true,
+    "plugin_prompt": "Using @civic-agent-dev, answer this as Civic Agent with source trace: Does Pierce County spend more or less per resident than King County?",
+    "web_prompt": "Using official web sources where possible, answer: Does Pierce County spend more or less per resident than King County?",
+    "required_claims": [
+      {
+        "jurisdiction": "King County, Washington",
+        "category": "budget_finance.operating_budget",
+        "role": "core"
+      },
+      {
+        "jurisdiction": "Pierce County, Washington",
+        "category": "budget_finance.operating_budget",
+        "role": "core"
+      },
+      {
+        "jurisdiction": "King County, Washington",
+        "category": "population_demographics.population_denominator",
+        "role": "core"
+      },
+      {
+        "jurisdiction": "Pierce County, Washington",
+        "category": "population_demographics.population_denominator",
+        "role": "core",
+        "note": "OFM snapshot contains Pierce County rows; the card's coverage jurisdictions must claim it before Tier 0 counts it."
+      }
+    ],
+    "mode_ceiling": "exact",
+    "expected_answer_mode": "exact",
+    "expected_failure_mode": "none",
+    "expected_source_ids": [
+      "king_county.open_budget_dashboard",
+      "pierce_county.open_budget",
+      "washington.ofm_population"
+    ],
+    "expected_missing_sources": [],
+    "expected_facts": [],
+    "required_caveats": [
+      {
+        "id": "denominator-cited",
+        "pattern": "OFM|april 1|office of financial management",
+        "description": "Cites OFM April 1 population with the estimate year; year-matched denominators (2024 pops with 2024 actuals) are correct and preferred."
+      },
+      {
+        "id": "service-scope",
+        "pattern": "(service|responsibilit|scope)[^.]{0,80}(differ|not[^.]{0,40}comparable|vary)",
+        "description": "Warns county service responsibilities differ, so per-resident values are not directly comparable."
+      },
+      {
+        "id": "comparability-basis-named",
+        "pattern": "same (source|basis|year|filed)|filed actuals[^.]{0,80}(both|each)|(biennial|two[- ]year)[^.]{0,90}(annual|align|approximation)|halv",
+        "description": "Names the comparability basis: either both sides on one source/basis/year (e.g. FIT filed actuals), or the biennial-to-annual alignment labeled."
+      }
+    ],
+    "unlocked_by": "covered; ratcheted to exact per 2026-07-14 maintainer calibration with the labeled biennial-to-annual alignment rule added to the cross_jurisdiction recipe",
+    "improvement_path": "None required; watch that answers keep the period-alignment labeling and OFM denominators.",
+    "score_dimensions": [
+      "correctness",
+      "traceability",
+      "coverage_awareness",
+      "comparability",
+      "civic_usefulness",
+      "freshness",
+      "improvement_path"
+    ]
+  },
+  {
+    "id": "wa-new-taxes-actually-collecting",
+    "bucket": "wa-citizen",
+    "question": "Are the new 2025 state taxes actually bringing in the money that was projected?",
+    "paraphrases": [
+      "Is Washington's 2025 tax package hitting its revenue estimates?",
+      "How is actual state revenue tracking against the forecast since the new taxes passed?"
+    ],
+    "persona": "Small-business owner who absorbed the new services sales tax",
+    "altitude": "state",
+    "jurisdiction": "Washington State",
+    "archetype": "2/3 - new taxes vs revenue reality",
+    "difficulty": "T2_composition",
+    "anchor": false,
+    "plugin_prompt": "Using @civic-agent-dev, answer this as Civic Agent with source trace: Are the new 2025 state taxes actually bringing in the money that was projected?",
+    "web_prompt": "Using official web sources where possible, answer: Are the new 2025 state taxes actually bringing in the money that was projected?",
+    "required_claims": [
+      {
+        "jurisdiction": "Washington State",
+        "category": "budget_finance.revenue_budget",
+        "role": "core",
+        "note": "Estimate-vs-actual General Fund revenue is the covered slice; freshness is the binding constraint."
+      },
+      {
+        "jurisdiction": "Washington State",
+        "category": "proposed:budget_finance.revenue_forecast",
+        "role": "adjunct",
+        "note": "ERFC quarterly forecast revisions would let the answer speak to 'projected' directly."
+      }
+    ],
+    "max_data_age_days": 120,
+    "mode_ceiling": "exact",
+    "expected_answer_mode": "partial",
+    "expected_failure_mode": "missing_source",
+    "expected_source_ids": [
+      "washington.revenue_by_biennium"
+    ],
+    "expected_missing_sources": [
+      "ERFC revenue forecast source"
+    ],
+    "expected_facts": [],
+    "required_caveats": [
+      {
+        "id": "partial-period",
+        "pattern": "partial|through (april|[0-9]{4}-[0-9]{2})|data[- ]through",
+        "description": "States current-biennium actuals are partial through the data-through month."
+      },
+      {
+        "id": "general-fund-scope",
+        "pattern": "general fund|fund 001",
+        "description": "States the accepted slice is General Fund only, not every new tax stream."
+      },
+      {
+        "id": "publication-lag",
+        "pattern": "publish|lag|data.through|through (may|[0-9]{4}-[0-9]{2})|as of|revis",
+        "description": "States the data-through boundary with publication-lag language and notes that values revise between snapshots."
+      }
+    ],
+    "unlocked_by": "Revenue snapshot refreshed 2026-07-14 (data through 2026-05); the 120-day bound now matches the source cadence (30d interval + 75d lag). ERFC forecast source remains the missing adjunct.",
+    "improvement_path": "Probe ERFC quarterly forecasts as an estimate-revision source; keep the snapshot within its cadence window via scripts/refresh.py.",
+    "score_dimensions": [
+      "correctness",
+      "traceability",
+      "coverage_awareness",
+      "comparability",
+      "civic_usefulness",
+      "freshness",
+      "improvement_path"
+    ]
+  },
+  {
+    "id": "school-levy-household-cost",
+    "bucket": "wa-citizen",
+    "question": "What would the school levy on my ballot cost my household?",
+    "paraphrases": [
+      "How much will the local school levy add to my property taxes?",
+      "What does a levy rate of $1.50 per $1,000 mean for my tax bill?"
+    ],
+    "persona": "School-board voter with a February special election ballot",
+    "altitude": "school_district",
+    "jurisdiction": "Washington State (school districts)",
+    "archetype": "10 - what does this ballot levy cost my household",
+    "difficulty": "T2_composition",
+    "anchor": false,
+    "plugin_prompt": "Using @civic-agent-dev, answer this as Civic Agent with source trace: What would the school levy on my ballot cost my household?",
+    "web_prompt": "Using official web sources where possible, answer: What would the school levy on my ballot cost my household?",
+    "required_claims": [
+      {
+        "jurisdiction": "Washington State",
+        "category": "budget_finance.property_tax_levies",
+        "role": "core",
+        "note": "DOR levy tables by taxing district are the planned statewide source."
+      }
+    ],
+    "mode_ceiling": "partial",
+    "expected_answer_mode": "partial",
+    "expected_failure_mode": "missing_source",
+    "expected_source_ids": [
+      "washington.dor_property_tax_levies"
+    ],
+    "expected_missing_sources": [
+      "parcel assessed value (household math input)",
+      "ballot-measure text (voters pamphlet / elections source)"
+    ],
+    "expected_facts": [
+      {
+        "id": "statewide-school-enrichment-2025",
+        "value": 2814008373,
+        "tolerance": 0,
+        "unit": "dollars",
+        "description": "Statewide school enrichment (EP&O) levies due 2025 across 374 district levies",
+        "reproduction_ref": "levy-detail.jsonl sum(district_levy) where district_type=local_school, levy_type=school_enrichment, year_due=2025; reconciles with DOR Table_12"
+      }
+    ],
+    "required_caveats": [
+      {
+        "id": "parcel-dependence",
+        "pattern": "assessed value|parcel|your (home|property)[^.]{0,60}(value|assessment)|illustrat",
+        "description": "Household cost depends on the parcel assessed value; any per-household figure is labeled illustrative."
+      },
+      {
+        "id": "rates-per-1000",
+        "pattern": "per\\s*\\$?1,?000|rate",
+        "description": "Expresses rates as dollars per $1,000 of assessed value."
+      },
+      {
+        "id": "path-named",
+        "pattern": "voters.{0,20}(pamphlet|guide)|elections|assessor|dor\\.wa\\.gov",
+        "description": "Points at the voters pamphlet or elections source for the specific measure text."
+      }
+    ],
+    "unlocked_by": "washington.dor_property_tax_levies (accepted 2026-07-14); district rates and amounts answerable, household math stays illustrative",
+    "improvement_path": "Median assessed values per district would let illustrative household math be standardized; measure text needs an elections source.",
+    "score_dimensions": [
+      "correctness",
+      "traceability",
+      "coverage_awareness",
+      "comparability",
+      "civic_usefulness",
+      "freshness",
+      "improvement_path"
+    ]
+  },
+  {
+    "id": "sps-deficit-school-closures",
+    "bucket": "wa-citizen",
+    "question": "Why is Seattle Public Schools closing schools? Where does their money actually go?",
+    "paraphrases": [
+      "SPS says it has a huge deficit - what are they spending on that got them here?",
+      "My kid's school might close. Show me Seattle school district's budget."
+    ],
+    "persona": "SPS parent in Beacon Hill with two kids in district schools",
+    "altitude": "school_district",
+    "jurisdiction": "Seattle School District No. 1",
+    "archetype": "5 - why is my school district cutting/closing",
+    "difficulty": "T3_interpretation",
+    "anchor": false,
+    "plugin_prompt": "Using @civic-agent-dev, answer this as Civic Agent with source trace: Why is Seattle Public Schools closing schools? Where does their money actually go?",
+    "web_prompt": "Using official web sources where possible, answer: Why is Seattle Public Schools closing schools? Where does their money actually go?",
+    "required_claims": [
+      {
+        "jurisdiction": "Seattle School District No. 1",
+        "category": "budget_finance.filed_annual_actuals",
+        "role": "core",
+        "note": "FIT Schools route (mcag 1903, OSPI-sourced) is the planned machine-readable path."
+      },
+      {
+        "jurisdiction": "Seattle School District No. 1",
+        "category": "budget_finance.operating_budget",
+        "role": "adjunct",
+        "note": "F-195 adopted budget would come from OSPI files."
+      }
+    ],
+    "mode_ceiling": "partial",
+    "expected_answer_mode": "partial",
+    "expected_failure_mode": "missing_source",
+    "expected_source_ids": [
+      "washington.fit_filed_actuals"
+    ],
+    "expected_missing_sources": [
+      "OSPI F-195 adopted budgets",
+      "OSPI enrollment time series"
+    ],
+    "expected_facts": [
+      {
+        "id": "sps-2025-revenues",
+        "value": 1518641110.55,
+        "tolerance": 0,
+        "unit": "dollars",
+        "description": "Seattle SD No. 1 filed revenues, school year ending Aug 31 2025 (OSPI)",
+        "reproduction_ref": "jurisdictions/washington/data/fit-filed-actuals/milestone-2025-published-2026-06-30/normalized/school-district-annual-totals.jsonl"
+      }
+    ],
+    "required_caveats": [
+      {
+        "id": "causation-is-interpretation",
+        "pattern": "(why|caus|reason)[^.]{0,90}(interpret|beyond|cannot|multiple factors|enrollment|levy cap|ESSER)",
+        "description": "Separates filed financial facts from causal interpretation of closures."
+      },
+      {
+        "id": "ospi-basis",
+        "pattern": "OSPI|modified accrual|aug(ust)? ?31|school fiscal year|F-196",
+        "description": "Labels the OSPI basis and Aug 31 school fiscal year."
+      },
+      {
+        "id": "filed-actuals-not-budget",
+        "pattern": "filed|state auditor|FIT|actuals?[^.]{0,60}not[^.]{0,40}budget|not[^.]{0,30}(a|the) budget",
+        "description": "Presents FIT numbers as filed actuals, never as a budget."
+      }
+    ],
+    "unlocked_by": "FIT Schools route accepted 2026-07-13; F-195 budgets and enrollment remain for the deficit story",
+    "improvement_path": "Probe OSPI F-195 budget files and enrollment to pair filed actuals with adopted budgets and per-pupil trends.",
+    "score_dimensions": [
+      "correctness",
+      "traceability",
+      "coverage_awareness",
+      "comparability",
+      "civic_usefulness",
+      "freshness",
+      "improvement_path"
+    ]
+  },
+  {
+    "id": "kc-property-tax-why-up",
+    "bucket": "wa-citizen",
+    "question": "Why did my King County property tax bill go up about 10% this year?",
+    "paraphrases": [
+      "Who raised King County property taxes for 2026 and by how much?",
+      "Which levies on my King County tax bill increased?"
+    ],
+    "persona": "Shoreline homeowner opening the February tax bill",
+    "altitude": "county",
+    "jurisdiction": "King County, Washington",
+    "archetype": "1 - why did my property tax go up",
+    "difficulty": "T3_interpretation",
+    "anchor": true,
+    "plugin_prompt": "Using @civic-agent-dev, answer this as Civic Agent with source trace: Why did my King County property tax bill go up about 10% this year?",
+    "web_prompt": "Using official web sources where possible, answer: Why did my King County property tax bill go up about 10% this year?",
+    "required_claims": [
+      {
+        "jurisdiction": "King County, Washington",
+        "category": "budget_finance.property_tax_levies",
+        "role": "core",
+        "note": "DOR levy tables plus assessor levy detail are the planned sources."
+      }
+    ],
+    "mode_ceiling": "partial",
+    "expected_answer_mode": "partial",
+    "expected_failure_mode": "missing_source",
+    "expected_source_ids": [
+      "washington.dor_property_tax_levies"
+    ],
+    "expected_missing_sources": [
+      "county tax-code-area data for the parcel-level levy stack (King County assessor publishes PDF rate books)",
+      "ballot-measure linkage (elections source)"
+    ],
+    "expected_facts": [
+      {
+        "id": "kc-2025-total-levies",
+        "value": 7724787822,
+        "tolerance": 0,
+        "unit": "dollars",
+        "description": "King County total property-tax levies due 2025 (+1.6% from 7,603,197,998 in 2024)",
+        "reproduction_ref": "jurisdictions/washington/data/dor-property-tax-levies/levies-due-2025/normalized/levy-detail.jsonl, sum(district_levy) where county_code=17, year_due=2025; reconciles with DOR Table_8"
+      }
+    ],
+    "required_caveats": [
+      {
+        "id": "district-not-parcel",
+        "pattern": "(district|area)[- ]level|not[^.]{0,60}(your|individual|parcel)[^.]{0,40}(bill|parcel)|assessed value",
+        "description": "Answers at taxing-district level; individual bills depend on parcel assessed value."
+      },
+      {
+        "id": "levy-mechanics",
+        "pattern": "1\\s?%|levy lid|lid lift|voter[- ]approved|101\\s?%",
+        "description": "Explains the 101% limit vs voter-approved levy distinction using the levy-limit columns."
+      },
+      {
+        "id": "certified-levies-basis",
+        "pattern": "certified|lev(y|ies)[^.]{0,60}due|not[^.]{0,40}(a bill|collections|collected)",
+        "description": "Presents DOR numbers as certified levy amounts due, not bills or collections."
+      },
+      {
+        "id": "lid-lift-lines-separate",
+        "pattern": "lid[- ]lift|separate (line|lev|row)|base lev",
+        "description": "Names base-levy vs lid-lift/bond lines instead of quoting a single misleading line."
+      }
+    ],
+    "unlocked_by": "washington.dor_property_tax_levies (accepted 2026-07-14); parcel-level stack and ballot linkage remain out of scope",
+    "improvement_path": "County tax-code-area composition (assessor PDFs) would enable the parcel-level half; an elections source would link levies to ballot measures.",
+    "score_dimensions": [
+      "correctness",
+      "traceability",
+      "coverage_awareness",
+      "comparability",
+      "civic_usefulness",
+      "freshness",
+      "improvement_path"
+    ]
+  },
+  {
+    "id": "kc-cuts-despite-20b",
+    "bucket": "wa-citizen",
+    "question": "Why is King County cutting services if its budget is $20 billion?",
+    "paraphrases": [
+      "King County passed a $20B budget but says it's broke - how do both be true?",
+      "Why does King County have a general fund crisis with a record budget?"
+    ],
+    "persona": "Skeptical taxpayer reading county cut announcements",
+    "altitude": "county",
+    "jurisdiction": "King County, Washington",
+    "archetype": "11 - cutting services despite big budget (1% cap structural gap)",
+    "difficulty": "T3_interpretation",
+    "anchor": false,
+    "plugin_prompt": "Using @civic-agent-dev, answer this as Civic Agent with source trace: Why is King County cutting services if its budget is $20 billion?",
+    "web_prompt": "Using official web sources where possible, answer: Why is King County cutting services if its budget is $20 billion?",
+    "required_claims": [
+      {
+        "jurisdiction": "King County, Washington",
+        "category": "budget_finance.operating_budget",
+        "role": "core"
+      },
+      {
+        "jurisdiction": "King County, Washington",
+        "category": "budget_finance.property_tax_levies",
+        "role": "adjunct",
+        "note": "The 1% levy-cap structural-gap explanation needs levy-capacity context."
+      }
+    ],
+    "mode_ceiling": "partial",
+    "expected_answer_mode": "partial",
+    "expected_failure_mode": "semantic_mismatch",
+    "expected_source_ids": [
+      "king_county.open_budget_dashboard",
+      "king_county.adopted_budget",
+      "washington.dor_property_tax_levies"
+    ],
+    "expected_missing_sources": [
+      "county general-fund vs dedicated-funds breakdown (dashboard is department-grain)"
+    ],
+    "expected_facts": [],
+    "required_caveats": [
+      {
+        "id": "biennial-vs-annual",
+        "pattern": "biennial[^.]{0,80}(annual|not[^.]{0,40}identical|different)|20\\.16|two[- ]year",
+        "description": "Keeps the $20.16B adopted biennial figure and annual dashboard values side by side, never merged."
+      },
+      {
+        "id": "general-vs-dedicated",
+        "pattern": "general fund[^.]{0,140}(dedicated|restricted)|(dedicated|restricted|legally restricted)[^.]{0,140}general fund",
+        "description": "Explains the flexible-General-Fund vs restricted/dedicated funds distinction, in either order."
+      },
+      {
+        "id": "levy-101-context",
+        "pattern": "101\\s?%|1\\s?%|levy (lid|limit|capacity)|statutory maximum",
+        "description": "Explains the 101% levy-limit mechanics from the DOR levy-limit columns."
+      }
+    ],
+    "unlocked_by": "Levy-capacity context covered by DOR levies (accepted 2026-07-14); the general-fund breakdown remains the missing half",
+    "improvement_path": "DOR levy source card; a general-fund-vs-total recipe would make this a fully supported explanation pattern.",
+    "score_dimensions": [
+      "correctness",
+      "traceability",
+      "coverage_awareness",
+      "comparability",
+      "civic_usefulness",
+      "freshness",
+      "improvement_path"
+    ]
+  },
+  {
+    "id": "seattle-2026-deficit-jumpstart",
+    "bucket": "wa-citizen",
+    "question": "How did Seattle close its budget deficit, and what happened to the JumpStart money?",
+    "paraphrases": [
+      "What's in Seattle's 2026 budget - what got cut and what taxes changed?",
+      "Was the JumpStart payroll tax spent on what it was promised for?"
+    ],
+    "persona": "PubliCola reader following the budget season",
+    "altitude": "city",
+    "jurisdiction": "City of Seattle",
+    "archetype": "6/7 - Seattle deficit closure + JumpStart diversion",
+    "difficulty": "T3_interpretation",
+    "anchor": false,
+    "plugin_prompt": "Using @civic-agent-dev, answer this as Civic Agent with source trace: How did Seattle close its budget deficit, and what happened to the JumpStart money?",
+    "web_prompt": "Using official web sources where possible, answer: How did Seattle close its budget deficit, and what happened to the JumpStart money?",
+    "required_claims": [
+      {
+        "jurisdiction": "City of Seattle",
+        "category": "budget_finance.operating_budget",
+        "role": "core"
+      },
+      {
+        "jurisdiction": "City of Seattle",
+        "category": "budget_finance.revenue_budget",
+        "role": "core",
+        "note": "Fund-grain revenue (JumpStart receipts vs allocations) is unsupported by the current Seattle card."
+      },
+      {
+        "jurisdiction": "City of Seattle",
+        "category": "proposed:governance_meetings.budget_actions",
+        "role": "adjunct",
+        "note": "Council ordinance history is what attributes the diversion decisions."
+      }
+    ],
+    "mode_ceiling": "partial",
+    "expected_answer_mode": "partial",
+    "expected_failure_mode": "missing_source",
+    "expected_source_ids": [
+      "seattle.operating_budget"
+    ],
+    "expected_missing_sources": [
+      "Seattle revenue/fund-grain source",
+      "council budget-action context source"
+    ],
+    "expected_facts": [],
+    "required_caveats": [
+      {
+        "id": "expenditure-side-only",
+        "pattern": "(revenue|fund)[^.]{0,80}(no|not|missing)[^.]{0,50}(source|covered|supported)|expenditure[- ]side",
+        "description": "States the accepted Seattle source is expenditure-side; JumpStart receipts-vs-allocations needs a revenue source."
+      },
+      {
+        "id": "attribution-is-context",
+        "pattern": "(ordinance|council|attribut)[^.]{0,80}(context|beyond|cannot|not[^.]{0,40}supported)",
+        "description": "Treats 'what happened to the money' attribution as needing ordinance context, not budget-table inference."
+      },
+      {
+        "id": "approved-not-actual",
+        "pattern": "(approved|budget(ed)?)[^.]{0,80}not[^.]{0,40}(actual|spending|spent)|not actual spending",
+        "description": "Budget allocations are not actual spending."
+      }
+    ],
+    "unlocked_by": "Seattle fund-grain revenue source; ordinance/budget-action context source; ceiling partial because attribution is interpretation",
+    "improvement_path": "Probe Seattle open-data revenue datasets and Legistar budget actions as context-only sources for attribution sentences.",
+    "score_dimensions": [
+      "correctness",
+      "traceability",
+      "coverage_awareness",
+      "comparability",
+      "civic_usefulness",
+      "freshness",
+      "improvement_path"
+    ]
+  },
+  {
+    "id": "seattle-kc-homelessness-kcrha",
+    "bucket": "wa-citizen",
+    "question": "How much have Seattle and King County spent on homelessness, and where did it go?",
+    "paraphrases": [
+      "What did the region actually spend through KCRHA and what happened to it?",
+      "Break down Seattle and King County homelessness spending."
+    ],
+    "persona": "Journalist following the KCRHA audit",
+    "altitude": "multi",
+    "jurisdiction": "City of Seattle; King County, Washington; King County Regional Homelessness Authority",
+    "archetype": "4 - homelessness spending accountability",
+    "difficulty": "T3_interpretation",
+    "anchor": true,
+    "plugin_prompt": "Using @civic-agent-dev, answer this as Civic Agent with source trace: How much have Seattle and King County spent on homelessness, and where did it go?",
+    "web_prompt": "Using official web sources where possible, answer: How much have Seattle and King County spent on homelessness, and where did it go?",
+    "required_claims": [
+      {
+        "jurisdiction": "City of Seattle",
+        "category": "budget_finance.operating_budget",
+        "role": "core",
+        "note": "HSD homelessness budget lines are the covered slice."
+      },
+      {
+        "jurisdiction": "King County Regional Homelessness Authority",
+        "category": "budget_finance.filed_annual_actuals",
+        "role": "core",
+        "note": "KCRHA files with SAO; FIT is the machine-readable path to authority-level actuals."
+      },
+      {
+        "jurisdiction": "King County, Washington",
+        "category": "budget_finance.operating_budget",
+        "role": "adjunct"
+      }
+    ],
+    "mode_ceiling": "partial",
+    "expected_answer_mode": "partial",
+    "expected_failure_mode": "missing_source",
+    "expected_source_ids": [
+      "seattle.operating_budget",
+      "king_county.open_budget_dashboard",
+      "washington.fit_filed_actuals"
+    ],
+    "expected_missing_sources": [
+      "provider contract data"
+    ],
+    "expected_facts": [
+      {
+        "id": "kcrha-2024-expenditures",
+        "value": 191618113,
+        "tolerance": 0,
+        "unit": "dollars",
+        "description": "KCRHA 2024 filed total expenditures (a deficit year against 180.7M revenues)",
+        "reproduction_ref": "jurisdictions/washington/data/fit-filed-actuals/milestone-2025-published-2026-06-30/normalized/government-annual-totals.jsonl"
+      }
+    ],
+    "required_caveats": [
+      {
+        "id": "fragmentation-is-the-answer",
+        "pattern": "(fragment|split|spread|multiple)[^.]{0,80}(city|county|authority|agencies)",
+        "description": "States spending is fragmented across city, county, and authority - the fragmentation is part of a correct answer."
+      },
+      {
+        "id": "budget-vs-spent",
+        "pattern": "(budget(ed)?|allocat)[^.]{0,80}not[^.]{0,50}(actual|spent|spending)|actual[^.]{0,50}(missing|no source|unsupported)",
+        "description": "Distinguishes budgeted allocations (covered) from actual spending (not covered)."
+      },
+      {
+        "id": "no-outcome-claims",
+        "pattern": "(outcome|effectiv|working)[^.]{0,80}(beyond|cannot|separate|not[^.]{0,40}(supported|measured))",
+        "description": "Refuses to convert spending totals into effectiveness claims."
+      }
+    ],
+    "unlocked_by": "KCRHA filed actuals accepted 2026-07-13 (2024: revenues 180,707,326 vs expenditures 191,618,113); provider contracts remain a later probe",
+    "improvement_path": "FIT source card brings authority-level actuals; a homelessness answer pattern should assemble city budget lines + county lines + authority actuals side by side with basis caveats.",
+    "score_dimensions": [
+      "correctness",
+      "traceability",
+      "coverage_awareness",
+      "comparability",
+      "civic_usefulness",
+      "freshness",
+      "improvement_path"
+    ]
+  },
+  {
+    "id": "wa-deficit-after-historic-taxes",
+    "bucket": "wa-citizen",
+    "question": "Why does Washington still have a budget shortfall after the biggest tax package in state history?",
+    "paraphrases": [
+      "The state raised $9 billion in new taxes - why is there still a deficit?",
+      "Where did the new Washington tax revenue go?"
+    ],
+    "persona": "Statewide voter trying to get past partisan framing",
+    "altitude": "state",
+    "jurisdiction": "Washington State",
+    "archetype": "3 - deficit persists after historic tax hikes",
+    "difficulty": "T3_interpretation",
+    "anchor": false,
+    "plugin_prompt": "Using @civic-agent-dev, answer this as Civic Agent with source trace: Why does Washington still have a budget shortfall after the biggest tax package in state history?",
+    "web_prompt": "Using official web sources where possible, answer: Why does Washington still have a budget shortfall after the biggest tax package in state history?",
+    "required_claims": [
+      {
+        "jurisdiction": "Washington State",
+        "category": "budget_finance.operating_budget",
+        "role": "core"
+      },
+      {
+        "jurisdiction": "Washington State",
+        "category": "budget_finance.revenue_budget",
+        "role": "core"
+      },
+      {
+        "jurisdiction": "Washington State",
+        "category": "proposed:budget_finance.four_year_outlook",
+        "role": "adjunct",
+        "note": "The 'shortfall' number lives in four-year balance sheets, not enacted budget totals."
+      }
+    ],
+    "mode_ceiling": "partial",
+    "expected_answer_mode": "partial",
+    "expected_failure_mode": "missing_source",
+    "expected_source_ids": [
+      "washington.operating_budget",
+      "washington.revenue_by_biennium"
+    ],
+    "expected_missing_sources": [
+      "four-year outlook / balance-sheet source",
+      "ERFC forecast revisions"
+    ],
+    "expected_facts": [],
+    "required_caveats": [
+      {
+        "id": "modeling-choices-explicit",
+        "pattern": "(deficit|shortfall)[^.]{0,90}(depend|assumption|definition|modeling|maintenance level)",
+        "description": "States that 'the deficit number' depends on modeling choices and names them."
+      },
+      {
+        "id": "partial-period",
+        "pattern": "partial|through (april|[0-9]{4}-[0-9]{2})|data[- ]through",
+        "description": "Current-biennium revenue actuals are partial."
+      },
+      {
+        "id": "supplemental-excluded",
+        "pattern": "supplemental",
+        "description": "Notes the 2026 supplemental is outside the accepted snapshot."
+      }
+    ],
+    "unlocked_by": "Four-year outlook source; ERFC forecasts; ceiling partial because the why is interpretation over contested definitions",
+    "improvement_path": "Probe the enacted-budget four-year outlook documents (LEAP/OFM) as the deficit-definition source; pair with revenue estimate-vs-actual trends.",
+    "score_dimensions": [
+      "correctness",
+      "traceability",
+      "coverage_awareness",
+      "comparability",
+      "civic_usefulness",
+      "freshness",
+      "improvement_path"
+    ]
+  }
+]

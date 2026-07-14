@@ -1,0 +1,271 @@
+{
+  "id": "pierce_county.open_budget",
+  "jurisdiction_id": "pierce_county",
+  "jurisdiction_name": "Pierce County, Washington",
+  "jurisdiction_level": "county",
+  "budget_family": "operating",
+  "provider": "Socrata / open.piercecountywa.gov",
+  "dataset_name": "Open Budget Expenditure Data",
+  "dataset_id": "w2wc-2pqu",
+  "access_method": "socrata",
+  "storage_policy": {
+    "tier": "live",
+    "normal_answer_source": "official_api",
+    "freshness_check": "api_metadata",
+    "repo_artifacts": [
+      "source_card",
+      "probe",
+      "tests",
+      "docs"
+    ],
+    "local_artifacts": [],
+    "refresh_behavior": "query_official_source_at_answer_time"
+  },
+  "freshness": {
+    "data_through": "2026-2027",
+    "data_through_kind": "biennium",
+    "observed_at": "2026-07-13",
+    "cadence": {
+      "expected_interval_days": 730,
+      "expected_lag_days": 0,
+      "pattern": "biennial budget with supplemental updates; live Socrata answers self-freshen"
+    },
+    "upstream_probe": "drift:pierce_county.open_budget"
+  },
+  "json_endpoint": "https://open.piercecountywa.gov/resource/w2wc-2pqu.json",
+  "csv_endpoint": "https://open.piercecountywa.gov/resource/w2wc-2pqu.csv?$limit=50000",
+  "metadata_endpoint": "https://open.piercecountywa.gov/api/views/w2wc-2pqu",
+  "public_page": "https://open.piercecountywa.gov/",
+  "human_inspection_urls": [
+    {
+      "label": "Pierce County open data portal",
+      "url": "https://open.piercecountywa.gov/"
+    },
+    {
+      "label": "Socrata dataset API page",
+      "url": "https://open.piercecountywa.gov/resource/w2wc-2pqu"
+    },
+    {
+      "label": "Pierce County budget office",
+      "url": "https://www.piercecountywa.gov/126/Budget"
+    }
+  ],
+  "source_fingerprint": {
+    "public_inspection_urls": [
+      "https://open.piercecountywa.gov/",
+      "https://www.piercecountywa.gov/126/Budget"
+    ],
+    "machine_access": {
+      "type": "socrata",
+      "json_endpoint": "https://open.piercecountywa.gov/resource/w2wc-2pqu.json",
+      "csv_endpoint": "https://open.piercecountywa.gov/resource/w2wc-2pqu.csv?$limit=50000",
+      "metadata_endpoint": "https://open.piercecountywa.gov/api/views/w2wc-2pqu"
+    },
+    "retrieval_context": {
+      "dataset_id": "w2wc-2pqu",
+      "year_field": "fiscal_year",
+      "year_field_format": "biennium_label",
+      "primary_measures": [
+        "budget",
+        "actual"
+      ],
+      "answer_filters": [
+        "fiscal_year",
+        "department",
+        "division",
+        "fund",
+        "program",
+        "activity",
+        "expenditure_type",
+        "exependiture_category"
+      ],
+      "field_quirks": [
+        "fiscal_year is a biennium label string such as 2026-2027, not a number.",
+        "Text dimension values are whitespace-padded; trim or use starts_with/like when filtering.",
+        "The expenditure category field is officially misspelled exependiture_category."
+      ]
+    },
+    "version_boundary": {
+      "known_biennia": [
+        "2016-2017",
+        "2018-2019",
+        "2020-2021",
+        "2022-2023",
+        "2024-2025",
+        "2026-2027"
+      ],
+      "current_biennium": "2026-2027",
+      "freshness_check": "api_metadata",
+      "observed_rows_updated_at": "2026-06-13"
+    },
+    "row_counts": {
+      "biennium_2026_2027_rows": 10362
+    },
+    "checks": {
+      "biennium_2026_2027_budget_total": 3500588070,
+      "biennium_2026_2027_departments": 26,
+      "biennium_2026_2027_funds": 105
+    }
+  },
+  "known_biennia": [
+    "2016-2017",
+    "2018-2019",
+    "2020-2021",
+    "2022-2023",
+    "2024-2025",
+    "2026-2027"
+  ],
+  "primary_measures": [
+    "budget",
+    "actual"
+  ],
+  "year_field": "fiscal_year",
+  "hierarchy_fields": [
+    "department",
+    "division",
+    "fund",
+    "program",
+    "activity",
+    "expenditure_type",
+    "exependiture_category"
+  ],
+  "safe_answer_patterns": [
+    "Biennial budgeted expenditure totals by biennium from 2016-2017 through 2026-2027.",
+    "Biennium rankings and drill-downs by department, division, fund, program, activity, and expenditure type.",
+    "Budget-vs-actual comparisons WITHIN a closed biennium, labeled with both measures.",
+    "Current 2026-2027 budgeted totals, with in-progress actuals labeled partial.",
+    "Chart-ready tables for Pierce County budgeted expenditure trends by department."
+  ],
+  "not_supported_by_this_source": [
+    "Revenue budgets or actual revenue collected.",
+    "Staffing, headcount, FTE, vacancy, or personnel roster claims.",
+    "Transaction-level payments or payees (use pierce_county.open_checkbook).",
+    "Annual fiscal-year totals: rows are biennial and should not be presented as annual values.",
+    "Seattle, King County, Washington state, school district, or other non-Pierce budget analysis."
+  ],
+  "coverage_claims": [
+    {
+      "category": "budget_finance.operating_budget",
+      "status": "supported",
+      "measures": [
+        "budget",
+        "actual"
+      ],
+      "grains": [
+        "biennium",
+        "department",
+        "division",
+        "fund",
+        "program",
+        "activity",
+        "expenditure_type"
+      ],
+      "time_coverage": "Biennia 2016-2017 through 2026-2027; the in-progress 2026-2027 actual column is partial.",
+      "evidence": [
+        "known_biennia",
+        "primary_measures",
+        "validation_checks.biennium_2026_2027_rows",
+        "validation_checks.biennium_2026_2027_budget_total",
+        "validation_checks.biennium_2026_2027_departments"
+      ],
+      "caveats": [
+        "Amounts are biennial, not annual; always name the two-year period.",
+        "The budget column is budgeted expenditure authority; the actual column is expenditure actuals at budget-line grain, partial for the in-progress biennium.",
+        "Expenditure data only; this dataset carries no revenue side."
+      ],
+      "semantics": {
+        "amount_basis": "budgeted",
+        "budget_frame": "operating",
+        "period_type": "biennium",
+        "period_status": "budgeted",
+        "unit": "dollars",
+        "government_scope": "county",
+        "geography_basis": "resident_jurisdiction",
+        "comparability_notes": [
+          "Biennial totals are not comparable to annual city or county dashboard values without explicit period alignment.",
+          "The same rows carry budget and actual measures; never mix the two in one total.",
+          "Department budgets are organizational views, not complete policy-area spending."
+        ]
+      }
+    },
+    {
+      "category": "budget_finance.revenue_budget",
+      "status": "unsupported",
+      "unsupported_reason": "Unsupported by this source: the Open Budget dataset is expenditure-side only; budgeted or actual revenue is not supported.",
+      "evidence": [
+        "not_supported_by_this_source"
+      ]
+    },
+    {
+      "category": "workforce.budgeted_fte",
+      "status": "unsupported",
+      "unsupported_reason": "Unsupported by this source: staffing, headcount, FTE, vacancy, and personnel roster claims are not supported.",
+      "evidence": [
+        "not_supported_by_this_source"
+      ]
+    },
+    {
+      "category": "budget_finance.actual_spending_checkbook",
+      "status": "unsupported",
+      "unsupported_reason": "Unsupported by this source: transaction-level payments, payees, and checkbook activity live in pierce_county.open_checkbook; this dataset's actual column is budget-line-grain actuals, not transactions.",
+      "evidence": [
+        "not_supported_by_this_source"
+      ]
+    }
+  ],
+  "fields": [
+    {
+      "name": "fiscal_year",
+      "type": "text"
+    },
+    {
+      "name": "department",
+      "type": "text"
+    },
+    {
+      "name": "division",
+      "type": "text"
+    },
+    {
+      "name": "fund",
+      "type": "text"
+    },
+    {
+      "name": "program",
+      "type": "text"
+    },
+    {
+      "name": "activity",
+      "type": "text"
+    },
+    {
+      "name": "expenditure_type",
+      "type": "text"
+    },
+    {
+      "name": "exependiture_category",
+      "type": "text"
+    },
+    {
+      "name": "actual",
+      "type": "number"
+    },
+    {
+      "name": "budget",
+      "type": "number"
+    }
+  ],
+  "validation_checks": {
+    "biennium_2026_2027_rows": 10362,
+    "biennium_2026_2027_budget_total": 3500588070,
+    "biennium_2026_2027_departments": 26,
+    "biennium_2026_2027_funds": 105
+  },
+  "caveats": [
+    "fiscal_year values are biennium labels (2026-2027); never present biennial totals as annual figures.",
+    "Text dimension values are whitespace-padded in the source; trim before display and filter with like/starts_with.",
+    "The expenditure category field is officially misspelled exependiture_category; queries must use the misspelling.",
+    "The in-progress 2026-2027 actual column is partial and should be labeled as such.",
+    "Verified 2026-07-13: 2026-2027 budget total $3,500,588,070 over 10,362 rows, 26 departments, 105 funds."
+  ]
+}

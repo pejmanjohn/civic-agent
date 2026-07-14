@@ -1,0 +1,91 @@
+{
+  "amount_totals_by_biennium": {
+    "2013-15": 15706773287.75,
+    "2015-17": 18419780569.52,
+    "2017-19": 20431537992.56,
+    "2019-21": 23381861247.02,
+    "2021-23": 29535369459.65,
+    "2023-25": 34960860261.78,
+    "2025-27": 38465185859.87
+  },
+  "biennia": [
+    "2013-15",
+    "2015-17",
+    "2017-19",
+    "2019-21",
+    "2021-23",
+    "2023-25",
+    "2025-27"
+  ],
+  "current_biennium": "2025-27",
+  "data_through": "2026-05",
+  "files": {
+    "agency-totals.jsonl": {
+      "row_count": 718
+    },
+    "category-breakdown.jsonl": {
+      "row_count": 63
+    },
+    "monthly-trend.jsonl": {
+      "row_count": 83
+    },
+    "vendor-totals.jsonl": {
+      "row_count": 700,
+      "top_n_per_biennium": 100,
+      "truncated": true
+    }
+  },
+  "grain": "biennium x (category | agency | top_vendor | calendar_month)",
+  "kind": "hosted_aggregates",
+  "measure": "amount (actual vendor payments, dollars)",
+  "reconciliation": {
+    "2013-15": {
+      "agency_total": 15706773287.75,
+      "category_total": 15706773287.75,
+      "monthly_total": 15706773287.75,
+      "reconciles": true
+    },
+    "2015-17": {
+      "agency_total": 18419780569.52,
+      "category_total": 18419780569.52,
+      "monthly_total": 18419780569.52,
+      "reconciles": true
+    },
+    "2017-19": {
+      "agency_total": 20431537992.56,
+      "category_total": 20431537992.56,
+      "monthly_total": 20431537992.56,
+      "reconciles": true
+    },
+    "2019-21": {
+      "agency_total": 23381861247.02,
+      "category_total": 23381861247.02,
+      "monthly_total": 23381861247.02,
+      "reconciles": true
+    },
+    "2021-23": {
+      "agency_total": 29535369459.65,
+      "category_total": 29535369459.65,
+      "monthly_total": 29535369459.65,
+      "reconciles": true
+    },
+    "2023-25": {
+      "agency_total": 34960860261.78,
+      "category_total": 34960860261.78,
+      "monthly_total": 34960860261.78,
+      "reconciles": true
+    },
+    "2025-27": {
+      "agency_total": 38465185859.87,
+      "category_total": 38465185859.87,
+      "monthly_total": 38465185859.87,
+      "reconciles": true
+    }
+  },
+  "snapshot_version": "2025-27-through-2026-05",
+  "source_id": "washington.open_checkbook",
+  "vendor_truncation": {
+    "note": "vendor-totals.jsonl keeps the top vendors by total amount per biennium; full vendor grain requires the managed local database.",
+    "top_n_per_biennium": 100
+  }
+}

@@ -1,0 +1,915 @@
+{
+  "captured_cases": 20,
+  "fully_passing_cases": 16,
+  "results": [
+    {
+      "anchor": true,
+      "captured": true,
+      "case": "seattle-parks-2026-lookup",
+      "checks": [
+        {
+          "actual": "exact",
+          "check": "answer_mode",
+          "expected": "exact",
+          "passed": true
+        },
+        {
+          "actual": "present",
+          "check": "source:seattle.operating_budget",
+          "expected": "cited",
+          "passed": true
+        },
+        {
+          "actual": "matched",
+          "check": "caveat:approved-not-actual",
+          "expected": "States that approved budget rows are not actual spending.",
+          "passed": true
+        },
+        {
+          "actual": "matched",
+          "check": "caveat:source-trace",
+          "expected": "Names the Socrata dataset or source id.",
+          "passed": true
+        },
+        {
+          "actual": "found within tolerance",
+          "check": "fact:parks-fy2026-approved-total",
+          "expected": 272607622.34,
+          "passed": true
+        }
+      ],
+      "passed": 5,
+      "total": 5
+    },
+    {
+      "anchor": false,
+      "captured": true,
+      "case": "kc-sheriff-budgeted-fte-2026",
+      "checks": [
+        {
+          "actual": "exact",
+          "check": "answer_mode",
+          "expected": "exact",
+          "passed": true
+        },
+        {
+          "actual": "present",
+          "check": "source:king_county.open_budget_dashboard",
+          "expected": "cited",
+          "passed": true
+        },
+        {
+          "actual": "matched",
+          "check": "caveat:fte-not-headcount",
+          "expected": "States budgeted FTE is not an active headcount or roster.",
+          "passed": true
+        },
+        {
+          "actual": "matched",
+          "check": "caveat:snapshot-version",
+          "expected": "Names the snapshot version or refresh boundary.",
+          "passed": true
+        },
+        {
+          "actual": "found within tolerance",
+          "check": "fact:kcso-2026-budgeted-fte",
+          "expected": 1246,
+          "passed": true
+        }
+      ],
+      "passed": 5,
+      "total": 5
+    },
+    {
+      "anchor": false,
+      "captured": true,
+      "case": "wa-operating-total-2025-27",
+      "checks": [
+        {
+          "actual": "exact",
+          "check": "answer_mode",
+          "expected": "exact",
+          "passed": true
+        },
+        {
+          "actual": "present",
+          "check": "source:washington.operating_budget",
+          "expected": "cited",
+          "passed": true
+        },
+        {
+          "actual": "matched",
+          "check": "caveat:fund-view-named",
+          "expected": "Names which fund view the total uses.",
+          "passed": true
+        },
+        {
+          "actual": "matched",
+          "check": "caveat:biennium-not-annual",
+          "expected": "States the total is a two-year biennial figure.",
+          "passed": true
+        },
+        {
+          "actual": "matched",
+          "check": "caveat:supplemental-excluded",
+          "expected": "Notes the 2026 supplemental budget is not reflected in the snapshot.",
+          "passed": true
+        },
+        {
+          "actual": "found within tolerance",
+          "check": "fact:wa-2025-27-total-budgeted",
+          "expected": 150411096000,
+          "passed": true
+        }
+      ],
+      "passed": 6,
+      "total": 6
+    },
+    {
+      "anchor": true,
+      "captured": true,
+      "case": "wa-checkbook-vendor-lookup",
+      "checks": [
+        {
+          "actual": "partial",
+          "check": "answer_mode",
+          "expected": "exact",
+          "passed": false
+        },
+        {
+          "actual": "present",
+          "check": "source:washington.open_checkbook",
+          "expected": "cited",
+          "passed": true
+        },
+        {
+          "actual": "matched",
+          "check": "caveat:payments-not-budget",
+          "expected": "States vendor payments are actuals, not budget authority.",
+          "passed": true
+        },
+        {
+          "actual": "matched",
+          "check": "caveat:partial-period",
+          "expected": "States the current biennium file is partial through the data-through month.",
+          "passed": true
+        },
+        {
+          "actual": "matched",
+          "check": "caveat:salary-exclusions",
+          "expected": "Discloses that salaries/payroll and some exempt payments are not in the checkbook.",
+          "passed": true
+        }
+      ],
+      "passed": 4,
+      "total": 5
+    },
+    {
+      "anchor": false,
+      "captured": true,
+      "case": "pierce-county-budget-size",
+      "checks": [
+        {
+          "actual": "exact",
+          "check": "answer_mode",
+          "expected": "exact",
+          "passed": true
+        },
+        {
+          "actual": "present",
+          "check": "source:pierce_county.open_budget",
+          "expected": "cited",
+          "passed": true
+        },
+        {
+          "actual": "absent",
+          "check": "source:pierce_county.open_checkbook",
+          "expected": "cited",
+          "passed": false
+        },
+        {
+          "actual": "matched",
+          "check": "caveat:biennial-not-annual",
+          "expected": "Names the two-year budget period; never presents the total as annual.",
+          "passed": true
+        },
+        {
+          "actual": "matched",
+          "check": "caveat:budgeted-not-actual",
+          "expected": "Distinguishes budgeted expenditure authority from actual spending.",
+          "passed": true
+        },
+        {
+          "actual": "matched",
+          "check": "caveat:expenditure-only",
+          "expected": "Notes the accepted Pierce sources are expenditure-side only.",
+          "passed": true
+        },
+        {
+          "actual": "found within tolerance",
+          "check": "fact:pierce-2026-2027-budget-total",
+          "expected": 3500588070,
+          "passed": true
+        }
+      ],
+      "passed": 6,
+      "total": 7
+    },
+    {
+      "anchor": false,
+      "captured": true,
+      "case": "walla-walla-city-budget",
+      "checks": [
+        {
+          "actual": "partial",
+          "check": "answer_mode",
+          "expected": "partial",
+          "passed": true
+        },
+        {
+          "actual": "present",
+          "check": "source:washington.fit_filed_actuals",
+          "expected": "cited",
+          "passed": true
+        },
+        {
+          "actual": "matched",
+          "check": "caveat:filed-actuals-not-budget",
+          "expected": "Presents FIT numbers as filed actuals, never as a budget.",
+          "passed": true
+        },
+        {
+          "actual": "matched",
+          "check": "caveat:adopted-budget-path",
+          "expected": "Names the missing adopted-budget half and where it lives.",
+          "passed": true
+        },
+        {
+          "actual": "found within tolerance",
+          "check": "fact:walla-walla-2024-expenditures",
+          "expected": 96284787,
+          "passed": true
+        }
+      ],
+      "passed": 5,
+      "total": 5
+    },
+    {
+      "anchor": false,
+      "captured": true,
+      "case": "spd-budget-2020-vs-2026",
+      "checks": [
+        {
+          "actual": "exact",
+          "check": "answer_mode",
+          "expected": "exact",
+          "passed": true
+        },
+        {
+          "actual": "present",
+          "check": "source:seattle.operating_budget",
+          "expected": "cited",
+          "passed": true
+        },
+        {
+          "actual": "matched",
+          "check": "caveat:nominal-not-inflation",
+          "expected": "States the change is nominal, not inflation-adjusted.",
+          "passed": true
+        },
+        {
+          "actual": "matched",
+          "check": "caveat:dept-structure",
+          "expected": "Flags department restructures (e.g., functions moved out of SPD) as comparability risks.",
+          "passed": true
+        },
+        {
+          "actual": "matched",
+          "check": "caveat:approved-not-actual",
+          "expected": "States budgets are not actual spending or overtime actuals.",
+          "passed": true
+        },
+        {
+          "actual": "found within tolerance",
+          "check": "fact:spd-fy2020-approved-total",
+          "expected": 408611750,
+          "passed": true
+        },
+        {
+          "actual": "found within tolerance",
+          "check": "fact:spd-fy2026-approved-total",
+          "expected": 488586234.95,
+          "passed": true
+        }
+      ],
+      "passed": 7,
+      "total": 7
+    },
+    {
+      "anchor": false,
+      "captured": true,
+      "case": "spokane-police-vs-housing",
+      "checks": [
+        {
+          "actual": "partial",
+          "check": "answer_mode",
+          "expected": "partial",
+          "passed": true
+        },
+        {
+          "actual": "present",
+          "check": "source:washington.fit_filed_actuals",
+          "expected": "cited",
+          "passed": true
+        },
+        {
+          "actual": "matched",
+          "check": "caveat:filed-actuals-not-budget",
+          "expected": "Presents FIT numbers as filed actuals, never as a budget.",
+          "passed": true
+        },
+        {
+          "actual": "matched",
+          "check": "caveat:category-mapping",
+          "expected": "States police-vs-housing needs a category breakdown that is not yet a reviewed claim; totals alone cannot answer it.",
+          "passed": true
+        },
+        {
+          "actual": "matched",
+          "check": "caveat:path-named",
+          "expected": "Points at the official drill-down path.",
+          "passed": true
+        }
+      ],
+      "passed": 5,
+      "total": 5
+    },
+    {
+      "anchor": false,
+      "captured": true,
+      "case": "evergreen-schools-cuts",
+      "checks": [
+        {
+          "actual": "partial",
+          "check": "answer_mode",
+          "expected": "partial",
+          "passed": true
+        },
+        {
+          "actual": "present",
+          "check": "source:washington.fit_filed_actuals",
+          "expected": "cited",
+          "passed": true
+        },
+        {
+          "actual": "matched",
+          "check": "caveat:ospi-basis",
+          "expected": "Labels the OSPI basis and Aug 31 school fiscal year.",
+          "passed": true
+        },
+        {
+          "actual": "matched",
+          "check": "caveat:nominal-vs-perpupil",
+          "expected": "Distinguishes total revenue from per-pupil purchasing power; names the missing enrollment source.",
+          "passed": true
+        },
+        {
+          "actual": "matched",
+          "check": "caveat:filed-actuals-not-budget",
+          "expected": "Presents FIT numbers as filed actuals, never as a budget.",
+          "passed": true
+        },
+        {
+          "actual": "found within tolerance",
+          "check": "fact:evergreen-2025-revenues",
+          "expected": 488762832.47,
+          "passed": true
+        }
+      ],
+      "passed": 6,
+      "total": 6
+    },
+    {
+      "anchor": false,
+      "captured": true,
+      "case": "sound-transit-car-tabs",
+      "checks": [
+        {
+          "actual": "exact",
+          "check": "answer_mode",
+          "expected": "exact",
+          "passed": true
+        },
+        {
+          "actual": "present",
+          "check": "source:washington.fit_filed_actuals",
+          "expected": "cited",
+          "passed": true
+        },
+        {
+          "actual": "matched",
+          "check": "caveat:filed-actuals-not-budget",
+          "expected": "Presents FIT numbers as filed actuals, never as a budget.",
+          "passed": true
+        },
+        {
+          "actual": "matched",
+          "check": "caveat:st3-gap-out-of-scope",
+          "expected": "Separates filed actuals from the ST3 capital program (buildout/plan framing counts).",
+          "passed": true
+        },
+        {
+          "actual": "matched",
+          "check": "caveat:mvet-one-stream",
+          "expected": "Notes car tabs are one revenue stream among several; the per-stream split is not yet a reviewed claim.",
+          "passed": true
+        },
+        {
+          "actual": "found within tolerance",
+          "check": "fact:sound-transit-2024-revenues",
+          "expected": 2599304000,
+          "passed": true
+        }
+      ],
+      "passed": 6,
+      "total": 6
+    },
+    {
+      "anchor": false,
+      "captured": true,
+      "case": "kc-actuals-vs-budget-trap",
+      "checks": [
+        {
+          "actual": "side_by_side_only",
+          "check": "answer_mode",
+          "expected": "side_by_side_only",
+          "passed": true
+        },
+        {
+          "actual": "present",
+          "check": "source:king_county.open_budget_dashboard",
+          "expected": "cited",
+          "passed": true
+        },
+        {
+          "actual": "present",
+          "check": "source:washington.fit_filed_actuals",
+          "expected": "cited",
+          "passed": true
+        },
+        {
+          "actual": "matched",
+          "check": "caveat:filed-actuals-not-budget",
+          "expected": "Presents FIT numbers as filed actuals, never as a budget.",
+          "passed": true
+        },
+        {
+          "actual": "matched",
+          "check": "caveat:frame-mismatch",
+          "expected": "Presents filed actuals and dashboard budgeted values side by side as different frames, never as a reconciled verdict.",
+          "passed": true
+        },
+        {
+          "actual": "matched",
+          "check": "caveat:internal-service-basis",
+          "expected": "Names the excludes-internal-service-funds basis of the FIT headline number.",
+          "passed": true
+        },
+        {
+          "actual": "found within tolerance",
+          "check": "fact:king-county-2024-expenditures",
+          "expected": 5312711000,
+          "passed": true
+        }
+      ],
+      "passed": 7,
+      "total": 7
+    },
+    {
+      "anchor": true,
+      "captured": true,
+      "case": "pierce-vs-king-per-resident",
+      "checks": [
+        {
+          "actual": "exact",
+          "check": "answer_mode",
+          "expected": "exact",
+          "passed": true
+        },
+        {
+          "actual": "present",
+          "check": "source:king_county.open_budget_dashboard",
+          "expected": "cited",
+          "passed": true
+        },
+        {
+          "actual": "present",
+          "check": "source:pierce_county.open_budget",
+          "expected": "cited",
+          "passed": true
+        },
+        {
+          "actual": "present",
+          "check": "source:washington.ofm_population",
+          "expected": "cited",
+          "passed": true
+        },
+        {
+          "actual": "matched",
+          "check": "caveat:denominator-cited",
+          "expected": "Cites OFM April 1 population with the estimate year; year-matched denominators (2024 pops with 2024 actuals) are correct and preferred.",
+          "passed": true
+        },
+        {
+          "actual": "matched",
+          "check": "caveat:service-scope",
+          "expected": "Warns county service responsibilities differ, so per-resident values are not directly comparable.",
+          "passed": true
+        },
+        {
+          "actual": "matched",
+          "check": "caveat:comparability-basis-named",
+          "expected": "Names the comparability basis: either both sides on one source/basis/year (e.g. FIT filed actuals), or the biennial-to-annual alignment labeled.",
+          "passed": true
+        }
+      ],
+      "passed": 7,
+      "total": 7
+    },
+    {
+      "anchor": false,
+      "captured": true,
+      "case": "wa-new-taxes-actually-collecting",
+      "checks": [
+        {
+          "actual": "partial",
+          "check": "answer_mode",
+          "expected": "partial",
+          "passed": true
+        },
+        {
+          "actual": "present",
+          "check": "source:washington.revenue_by_biennium",
+          "expected": "cited",
+          "passed": true
+        },
+        {
+          "actual": "matched",
+          "check": "caveat:partial-period",
+          "expected": "States current-biennium actuals are partial through the data-through month.",
+          "passed": true
+        },
+        {
+          "actual": "matched",
+          "check": "caveat:general-fund-scope",
+          "expected": "States the accepted slice is General Fund only, not every new tax stream.",
+          "passed": true
+        },
+        {
+          "actual": "matched",
+          "check": "caveat:publication-lag",
+          "expected": "States the data-through boundary with publication-lag language and notes that values revise between snapshots.",
+          "passed": true
+        }
+      ],
+      "passed": 5,
+      "total": 5
+    },
+    {
+      "anchor": false,
+      "captured": true,
+      "case": "school-levy-household-cost",
+      "checks": [
+        {
+          "actual": "unsupported_with_path",
+          "check": "answer_mode",
+          "expected": "partial",
+          "passed": false
+        },
+        {
+          "actual": "present",
+          "check": "source:washington.dor_property_tax_levies",
+          "expected": "cited",
+          "passed": true
+        },
+        {
+          "actual": "matched",
+          "check": "caveat:parcel-dependence",
+          "expected": "Household cost depends on the parcel assessed value; any per-household figure is labeled illustrative.",
+          "passed": true
+        },
+        {
+          "actual": "matched",
+          "check": "caveat:rates-per-1000",
+          "expected": "Expresses rates as dollars per $1,000 of assessed value.",
+          "passed": true
+        },
+        {
+          "actual": "matched",
+          "check": "caveat:path-named",
+          "expected": "Points at the voters pamphlet or elections source for the specific measure text.",
+          "passed": true
+        },
+        {
+          "actual": "found within tolerance",
+          "check": "fact:statewide-school-enrichment-2025",
+          "expected": 2814008373,
+          "passed": true
+        }
+      ],
+      "passed": 5,
+      "total": 6
+    },
+    {
+      "anchor": false,
+      "captured": true,
+      "case": "sps-deficit-school-closures",
+      "checks": [
+        {
+          "actual": "partial",
+          "check": "answer_mode",
+          "expected": "partial",
+          "passed": true
+        },
+        {
+          "actual": "present",
+          "check": "source:washington.fit_filed_actuals",
+          "expected": "cited",
+          "passed": true
+        },
+        {
+          "actual": "matched",
+          "check": "caveat:causation-is-interpretation",
+          "expected": "Separates filed financial facts from causal interpretation of closures.",
+          "passed": true
+        },
+        {
+          "actual": "matched",
+          "check": "caveat:ospi-basis",
+          "expected": "Labels the OSPI basis and Aug 31 school fiscal year.",
+          "passed": true
+        },
+        {
+          "actual": "matched",
+          "check": "caveat:filed-actuals-not-budget",
+          "expected": "Presents FIT numbers as filed actuals, never as a budget.",
+          "passed": true
+        },
+        {
+          "actual": "found within tolerance",
+          "check": "fact:sps-2025-revenues",
+          "expected": 1518641110.55,
+          "passed": true
+        }
+      ],
+      "passed": 6,
+      "total": 6
+    },
+    {
+      "anchor": true,
+      "captured": true,
+      "case": "kc-property-tax-why-up",
+      "checks": [
+        {
+          "actual": "partial",
+          "check": "answer_mode",
+          "expected": "partial",
+          "passed": true
+        },
+        {
+          "actual": "present",
+          "check": "source:washington.dor_property_tax_levies",
+          "expected": "cited",
+          "passed": true
+        },
+        {
+          "actual": "matched",
+          "check": "caveat:district-not-parcel",
+          "expected": "Answers at taxing-district level; individual bills depend on parcel assessed value.",
+          "passed": true
+        },
+        {
+          "actual": "matched",
+          "check": "caveat:levy-mechanics",
+          "expected": "Explains the 101% limit vs voter-approved levy distinction using the levy-limit columns.",
+          "passed": true
+        },
+        {
+          "actual": "matched",
+          "check": "caveat:certified-levies-basis",
+          "expected": "Presents DOR numbers as certified levy amounts due, not bills or collections.",
+          "passed": true
+        },
+        {
+          "actual": "matched",
+          "check": "caveat:lid-lift-lines-separate",
+          "expected": "Names base-levy vs lid-lift/bond lines instead of quoting a single misleading line.",
+          "passed": true
+        },
+        {
+          "actual": "found within tolerance",
+          "check": "fact:kc-2025-total-levies",
+          "expected": 7724787822,
+          "passed": true
+        }
+      ],
+      "passed": 7,
+      "total": 7
+    },
+    {
+      "anchor": false,
+      "captured": true,
+      "case": "kc-cuts-despite-20b",
+      "checks": [
+        {
+          "actual": "partial",
+          "check": "answer_mode",
+          "expected": "partial",
+          "passed": true
+        },
+        {
+          "actual": "present",
+          "check": "source:king_county.open_budget_dashboard",
+          "expected": "cited",
+          "passed": true
+        },
+        {
+          "actual": "present",
+          "check": "source:king_county.adopted_budget",
+          "expected": "cited",
+          "passed": true
+        },
+        {
+          "actual": "present",
+          "check": "source:washington.dor_property_tax_levies",
+          "expected": "cited",
+          "passed": true
+        },
+        {
+          "actual": "matched",
+          "check": "caveat:biennial-vs-annual",
+          "expected": "Keeps the $20.16B adopted biennial figure and annual dashboard values side by side, never merged.",
+          "passed": true
+        },
+        {
+          "actual": "matched",
+          "check": "caveat:general-vs-dedicated",
+          "expected": "Explains the flexible-General-Fund vs restricted/dedicated funds distinction, in either order.",
+          "passed": true
+        },
+        {
+          "actual": "matched",
+          "check": "caveat:levy-101-context",
+          "expected": "Explains the 101% levy-limit mechanics from the DOR levy-limit columns.",
+          "passed": true
+        }
+      ],
+      "passed": 7,
+      "total": 7
+    },
+    {
+      "anchor": false,
+      "captured": true,
+      "case": "seattle-2026-deficit-jumpstart",
+      "checks": [
+        {
+          "actual": "partial",
+          "check": "answer_mode",
+          "expected": "partial",
+          "passed": true
+        },
+        {
+          "actual": "present",
+          "check": "source:seattle.operating_budget",
+          "expected": "cited",
+          "passed": true
+        },
+        {
+          "actual": "matched",
+          "check": "caveat:expenditure-side-only",
+          "expected": "States the accepted Seattle source is expenditure-side; JumpStart receipts-vs-allocations needs a revenue source.",
+          "passed": true
+        },
+        {
+          "actual": "matched",
+          "check": "caveat:attribution-is-context",
+          "expected": "Treats 'what happened to the money' attribution as needing ordinance context, not budget-table inference.",
+          "passed": true
+        },
+        {
+          "actual": "matched",
+          "check": "caveat:approved-not-actual",
+          "expected": "Budget allocations are not actual spending.",
+          "passed": true
+        }
+      ],
+      "passed": 5,
+      "total": 5
+    },
+    {
+      "anchor": true,
+      "captured": true,
+      "case": "seattle-kc-homelessness-kcrha",
+      "checks": [
+        {
+          "actual": "partial",
+          "check": "answer_mode",
+          "expected": "partial",
+          "passed": true
+        },
+        {
+          "actual": "present",
+          "check": "source:seattle.operating_budget",
+          "expected": "cited",
+          "passed": true
+        },
+        {
+          "actual": "present",
+          "check": "source:king_county.open_budget_dashboard",
+          "expected": "cited",
+          "passed": true
+        },
+        {
+          "actual": "present",
+          "check": "source:washington.fit_filed_actuals",
+          "expected": "cited",
+          "passed": true
+        },
+        {
+          "actual": "matched",
+          "check": "caveat:fragmentation-is-the-answer",
+          "expected": "States spending is fragmented across city, county, and authority - the fragmentation is part of a correct answer.",
+          "passed": true
+        },
+        {
+          "actual": "matched",
+          "check": "caveat:budget-vs-spent",
+          "expected": "Distinguishes budgeted allocations (covered) from actual spending (not covered).",
+          "passed": true
+        },
+        {
+          "actual": "not found",
+          "check": "caveat:no-outcome-claims",
+          "expected": "Refuses to convert spending totals into effectiveness claims.",
+          "passed": false
+        },
+        {
+          "actual": "found within tolerance",
+          "check": "fact:kcrha-2024-expenditures",
+          "expected": 191618113,
+          "passed": true
+        }
+      ],
+      "passed": 7,
+      "total": 8
+    },
+    {
+      "anchor": false,
+      "captured": true,
+      "case": "wa-deficit-after-historic-taxes",
+      "checks": [
+        {
+          "actual": "partial",
+          "check": "answer_mode",
+          "expected": "partial",
+          "passed": true
+        },
+        {
+          "actual": "present",
+          "check": "source:washington.operating_budget",
+          "expected": "cited",
+          "passed": true
+        },
+        {
+          "actual": "present",
+          "check": "source:washington.revenue_by_biennium",
+          "expected": "cited",
+          "passed": true
+        },
+        {
+          "actual": "matched",
+          "check": "caveat:modeling-choices-explicit",
+          "expected": "States that 'the deficit number' depends on modeling choices and names them.",
+          "passed": true
+        },
+        {
+          "actual": "matched",
+          "check": "caveat:partial-period",
+          "expected": "Current-biennium revenue actuals are partial.",
+          "passed": true
+        },
+        {
+          "actual": "matched",
+          "check": "caveat:supplemental-excluded",
+          "expected": "Notes the 2026 supplemental is outside the accepted snapshot.",
+          "passed": true
+        }
+      ],
+      "passed": 6,
+      "total": 6
+    }
+  ],
+  "run": "2026-07-14-run-d",
+  "scorer": "mechanical",
+  "total_cases": 20
+}

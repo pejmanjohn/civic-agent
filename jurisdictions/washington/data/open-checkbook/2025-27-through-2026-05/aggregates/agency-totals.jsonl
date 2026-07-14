@@ -1,0 +1,718 @@
+{"agency_code": "107", "amount": 6656322491.16, "biennium": "2013-15", "name": "Health Care Authority", "payment_rows": 54976}
+{"agency_code": "300", "amount": 3133457882.65, "biennium": "2013-15", "name": "Social and Health Services", "payment_rows": 404296}
+{"agency_code": "405", "amount": 2017413546.49, "biennium": "2013-15", "name": "Transportation", "payment_rows": 30134}
+{"agency_code": "103", "amount": 559116141.19, "biennium": "2013-15", "name": "Commerce", "payment_rows": 8383}
+{"agency_code": "350", "amount": 522203225.84, "biennium": "2013-15", "name": "Public Schools", "payment_rows": 17298}
+{"agency_code": "303", "amount": 342844012.35, "biennium": "2013-15", "name": "Health", "payment_rows": 14894}
+{"agency_code": "461", "amount": 300812747.58, "biennium": "2013-15", "name": "Ecology", "payment_rows": 13912}
+{"agency_code": "310", "amount": 285821142.96, "biennium": "2013-15", "name": "Corrections", "payment_rows": 18513}
+{"agency_code": "357", "amount": 207399591.32, "biennium": "2013-15", "name": "Early Learning", "payment_rows": 3569}
+{"agency_code": "179", "amount": 194581450.78, "biennium": "2013-15", "name": "Enterprise Services", "payment_rows": 6306}
+{"agency_code": "490", "amount": 117206471.1, "biennium": "2013-15", "name": "Natural Resources", "payment_rows": 13412}
+{"agency_code": "477", "amount": 111144396.6, "biennium": "2013-15", "name": "Fish and Wildlife", "payment_rows": 21115}
+{"agency_code": "245", "amount": 102593036.58, "biennium": "2013-15", "name": "Military Department", "payment_rows": 5361}
+{"agency_code": "235", "amount": 97680877.51, "biennium": "2013-15", "name": "Labor and Industries", "payment_rows": 18736}
+{"agency_code": "407", "amount": 92653108.37, "biennium": "2013-15", "name": "Transportation Improvement Board", "payment_rows": 1245}
+{"agency_code": "163", "amount": 88731698.09, "biennium": "2013-15", "name": "Consolidated Technology Services", "payment_rows": 1846}
+{"agency_code": "467", "amount": 86379372.27, "biennium": "2013-15", "name": "Rec and Conservation Funding Board", "payment_rows": 2102}
+{"agency_code": "225", "amount": 85611800.61, "biennium": "2013-15", "name": "State Patrol", "payment_rows": 12324}
+{"agency_code": "540", "amount": 72993251.82, "biennium": "2013-15", "name": "Employment Security Department", "payment_rows": 9059}
+{"agency_code": "105", "amount": 59275060.51, "biennium": "2013-15", "name": "Financial Management", "payment_rows": 2532}
+{"agency_code": "240", "amount": 55559770.39, "biennium": "2013-15", "name": "Licensing", "payment_rows": 7004}
+{"agency_code": "465", "amount": 38818635.8, "biennium": "2013-15", "name": "State Parks and Recreation Comm", "payment_rows": 6691}
+{"agency_code": "340", "amount": 35746901.04, "biennium": "2013-15", "name": "Council for Higher Education", "payment_rows": 2793}
+{"agency_code": "055", "amount": 34783321.78, "biennium": "2013-15", "name": "Administrative Office of the Courts", "payment_rows": 7373}
+{"agency_code": "056", "amount": 30392196.99, "biennium": "2013-15", "name": "Public Defense", "payment_rows": 4083}
+{"agency_code": "495", "amount": 28611272.91, "biennium": "2013-15", "name": "Agriculture", "payment_rows": 9542}
+{"agency_code": "140", "amount": 26771746.419999998, "biennium": "2013-15", "name": "Revenue", "payment_rows": 9274}
+{"agency_code": "100", "amount": 26253006.3, "biennium": "2013-15", "name": "Attorney General", "payment_rows": 7248}
+{"agency_code": "228", "amount": 22442393.68, "biennium": "2013-15", "name": "Traffic Safety Commission", "payment_rows": 2515}
+{"agency_code": "406", "amount": 20961879.15, "biennium": "2013-15", "name": "County Road Administration Board", "payment_rows": 639}
+{"agency_code": "354", "amount": 20906201.19, "biennium": "2013-15", "name": "Workforce Trng & Educ Coord Board", "payment_rows": 718}
+{"agency_code": "085", "amount": 20365805.92, "biennium": "2013-15", "name": "Secretary of State", "payment_rows": 2587}
+{"agency_code": "305", "amount": 19649314.66, "biennium": "2013-15", "name": "Veterans' Affairs", "payment_rows": 4422}
+{"agency_code": "227", "amount": 18938371.05, "biennium": "2013-15", "name": "Criminal Justice Training Cmsn", "payment_rows": 2477}
+{"agency_code": "471", "amount": 11998120.74, "biennium": "2013-15", "name": "Conservation Commission", "payment_rows": 1132}
+{"agency_code": "057", "amount": 11264083.16, "biennium": "2013-15", "name": "Civil Legal Aid", "payment_rows": 182}
+{"agency_code": "195", "amount": 9936541.19, "biennium": "2013-15", "name": "Liquor Control Board", "payment_rows": 2014}
+{"agency_code": "462", "amount": 9073419.0, "biennium": "2013-15", "name": "Pollution Liability Insurance Prog", "payment_rows": 356}
+{"agency_code": "124", "amount": 8753432.87, "biennium": "2013-15", "name": "Retirement Systems", "payment_rows": 1338}
+{"agency_code": "215", "amount": 8159234.7, "biennium": "2013-15", "name": "Utilities and Transportation Cmsn", "payment_rows": 1620}
+{"agency_code": "315", "amount": 7665196.38, "biennium": "2013-15", "name": "Services for the Blind", "payment_rows": 3466}
+{"agency_code": "102", "amount": 7330142.03, "biennium": "2013-15", "name": "Financial Institutions", "payment_rows": 3704}
+{"agency_code": "095", "amount": 6943401.55, "biennium": "2013-15", "name": "Auditor", "payment_rows": 4334}
+{"agency_code": "478", "amount": 6817759.45, "biennium": "2013-15", "name": "Puget Sound Partnership", "payment_rows": 1212}
+{"agency_code": "190", "amount": 5839766.6, "biennium": "2013-15", "name": "Industrial Insurance Appeals", "payment_rows": 2359}
+{"agency_code": "160", "amount": 5806414.32, "biennium": "2013-15", "name": "Insurance Commissioner", "payment_rows": 2444}
+{"agency_code": "411", "amount": 5334969.5600000005, "biennium": "2013-15", "name": "Freight Mobility Strategic Investmt", "payment_rows": 252}
+{"agency_code": "390", "amount": 4375648.13, "biennium": "2013-15", "name": "Historical Society", "payment_rows": 505}
+{"agency_code": "011", "amount": 4346700.21, "biennium": "2013-15", "name": "House of Representatives", "payment_rows": 3440}
+{"agency_code": "126", "amount": 4118371.86, "biennium": "2013-15", "name": "State Investment Board", "payment_rows": 1653}
+{"agency_code": "110", "amount": 4055959.38, "biennium": "2013-15", "name": "Administrative Hearings", "payment_rows": 1631}
+{"agency_code": "038", "amount": 4042930.63, "biennium": "2013-15", "name": "Joint Legislative Systems Committee", "payment_rows": 759}
+{"agency_code": "012", "amount": 3691409.12, "biennium": "2013-15", "name": "Senate", "payment_rows": 1951}
+{"agency_code": "117", "amount": 3497094.09, "biennium": "2013-15", "name": "Gambling Commission", "payment_rows": 1943}
+{"agency_code": "116", "amount": 3017525.04, "biennium": "2013-15", "name": "Lottery Commission", "payment_rows": 1037}
+{"agency_code": "048", "amount": 2752753.8, "biennium": "2013-15", "name": "Court of Appeals", "payment_rows": 728}
+{"agency_code": "387", "amount": 2486993.65, "biennium": "2013-15", "name": "Arts Commission", "payment_rows": 990}
+{"agency_code": "135", "amount": 2485453.69, "biennium": "2013-15", "name": "Innovate Washington", "payment_rows": 218}
+{"agency_code": "353", "amount": 2467909.19, "biennium": "2013-15", "name": "Childhood Deafness & Hearing Loss", "payment_rows": 1101}
+{"agency_code": "090", "amount": 2343401.51, "biennium": "2013-15", "name": "Treasurer", "payment_rows": 894}
+{"agency_code": "075", "amount": 2137140.99, "biennium": "2013-15", "name": "Governor", "payment_rows": 861}
+{"agency_code": "351", "amount": 2088229.84, "biennium": "2013-15", "name": "School for the Blind", "payment_rows": 1314}
+{"agency_code": "355", "amount": 1986955.41, "biennium": "2013-15", "name": "Archaeology & Historic Preservation", "payment_rows": 513}
+{"agency_code": "010", "amount": 1539792.04, "biennium": "2013-15", "name": "Bond Retirement and Interest", "payment_rows": 123}
+{"agency_code": "185", "amount": 1311721.82, "biennium": "2013-15", "name": "Horse Racing Commission", "payment_rows": 808}
+{"agency_code": "410", "amount": 1013586.13, "biennium": "2013-15", "name": "Transportation Commission", "payment_rows": 442}
+{"agency_code": "014", "amount": 980260.56, "biennium": "2013-15", "name": "Joint Leg Audit & Review Committee", "payment_rows": 468}
+{"agency_code": "037", "amount": 920930.85, "biennium": "2013-15", "name": "Legislative Support Svcs", "payment_rows": 796}
+{"agency_code": "046", "amount": 896135.41, "biennium": "2013-15", "name": "Law Library", "payment_rows": 332}
+{"agency_code": "275", "amount": 878612.85, "biennium": "2013-15", "name": "Public Employment Relations Cmsn", "payment_rows": 862}
+{"agency_code": "147", "amount": 771837.5, "biennium": "2013-15", "name": "Minority & Women's Business Enterp", "payment_rows": 417}
+{"agency_code": "076", "amount": 728000.0, "biennium": "2013-15", "name": "Special Approps to the Governor", "payment_rows": 2}
+{"agency_code": "120", "amount": 720391.24, "biennium": "2013-15", "name": "Human Rights Commission", "payment_rows": 612}
+{"agency_code": "205", "amount": 703116.02, "biennium": "2013-15", "name": "Pilotage Commissioners", "payment_rows": 328}
+{"agency_code": "045", "amount": 689973.38, "biennium": "2013-15", "name": "Supreme Court", "payment_rows": 438}
+{"agency_code": "707", "amount": 665360.3099999999, "biennium": "2013-15", "name": "Sundry Claims", "payment_rows": 22}
+{"agency_code": "040", "amount": 536142.16, "biennium": "2013-15", "name": "Statute Law Committee", "payment_rows": 318}
+{"agency_code": "082", "amount": 511705.34, "biennium": "2013-15", "name": "Public Disclosure Commission", "payment_rows": 294}
+{"agency_code": "395", "amount": 463668.31, "biennium": "2013-15", "name": "Eastern WA State Historical Society", "payment_rows": 69}
+{"agency_code": "020", "amount": 432251.45, "biennium": "2013-15", "name": "LEAP Committee", "payment_rows": 262}
+{"agency_code": "468", "amount": 429601.26, "biennium": "2013-15", "name": "Environ & Land Use Hearings Office", "payment_rows": 507}
+{"agency_code": "165", "amount": 424865.55, "biennium": "2013-15", "name": "Accountancy", "payment_rows": 485}
+{"agency_code": "035", "amount": 386308.13, "biennium": "2013-15", "name": "Actuary", "payment_rows": 285}
+{"agency_code": "013", "amount": 383573.96, "biennium": "2013-15", "name": "Joint Transportation Committee", "payment_rows": 392}
+{"agency_code": "341", "amount": 377663.26, "biennium": "2013-15", "name": "LEOFF 2 Retirement Board", "payment_rows": 470}
+{"agency_code": "460", "amount": 309257.6, "biennium": "2013-15", "name": "Columbia River Gorge Commission", "payment_rows": 466}
+{"agency_code": "101", "amount": 267101.22, "biennium": "2013-15", "name": "Caseload Forecast Council", "payment_rows": 249}
+{"agency_code": "050", "amount": 194929.63, "biennium": "2013-15", "name": "Judicial Conduct", "payment_rows": 452}
+{"agency_code": "142", "amount": 174843.76, "biennium": "2013-15", "name": "Tax Appeals", "payment_rows": 200}
+{"agency_code": "220", "amount": 163197.12, "biennium": "2013-15", "name": "Volunteer Firefighters", "payment_rows": 271}
+{"agency_code": "080", "amount": 112444.39, "biennium": "2013-15", "name": "Lieutenant Governor", "payment_rows": 209}
+{"agency_code": "167", "amount": 104734.24, "biennium": "2013-15", "name": "Forensic Investigations Council", "payment_rows": 45}
+{"agency_code": "118", "amount": 97548.52, "biennium": "2013-15", "name": "Hispanic Affairs", "payment_rows": 281}
+{"agency_code": "104", "amount": 91197.27, "biennium": "2013-15", "name": "Economic & Revenue Forecast Council", "payment_rows": 194}
+{"agency_code": "086", "amount": 83425.64, "biennium": "2013-15", "name": "Indian Affairs", "payment_rows": 248}
+{"agency_code": "119", "amount": 61860.31, "biennium": "2013-15", "name": "African American Affairs", "payment_rows": 234}
+{"agency_code": "087", "amount": 59703.52, "biennium": "2013-15", "name": "Asian Pacific American Affairs", "payment_rows": 238}
+{"agency_code": "099", "amount": 28430.85, "biennium": "2013-15", "name": "Salaries for Elected Officials", "payment_rows": 180}
+{"agency_code": "091", "amount": 35.0, "biennium": "2013-15", "name": "Redistricting Commission", "payment_rows": 1}
+{"agency_code": "107", "amount": 8675874979.72, "biennium": "2015-17", "name": "Health Care Authority", "payment_rows": 52488}
+{"agency_code": "300", "amount": 4034695138.3, "biennium": "2015-17", "name": "Social and Health Services", "payment_rows": 401402}
+{"agency_code": "405", "amount": 1706067747.32, "biennium": "2015-17", "name": "Transportation", "payment_rows": 30085}
+{"agency_code": "103", "amount": 478978067.61, "biennium": "2015-17", "name": "Commerce", "payment_rows": 8505}
+{"agency_code": "461", "amount": 435716494.29, "biennium": "2015-17", "name": "Ecology", "payment_rows": 13877}
+{"agency_code": "350", "amount": 352467032.92, "biennium": "2015-17", "name": "Public Schools", "payment_rows": 16444}
+{"agency_code": "310", "amount": 334893934.26, "biennium": "2015-17", "name": "Corrections", "payment_rows": 20943}
+{"agency_code": "303", "amount": 306094420.88, "biennium": "2015-17", "name": "Health", "payment_rows": 17119}
+{"agency_code": "357", "amount": 226227408.64000002, "biennium": "2015-17", "name": "Early Learning", "payment_rows": 6412}
+{"agency_code": "490", "amount": 167851337.61, "biennium": "2015-17", "name": "Natural Resources", "payment_rows": 15183}
+{"agency_code": "179", "amount": 151569221.03, "biennium": "2015-17", "name": "Enterprise Services", "payment_rows": 6463}
+{"agency_code": "245", "amount": 133832991.04, "biennium": "2015-17", "name": "Military Department", "payment_rows": 4743}
+{"agency_code": "477", "amount": 114576168.06, "biennium": "2015-17", "name": "Fish and Wildlife", "payment_rows": 20522}
+{"agency_code": "235", "amount": 112618167.13, "biennium": "2015-17", "name": "Labor and Industries", "payment_rows": 18701}
+{"agency_code": "467", "amount": 108565412.04, "biennium": "2015-17", "name": "Rec and Conservation Funding Board", "payment_rows": 2164}
+{"agency_code": "407", "amount": 101215261.75, "biennium": "2015-17", "name": "Transportation Improvement Board", "payment_rows": 1230}
+{"agency_code": "225", "amount": 94576317.88, "biennium": "2015-17", "name": "State Patrol", "payment_rows": 12883}
+{"agency_code": "163", "amount": 88559896.42, "biennium": "2015-17", "name": "Consolidated Technology Services", "payment_rows": 2592}
+{"agency_code": "540", "amount": 74903703.8, "biennium": "2015-17", "name": "Employment Security Department", "payment_rows": 8885}
+{"agency_code": "240", "amount": 70683514.88, "biennium": "2015-17", "name": "Licensing", "payment_rows": 7520}
+{"agency_code": "105", "amount": 50283417.87, "biennium": "2015-17", "name": "Financial Management", "payment_rows": 2495}
+{"agency_code": "465", "amount": 48232812.84, "biennium": "2015-17", "name": "State Parks and Recreation Comm", "payment_rows": 6774}
+{"agency_code": "140", "amount": 47240542.17, "biennium": "2015-17", "name": "Revenue", "payment_rows": 9199}
+{"agency_code": "305", "amount": 41023828.160000004, "biennium": "2015-17", "name": "Veterans' Affairs", "payment_rows": 4551}
+{"agency_code": "495", "amount": 34960530.97, "biennium": "2015-17", "name": "Agriculture", "payment_rows": 11334}
+{"agency_code": "340", "amount": 34094014.99, "biennium": "2015-17", "name": "Council for Higher Education", "payment_rows": 2347}
+{"agency_code": "56", "amount": 33155936.69, "biennium": "2015-17", "name": "Public Defense", "payment_rows": 4099}
+{"agency_code": "55", "amount": 31686857.98, "biennium": "2015-17", "name": "Administrative Office of the Courts", "payment_rows": 6703}
+{"agency_code": "100", "amount": 27185789.49, "biennium": "2015-17", "name": "Attorney General", "payment_rows": 8289}
+{"agency_code": "227", "amount": 22992721.53, "biennium": "2015-17", "name": "Criminal Justice Training Cmsn", "payment_rows": 2781}
+{"agency_code": "406", "amount": 19741878.8, "biennium": "2015-17", "name": "County Road Administration Board", "payment_rows": 661}
+{"agency_code": "354", "amount": 18742819.24, "biennium": "2015-17", "name": "Workforce Trng & Educ Coord Board", "payment_rows": 732}
+{"agency_code": "85", "amount": 17440460.5, "biennium": "2015-17", "name": "Secretary of State", "payment_rows": 2363}
+{"agency_code": "471", "amount": 16271049.91, "biennium": "2015-17", "name": "Conservation Commission", "payment_rows": 1208}
+{"agency_code": "215", "amount": 13555106.95, "biennium": "2015-17", "name": "Utilities and Transportation Cmsn", "payment_rows": 1862}
+{"agency_code": "462", "amount": 13147396.87, "biennium": "2015-17", "name": "Pollution Liability Insurance Prog", "payment_rows": 386}
+{"agency_code": "124", "amount": 12178074.01, "biennium": "2015-17", "name": "Retirement Systems", "payment_rows": 1370}
+{"agency_code": "195", "amount": 10899506.88, "biennium": "2015-17", "name": "Liquor Control Board", "payment_rows": 2176}
+{"agency_code": "57", "amount": 10762152.0, "biennium": "2015-17", "name": "Civil Legal Aid", "payment_rows": 541}
+{"agency_code": "228", "amount": 10296717.4, "biennium": "2015-17", "name": "Traffic Safety Commission", "payment_rows": 2406}
+{"agency_code": "95", "amount": 8447186.31, "biennium": "2015-17", "name": "Auditor", "payment_rows": 4706}
+{"agency_code": "102", "amount": 8140574.49, "biennium": "2015-17", "name": "Financial Institutions", "payment_rows": 3908}
+{"agency_code": "315", "amount": 7379585.4799999995, "biennium": "2015-17", "name": "Services for the Blind", "payment_rows": 3035}
+{"agency_code": "160", "amount": 6216416.68, "biennium": "2015-17", "name": "Insurance Commissioner", "payment_rows": 2460}
+{"agency_code": "390", "amount": 6119971.25, "biennium": "2015-17", "name": "Historical Society", "payment_rows": 758}
+{"agency_code": "055", "amount": 6095475.49, "biennium": "2015-17", "name": "Administrative Office of the Courts", "payment_rows": 641}
+{"agency_code": "478", "amount": 5675263.22, "biennium": "2015-17", "name": "Puget Sound Partnership", "payment_rows": 1179}
+{"agency_code": "190", "amount": 5603976.28, "biennium": "2015-17", "name": "Industrial Insurance Appeals", "payment_rows": 2408}
+{"agency_code": "126", "amount": 5535037.8, "biennium": "2015-17", "name": "State Investment Board", "payment_rows": 1771}
+{"agency_code": "411", "amount": 4792408.9, "biennium": "2015-17", "name": "Freight Mobility Strategic Investmt", "payment_rows": 258}
+{"agency_code": "085", "amount": 4329952.62, "biennium": "2015-17", "name": "Secretary of State", "payment_rows": 255}
+{"agency_code": "38", "amount": 4079158.28, "biennium": "2015-17", "name": "Joint Legislative Systems Committee", "payment_rows": 731}
+{"agency_code": "116", "amount": 3571414.17, "biennium": "2015-17", "name": "Lottery Commission", "payment_rows": 1111}
+{"agency_code": "11", "amount": 3569277.17, "biennium": "2015-17", "name": "House of Representatives", "payment_rows": 3036}
+{"agency_code": "707", "amount": 3410705.0, "biennium": "2015-17", "name": "Sundry Claims", "payment_rows": 47}
+{"agency_code": "355", "amount": 3119858.95, "biennium": "2015-17", "name": "Archaeology & Historic Preservation", "payment_rows": 554}
+{"agency_code": "110", "amount": 2990352.47, "biennium": "2015-17", "name": "Administrative Hearings", "payment_rows": 1227}
+{"agency_code": "117", "amount": 2978527.46, "biennium": "2015-17", "name": "Gambling Commission", "payment_rows": 1711}
+{"agency_code": "056", "amount": 2892263.14, "biennium": "2015-17", "name": "Public Defense", "payment_rows": 413}
+{"agency_code": "48", "amount": 2802808.17, "biennium": "2015-17", "name": "Court of Appeals", "payment_rows": 699}
+{"agency_code": "353", "amount": 2553840.1, "biennium": "2015-17", "name": "Childhood Deafness & Hearing Loss", "payment_rows": 1251}
+{"agency_code": "057", "amount": 2545298.5999999996, "biennium": "2015-17", "name": "Civil Legal Aid", "payment_rows": 38}
+{"agency_code": "387", "amount": 2455139.32, "biennium": "2015-17", "name": "Arts Commission", "payment_rows": 937}
+{"agency_code": "12", "amount": 2290353.35, "biennium": "2015-17", "name": "Senate", "payment_rows": 1934}
+{"agency_code": "351", "amount": 1933468.53, "biennium": "2015-17", "name": "School for the Blind", "payment_rows": 1278}
+{"agency_code": "395", "amount": 1740928.44, "biennium": "2015-17", "name": "Eastern WA State Historical Society", "payment_rows": 633}
+{"agency_code": "90", "amount": 1735916.64, "biennium": "2015-17", "name": "Treasurer", "payment_rows": 812}
+{"agency_code": "185", "amount": 1430522.17, "biennium": "2015-17", "name": "Horse Racing Commission", "payment_rows": 826}
+{"agency_code": "75", "amount": 1338116.93, "biennium": "2015-17", "name": "Governor", "payment_rows": 848}
+{"agency_code": "10", "amount": 1211982.82, "biennium": "2015-17", "name": "Bond Retirement and Interest", "payment_rows": 92}
+{"agency_code": "275", "amount": 1168466.66, "biennium": "2015-17", "name": "Public Employment Relations Cmsn", "payment_rows": 933}
+{"agency_code": "012", "amount": 1061588.53, "biennium": "2015-17", "name": "Senate", "payment_rows": 178}
+{"agency_code": "095", "amount": 996653.2, "biennium": "2015-17", "name": "Auditor", "payment_rows": 389}
+{"agency_code": "075", "amount": 890045.56, "biennium": "2015-17", "name": "Governor", "payment_rows": 82}
+{"agency_code": "37", "amount": 872809.18, "biennium": "2015-17", "name": "Legislative Support Svcs", "payment_rows": 702}
+{"agency_code": "46", "amount": 846921.8, "biennium": "2015-17", "name": "Law Library", "payment_rows": 345}
+{"agency_code": "205", "amount": 833118.77, "biennium": "2015-17", "name": "Pilotage Commissioners", "payment_rows": 380}
+{"agency_code": "13", "amount": 737492.5599999999, "biennium": "2015-17", "name": "Joint Transportation Committee", "payment_rows": 304}
+{"agency_code": "120", "amount": 674498.18, "biennium": "2015-17", "name": "Human Rights Commission", "payment_rows": 621}
+{"agency_code": "147", "amount": 672509.11, "biennium": "2015-17", "name": "Minority & Women's Business Enterp", "payment_rows": 415}
+{"agency_code": "82", "amount": 662144.54, "biennium": "2015-17", "name": "Public Disclosure Commission", "payment_rows": 379}
+{"agency_code": "45", "amount": 649168.76, "biennium": "2015-17", "name": "Supreme Court", "payment_rows": 468}
+{"agency_code": "410", "amount": 632802.75, "biennium": "2015-17", "name": "Transportation Commission", "payment_rows": 420}
+{"agency_code": "038", "amount": 626626.47, "biennium": "2015-17", "name": "Joint Legislative Systems Committee", "payment_rows": 70}
+{"agency_code": "14", "amount": 569705.97, "biennium": "2015-17", "name": "Joint Leg Audit & Review Committee", "payment_rows": 423}
+{"agency_code": "011", "amount": 508124.46, "biennium": "2015-17", "name": "House of Representatives", "payment_rows": 288}
+{"agency_code": "165", "amount": 448569.04, "biennium": "2015-17", "name": "Accountancy", "payment_rows": 520}
+{"agency_code": "20", "amount": 433842.86, "biennium": "2015-17", "name": "LEAP Committee", "payment_rows": 248}
+{"agency_code": "35", "amount": 421639.27999999997, "biennium": "2015-17", "name": "Actuary", "payment_rows": 290}
+{"agency_code": "341", "amount": 409569.98, "biennium": "2015-17", "name": "LEOFF 2 Retirement Board", "payment_rows": 499}
+{"agency_code": "076", "amount": 400000.0, "biennium": "2015-17", "name": "Special Approps to the Governor", "payment_rows": 2}
+{"agency_code": "468", "amount": 394852.99, "biennium": "2015-17", "name": "Environ & Land Use Hearings Office", "payment_rows": 481}
+{"agency_code": "40", "amount": 387329.78, "biennium": "2015-17", "name": "Statute Law Committee", "payment_rows": 322}
+{"agency_code": "090", "amount": 366904.36, "biennium": "2015-17", "name": "Treasurer", "payment_rows": 78}
+{"agency_code": "460", "amount": 293374.05, "biennium": "2015-17", "name": "Columbia River Gorge Commission", "payment_rows": 411}
+{"agency_code": "101", "amount": 256063.88, "biennium": "2015-17", "name": "Caseload Forecast Council", "payment_rows": 258}
+{"agency_code": "048", "amount": 253762.53, "biennium": "2015-17", "name": "Court of Appeals", "payment_rows": 69}
+{"agency_code": "76", "amount": 246000.0, "biennium": "2015-17", "name": "Special Approps to the Governor", "payment_rows": 1}
+{"agency_code": "037", "amount": 223204.02000000002, "biennium": "2015-17", "name": "Legislative Support Svcs", "payment_rows": 59}
+{"agency_code": "50", "amount": 217985.79, "biennium": "2015-17", "name": "Judicial Conduct", "payment_rows": 389}
+{"agency_code": "035", "amount": 208813.92, "biennium": "2015-17", "name": "Actuary", "payment_rows": 31}
+{"agency_code": "142", "amount": 167559.64, "biennium": "2015-17", "name": "Tax Appeals", "payment_rows": 216}
+{"agency_code": "80", "amount": 151303.05, "biennium": "2015-17", "name": "Lieutenant Governor", "payment_rows": 244}
+{"agency_code": "118", "amount": 116454.84, "biennium": "2015-17", "name": "Hispanic Affairs", "payment_rows": 390}
+{"agency_code": "040", "amount": 110788.91, "biennium": "2015-17", "name": "Statute Law Committee", "payment_rows": 46}
+{"agency_code": "167", "amount": 108007.35, "biennium": "2015-17", "name": "Forensic Investigations Council", "payment_rows": 44}
+{"agency_code": "082", "amount": 107590.28, "biennium": "2015-17", "name": "Public Disclosure Commission", "payment_rows": 42}
+{"agency_code": "014", "amount": 100453.11, "biennium": "2015-17", "name": "Joint Leg Audit & Review Committee", "payment_rows": 31}
+{"agency_code": "220", "amount": 94037.52, "biennium": "2015-17", "name": "Volunteer Firefighters", "payment_rows": 283}
+{"agency_code": "104", "amount": 93860.87, "biennium": "2015-17", "name": "Economic & Revenue Forecast Council", "payment_rows": 236}
+{"agency_code": "86", "amount": 93297.19, "biennium": "2015-17", "name": "Indian Affairs", "payment_rows": 248}
+{"agency_code": "046", "amount": 87255.98000000001, "biennium": "2015-17", "name": "Law Library", "payment_rows": 32}
+{"agency_code": "045", "amount": 76940.9, "biennium": "2015-17", "name": "Supreme Court", "payment_rows": 51}
+{"agency_code": "020", "amount": 65485.02, "biennium": "2015-17", "name": "LEAP Committee", "payment_rows": 26}
+{"agency_code": "119", "amount": 52291.97, "biennium": "2015-17", "name": "African American Affairs", "payment_rows": 249}
+{"agency_code": "87", "amount": 46457.6, "biennium": "2015-17", "name": "Asian Pacific American Affairs", "payment_rows": 236}
+{"agency_code": "010", "amount": 31949.32, "biennium": "2015-17", "name": "Bond Retirement and Interest", "payment_rows": 17}
+{"agency_code": "99", "amount": 25976.579999999998, "biennium": "2015-17", "name": "Salaries for Elected Officials", "payment_rows": 144}
+{"agency_code": "050", "amount": 13301.54, "biennium": "2015-17", "name": "Judicial Conduct", "payment_rows": 19}
+{"agency_code": "080", "amount": 9732.46, "biennium": "2015-17", "name": "Lieutenant Governor", "payment_rows": 23}
+{"agency_code": "086", "amount": 7374.56, "biennium": "2015-17", "name": "Indian Affairs", "payment_rows": 22}
+{"agency_code": "013", "amount": 5467.32, "biennium": "2015-17", "name": "Joint Transportation Committee", "payment_rows": 15}
+{"agency_code": "087", "amount": 2990.71, "biennium": "2015-17", "name": "Asian Pacific American Affairs", "payment_rows": 26}
+{"agency_code": "099", "amount": 2792.76, "biennium": "2015-17", "name": "Salaries for Elected Officials", "payment_rows": 21}
+{"agency_code": "107", "amount": 9423906364.289999, "biennium": "2017-19", "name": "Health Care Authority", "payment_rows": 46988}
+{"agency_code": "300", "amount": 5070052335.28, "biennium": "2017-19", "name": "Social and Health Services", "payment_rows": 228403}
+{"agency_code": "405", "amount": 1688262797.66, "biennium": "2017-19", "name": "Transportation", "payment_rows": 30996}
+{"agency_code": "350", "amount": 571779576.67, "biennium": "2017-19", "name": "Public Schools", "payment_rows": 15942}
+{"agency_code": "103", "amount": 458857512.6, "biennium": "2017-19", "name": "Commerce", "payment_rows": 8475}
+{"agency_code": "303", "amount": 354059322.89, "biennium": "2017-19", "name": "Health", "payment_rows": 17888}
+{"agency_code": "310", "amount": 339371535.59, "biennium": "2017-19", "name": "Corrections", "payment_rows": 20306}
+{"agency_code": "357", "amount": 293313773.12, "biennium": "2017-19", "name": "Early Learning", "payment_rows": 9368}
+{"agency_code": "461", "amount": 275003275.5, "biennium": "2017-19", "name": "Ecology", "payment_rows": 13275}
+{"agency_code": "179", "amount": 151766446.81, "biennium": "2017-19", "name": "Enterprise Services", "payment_rows": 6437}
+{"agency_code": "407", "amount": 141147830.61, "biennium": "2017-19", "name": "Transportation Improvement Board", "payment_rows": 1406}
+{"agency_code": "490", "amount": 135011583.64, "biennium": "2017-19", "name": "Natural Resources", "payment_rows": 14661}
+{"agency_code": "467", "amount": 123827528.33, "biennium": "2017-19", "name": "Recreation and Conservation Office", "payment_rows": 2243}
+{"agency_code": "235", "amount": 122518655.04, "biennium": "2017-19", "name": "Labor and Industries", "payment_rows": 18308}
+{"agency_code": "225", "amount": 118209365.09, "biennium": "2017-19", "name": "State Patrol", "payment_rows": 12851}
+{"agency_code": "245", "amount": 116760663.14, "biennium": "2017-19", "name": "Military Department", "payment_rows": 4441}
+{"agency_code": "477", "amount": 113104680.16, "biennium": "2017-19", "name": "Fish and Wildlife", "payment_rows": 18240}
+{"agency_code": "163", "amount": 84545230.49, "biennium": "2017-19", "name": "Consolidated Technology Services", "payment_rows": 2008}
+{"agency_code": "240", "amount": 80105232.08, "biennium": "2017-19", "name": "Licensing", "payment_rows": 8047}
+{"agency_code": "540", "amount": 72249977.36, "biennium": "2017-19", "name": "Employment Security Department", "payment_rows": 10596}
+{"agency_code": "105", "amount": 70295387.93, "biennium": "2017-19", "name": "Financial Management", "payment_rows": 2462}
+{"agency_code": "140", "amount": 46704096.43, "biennium": "2017-19", "name": "Revenue", "payment_rows": 8650}
+{"agency_code": "465", "amount": 44553097.33, "biennium": "2017-19", "name": "State Parks and Recreation Comm", "payment_rows": 6516}
+{"agency_code": "056", "amount": 38984004.47, "biennium": "2017-19", "name": "Public Defense", "payment_rows": 4872}
+{"agency_code": "100", "amount": 37961693.18, "biennium": "2017-19", "name": "Attorney General", "payment_rows": 8770}
+{"agency_code": "340", "amount": 36882192.77, "biennium": "2017-19", "name": "Student Achievement Council", "payment_rows": 2351}
+{"agency_code": "055", "amount": 36813715.51, "biennium": "2017-19", "name": "Administrative Office of the Courts", "payment_rows": 7799}
+{"agency_code": "495", "amount": 36672578.69, "biennium": "2017-19", "name": "Agriculture", "payment_rows": 10644}
+{"agency_code": "305", "amount": 26950204.47, "biennium": "2017-19", "name": "Veterans' Affairs", "payment_rows": 4585}
+{"agency_code": "354", "amount": 26803264.349999998, "biennium": "2017-19", "name": "Workforce Trng & Educ Coord Board", "payment_rows": 802}
+{"agency_code": "085", "amount": 22927778.49, "biennium": "2017-19", "name": "Secretary of State", "payment_rows": 2645}
+{"agency_code": "227", "amount": 22806039.06, "biennium": "2017-19", "name": "Criminal Justice Training Cmsn", "payment_rows": 3243}
+{"agency_code": "406", "amount": 19796596.27, "biennium": "2017-19", "name": "County Road Administration Board", "payment_rows": 665}
+{"agency_code": "471", "amount": 19243515.23, "biennium": "2017-19", "name": "Conservation Commission", "payment_rows": 1246}
+{"agency_code": "057", "amount": 18762749.84, "biennium": "2017-19", "name": "Civil Legal Aid", "payment_rows": 851}
+{"agency_code": "462", "amount": 17247541.09, "biennium": "2017-19", "name": "Pollution Liability Insurance Prog", "payment_rows": 539}
+{"agency_code": "195", "amount": 14409968.91, "biennium": "2017-19", "name": "Liquor and Cannabis Board", "payment_rows": 2589}
+{"agency_code": "124", "amount": 13057055.040000001, "biennium": "2017-19", "name": "Retirement Systems", "payment_rows": 1307}
+{"agency_code": "215", "amount": 12840838.53, "biennium": "2017-19", "name": "Utilities and Transportation Cmsn", "payment_rows": 1910}
+{"agency_code": "228", "amount": 11886325.6, "biennium": "2017-19", "name": "Traffic Safety Commission", "payment_rows": 2697}
+{"agency_code": "102", "amount": 9798951.02, "biennium": "2017-19", "name": "Financial Institutions", "payment_rows": 3704}
+{"agency_code": "315", "amount": 8575765.57, "biennium": "2017-19", "name": "Services for the Blind", "payment_rows": 2679}
+{"agency_code": "095", "amount": 8326912.6, "biennium": "2017-19", "name": "Auditor", "payment_rows": 5435}
+{"agency_code": "160", "amount": 6909401.75, "biennium": "2017-19", "name": "Insurance Commissioner", "payment_rows": 2184}
+{"agency_code": "190", "amount": 6152069.34, "biennium": "2017-19", "name": "Industrial Insurance Appeals", "payment_rows": 2376}
+{"agency_code": "126", "amount": 5985205.62, "biennium": "2017-19", "name": "State Investment Board", "payment_rows": 1887}
+{"agency_code": "411", "amount": 5112403.68, "biennium": "2017-19", "name": "Freight Mobility Strategic Investmt", "payment_rows": 253}
+{"agency_code": "038", "amount": 5035247.75, "biennium": "2017-19", "name": "Joint Legislative Systems Committee", "payment_rows": 852}
+{"agency_code": "075", "amount": 4324861.44, "biennium": "2017-19", "name": "Governor", "payment_rows": 901}
+{"agency_code": "011", "amount": 4261011.43, "biennium": "2017-19", "name": "House of Representatives", "payment_rows": 3477}
+{"agency_code": "390", "amount": 4052621.37, "biennium": "2017-19", "name": "Historical Society", "payment_rows": 545}
+{"agency_code": "478", "amount": 3693829.35, "biennium": "2017-19", "name": "Puget Sound Partnership", "payment_rows": 996}
+{"agency_code": "117", "amount": 3585953.29, "biennium": "2017-19", "name": "Gambling Commission", "payment_rows": 1693}
+{"agency_code": "012", "amount": 3452383.43, "biennium": "2017-19", "name": "Senate", "payment_rows": 2083}
+{"agency_code": "110", "amount": 3439785.54, "biennium": "2017-19", "name": "Administrative Hearings", "payment_rows": 1306}
+{"agency_code": "387", "amount": 3180433.6, "biennium": "2017-19", "name": "Arts Commission", "payment_rows": 989}
+{"agency_code": "116", "amount": 3145277.56, "biennium": "2017-19", "name": "Lottery Commission", "payment_rows": 1106}
+{"agency_code": "048", "amount": 2983057.77, "biennium": "2017-19", "name": "Court of Appeals", "payment_rows": 754}
+{"agency_code": "090", "amount": 2503190.91, "biennium": "2017-19", "name": "Treasurer", "payment_rows": 928}
+{"agency_code": "353", "amount": 2492974.0, "biennium": "2017-19", "name": "Childhood Deafness & Hearing Loss", "payment_rows": 1306}
+{"agency_code": "355", "amount": 2143933.68, "biennium": "2017-19", "name": "Archaeology & Historic Preservation", "payment_rows": 556}
+{"agency_code": "351", "amount": 2060743.37, "biennium": "2017-19", "name": "School for the Blind", "payment_rows": 1260}
+{"agency_code": "205", "amount": 1697008.26, "biennium": "2017-19", "name": "Pilotage Commissioners", "payment_rows": 337}
+{"agency_code": "185", "amount": 1409114.8, "biennium": "2017-19", "name": "Horse Racing Commission", "payment_rows": 786}
+{"agency_code": "395", "amount": 1345765.5, "biennium": "2017-19", "name": "Eastern WA State Historical Society", "payment_rows": 481}
+{"agency_code": "082", "amount": 1188772.53, "biennium": "2017-19", "name": "Public Disclosure Commission", "payment_rows": 383}
+{"agency_code": "014", "amount": 1170780.72, "biennium": "2017-19", "name": "Joint Leg Audit & Review Committee", "payment_rows": 429}
+{"agency_code": "275", "amount": 1167022.85, "biennium": "2017-19", "name": "Public Employment Relations Cmsn", "payment_rows": 961}
+{"agency_code": "010", "amount": 1158362.38, "biennium": "2017-19", "name": "Bond Retirement and Interest", "payment_rows": 82}
+{"agency_code": "037", "amount": 1076532.02, "biennium": "2017-19", "name": "Office of Legislative Support Svcs", "payment_rows": 703}
+{"agency_code": "046", "amount": 970827.54, "biennium": "2017-19", "name": "Law Library", "payment_rows": 414}
+{"agency_code": "045", "amount": 928535.61, "biennium": "2017-19", "name": "Supreme Court", "payment_rows": 544}
+{"agency_code": "013", "amount": 841329.09, "biennium": "2017-19", "name": "Joint Transportation Committee", "payment_rows": 342}
+{"agency_code": "147", "amount": 746701.58, "biennium": "2017-19", "name": "Minority & Women's Business Enterp", "payment_rows": 443}
+{"agency_code": "120", "amount": 696608.18, "biennium": "2017-19", "name": "Human Rights Commission", "payment_rows": 499}
+{"agency_code": "707", "amount": 595799.0, "biennium": "2017-19", "name": "Sundry Claims", "payment_rows": 21}
+{"agency_code": "020", "amount": 578312.35, "biennium": "2017-19", "name": "LEAP Committee", "payment_rows": 271}
+{"agency_code": "040", "amount": 475363.17, "biennium": "2017-19", "name": "Statute Law Committee", "payment_rows": 380}
+{"agency_code": "165", "amount": 429523.87, "biennium": "2017-19", "name": "Accountancy", "payment_rows": 444}
+{"agency_code": "468", "amount": 424446.64999999997, "biennium": "2017-19", "name": "Environ & Land Use Hearings Office", "payment_rows": 433}
+{"agency_code": "035", "amount": 407629.6, "biennium": "2017-19", "name": "Actuary", "payment_rows": 327}
+{"agency_code": "050", "amount": 407074.89, "biennium": "2017-19", "name": "Judicial Conduct", "payment_rows": 430}
+{"agency_code": "410", "amount": 405547.9, "biennium": "2017-19", "name": "Transportation Commission", "payment_rows": 457}
+{"agency_code": "341", "amount": 404281.96, "biennium": "2017-19", "name": "LEOFF 2 Retirement Board", "payment_rows": 463}
+{"agency_code": "101", "amount": 346233.6, "biennium": "2017-19", "name": "Caseload Forecast Council", "payment_rows": 260}
+{"agency_code": "460", "amount": 298673.4, "biennium": "2017-19", "name": "Columbia River Gorge Commission", "payment_rows": 442}
+{"agency_code": "142", "amount": 266501.34, "biennium": "2017-19", "name": "Tax Appeals", "payment_rows": 270}
+{"agency_code": "080", "amount": 231839.97, "biennium": "2017-19", "name": "Lieutenant Governor", "payment_rows": 276}
+{"agency_code": "076", "amount": 211862.0, "biennium": "2017-19", "name": "Special Approps to the Governor", "payment_rows": 1}
+{"agency_code": "167", "amount": 195843.11000000002, "biennium": "2017-19", "name": "Forensic Investigations Council", "payment_rows": 80}
+{"agency_code": "086", "amount": 147585.48, "biennium": "2017-19", "name": "Indian Affairs", "payment_rows": 282}
+{"agency_code": "220", "amount": 131106.05, "biennium": "2017-19", "name": "Volunteer Firefighters", "payment_rows": 329}
+{"agency_code": "118", "amount": 123224.87, "biennium": "2017-19", "name": "Hispanic Affairs", "payment_rows": 370}
+{"agency_code": "104", "amount": 120674.78, "biennium": "2017-19", "name": "Economic & Revenue Forecast Council", "payment_rows": 239}
+{"agency_code": "119", "amount": 83600.88, "biennium": "2017-19", "name": "African American Affairs", "payment_rows": 231}
+{"agency_code": "087", "amount": 68615.69, "biennium": "2017-19", "name": "Asian Pacific American Affairs", "payment_rows": 333}
+{"agency_code": "359", "amount": 65609.56999999999, "biennium": "2017-19", "name": "Washington Charter School Comm", "payment_rows": 53}
+{"agency_code": "099", "amount": 52937.76, "biennium": "2017-19", "name": "Salaries for Elected Officials", "payment_rows": 241}
+{"agency_code": "107", "amount": 10867936261.12, "biennium": "2019-21", "name": "Health Care Authority", "payment_rows": 45464}
+{"agency_code": "300", "amount": 4955476730.7, "biennium": "2019-21", "name": "Social and Health Services", "payment_rows": 105726}
+{"agency_code": "405", "amount": 1971538289.1, "biennium": "2019-21", "name": "Transportation", "payment_rows": 26364}
+{"agency_code": "307", "amount": 968964273.23, "biennium": "2019-21", "name": "Children, Youth, and Families", "payment_rows": 111210}
+{"agency_code": "350", "amount": 731276623.21, "biennium": "2019-21", "name": "Public Schools", "payment_rows": 13608}
+{"agency_code": "103", "amount": 518152587.35, "biennium": "2019-21", "name": "Commerce", "payment_rows": 8640}
+{"agency_code": "303", "amount": 399552879.92, "biennium": "2019-21", "name": "Health", "payment_rows": 15545}
+{"agency_code": "310", "amount": 395426332.67, "biennium": "2019-21", "name": "Corrections", "payment_rows": 19066}
+{"agency_code": "461", "amount": 286894447.12, "biennium": "2019-21", "name": "Ecology", "payment_rows": 11804}
+{"agency_code": "179", "amount": 268776067.85, "biennium": "2019-21", "name": "Enterprise Services", "payment_rows": 5924}
+{"agency_code": "467", "amount": 158008127.33, "biennium": "2019-21", "name": "Recreation and Conservation Office", "payment_rows": 2464}
+{"agency_code": "235", "amount": 156003215.29, "biennium": "2019-21", "name": "Labor and Industries", "payment_rows": 18680}
+{"agency_code": "245", "amount": 142323361.84, "biennium": "2019-21", "name": "Military Department", "payment_rows": 3901}
+{"agency_code": "490", "amount": 140561562.03, "biennium": "2019-21", "name": "Natural Resources", "payment_rows": 12687}
+{"agency_code": "477", "amount": 119059923.17, "biennium": "2019-21", "name": "Fish and Wildlife", "payment_rows": 15151}
+{"agency_code": "407", "amount": 118887300.2, "biennium": "2019-21", "name": "Transportation Improvement Board", "payment_rows": 1250}
+{"agency_code": "540", "amount": 114245707.96, "biennium": "2019-21", "name": "Employment Security Department", "payment_rows": 8791}
+{"agency_code": "225", "amount": 102179269.71, "biennium": "2019-21", "name": "State Patrol", "payment_rows": 10247}
+{"agency_code": "240", "amount": 82180638.41, "biennium": "2019-21", "name": "Licensing", "payment_rows": 5950}
+{"agency_code": "105", "amount": 79620764.72, "biennium": "2019-21", "name": "Financial Management", "payment_rows": 2722}
+{"agency_code": "163", "amount": 76775166.21, "biennium": "2019-21", "name": "Consolidated Technology Services", "payment_rows": 1712}
+{"agency_code": "465", "amount": 56278687.04, "biennium": "2019-21", "name": "State Parks and Recreation Comm", "payment_rows": 5446}
+{"agency_code": "085", "amount": 53321816.43, "biennium": "2019-21", "name": "Secretary of State", "payment_rows": 2696}
+{"agency_code": "495", "amount": 50015006.57, "biennium": "2019-21", "name": "Agriculture", "payment_rows": 8508}
+{"agency_code": "056", "amount": 49504279.56, "biennium": "2019-21", "name": "Public Defense", "payment_rows": 4960}
+{"agency_code": "100", "amount": 43705236.2, "biennium": "2019-21", "name": "Attorney General", "payment_rows": 7800}
+{"agency_code": "140", "amount": 38306954.45, "biennium": "2019-21", "name": "Revenue", "payment_rows": 7294}
+{"agency_code": "340", "amount": 37389878.5, "biennium": "2019-21", "name": "Student Achievement Council", "payment_rows": 2280}
+{"agency_code": "055", "amount": 33767118.9, "biennium": "2019-21", "name": "Administrative Office of the Courts", "payment_rows": 5641}
+{"agency_code": "305", "amount": 31905337.16, "biennium": "2019-21", "name": "Veterans' Affairs", "payment_rows": 4672}
+{"agency_code": "057", "amount": 26359571.34, "biennium": "2019-21", "name": "Civil Legal Aid", "payment_rows": 983}
+{"agency_code": "227", "amount": 26350231.09, "biennium": "2019-21", "name": "Criminal Justice Training Cmsn", "payment_rows": 2381}
+{"agency_code": "406", "amount": 25360509.02, "biennium": "2019-21", "name": "County Road Administration Board", "payment_rows": 628}
+{"agency_code": "471", "amount": 25257382.11, "biennium": "2019-21", "name": "Conservation Commission", "payment_rows": 1244}
+{"agency_code": "354", "amount": 21077933.73, "biennium": "2019-21", "name": "Workforce Trng & Educ Coord Board", "payment_rows": 686}
+{"agency_code": "124", "amount": 18731214.97, "biennium": "2019-21", "name": "Retirement Systems", "payment_rows": 1238}
+{"agency_code": "195", "amount": 17534694.55, "biennium": "2019-21", "name": "Liquor and Cannabis Board", "payment_rows": 2261}
+{"agency_code": "411", "amount": 15089012.02, "biennium": "2019-21", "name": "Freight Mobility Strategic Investmt", "payment_rows": 249}
+{"agency_code": "215", "amount": 12375647.54, "biennium": "2019-21", "name": "Utilities and Transportation Cmsn", "payment_rows": 1393}
+{"agency_code": "228", "amount": 11061959.95, "biennium": "2019-21", "name": "Traffic Safety Commission", "payment_rows": 1777}
+{"agency_code": "102", "amount": 7592003.78, "biennium": "2019-21", "name": "Financial Institutions", "payment_rows": 2651}
+{"agency_code": "315", "amount": 7578846.57, "biennium": "2019-21", "name": "Services for the Blind", "payment_rows": 2322}
+{"agency_code": "095", "amount": 7560509.1, "biennium": "2019-21", "name": "Auditor", "payment_rows": 4341}
+{"agency_code": "160", "amount": 7400966.74, "biennium": "2019-21", "name": "Insurance Commissioner", "payment_rows": 2024}
+{"agency_code": "038", "amount": 6951344.55, "biennium": "2019-21", "name": "Joint Legislative Systems Committee", "payment_rows": 916}
+{"agency_code": "126", "amount": 6400883.15, "biennium": "2019-21", "name": "State Investment Board", "payment_rows": 1569}
+{"agency_code": "190", "amount": 6361485.89, "biennium": "2019-21", "name": "Industrial Insurance Appeals", "payment_rows": 1945}
+{"agency_code": "390", "amount": 5607101.82, "biennium": "2019-21", "name": "Historical Society", "payment_rows": 630}
+{"agency_code": "075", "amount": 5504353.49, "biennium": "2019-21", "name": "Governor", "payment_rows": 1070}
+{"agency_code": "011", "amount": 5162267.06, "biennium": "2019-21", "name": "House of Representatives", "payment_rows": 3435}
+{"agency_code": "478", "amount": 5144952.2, "biennium": "2019-21", "name": "Puget Sound Partnership", "payment_rows": 964}
+{"agency_code": "462", "amount": 4350706.47, "biennium": "2019-21", "name": "Pollution Liability Insurance Prog", "payment_rows": 462}
+{"agency_code": "117", "amount": 4058412.2600000002, "biennium": "2019-21", "name": "Gambling Commission", "payment_rows": 1550}
+{"agency_code": "353", "amount": 3922297.15, "biennium": "2019-21", "name": "Deaf and Hard of Hearing Youth", "payment_rows": 1316}
+{"agency_code": "110", "amount": 3844849.33, "biennium": "2019-21", "name": "Administrative Hearings", "payment_rows": 1189}
+{"agency_code": "351", "amount": 3545763.15, "biennium": "2019-21", "name": "School for the Blind", "payment_rows": 1157}
+{"agency_code": "012", "amount": 3529030.97, "biennium": "2019-21", "name": "Senate", "payment_rows": 2179}
+{"agency_code": "387", "amount": 3456308.88, "biennium": "2019-21", "name": "Arts Commission", "payment_rows": 1046}
+{"agency_code": "048", "amount": 3320645.39, "biennium": "2019-21", "name": "Court of Appeals", "payment_rows": 728}
+{"agency_code": "116", "amount": 2586692.82, "biennium": "2019-21", "name": "Lottery Commission", "payment_rows": 858}
+{"agency_code": "355", "amount": 2460075.09, "biennium": "2019-21", "name": "Archaeology & Historic Preservation", "payment_rows": 441}
+{"agency_code": "205", "amount": 2315093.55, "biennium": "2019-21", "name": "Pilotage Commissioners", "payment_rows": 396}
+{"agency_code": "090", "amount": 2210618.78, "biennium": "2019-21", "name": "Treasurer", "payment_rows": 692}
+{"agency_code": "082", "amount": 2073841.78, "biennium": "2019-21", "name": "Public Disclosure Commission", "payment_rows": 473}
+{"agency_code": "395", "amount": 2032937.31, "biennium": "2019-21", "name": "Eastern WA State Historical Society", "payment_rows": 528}
+{"agency_code": "010", "amount": 1418662.97, "biennium": "2019-21", "name": "Bond Retirement and Interest", "payment_rows": 67}
+{"agency_code": "166", "amount": 1285455.22, "biennium": "2019-21", "name": "Bd of Reg Prof Eng & Land Surveyors", "payment_rows": 202}
+{"agency_code": "013", "amount": 1125849.75, "biennium": "2019-21", "name": "Joint Transportation Committee", "payment_rows": 432}
+{"agency_code": "120", "amount": 1125329.23, "biennium": "2019-21", "name": "Human Rights Commission", "payment_rows": 492}
+{"agency_code": "045", "amount": 1083572.86, "biennium": "2019-21", "name": "Supreme Court", "payment_rows": 531}
+{"agency_code": "046", "amount": 1070532.96, "biennium": "2019-21", "name": "Law Library", "payment_rows": 382}
+{"agency_code": "037", "amount": 1032890.87, "biennium": "2019-21", "name": "Office of Legislative Support Svcs", "payment_rows": 812}
+{"agency_code": "275", "amount": 1025308.73, "biennium": "2019-21", "name": "Public Employment Relations Cmsn", "payment_rows": 738}
+{"agency_code": "165", "amount": 953614.02, "biennium": "2019-21", "name": "Accountancy", "payment_rows": 485}
+{"agency_code": "185", "amount": 938249.38, "biennium": "2019-21", "name": "Horse Racing Commission", "payment_rows": 609}
+{"agency_code": "147", "amount": 911945.24, "biennium": "2019-21", "name": "Minority & Women's Business Enterp", "payment_rows": 453}
+{"agency_code": "014", "amount": 899938.0700000001, "biennium": "2019-21", "name": "Joint Leg Audit & Review Committee", "payment_rows": 366}
+{"agency_code": "707", "amount": 624853.0, "biennium": "2019-21", "name": "Sundry Claims", "payment_rows": 9}
+{"agency_code": "468", "amount": 563058.09, "biennium": "2019-21", "name": "Environ & Land Use Hearings Office", "payment_rows": 425}
+{"agency_code": "101", "amount": 533103.02, "biennium": "2019-21", "name": "Caseload Forecast Council", "payment_rows": 274}
+{"agency_code": "410", "amount": 519272.54, "biennium": "2019-21", "name": "Transportation Commission", "payment_rows": 392}
+{"agency_code": "142", "amount": 518765.37, "biennium": "2019-21", "name": "Tax Appeals", "payment_rows": 323}
+{"agency_code": "040", "amount": 465462.36, "biennium": "2019-21", "name": "Statute Law Committee", "payment_rows": 349}
+{"agency_code": "080", "amount": 464211.07, "biennium": "2019-21", "name": "Lieutenant Governor", "payment_rows": 283}
+{"agency_code": "020", "amount": 431145.62, "biennium": "2019-21", "name": "LEAP Committee", "payment_rows": 245}
+{"agency_code": "035", "amount": 396745.38, "biennium": "2019-21", "name": "Actuary", "payment_rows": 251}
+{"agency_code": "341", "amount": 395115.84, "biennium": "2019-21", "name": "LEOFF 2 Retirement Board", "payment_rows": 428}
+{"agency_code": "050", "amount": 366121.14, "biennium": "2019-21", "name": "Judicial Conduct", "payment_rows": 363}
+{"agency_code": "460", "amount": 304693.53, "biennium": "2019-21", "name": "Columbia River Gorge Commission", "payment_rows": 422}
+{"agency_code": "220", "amount": 284932.57, "biennium": "2019-21", "name": "Volunteer Firefighters", "payment_rows": 273}
+{"agency_code": "167", "amount": 200324.48, "biennium": "2019-21", "name": "Forensic Investigations Council", "payment_rows": 66}
+{"agency_code": "086", "amount": 178050.55, "biennium": "2019-21", "name": "Indian Affairs", "payment_rows": 249}
+{"agency_code": "118", "amount": 176222.07, "biennium": "2019-21", "name": "Hispanic Affairs", "payment_rows": 375}
+{"agency_code": "087", "amount": 108968.29, "biennium": "2019-21", "name": "Asian Pacific American Affairs", "payment_rows": 323}
+{"agency_code": "104", "amount": 103050.72, "biennium": "2019-21", "name": "Economic & Revenue Forecast Council", "payment_rows": 212}
+{"agency_code": "119", "amount": 85685.99, "biennium": "2019-21", "name": "African American Affairs", "payment_rows": 229}
+{"agency_code": "099", "amount": 66128.54, "biennium": "2019-21", "name": "Salaries for Elected Officials", "payment_rows": 218}
+{"agency_code": "107", "amount": 13124865771.0, "biennium": "2021-23", "name": "Health Care Authority", "payment_rows": 41992}
+{"agency_code": "300", "amount": 6023569856.74, "biennium": "2021-23", "name": "Social and Health Services", "payment_rows": 79188}
+{"agency_code": "405", "amount": 1752935701.7, "biennium": "2021-23", "name": "Transportation", "payment_rows": 20714}
+{"agency_code": "303", "amount": 1447472094.34, "biennium": "2021-23", "name": "Health", "payment_rows": 12158}
+{"agency_code": "103", "amount": 1415870737.19, "biennium": "2021-23", "name": "Commerce", "payment_rows": 8358}
+{"agency_code": "307", "amount": 1342719953.97, "biennium": "2021-23", "name": "Children, Youth, and Families", "payment_rows": 105168}
+{"agency_code": "350", "amount": 912194950.7, "biennium": "2021-23", "name": "Public Schools", "payment_rows": 10078}
+{"agency_code": "461", "amount": 434597312.24, "biennium": "2021-23", "name": "Ecology", "payment_rows": 8000}
+{"agency_code": "245", "amount": 403235659.78, "biennium": "2021-23", "name": "Military Department", "payment_rows": 4142}
+{"agency_code": "310", "amount": 400320077.82, "biennium": "2021-23", "name": "Corrections", "payment_rows": 14212}
+{"agency_code": "490", "amount": 208864052.48, "biennium": "2021-23", "name": "Natural Resources", "payment_rows": 11594}
+{"agency_code": "467", "amount": 166325166.45, "biennium": "2021-23", "name": "Recreation and Conservation Office", "payment_rows": 2213}
+{"agency_code": "179", "amount": 164151709.25, "biennium": "2021-23", "name": "Enterprise Services", "payment_rows": 4809}
+{"agency_code": "235", "amount": 163998211.4, "biennium": "2021-23", "name": "Labor and Industries", "payment_rows": 9278}
+{"agency_code": "477", "amount": 143492737.97, "biennium": "2021-23", "name": "Fish and Wildlife", "payment_rows": 13675}
+{"agency_code": "540", "amount": 135134357.34, "biennium": "2021-23", "name": "Employment Security Department", "payment_rows": 4841}
+{"agency_code": "163", "amount": 124543839.99, "biennium": "2021-23", "name": "Consolidated Technology Services", "payment_rows": 1500}
+{"agency_code": "225", "amount": 112401943.25, "biennium": "2021-23", "name": "State Patrol", "payment_rows": 9945}
+{"agency_code": "495", "amount": 105424785.65, "biennium": "2021-23", "name": "Agriculture", "payment_rows": 7021}
+{"agency_code": "407", "amount": 72071673.52, "biennium": "2021-23", "name": "Transportation Improvement Board", "payment_rows": 937}
+{"agency_code": "240", "amount": 72059180.95, "biennium": "2021-23", "name": "Licensing", "payment_rows": 4090}
+{"agency_code": "105", "amount": 71280506.63, "biennium": "2021-23", "name": "Financial Management", "payment_rows": 1858}
+{"agency_code": "465", "amount": 65710862.82, "biennium": "2021-23", "name": "State Parks and Recreation Comm", "payment_rows": 5183}
+{"agency_code": "056", "amount": 59827610.24, "biennium": "2021-23", "name": "Public Defense", "payment_rows": 4522}
+{"agency_code": "100", "amount": 56661756.48, "biennium": "2021-23", "name": "Attorney General", "payment_rows": 4796}
+{"agency_code": "055", "amount": 52999367.09, "biennium": "2021-23", "name": "Administrative Office of the Courts", "payment_rows": 3843}
+{"agency_code": "140", "amount": 45314470.73, "biennium": "2021-23", "name": "Revenue", "payment_rows": 4549}
+{"agency_code": "057", "amount": 44982402.57, "biennium": "2021-23", "name": "Civil Legal Aid", "payment_rows": 1085}
+{"agency_code": "340", "amount": 39018467.77, "biennium": "2021-23", "name": "Student Achievement Council", "payment_rows": 1797}
+{"agency_code": "305", "amount": 34722703.7, "biennium": "2021-23", "name": "Veterans' Affairs", "payment_rows": 4024}
+{"agency_code": "227", "amount": 31938302.64, "biennium": "2021-23", "name": "Criminal Justice Training Cmsn", "payment_rows": 2377}
+{"agency_code": "085", "amount": 29648561.0, "biennium": "2021-23", "name": "Secretary of State", "payment_rows": 1720}
+{"agency_code": "406", "amount": 22356971.0, "biennium": "2021-23", "name": "County Road Administration Board", "payment_rows": 621}
+{"agency_code": "354", "amount": 21323578.78, "biennium": "2021-23", "name": "Workforce Trng & Educ Coord Board", "payment_rows": 484}
+{"agency_code": "471", "amount": 20658532.09, "biennium": "2021-23", "name": "Conservation Commission", "payment_rows": 1096}
+{"agency_code": "124", "amount": 17141750.46, "biennium": "2021-23", "name": "Retirement Systems", "payment_rows": 1009}
+{"agency_code": "215", "amount": 15459356.01, "biennium": "2021-23", "name": "Utilities and Transportation Cmsn", "payment_rows": 1088}
+{"agency_code": "195", "amount": 14363144.0, "biennium": "2021-23", "name": "Liquor and Cannabis Board", "payment_rows": 1711}
+{"agency_code": "228", "amount": 9047097.52, "biennium": "2021-23", "name": "Traffic Safety Commission", "payment_rows": 1528}
+{"agency_code": "353", "amount": 8833859.74, "biennium": "2021-23", "name": "Deaf and Hard of Hearing Youth", "payment_rows": 1360}
+{"agency_code": "160", "amount": 8384004.55, "biennium": "2021-23", "name": "Insurance Commissioner", "payment_rows": 1513}
+{"agency_code": "095", "amount": 8154354.41, "biennium": "2021-23", "name": "Auditor", "payment_rows": 1610}
+{"agency_code": "315", "amount": 7740341.09, "biennium": "2021-23", "name": "Services for the Blind", "payment_rows": 1971}
+{"agency_code": "355", "amount": 7428633.78, "biennium": "2021-23", "name": "Archaeology & Historic Preservation", "payment_rows": 376}
+{"agency_code": "478", "amount": 7064416.23, "biennium": "2021-23", "name": "Puget Sound Partnership", "payment_rows": 620}
+{"agency_code": "102", "amount": 6460866.54, "biennium": "2021-23", "name": "Financial Institutions", "payment_rows": 999}
+{"agency_code": "390", "amount": 6329228.37, "biennium": "2021-23", "name": "Historical Society", "payment_rows": 605}
+{"agency_code": "387", "amount": 5945783.26, "biennium": "2021-23", "name": "Arts Commission", "payment_rows": 1212}
+{"agency_code": "190", "amount": 5807294.63, "biennium": "2021-23", "name": "Industrial Insurance Appeals", "payment_rows": 1245}
+{"agency_code": "126", "amount": 5768067.89, "biennium": "2021-23", "name": "State Investment Board", "payment_rows": 762}
+{"agency_code": "110", "amount": 5264228.53, "biennium": "2021-23", "name": "Administrative Hearings", "payment_rows": 835}
+{"agency_code": "462", "amount": 5186581.96, "biennium": "2021-23", "name": "Pollution Liability Insurance Prog", "payment_rows": 437}
+{"agency_code": "038", "amount": 4895471.55, "biennium": "2021-23", "name": "Joint Legislative Systems Committee", "payment_rows": 702}
+{"agency_code": "011", "amount": 4649430.82, "biennium": "2021-23", "name": "House of Representatives", "payment_rows": 1872}
+{"agency_code": "075", "amount": 4327802.74, "biennium": "2021-23", "name": "Governor", "payment_rows": 879}
+{"agency_code": "351", "amount": 4246103.62, "biennium": "2021-23", "name": "School for the Blind", "payment_rows": 1077}
+{"agency_code": "117", "amount": 3985934.04, "biennium": "2021-23", "name": "Gambling Commission", "payment_rows": 1590}
+{"agency_code": "012", "amount": 3701832.88, "biennium": "2021-23", "name": "Senate", "payment_rows": 1443}
+{"agency_code": "048", "amount": 3490986.02, "biennium": "2021-23", "name": "Court of Appeals", "payment_rows": 653}
+{"agency_code": "395", "amount": 3131766.7399999998, "biennium": "2021-23", "name": "Eastern WA State Historical Society", "payment_rows": 463}
+{"agency_code": "116", "amount": 3084216.16, "biennium": "2021-23", "name": "Lottery Commission", "payment_rows": 800}
+{"agency_code": "205", "amount": 2616719.61, "biennium": "2021-23", "name": "Pilotage Commissioners", "payment_rows": 281}
+{"agency_code": "090", "amount": 2297974.04, "biennium": "2021-23", "name": "Treasurer", "payment_rows": 529}
+{"agency_code": "082", "amount": 2100469.37, "biennium": "2021-23", "name": "Public Disclosure Commission", "payment_rows": 601}
+{"agency_code": "411", "amount": 2096351.12, "biennium": "2021-23", "name": "Freight Mobility Strategic Investmt", "payment_rows": 282}
+{"agency_code": "229", "amount": 1536419.53, "biennium": "2021-23", "name": "Independent Investigations", "payment_rows": 69}
+{"agency_code": "147", "amount": 1430089.39, "biennium": "2021-23", "name": "Minority & Women's Business Enterp", "payment_rows": 362}
+{"agency_code": "010", "amount": 1216473.4, "biennium": "2021-23", "name": "Bond Retirement and Interest", "payment_rows": 64}
+{"agency_code": "185", "amount": 1138528.91, "biennium": "2021-23", "name": "Horse Racing Commission", "payment_rows": 579}
+{"agency_code": "013", "amount": 1121438.57, "biennium": "2021-23", "name": "Joint Transportation Committee", "payment_rows": 238}
+{"agency_code": "035", "amount": 1099713.94, "biennium": "2021-23", "name": "Actuary", "payment_rows": 246}
+{"agency_code": "468", "amount": 1086806.28, "biennium": "2021-23", "name": "Environ & Land Use Hearings Office", "payment_rows": 362}
+{"agency_code": "014", "amount": 1058354.58, "biennium": "2021-23", "name": "Joint Leg Audit & Review Committee", "payment_rows": 234}
+{"agency_code": "037", "amount": 1031138.7, "biennium": "2021-23", "name": "Office of Legislative Support Svcs", "payment_rows": 644}
+{"agency_code": "120", "amount": 991962.42, "biennium": "2021-23", "name": "Human Rights Commission", "payment_rows": 346}
+{"agency_code": "046", "amount": 980250.51, "biennium": "2021-23", "name": "Law Library", "payment_rows": 330}
+{"agency_code": "275", "amount": 975784.56, "biennium": "2021-23", "name": "Public Employment Relations Cmsn", "payment_rows": 393}
+{"agency_code": "045", "amount": 955120.63, "biennium": "2021-23", "name": "Supreme Court", "payment_rows": 296}
+{"agency_code": "165", "amount": 951302.4299999999, "biennium": "2021-23", "name": "Accountancy", "payment_rows": 345}
+{"agency_code": "080", "amount": 947874.09, "biennium": "2021-23", "name": "Lieutenant Governor", "payment_rows": 273}
+{"agency_code": "166", "amount": 940059.02, "biennium": "2021-23", "name": "Bd of Reg Prof Eng & Land Surveyors", "payment_rows": 367}
+{"agency_code": "091", "amount": 881126.09, "biennium": "2021-23", "name": "Redistricting Commission", "payment_rows": 195}
+{"agency_code": "142", "amount": 639172.27, "biennium": "2021-23", "name": "Tax Appeals", "payment_rows": 270}
+{"agency_code": "341", "amount": 539257.4, "biennium": "2021-23", "name": "LEOFF 2 Retirement Board", "payment_rows": 350}
+{"agency_code": "101", "amount": 536423.67, "biennium": "2021-23", "name": "Caseload Forecast Council", "payment_rows": 233}
+{"agency_code": "040", "amount": 496958.37, "biennium": "2021-23", "name": "Statute Law Committee", "payment_rows": 319}
+{"agency_code": "410", "amount": 419405.02999999997, "biennium": "2021-23", "name": "Transportation Commission", "payment_rows": 255}
+{"agency_code": "020", "amount": 385015.94, "biennium": "2021-23", "name": "LEAP Committee", "payment_rows": 206}
+{"agency_code": "050", "amount": 369827.78, "biennium": "2021-23", "name": "Judicial Conduct", "payment_rows": 191}
+{"agency_code": "167", "amount": 337386.87, "biennium": "2021-23", "name": "Forensic Investigations Council", "payment_rows": 43}
+{"agency_code": "460", "amount": 316444.83, "biennium": "2021-23", "name": "Columbia River Gorge Commission", "payment_rows": 267}
+{"agency_code": "220", "amount": 281502.87, "biennium": "2021-23", "name": "Volunteer Firefighters", "payment_rows": 285}
+{"agency_code": "086", "amount": 186294.05, "biennium": "2021-23", "name": "Indian Affairs", "payment_rows": 235}
+{"agency_code": "118", "amount": 182225.86, "biennium": "2021-23", "name": "Hispanic Affairs", "payment_rows": 266}
+{"agency_code": "087", "amount": 179859.09, "biennium": "2021-23", "name": "Asian Pacific American Affairs", "payment_rows": 242}
+{"agency_code": "707", "amount": 134759.0, "biennium": "2021-23", "name": "Sundry Claims", "payment_rows": 8}
+{"agency_code": "104", "amount": 123559.17, "biennium": "2021-23", "name": "Economic & Revenue Forecast Council", "payment_rows": 193}
+{"agency_code": "119", "amount": 120038.11, "biennium": "2021-23", "name": "African American Affairs", "payment_rows": 218}
+{"agency_code": "099", "amount": 80951.34, "biennium": "2021-23", "name": "Salaries for Elected Officials", "payment_rows": 184}
+{"agency_code": "107", "amount": 13835670424.65, "biennium": "2023-25", "name": "Health Care Authority", "payment_rows": 41141}
+{"agency_code": "300", "amount": 8155740169.08, "biennium": "2023-25", "name": "Social and Health Services", "payment_rows": 102663}
+{"agency_code": "405", "amount": 3140658213.96, "biennium": "2023-25", "name": "Transportation", "payment_rows": 28447}
+{"agency_code": "103", "amount": 1554493136.21, "biennium": "2023-25", "name": "Commerce", "payment_rows": 12529}
+{"agency_code": "307", "amount": 1494016386.37, "biennium": "2023-25", "name": "Children, Youth, and Families", "payment_rows": 37413}
+{"agency_code": "245", "amount": 1065763190.41, "biennium": "2023-25", "name": "Military Department", "payment_rows": 5172}
+{"agency_code": "303", "amount": 848057531.6, "biennium": "2023-25", "name": "Health", "payment_rows": 22762}
+{"agency_code": "461", "amount": 645161339.91, "biennium": "2023-25", "name": "Ecology", "payment_rows": 12711}
+{"agency_code": "350", "amount": 582358245.47, "biennium": "2023-25", "name": "Public Schools", "payment_rows": 11658}
+{"agency_code": "310", "amount": 496923107.11, "biennium": "2023-25", "name": "Corrections", "payment_rows": 20585}
+{"agency_code": "179", "amount": 343322862.06, "biennium": "2023-25", "name": "Enterprise Services", "payment_rows": 5827}
+{"agency_code": "490", "amount": 271659026.5, "biennium": "2023-25", "name": "Natural Resources", "payment_rows": 16655}
+{"agency_code": "467", "amount": 225486654.44, "biennium": "2023-25", "name": "Recreation and Conservation Office", "payment_rows": 2908}
+{"agency_code": "477", "amount": 199956781.47, "biennium": "2023-25", "name": "Fish and Wildlife", "payment_rows": 17973}
+{"agency_code": "235", "amount": 168267660.14, "biennium": "2023-25", "name": "Labor and Industries", "payment_rows": 12799}
+{"agency_code": "225", "amount": 154213755.26, "biennium": "2023-25", "name": "State Patrol", "payment_rows": 11418}
+{"agency_code": "163", "amount": 150839624.65, "biennium": "2023-25", "name": "Washington Technology Solutions", "payment_rows": 2070}
+{"agency_code": "495", "amount": 137346066.02, "biennium": "2023-25", "name": "Agriculture", "payment_rows": 9085}
+{"agency_code": "540", "amount": 132817385.52, "biennium": "2023-25", "name": "Employment Security Department", "payment_rows": 6549}
+{"agency_code": "407", "amount": 99892287.48, "biennium": "2023-25", "name": "Transportation Improvement Board", "payment_rows": 1267}
+{"agency_code": "105", "amount": 98785544.55, "biennium": "2023-25", "name": "Financial Management", "payment_rows": 2411}
+{"agency_code": "240", "amount": 96549293.84, "biennium": "2023-25", "name": "Licensing", "payment_rows": 5219}
+{"agency_code": "465", "amount": 91638408.99, "biennium": "2023-25", "name": "State Parks and Recreation Comm", "payment_rows": 5599}
+{"agency_code": "340", "amount": 76038485.99, "biennium": "2023-25", "name": "Student Achievement Council", "payment_rows": 2595}
+{"agency_code": "057", "amount": 69324928.39, "biennium": "2023-25", "name": "Civil Legal Aid", "payment_rows": 1627}
+{"agency_code": "055", "amount": 68828459.06, "biennium": "2023-25", "name": "Administrative Office of the Courts", "payment_rows": 7219}
+{"agency_code": "100", "amount": 68326565.82, "biennium": "2023-25", "name": "Attorney General", "payment_rows": 7306}
+{"agency_code": "056", "amount": 63268799.99, "biennium": "2023-25", "name": "Public Defense", "payment_rows": 6120}
+{"agency_code": "085", "amount": 52181285.11, "biennium": "2023-25", "name": "Secretary of State", "payment_rows": 2603}
+{"agency_code": "140", "amount": 51698321.13, "biennium": "2023-25", "name": "Revenue", "payment_rows": 6771}
+{"agency_code": "227", "amount": 50211489.589999996, "biennium": "2023-25", "name": "Criminal Justice Training Cmsn", "payment_rows": 3190}
+{"agency_code": "305", "amount": 46669464.51, "biennium": "2023-25", "name": "Veterans' Affairs", "payment_rows": 4803}
+{"agency_code": "471", "amount": 39656262.12, "biennium": "2023-25", "name": "Conservation Commission", "payment_rows": 1328}
+{"agency_code": "353", "amount": 38696465.48, "biennium": "2023-25", "name": "Deaf and Hard of Hearing Youth", "payment_rows": 1731}
+{"agency_code": "195", "amount": 28488268.12, "biennium": "2023-25", "name": "Liquor and Cannabis Board", "payment_rows": 2317}
+{"agency_code": "124", "amount": 28478195.43, "biennium": "2023-25", "name": "Retirement Systems", "payment_rows": 1275}
+{"agency_code": "406", "amount": 27963214.79, "biennium": "2023-25", "name": "County Road Administration Board", "payment_rows": 663}
+{"agency_code": "354", "amount": 27808836.080000002, "biennium": "2023-25", "name": "Workforce Trng & Educ Coord Board", "payment_rows": 763}
+{"agency_code": "228", "amount": 18392399.48, "biennium": "2023-25", "name": "Traffic Safety Commission", "payment_rows": 2444}
+{"agency_code": "315", "amount": 13541182.58, "biennium": "2023-25", "name": "Services for the Blind", "payment_rows": 2571}
+{"agency_code": "038", "amount": 11333860.95, "biennium": "2023-25", "name": "Joint Legislative Systems Committee", "payment_rows": 816}
+{"agency_code": "215", "amount": 11328800.43, "biennium": "2023-25", "name": "Utilities and Transportation Cmsn", "payment_rows": 1170}
+{"agency_code": "075", "amount": 11048999.89, "biennium": "2023-25", "name": "Governor", "payment_rows": 1817}
+{"agency_code": "387", "amount": 10598959.37, "biennium": "2023-25", "name": "Arts Commission", "payment_rows": 2452}
+{"agency_code": "160", "amount": 10532682.16, "biennium": "2023-25", "name": "Insurance Commissioner", "payment_rows": 2103}
+{"agency_code": "095", "amount": 10194618.32, "biennium": "2023-25", "name": "Auditor", "payment_rows": 3539}
+{"agency_code": "478", "amount": 9383871.26, "biennium": "2023-25", "name": "Puget Sound Partnership", "payment_rows": 1140}
+{"agency_code": "102", "amount": 8706321.0, "biennium": "2023-25", "name": "Financial Institutions", "payment_rows": 2819}
+{"agency_code": "351", "amount": 8149571.95, "biennium": "2023-25", "name": "School for the Blind", "payment_rows": 1447}
+{"agency_code": "110", "amount": 8068781.2700000005, "biennium": "2023-25", "name": "Administrative Hearings", "payment_rows": 1141}
+{"agency_code": "126", "amount": 7459650.52, "biennium": "2023-25", "name": "State Investment Board", "payment_rows": 1387}
+{"agency_code": "011", "amount": 7453466.69, "biennium": "2023-25", "name": "House of Representatives", "payment_rows": 3507}
+{"agency_code": "190", "amount": 7155294.27, "biennium": "2023-25", "name": "Industrial Insurance Appeals", "payment_rows": 1452}
+{"agency_code": "012", "amount": 6534351.77, "biennium": "2023-25", "name": "Senate", "payment_rows": 2300}
+{"agency_code": "390", "amount": 5911629.23, "biennium": "2023-25", "name": "Historical Society", "payment_rows": 683}
+{"agency_code": "463", "amount": 5318634.58, "biennium": "2023-25", "name": "Energy Facility Site Eval Council", "payment_rows": 388}
+{"agency_code": "048", "amount": 5017846.83, "biennium": "2023-25", "name": "Court of Appeals", "payment_rows": 797}
+{"agency_code": "117", "amount": 4454657.19, "biennium": "2023-25", "name": "Gambling Commission", "payment_rows": 1575}
+{"agency_code": "355", "amount": 3930170.27, "biennium": "2023-25", "name": "Archaeology & Historic Preservation", "payment_rows": 567}
+{"agency_code": "116", "amount": 3633831.59, "biennium": "2023-25", "name": "Lottery Commission", "payment_rows": 841}
+{"agency_code": "090", "amount": 3128375.47, "biennium": "2023-25", "name": "Treasurer", "payment_rows": 715}
+{"agency_code": "045", "amount": 3081076.1, "biennium": "2023-25", "name": "Supreme Court", "payment_rows": 581}
+{"agency_code": "229", "amount": 2938321.2399999998, "biennium": "2023-25", "name": "Independent Investigations", "payment_rows": 643}
+{"agency_code": "462", "amount": 2880019.03, "biennium": "2023-25", "name": "Pollution Liability Insurance Prog", "payment_rows": 455}
+{"agency_code": "010", "amount": 2245838.99, "biennium": "2023-25", "name": "Bond Retirement and Interest", "payment_rows": 89}
+{"agency_code": "147", "amount": 2091859.64, "biennium": "2023-25", "name": "Minority & Women's Business Enterp", "payment_rows": 558}
+{"agency_code": "120", "amount": 1963113.44, "biennium": "2023-25", "name": "Human Rights Commission", "payment_rows": 468}
+{"agency_code": "013", "amount": 1937394.71, "biennium": "2023-25", "name": "Joint Transportation Committee", "payment_rows": 386}
+{"agency_code": "220", "amount": 1860889.95, "biennium": "2023-25", "name": "Volunteer Firefighters", "payment_rows": 302}
+{"agency_code": "082", "amount": 1805180.07, "biennium": "2023-25", "name": "Public Disclosure Commission", "payment_rows": 469}
+{"agency_code": "395", "amount": 1542626.57, "biennium": "2023-25", "name": "Eastern WA State Historical Society", "payment_rows": 465}
+{"agency_code": "468", "amount": 1383607.1099999999, "biennium": "2023-25", "name": "Environ & Land Use Hearings Office", "payment_rows": 451}
+{"agency_code": "411", "amount": 1311849.29, "biennium": "2023-25", "name": "Freight Mobility Strategic Investmt", "payment_rows": 192}
+{"agency_code": "185", "amount": 1173300.34, "biennium": "2023-25", "name": "Horse Racing Commission", "payment_rows": 544}
+{"agency_code": "037", "amount": 1172953.45, "biennium": "2023-25", "name": "Office of Legislative Support Svcs", "payment_rows": 760}
+{"agency_code": "275", "amount": 1149764.3800000001, "biennium": "2023-25", "name": "Public Employment Relations Cmsn", "payment_rows": 527}
+{"agency_code": "035", "amount": 1059513.75, "biennium": "2023-25", "name": "Actuary", "payment_rows": 283}
+{"agency_code": "410", "amount": 1056372.53, "biennium": "2023-25", "name": "Transportation Commission", "payment_rows": 456}
+{"agency_code": "205", "amount": 1007469.06, "biennium": "2023-25", "name": "Pilotage Commissioners", "payment_rows": 278}
+{"agency_code": "460", "amount": 969706.27, "biennium": "2023-25", "name": "Columbia River Gorge Commission", "payment_rows": 378}
+{"agency_code": "165", "amount": 874944.04, "biennium": "2023-25", "name": "Accountancy", "payment_rows": 409}
+{"agency_code": "166", "amount": 850402.94, "biennium": "2023-25", "name": "Bd of Reg Prof Eng & Land Surveyors", "payment_rows": 504}
+{"agency_code": "142", "amount": 790850.04, "biennium": "2023-25", "name": "Tax Appeals", "payment_rows": 286}
+{"agency_code": "014", "amount": 754657.65, "biennium": "2023-25", "name": "Joint Leg Audit & Review Committee", "payment_rows": 332}
+{"agency_code": "080", "amount": 735697.5700000001, "biennium": "2023-25", "name": "Lieutenant Governor", "payment_rows": 360}
+{"agency_code": "118", "amount": 630454.65, "biennium": "2023-25", "name": "Hispanic Affairs", "payment_rows": 448}
+{"agency_code": "341", "amount": 603605.98, "biennium": "2023-25", "name": "LEOFF 2 Retirement Board", "payment_rows": 425}
+{"agency_code": "050", "amount": 601639.44, "biennium": "2023-25", "name": "Judicial Conduct", "payment_rows": 347}
+{"agency_code": "101", "amount": 588299.24, "biennium": "2023-25", "name": "Caseload Forecast Council", "payment_rows": 290}
+{"agency_code": "040", "amount": 536161.2, "biennium": "2023-25", "name": "Statute Law Committee", "payment_rows": 292}
+{"agency_code": "087", "amount": 523548.86, "biennium": "2023-25", "name": "Asian Pacific American Affairs", "payment_rows": 373}
+{"agency_code": "707", "amount": 464499.0, "biennium": "2023-25", "name": "Sundry Claims", "payment_rows": 16}
+{"agency_code": "020", "amount": 377518.86, "biennium": "2023-25", "name": "LEAP Committee", "payment_rows": 191}
+{"agency_code": "083", "amount": 312892.84, "biennium": "2023-25", "name": "Washington State Leadership Board", "payment_rows": 280}
+{"agency_code": "086", "amount": 287052.4, "biennium": "2023-25", "name": "Indian Affairs", "payment_rows": 262}
+{"agency_code": "167", "amount": 262590.38, "biennium": "2023-25", "name": "Forensic Investigations Council", "payment_rows": 40}
+{"agency_code": "119", "amount": 205194.57, "biennium": "2023-25", "name": "African American Affairs", "payment_rows": 286}
+{"agency_code": "104", "amount": 146170.71, "biennium": "2023-25", "name": "Economic & Revenue Forecast Council", "payment_rows": 214}
+{"agency_code": "099", "amount": 105408.91, "biennium": "2023-25", "name": "Salaries for Elected Officials", "payment_rows": 212}
+{"agency_code": "046", "amount": 34266.72, "biennium": "2023-25", "name": "Law Library", "payment_rows": 24}
+{"agency_code": "036", "amount": 9455.49, "biennium": "2023-25", "name": "State Legislative Labor Relations", "payment_rows": 50}
+{"agency_code": "107", "amount": 17143924842.42, "biennium": "2025-27", "name": "Health Care Authority", "payment_rows": 38070}
+{"agency_code": "300", "amount": 8940170947.88, "biennium": "2025-27", "name": "Social and Health Services", "payment_rows": 96846}
+{"agency_code": "405", "amount": 3023296022.36, "biennium": "2025-27", "name": "Transportation", "payment_rows": 22622}
+{"agency_code": "103", "amount": 2048278458.02, "biennium": "2025-27", "name": "Commerce", "payment_rows": 10911}
+{"agency_code": "307", "amount": 1586369256.71, "biennium": "2025-27", "name": "Children, Youth, and Families", "payment_rows": 35089}
+{"agency_code": "303", "amount": 698627483.7, "biennium": "2025-27", "name": "Health", "payment_rows": 16928}
+{"agency_code": "350", "amount": 590251001.59, "biennium": "2025-27", "name": "Public Schools", "payment_rows": 8543}
+{"agency_code": "461", "amount": 565088217.16, "biennium": "2025-27", "name": "Ecology", "payment_rows": 8817}
+{"agency_code": "310", "amount": 456099711.29, "biennium": "2025-27", "name": "Corrections", "payment_rows": 15675}
+{"agency_code": "245", "amount": 374834215.94, "biennium": "2025-27", "name": "Military Department", "payment_rows": 4190}
+{"agency_code": "490", "amount": 341083844.78, "biennium": "2025-27", "name": "Natural Resources", "payment_rows": 14135}
+{"agency_code": "179", "amount": 271682166.5, "biennium": "2025-27", "name": "Enterprise Services", "payment_rows": 4867}
+{"agency_code": "467", "amount": 225190357.35, "biennium": "2025-27", "name": "Recreation and Conservation Office", "payment_rows": 2353}
+{"agency_code": "477", "amount": 171450664.6, "biennium": "2025-27", "name": "Fish and Wildlife", "payment_rows": 15175}
+{"agency_code": "540", "amount": 168211127.58, "biennium": "2025-27", "name": "Employment Security Department", "payment_rows": 4864}
+{"agency_code": "163", "amount": 161534947.72, "biennium": "2025-27", "name": "Washington Technology Solutions", "payment_rows": 1626}
+{"agency_code": "235", "amount": 147383863.04, "biennium": "2025-27", "name": "Labor and Industries", "payment_rows": 6836}
+{"agency_code": "225", "amount": 141960274.76, "biennium": "2025-27", "name": "State Patrol", "payment_rows": 10292}
+{"agency_code": "407", "amount": 128217812.77, "biennium": "2025-27", "name": "Transportation Improvement Board", "payment_rows": 1155}
+{"agency_code": "495", "amount": 119620909.31, "biennium": "2025-27", "name": "Agriculture", "payment_rows": 7256}
+{"agency_code": "105", "amount": 109457798.88, "biennium": "2025-27", "name": "Financial Management", "payment_rows": 1503}
+{"agency_code": "465", "amount": 85669285.52, "biennium": "2025-27", "name": "State Parks and Recreation Comm", "payment_rows": 4377}
+{"agency_code": "240", "amount": 82797377.4, "biennium": "2025-27", "name": "Licensing", "payment_rows": 3967}
+{"agency_code": "056", "amount": 82035680.68, "biennium": "2025-27", "name": "Public Defense", "payment_rows": 6778}
+{"agency_code": "057", "amount": 69966035.95, "biennium": "2025-27", "name": "Civil Legal Aid", "payment_rows": 1885}
+{"agency_code": "340", "amount": 58603656.51, "biennium": "2025-27", "name": "Student Achievement Council", "payment_rows": 2079}
+{"agency_code": "055", "amount": 58593723.53, "biennium": "2025-27", "name": "Administrative Office of the Courts", "payment_rows": 6823}
+{"agency_code": "471", "amount": 54932101.47, "biennium": "2025-27", "name": "Conservation Commission", "payment_rows": 1157}
+{"agency_code": "100", "amount": 54457595.21, "biennium": "2025-27", "name": "Attorney General", "payment_rows": 5291}
+{"agency_code": "227", "amount": 46766591.21, "biennium": "2025-27", "name": "Criminal Justice Training Cmsn", "payment_rows": 3673}
+{"agency_code": "140", "amount": 42481585.78, "biennium": "2025-27", "name": "Revenue", "payment_rows": 5791}
+{"agency_code": "305", "amount": 40587041.57, "biennium": "2025-27", "name": "Veterans' Affairs", "payment_rows": 3775}
+{"agency_code": "085", "amount": 37389951.56, "biennium": "2025-27", "name": "Secretary of State", "payment_rows": 2404}
+{"agency_code": "124", "amount": 29180625.23, "biennium": "2025-27", "name": "Retirement Systems", "payment_rows": 882}
+{"agency_code": "354", "amount": 25522857.3, "biennium": "2025-27", "name": "Workforce Trng & Educ Coord Board", "payment_rows": 533}
+{"agency_code": "406", "amount": 24944269.81, "biennium": "2025-27", "name": "County Road Administration Board", "payment_rows": 575}
+{"agency_code": "195", "amount": 20159559.92, "biennium": "2025-27", "name": "Liquor and Cannabis Board", "payment_rows": 1525}
+{"agency_code": "228", "amount": 19923696.23, "biennium": "2025-27", "name": "Traffic Safety Commission", "payment_rows": 2070}
+{"agency_code": "353", "amount": 13648992.64, "biennium": "2025-27", "name": "Deaf and Hard of Hearing Youth", "payment_rows": 1600}
+{"agency_code": "075", "amount": 11179434.16, "biennium": "2025-27", "name": "Governor", "payment_rows": 1484}
+{"agency_code": "160", "amount": 11169683.49, "biennium": "2025-27", "name": "Insurance Commissioner", "payment_rows": 1861}
+{"agency_code": "478", "amount": 10416917.43, "biennium": "2025-27", "name": "Puget Sound Partnership", "payment_rows": 930}
+{"agency_code": "315", "amount": 10188148.22, "biennium": "2025-27", "name": "Services for the Blind", "payment_rows": 1912}
+{"agency_code": "117", "amount": 9829958.37, "biennium": "2025-27", "name": "Gambling Commission", "payment_rows": 1464}
+{"agency_code": "462", "amount": 9326651.81, "biennium": "2025-27", "name": "Pollution Liability Insurance Prog", "payment_rows": 428}
+{"agency_code": "095", "amount": 9232670.38, "biennium": "2025-27", "name": "Auditor", "payment_rows": 2824}
+{"agency_code": "390", "amount": 8997750.59, "biennium": "2025-27", "name": "Historical Society", "payment_rows": 619}
+{"agency_code": "038", "amount": 8547153.7, "biennium": "2025-27", "name": "Joint Legislative Systems Committee", "payment_rows": 571}
+{"agency_code": "102", "amount": 8059684.19, "biennium": "2025-27", "name": "Financial Institutions", "payment_rows": 2291}
+{"agency_code": "126", "amount": 7884129.32, "biennium": "2025-27", "name": "State Investment Board", "payment_rows": 1226}
+{"agency_code": "190", "amount": 7361660.35, "biennium": "2025-27", "name": "Industrial Insurance Appeals", "payment_rows": 1118}
+{"agency_code": "229", "amount": 6968449.86, "biennium": "2025-27", "name": "Independent Investigations", "payment_rows": 773}
+{"agency_code": "215", "amount": 6945910.6, "biennium": "2025-27", "name": "Utilities and Transportation Cmsn", "payment_rows": 1120}
+{"agency_code": "387", "amount": 6888550.97, "biennium": "2025-27", "name": "Arts Commission", "payment_rows": 1395}
+{"agency_code": "011", "amount": 6125625.8, "biennium": "2025-27", "name": "House of Representatives", "payment_rows": 3141}
+{"agency_code": "355", "amount": 5101570.91, "biennium": "2025-27", "name": "Archaeology & Historic Preservation", "payment_rows": 438}
+{"agency_code": "463", "amount": 4644958.36, "biennium": "2025-27", "name": "Energy Facility Site Eval Council", "payment_rows": 355}
+{"agency_code": "012", "amount": 4389785.86, "biennium": "2025-27", "name": "Senate", "payment_rows": 2149}
+{"agency_code": "110", "amount": 4352901.89, "biennium": "2025-27", "name": "Administrative Hearings", "payment_rows": 654}
+{"agency_code": "351", "amount": 4042039.76, "biennium": "2025-27", "name": "School for the Blind", "payment_rows": 1150}
+{"agency_code": "048", "amount": 3622194.28, "biennium": "2025-27", "name": "Court of Appeals", "payment_rows": 700}
+{"agency_code": "116", "amount": 3397596.18, "biennium": "2025-27", "name": "Lottery Commission", "payment_rows": 527}
+{"agency_code": "395", "amount": 3385636.11, "biennium": "2025-27", "name": "Eastern WA State Historical Society", "payment_rows": 421}
+{"agency_code": "707", "amount": 2838488.0, "biennium": "2025-27", "name": "Sundry Claims", "payment_rows": 32}
+{"agency_code": "090", "amount": 2602497.1, "biennium": "2025-27", "name": "Treasurer", "payment_rows": 575}
+{"agency_code": "045", "amount": 2369923.6, "biennium": "2025-27", "name": "Supreme Court", "payment_rows": 593}
+{"agency_code": "010", "amount": 2026868.04, "biennium": "2025-27", "name": "Bond Retirement and Interest", "payment_rows": 76}
+{"agency_code": "147", "amount": 1880580.27, "biennium": "2025-27", "name": "Minority & Women's Business Enterp", "payment_rows": 483}
+{"agency_code": "120", "amount": 1782020.47, "biennium": "2025-27", "name": "Human Rights Commission", "payment_rows": 340}
+{"agency_code": "013", "amount": 1761942.58, "biennium": "2025-27", "name": "Joint Transportation Committee", "payment_rows": 330}
+{"agency_code": "082", "amount": 1706610.3900000001, "biennium": "2025-27", "name": "Public Disclosure Commission", "payment_rows": 315}
+{"agency_code": "205", "amount": 1268479.06, "biennium": "2025-27", "name": "Pilotage Commissioners", "payment_rows": 322}
+{"agency_code": "037", "amount": 1208617.8, "biennium": "2025-27", "name": "Office of Legislative Support Svcs", "payment_rows": 650}
+{"agency_code": "185", "amount": 1148143.65, "biennium": "2025-27", "name": "Horse Racing Commission", "payment_rows": 482}
+{"agency_code": "275", "amount": 959257.84, "biennium": "2025-27", "name": "Public Employment Relations Cmsn", "payment_rows": 488}
+{"agency_code": "468", "amount": 886391.34, "biennium": "2025-27", "name": "Environ & Land Use Hearings Office", "payment_rows": 302}
+{"agency_code": "410", "amount": 845851.96, "biennium": "2025-27", "name": "Transportation Commission", "payment_rows": 341}
+{"agency_code": "014", "amount": 815603.77, "biennium": "2025-27", "name": "Joint Leg Audit & Review Committee", "payment_rows": 251}
+{"agency_code": "166", "amount": 814354.89, "biennium": "2025-27", "name": "Bd of Reg Prof Eng & Land Surveyors", "payment_rows": 384}
+{"agency_code": "165", "amount": 692770.41, "biennium": "2025-27", "name": "Accountancy", "payment_rows": 291}
+{"agency_code": "087", "amount": 625844.0, "biennium": "2025-27", "name": "Asian Pacific American Affairs", "payment_rows": 333}
+{"agency_code": "341", "amount": 612314.62, "biennium": "2025-27", "name": "LEOFF 2 Retirement Board", "payment_rows": 415}
+{"agency_code": "035", "amount": 601850.69, "biennium": "2025-27", "name": "Actuary", "payment_rows": 186}
+{"agency_code": "142", "amount": 601754.2, "biennium": "2025-27", "name": "Tax Appeals", "payment_rows": 228}
+{"agency_code": "101", "amount": 568658.11, "biennium": "2025-27", "name": "Caseload Forecast Council", "payment_rows": 235}
+{"agency_code": "040", "amount": 456711.46, "biennium": "2025-27", "name": "Statute Law Committee", "payment_rows": 215}
+{"agency_code": "050", "amount": 446538.54, "biennium": "2025-27", "name": "Judicial Conduct", "payment_rows": 276}
+{"agency_code": "220", "amount": 403858.47, "biennium": "2025-27", "name": "Volunteer Firefighters", "payment_rows": 273}
+{"agency_code": "086", "amount": 395680.46, "biennium": "2025-27", "name": "Indian Affairs", "payment_rows": 227}
+{"agency_code": "080", "amount": 382824.19, "biennium": "2025-27", "name": "Lieutenant Governor", "payment_rows": 286}
+{"agency_code": "118", "amount": 365360.5, "biennium": "2025-27", "name": "Hispanic Affairs", "payment_rows": 301}
+{"agency_code": "460", "amount": 324668.77, "biennium": "2025-27", "name": "Columbia River Gorge Commission", "payment_rows": 256}
+{"agency_code": "083", "amount": 294658.93, "biennium": "2025-27", "name": "Washington State Leadership Board", "payment_rows": 216}
+{"agency_code": "167", "amount": 250060.7, "biennium": "2025-27", "name": "Forensic Investigations Council", "payment_rows": 47}
+{"agency_code": "020", "amount": 224052.14, "biennium": "2025-27", "name": "LEAP Committee", "payment_rows": 139}
+{"agency_code": "104", "amount": 195813.06, "biennium": "2025-27", "name": "Economic & Revenue Forecast Council", "payment_rows": 200}
+{"agency_code": "119", "amount": 149292.62, "biennium": "2025-27", "name": "African American Affairs", "payment_rows": 227}
+{"agency_code": "411", "amount": 115127.39, "biennium": "2025-27", "name": "Freight Mobility Strategic Investmt", "payment_rows": 221}
+{"agency_code": "099", "amount": 74344.45, "biennium": "2025-27", "name": "Salaries for Elected Officials", "payment_rows": 166}
+{"agency_code": "036", "amount": 34430.93, "biennium": "2025-27", "name": "State Legislative Labor Relations", "payment_rows": 88}

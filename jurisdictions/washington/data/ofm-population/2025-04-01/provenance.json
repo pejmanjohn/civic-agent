@@ -4,12 +4,12 @@
   "release": "April 1, 2025 official population estimates",
   "snapshot_version": "2025-04-01",
   "source_file": {
-    "content_length": 68267,
+    "content_length": 72865,
     "content_type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-    "etag": "\"699d5bc7-10aab\"",
-    "fetched_at": "2026-06-08T14:59:46+00:00",
-    "last_modified": "Tue, 24 Feb 2026 08:05:27 GMT",
-    "sha256": "d39be7d23b0f41c6ceadeb888aadc6e1484b1072119998ef43cac260d108e42e",
+    "etag": "\"6a4429ba-11ca1\"",
+    "fetched_at": "2026-07-14T22:07:27+00:00",
+    "last_modified": "Tue, 30 Jun 2026 20:40:26 GMT",
+    "sha256": "1a5bc5ea6927b6037741344df67e2161f3507fed25ac6ad0e9008f3941df5598",
     "url": "https://ofm.wa.gov/wp-content/uploads/sites/default/files/public/dataresearch/pop/april1/ofm_april1_population_final.xlsx"
   },
   "source_fingerprint": {
@@ -55,9 +55,9 @@
       "unincorporated_county_rows": 39
     },
     "version_boundary": {
-      "file_etag": "\"699d5bc7-10aab\"",
-      "file_last_modified": "Tue, 24 Feb 2026 08:05:27 GMT",
-      "file_sha256": "d39be7d23b0f41c6ceadeb888aadc6e1484b1072119998ef43cac260d108e42e",
+      "file_etag": "\"6a4429ba-11ca1\"",
+      "file_last_modified": "Tue, 30 Jun 2026 20:40:26 GMT",
+      "file_sha256": "1a5bc5ea6927b6037741344df67e2161f3507fed25ac6ad0e9008f3941df5598",
       "latest_estimate_date": "2025-04-01",
       "release": "April 1, 2025 official population estimates",
       "snapshot_version": "2025-04-01"

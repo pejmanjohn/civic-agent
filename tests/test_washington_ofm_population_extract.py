@@ -148,7 +148,7 @@ class WashingtonOfmPopulationExtractTest(unittest.TestCase):
         self.assertEqual(provenance["workbook"]["sheet_names"], ["Population", "Notations"])
         self.assertEqual(
             provenance["source_file"]["sha256"],
-            "d39be7d23b0f41c6ceadeb888aadc6e1484b1072119998ef43cac260d108e42e",
+            "1a5bc5ea6927b6037741344df67e2161f3507fed25ac6ad0e9008f3941df5598",
         )
 
     def test_parse_population_workbook_handles_minimal_xlsx_shape(self):

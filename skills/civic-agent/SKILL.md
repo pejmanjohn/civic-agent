@@ -77,6 +77,37 @@ Do not use King County for actual spending, actual revenue collected, payments, 
 
 For broad King County budget-size questions, use `king_county.open_budget_dashboard` for annual dashboard budgeted expenditure and `king_county.adopted_budget` for the official 2026-2027 adopted biennial headline. Present those frames side by side; do not add, average, or reconcile annual dashboard values with adopted two-year context.
 
+### Pierce County
+
+Read the Pierce County skill before answering Pierce County, Washington biennial budget, budget-vs-actual, or transaction-level actual spending (checkbook) questions.
+
+If Civic Agent is installed as a packaged plugin (Codex or Claude Code), use the bundled reference:
+
+```text
+references/pierce_county.md
+```
+
+If working from this source repo outside the packaged plugin, use:
+
+```text
+jurisdictions/pierce_county/skill.md
+```
+
+If working from the hosted public repo, use:
+
+```text
+https://raw.githubusercontent.com/pejmanjohn/civic-agent/main/jurisdictions/pierce_county/skill.md
+```
+
+Use Pierce County for:
+
+- Pierce County budget (biennial, 2016-2017 through 2026-2027)
+- Pierce County budget-vs-actual questions
+- Pierce County spending, checkbook, payments, payees (2017 through partial 2026)
+- Pierce County departments, funds, programs
+
+Boundaries: budget data is biennial - never present totals as annual; checkbook answers state the data-through boundary; no Pierce revenue or staffing source exists yet; the City of Tacoma is a separate, not-yet-covered jurisdiction.
+
 ### Washington State
 
 Read the Washington skill before answering Washington state operating budget, General Fund revenue, state agency vendor-payment/checkbook, or OFM population-denominator questions.
@@ -101,6 +132,9 @@ https://raw.githubusercontent.com/pejmanjohn/civic-agent/main/jurisdictions/wash
 
 Use Washington for:
 
+- Filed annual actuals for reviewed local governments via washington.fit_filed_actuals (Spokane, Tacoma, Walla Walla, Vancouver, Everett, King/Pierce/Snohomish counties, Sound Transit, King County Regional Homelessness Authority, Seattle School District No. 1, Evergreen School District) - "what does my city actually take in and spend", school district finances, Sound Transit revenues
+- Property-tax levies statewide via washington.dor_property_tax_levies (certified district levy amounts and rates, due 2024-2025) - "why did my property tax go up", school levy amounts, levy-lid context; district level only, never parcel bills
+
 - Washington state budget
 - Washington operating budget
 - Washington state revenue or General Fund revenue
@@ -121,6 +155,33 @@ Washington has separate source families. Operating budget answers use budgeted/a
 
 Do not use Washington for procurement contract terms, invoices, payroll, staffing/FTE, Seattle budget analysis, King County budget analysis, 2026 supplemental changes, pre-2013-15 operating-budget trends, capital budget, transportation budget, or cross-jurisdiction comparison.
 
+## Hard Questions Playbook
+
+Composed accountability questions have expected answer SHAPES; the facts come from accepted sources, the shape comes from here:
+
+- Homelessness spending ("how much did we spend and where did it go"): the fragmentation IS part of the answer - name that spending splits across the city, the county, and the authority; keep budgeted allocations separate from filed actuals; and refuse to convert spending totals into outcome or effectiveness claims (say what an outcome answer would need).
+- Deficit why-questions ("why is there still a shortfall"): state explicitly that "the deficit number" depends on modeling choices - which forecast vintage, maintenance-level vs policy-level growth, fund scope - and name the choices behind any number you cite.
+- Earmark-diversion questions ("what happened to the X tax money"): allocation numbers come from budget sources, but ATTRIBUTION ("was it diverted, by whom") needs ordinance/council-action context - name that gap rather than inferring intent from budget tables.
+- Cutting-despite-big-budget questions: explain the flexible-General-Fund vs restricted/dedicated funds distinction AND bring the levy-limit context (the 1%/101% growth limit from the DOR levy source) when property-tax capacity is part of the story.
+- School closure/deficit why-questions: financial facts from filed/OSPI sources; causal factors (enrollment, ESSER cliff, levy caps) are named as CONTEXT, never asserted as the answer.
+
+## Answer Craft Rules
+
+- Measure substitution stays exact: when a question asks in one vocabulary ("positions", "headcount") and the accepted source answers at its official measure (budgeted FTE), answering at the accepted measure WITH the distinction labeled is an `exact` answer, not partial. The label is mandatory; silent substitution is never allowed.
+- Traces are for humans too: every source, snapshot, or check reference in a trace carries its full clickable URL where one exists. Keep the trace scannable - one labeled line per field, boldface labels, no run-on sentences.
+- Offer visuals for time series: when an answer contains a multi-year trend or a comparison across more than ~4 values, render a chart with whatever chart tool the host provides; with no chart tool, include a compact aligned table and say a chart is available on request.
+
+## Freshness Posture
+
+Every source card carries a `freshness` block: `data_through` (what the accepted data covers - never rediscover this), `observed_at`, and `cadence` (how often the source publishes and its typical lag). Before answering a current-period question ("is X happening now", "this year so far"):
+
+1. Compute the boundary age from `data_through` against today.
+2. If the age is within `expected_interval_days + expected_lag_days` of the cadence, answer normally and state the boundary with publication-lag language: "latest available; this source publishes <pattern>".
+3. If the age exceeds that window, or the card/drift ledger marks the source `refresh_available`, declare `needs_refresh`: still give the bounded numbers, but LEAD with the fact that the snapshot likely lags the official source, and name the refresh path.
+4. Warning from live experience: some sources REVISE values within an unchanged data-through boundary (Fiscal WA revenue estimates moved $6B under the same April label). Treat `data_through` as a data boundary, not a version; cite the snapshot version too.
+
+Never present stale current-period data as current, and never refuse to show well-boundaried numbers just because they lag - the mode plus the boundary language carries the honesty.
+
 ## Workflow
 
 1. Identify the jurisdiction in the user's question.
@@ -129,9 +190,10 @@ Do not use Washington for procurement contract terms, invoices, payroll, staffin
 4. Use that skill's official data sources, query recipes, validation checks, caveats, and answer style.
 5. For managed local database sources such as `washington.open_checkbook`, inspect status first. If setup is missing and the host can run the repo CLI, ensure the source; otherwise report that managed local data is not set up.
 6. For composed Scale questions, use the Scale recipe planning sequence before answering: question -> recipe -> required claims -> available sources -> compatibility check -> answer mode.
-7. For source-backed answers, include a compact trace: source, public source URL or source-surface id when useful, snapshot/local data version or data-through boundary, grain, measure, filters/query logic, validation check or row count when useful, and caveats.
+7. For source-backed answers, include a compact trace: the SOURCE CARD ID verbatim (for example `seattle.operating_budget`; dataset names alone do not satisfy the citation contract, and composed answers name every card used), public source URL or source-surface id when useful, snapshot/local data version or data-through boundary, grain, measure, filters/query logic, validation check or row count when useful, and caveats.
 8. If the user asks for a chart, compute the data first and then use available chart/data-visualization tools to render it.
-9. If no matching jurisdiction exists, say that Civic Agent does not yet include that jurisdiction.
+9. If no matching jurisdiction skill exists but the question names a Washington city, town, or county, answer in `unsupported_with_path` mode instead of a bare refusal: say plainly that no accepted budget source covers that jurisdiction yet; offer the jurisdiction's official April 1 resident population from `washington.ofm_population` as accepted context (the snapshot covers every Washington county, city, and town - see the Washington skill's OFM section), naming the estimate date; offer state-level facts only where they genuinely apply, labeled as state facts; and name the official path - the jurisdiction's own budget documents and the State Auditor's Financial Intelligence Tool (`https://portal.sao.wa.gov/FIT/`). Never substitute state or peer-jurisdiction numbers for the requested jurisdiction's budget.
+10. If the jurisdiction is outside Washington, say that Civic Agent does not yet include it.
 
 ## Scale Recipes And Answer Modes
 

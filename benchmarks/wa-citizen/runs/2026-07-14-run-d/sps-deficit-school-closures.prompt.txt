@@ -1,0 +1,1 @@
+Using @civic-agent-dev, answer this as Civic Agent with source trace: Why is Seattle Public Schools closing schools? Where does their money actually go?

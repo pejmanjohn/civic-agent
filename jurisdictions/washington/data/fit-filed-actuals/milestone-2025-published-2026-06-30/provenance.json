@@ -1,0 +1,38 @@
+{
+  "api_base": "https://portal.sao.wa.gov/FIT/api",
+  "fit_snapshot": {
+    "code": "MILE2025",
+    "created": "2026-06-30T17:47:35.997-07:00",
+    "filers_with_data": 1701,
+    "id": 33,
+    "name": "2025 Filing Milestone Snapshot (created 06/30/26 5:46 PM PDT)",
+    "total_revenues_all_filers": 85489701170.74
+  },
+  "generated_at": "2026-07-14T05:52:32+00:00",
+  "generator": "jurisdictions/washington/scripts/extract_fit_actuals.py",
+  "official_bulk_fallback": "https://portal.sao.wa.gov/FIT/extracts/FullExtract(year=<YYYY>)",
+  "queries": {
+    "government_metrics": "https://portal.sao.wa.gov/FIT/api/Snapshots(33)/GovernmentMetrics?$filter=mcag in (...)",
+    "school_totals": "https://portal.sao.wa.gov/FIT/api/Schools/financialReportAggregationsByGovt?$filter=mcag eq '<mcag>' and (fsSectionId eq 20 or fsSectionId eq 30) and <all dims> eq null"
+  },
+  "snapshot_version": "milestone-2025-published-2026-06-30",
+  "source_fingerprint": {
+    "checks": {
+      "kcrha_2024_expenditures": 191618113.0,
+      "seattle_sd_2025_revenues": 1518641110.55,
+      "sound_transit_2024_revenues": 2599304000.0,
+      "spokane_2024_expenditures": 648638448.0,
+      "spokane_2024_revenues": 729876646.0
+    },
+    "fit_snapshot_id": 33,
+    "public_inspection_urls": [
+      "https://portal.sao.wa.gov/FIT/"
+    ],
+    "row_counts": {
+      "government-annual-totals.jsonl": 110,
+      "school-district-annual-totals.jsonl": 12
+    },
+    "snapshot_version": "milestone-2025-published-2026-06-30"
+  },
+  "source_id": "washington.fit_filed_actuals"
+}

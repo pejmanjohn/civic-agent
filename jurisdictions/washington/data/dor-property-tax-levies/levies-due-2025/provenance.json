@@ -1,0 +1,49 @@
+{
+  "code_scheme_reference": "https://dor.wa.gov/sites/default/files/2022-02/LevyDetailExplan.pdf",
+  "generated_at": "2026-07-14T19:44:05+00:00",
+  "generator": "jurisdictions/washington/scripts/extract_dor_levy_detail.py",
+  "landing_page": "https://dor.wa.gov/about/statistics-reports/data-statistics/local-taxing-district-levy-detail",
+  "snapshot_version": "levies-due-2025",
+  "source_files": [
+    {
+      "content_length": 287157,
+      "levy_rows": 2305,
+      "sha256": "5be5d7d90ac688cf18a67fa8a40a0d0987c19ac1099c4b3d9a1aec40cee1f850",
+      "url": "https://dor.wa.gov/sites/default/files/2025-02/All_County_Levy_Detail_2024.xlsx",
+      "year_due": 2024
+    },
+    {
+      "content_length": 284643,
+      "levy_rows": 2288,
+      "sha256": "893d2f6f3c347fb85e62372c643c5e1941a03b9cfa2c3677242bdd051f36544f",
+      "url": "https://dor.wa.gov/sites/default/files/2025-10/All_County_Levy_Detail_2025.xlsx",
+      "year_due": 2025
+    }
+  ],
+  "source_fingerprint": {
+    "checks": {
+      "seattle_sd_enrichment_levy_2024": 190239286.0,
+      "seattle_sd_enrichment_levy_2025": 194678891.0,
+      "seattle_sd_enrichment_rate_2024": 0.63479,
+      "seattle_sd_enrichment_rate_2025": 0.65422,
+      "year_2024_distinct_counties": 39,
+      "year_2024_king_county_levy_total": 7603197998.0,
+      "year_2024_rows": 2305,
+      "year_2024_school_enrichment_total": 2633498229.0,
+      "year_2024_statewide_levy_total": 17630395363.0,
+      "year_2025_distinct_counties": 39,
+      "year_2025_king_county_levy_total": 7724787822.0,
+      "year_2025_rows": 2288,
+      "year_2025_school_enrichment_total": 2814008373.0,
+      "year_2025_statewide_levy_total": 18450110007.0
+    },
+    "public_inspection_urls": [
+      "https://dor.wa.gov/about/statistics-reports/data-statistics/local-taxing-district-levy-detail"
+    ],
+    "row_counts": {
+      "levy-detail.jsonl": 4593
+    },
+    "snapshot_version": "levies-due-2025"
+  },
+  "source_id": "washington.dor_property_tax_levies"
+}

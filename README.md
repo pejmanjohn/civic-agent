@@ -128,6 +128,8 @@ Worked examples:
 - `docs/king-county-demo.md`: source-backed answers and compact traces for the King County snapshot.
 - `docs/washington-checkbook-demo.md`: managed local database setup, named queries, and trace shape for Washington Open Checkbook.
 - `benchmarks/scale/`: manual benchmark contract for Scale questions, with seed cases, scoring rubric, and the June 6 baseline.
+- `docs/goals/`: goal-loop templates, failure modes, and scoring rubric for turning benchmarks or dogfood evidence into milestone handoffs and post-evals.
+- `docs/processes/civic-agent-improvement-loop.md`: process for ranking goals before implementation and measuring expected versus actual eval movement after implementation.
 - `docs/coverage-matrix.md`: source-level coverage claims and derived jurisdiction rollups.
 - `docs/source-probing.md`: workflow for evaluating new official sources before adding them.
 - `docs/source-probes/seattle-open-data-portal.md`: Socrata/open data portal probe and workflow lessons.

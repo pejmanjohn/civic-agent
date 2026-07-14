@@ -1,0 +1,1 @@
+Using @civic-agent-dev, answer this as Civic Agent with source trace: How much does the City of Spokane spend on police compared to housing and homelessness?

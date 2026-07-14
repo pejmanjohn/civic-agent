@@ -20,7 +20,7 @@ class WashingtonCheckbookSourceTest(unittest.TestCase):
         self.assertEqual(source["access_method"], "official_bulk_download")
         self.assertEqual(source["storage_policy"]["tier"], "managed_local_db")
         self.assertEqual(source["storage_policy"]["normal_answer_source"], "local_db")
-        self.assertEqual(source["current_data_through"], "2026-04")
+        self.assertEqual(source["current_data_through"], "2026-05")
         self.assertIn("vendor payments", " ".join(source["safe_answer_patterns"]).lower())
 
     def test_source_surfaces_cover_available_historical_xlsx_files(self):
@@ -40,7 +40,7 @@ class WashingtonCheckbookSourceTest(unittest.TestCase):
         )
         self.assertEqual(
             source["source_surfaces"]["vendor_payments_2025_27_xlsx"]["actual_data_through"],
-            "2026-04",
+            "2026-05",
         )
 
     def test_actual_spending_coverage_claim_is_supported_with_caveats(self):

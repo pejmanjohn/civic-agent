@@ -39,7 +39,11 @@ SURFACE_ID = "statewide_revenue_reportviewer"
 REPORT_PAGE = "https://fiscal.wa.gov/Revenue/RevenueGeneral.aspx"
 BIENNIUM_FIELD = "ReportViewer1$ctl08$ctl03$ddValue"
 FUND_FIELD = "ReportViewer1$ctl08$ctl05$ddValue"
-GENERAL_FUND_VALUE = "192"
+# Last-observed dropdown value for General Fund (001). The ReportViewer fund
+# list grows over time and values SHIFT (2026-07-14: 192 -> 194 when the list
+# reached 539 options; 192 became Gambling Revolving Account). The value is
+# resolved by LABEL at run time; this constant is only the recorded default.
+GENERAL_FUND_VALUE = "194"
 GENERAL_FUND_LABEL = "General Fund (001)"
 GENERAL_FUND_CODE = "001"
 
@@ -140,7 +144,11 @@ def main() -> None:
 
     output_dir = args.output_dir or DATASET_ROOT / str(source["snapshot_version"])
     write_snapshot(source=source, exports=exports, output_dir=output_dir, fetched_at=fetched_at)
-    print(f"Wrote Washington revenue snapshot to {output_dir.relative_to(ROOT)}")
+    try:
+        location = output_dir.relative_to(ROOT)
+    except ValueError:
+        location = output_dir
+    print(f"Wrote Washington revenue snapshot to {location}")
 
 
 def parse_args() -> argparse.Namespace:
@@ -179,8 +187,36 @@ def write_jsonl(path: Path, rows: list[dict[str, Any]]) -> None:
     path.write_text(text, encoding="utf-8")
 
 
+def resolve_general_fund_value(select_fields: list[SelectField]) -> str:
+    """Resolve the General Fund (001) dropdown value by LABEL. The fund list
+    grows and positional values shift between site updates; hardcoding the
+    value selects the wrong fund silently."""
+    import html as html_module
+
+    for field in select_fields:
+        if field.name != FUND_FIELD:
+            continue
+        matches = [
+            option.value
+            for option in field.options
+            if html_module.unescape(option.text).strip() == GENERAL_FUND_LABEL
+        ]
+        if len(matches) == 1:
+            RESOLVED_FUND.update(value=matches[0])
+            return matches[0]
+        raise ExtractionError(
+            f"could not resolve {GENERAL_FUND_LABEL!r} uniquely in fund dropdown "
+            f"({len(field.options)} options, {len(matches)} label matches)"
+        )
+    raise ExtractionError(f"fund dropdown {FUND_FIELD!r} not found on report page")
+
+
+RESOLVED_FUND: dict[str, str] = {"value": GENERAL_FUND_VALUE}
+
+
 def fetch_biennium_exports(source: dict[str, Any]) -> list[BienniumExport]:
     first_session = open_report_session()
+    fund_value = resolve_general_fund_value(first_session.select_fields)
     biennium_options = biennium_select_options(first_session.select_fields)
     expected = source["source_surfaces"][SURFACE_ID]["coverage"]["biennia"]
     observed = sorted((option.text.split()[0] for option in biennium_options), key=biennium_sort_key)
@@ -190,7 +226,7 @@ def fetch_biennium_exports(source: dict[str, Any]) -> list[BienniumExport]:
     exports = []
     for option in sorted(biennium_options, key=lambda opt: biennium_sort_key(opt.text.split()[0])):
         biennium = option.text.split()[0]
-        exports.append(fetch_biennium_export(biennium, option.value))
+        exports.append(fetch_biennium_export(biennium, option.value, fund_value))
     return exports
 
 
@@ -207,13 +243,13 @@ def open_report_session() -> ReportSession:
     )
 
 
-def fetch_biennium_export(biennium: str, biennium_value: str) -> BienniumExport:
+def fetch_biennium_export(biennium: str, biennium_value: str, fund_value: str = GENERAL_FUND_VALUE) -> BienniumExport:
     opener = make_opener()
     final_url, _, _, body = open_with(opener, urllib.request.Request(REPORT_PAGE, headers=request_headers()))
     html_text = body.decode("utf-8", errors="replace")
     form_fields, _ = parse_report_form(html_text)
     form_fields[BIENNIUM_FIELD] = biennium_value
-    form_fields[FUND_FIELD] = GENERAL_FUND_VALUE
+    form_fields[FUND_FIELD] = fund_value
     form_fields["__EVENTTARGET"] = BIENNIUM_FIELD
     form_fields["__EVENTARGUMENT"] = ""
     post_body = urllib.parse.urlencode(form_fields).encode("utf-8")
@@ -598,6 +634,19 @@ def json_number(value: Decimal) -> int | float:
     return float(value)
 
 
+def current_actual_boundary(source: dict[str, Any], export_metadata: dict[str, Any]) -> dict[str, str]:
+    """The authoritative data boundary is the CURRENT biennium's export label.
+    Closed biennia keep stale banners (observed 2026-07: closed exports still
+    said April while the in-progress 2025-27 export said May); taking the
+    card's asserted value or the first export's label masks new months."""
+    current = export_metadata.get(source["current_biennium"])
+    if current is None:
+        raise ExtractionError(
+            f"current biennium {source['current_biennium']!r} missing from exports"
+        )
+    return current
+
+
 def build_summary(
     source: dict[str, Any],
     statewide_rows: list[dict[str, Any]],
@@ -631,8 +680,8 @@ def build_summary(
         "official_report_page": source["official_report_page"],
         "fund": GENERAL_FUND_LABEL,
         "fund_code": GENERAL_FUND_CODE,
-        "actual_data_through": source["actual_data_through"],
-        "actual_data_through_label": source["actual_data_through_label"],
+        "actual_data_through": current_actual_boundary(source, export_metadata)["actual_data_through"],
+        "actual_data_through_label": current_actual_boundary(source, export_metadata)["actual_data_through_label"],
         "actual_data_through_precision": source["actual_data_through_precision"],
         "row_counts": row_counts,
         "historical_coverage": {
@@ -710,14 +759,14 @@ def build_provenance(
         "access_method": source["access_method"],
         "snapshot_version": source["snapshot_version"],
         "snapshot_fetched_at": fetched_at,
-        "actual_data_through": source["actual_data_through"],
-        "actual_data_through_label": source["actual_data_through_label"],
+        "actual_data_through": current_actual_boundary(source, export_metadata)["actual_data_through"],
+        "actual_data_through_label": current_actual_boundary(source, export_metadata)["actual_data_through_label"],
         "actual_data_through_precision": source["actual_data_through_precision"],
         "source_surfaces": source["source_surfaces"],
         "report_parameters": {
             "biennium_field": BIENNIUM_FIELD,
             "fund_field": FUND_FIELD,
-            "fund_value": GENERAL_FUND_VALUE,
+            "fund_value": RESOLVED_FUND["value"],
             "fund": GENERAL_FUND_LABEL,
         },
         "exports": export_metadata,

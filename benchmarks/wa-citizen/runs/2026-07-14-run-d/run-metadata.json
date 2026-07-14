@@ -1,0 +1,11 @@
+{
+  "branch": "feat/decision-batch",
+  "capture_notes": "Same capture config as runs a/b/c. Measures: maintainer mode calibrations (D1-D6), Hard Questions Playbook, Answer Craft rules, D7 caveat adjudications, FIT denominator wall, live-fallback policy, OFM same-vintage revision. Compare vs run-c; noise floor 9 flips.",
+  "capture_protocol": "Run each .prompt.txt in a FRESH agent session with the dev plugin installed (python3 scripts/dev.py status first); paste the full answer into the matching .md below its front matter and set answer_mode to the mode the answer actually claims. Do not edit answers. Score with: python3 scripts/eval.py --score <run_dir>",
+  "cases": 20,
+  "commit": "f8571e80fe447abe27b1e446763b5884e557f1e7",
+  "created": "2026-07-14",
+  "dirty": true,
+  "run": "2026-07-14-run-d",
+  "surface": "repo-skills (hosted-path emulation)"
+}

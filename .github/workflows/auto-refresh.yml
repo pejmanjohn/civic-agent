@@ -1,0 +1,101 @@
+name: Auto-refresh (manual fallback)
+
+# Attempts the deterministic snapshot refreshes (FIT, DOR, OFM, revenue) and:
+# - if anything changed AND the full test suite still passes -> opens a PR;
+# - if anything changed but tests fail (card values need human sync) -> opens
+#   an issue with the drift ledger and diff summary.
+# It NEVER self-merges: refreshes can change semantics, not just numbers
+# (2026-07-14: a revenue refresh flipped a sign under an unchanged label).
+# The 411MB checkbook rebuild stays a manual scripts/refresh.py run.
+
+# Local-first ops: refreshes run manually via scripts/refresh-all.sh
+# (see CONTRIBUTING.md Local Ops). Manual fallback trigger only.
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Freshness ledger (before)
+        run: python3 scripts/drift.py --status || true
+
+      - name: Attempt refreshes (deterministic extractors)
+        run: |
+          set +e
+          for src in washington.fit_filed_actuals washington.dor_property_tax_levies washington.ofm_population washington.revenue_by_biennium; do
+            echo "::group::refresh $src"
+            python3 scripts/refresh.py "$src"
+            echo "refresh $src exited $?"
+            echo "::endgroup::"
+          done
+          true
+
+      - name: Detect changes
+        id: diff
+        run: |
+          if git diff --quiet; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+            git diff --stat
+          fi
+
+      - name: Run full test suite
+        id: tests
+        if: steps.diff.outputs.changed == 'true'
+        continue-on-error: true
+        run: python3 -m unittest discover -s tests
+
+      - name: Open refresh PR (tests green)
+        if: steps.diff.outputs.changed == 'true' && steps.tests.outcome == 'success'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          BRANCH="auto-refresh/$(date -u +%Y-%m-%d)"
+          git config user.name "civic-agent-auto-refresh"
+          git config user.email "actions@users.noreply.github.com"
+          git checkout -b "$BRANCH"
+          git add -A
+          git commit -m "chore(data): weekly auto-refresh $(date -u +%Y-%m-%d)"
+          git push -u origin "$BRANCH"
+          gh pr create \
+            --title "Weekly auto-refresh $(date -u +%Y-%m-%d)" \
+            --body "Automated snapshot refresh. Tests pass, but REVIEW THE DIFF: values can revise in place under unchanged boundaries. Check the expectation-log / benchmark impact per CONTRIBUTING.md before merging. Never merge without human eyes." \
+            --label "auto-refresh" || true
+
+      - name: Open issue (refresh needs human card sync)
+        if: steps.diff.outputs.changed == 'true' && steps.tests.outcome != 'success'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          {
+            echo "The weekly auto-refresh produced changes that FAIL the test suite - card values need human sync (the expected path when upstream data advanced or revised)."
+            echo
+            echo '### Diff summary'
+            echo '```'
+            git diff --stat
+            echo '```'
+            echo
+            echo '### Freshness ledger'
+            echo '```'
+            python3 scripts/drift.py --status || true
+            echo '```'
+            echo
+            echo "Run \`python3 scripts/refresh.py <source>\` locally and follow its review checklist."
+          } > /tmp/issue-body.md
+          gh issue create \
+            --title "Auto-refresh needs human sync ($(date -u +%Y-%m-%d))" \
+            --body-file /tmp/issue-body.md \
+            --label "refresh" || true

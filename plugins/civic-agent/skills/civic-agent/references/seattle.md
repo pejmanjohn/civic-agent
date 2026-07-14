@@ -276,7 +276,7 @@ How to read this:
 [brief explanation of grain, caveats, and budget meaning]
 
 Trace:
-- Source: City of Seattle Operating Budget, Socrata `8u2j-imqx`
+- Source: `seattle.operating_budget` (City of Seattle Operating Budget, Socrata `8u2j-imqx`) - always name the source card id
 - Grain: [service / department / program / fund / description / row]
 - Measure: sum(`approved_amount`)
 - Filters/query logic: [plain-English description]
