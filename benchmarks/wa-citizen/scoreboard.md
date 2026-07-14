@@ -28,7 +28,7 @@ Achievable mode is what current coverage can support, computed from source-card 
 | `sound-transit-car-tabs` | T2 | special_district | - | `partial` | `partial` | 1/1 | - |
 | `kc-actuals-vs-budget-trap` | T2 | county | - | `partial` | `partial` | 2/2 | - |
 | `pierce-vs-king-per-resident` | T2 | multi | yes | `partial` | `exact` | 4/4 | ratchet candidate: coverage now exceeds expectation |
-| `wa-new-taxes-actually-collecting` | T2 | state | - | `needs_refresh` | `needs_refresh` | 1/2 | stale: washington.revenue_by_biennium (data through 2026-04-01 exceeds the case's 60-day freshness bound) partial-status claim: Washington State / budget_finance.revenue_budget |
+| `wa-new-taxes-actually-collecting` | T2 | state | - | `needs_refresh` | `needs_refresh` | 1/2 | stale: washington.revenue_by_biennium (data through 2026-05-01 exceeds the case's 60-day freshness bound) partial-status claim: Washington State / budget_finance.revenue_budget |
 | `school-levy-household-cost` | T2 | school_district | - | `partial` | `partial` | 1/1 | - |
 | `sps-deficit-school-closures` | T3 | school_district | - | `partial` | `partial` | 1/2 | - |
 | `kc-property-tax-why-up` | T3 | county | yes | `partial` | `partial` | 1/1 | - |
@@ -45,4 +45,4 @@ Coverage now exceeds the recorded expectation for these cases. Ratchet the expec
 
 ## Stale Sources
 
-- `wa-new-taxes-actually-collecting`: washington.revenue_by_biennium (data through 2026-04-01 exceeds the case's 60-day freshness bound)
+- `wa-new-taxes-actually-collecting`: washington.revenue_by_biennium (data through 2026-05-01 exceeds the case's 60-day freshness bound)

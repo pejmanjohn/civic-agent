@@ -70,7 +70,7 @@
       "report_parameters": {
         "fund": "General Fund (001)",
         "fund_code": "001",
-        "fund_value": "192",
+        "fund_value": "194",
         "biennium_values": {
           "2025-27": "1",
           "2023-25": "2",
@@ -93,10 +93,10 @@
       ]
     },
     "version_boundary": {
-      "snapshot_version": "2025-27-revenue-through-2026-04",
+      "snapshot_version": "2025-27-revenue-through-2026-05",
       "current_biennium": "2025-27",
-      "actual_data_through": "2026-04",
-      "actual_data_through_label": "Actual Data Through April 2026",
+      "actual_data_through": "2026-05",
+      "actual_data_through_label": "Actual Data Through May 2026",
       "historical_biennia": [
         "2003-05",
         "2005-07",
@@ -114,11 +114,11 @@
     },
     "row_counts": {
       "general_fund_revenue_by_biennium": 12,
-      "general_fund_revenue_by_area_account": 934
+      "general_fund_revenue_by_area_account": 937
     },
     "checks": {
-      "current_biennium_estimated_revenue": 45098726991,
-      "current_biennium_actual_revenue": 46142570002.15,
+      "current_biennium_estimated_revenue": 51267621520,
+      "current_biennium_actual_revenue": 50914382425.63,
       "current_biennium_actual_data_status": "partial",
       "detail_totals_match_statewide_totals": true
     }
@@ -175,12 +175,12 @@
       ]
     }
   },
-  "snapshot_version": "2025-27-revenue-through-2026-04",
+  "snapshot_version": "2025-27-revenue-through-2026-05",
   "current_biennium": "2025-27",
   "default_fund": "General Fund (001)",
   "default_fund_code": "001",
-  "actual_data_through": "2026-04",
-  "actual_data_through_label": "Actual Data Through April 2026",
+  "actual_data_through": "2026-05",
+  "actual_data_through_label": "Actual Data Through May 2026",
   "actual_data_through_precision": "month",
   "amount_units_from_report": "thousands_of_dollars",
   "primary_measures": [
@@ -356,9 +356,9 @@
       "2023-25",
       "2025-27"
     ],
-    "current_biennium_estimated_revenue": 45098726991,
-    "current_biennium_actual_revenue": 46142570002.15,
-    "current_biennium_actual_minus_estimate": 1043843011.15,
+    "current_biennium_estimated_revenue": 51267621520,
+    "current_biennium_actual_revenue": 50914382425.63,
+    "current_biennium_actual_minus_estimate": -353239094.37,
     "current_biennium_actual_data_status": "partial",
     "detail_totals_match_statewide_totals": true
   },
@@ -367,6 +367,7 @@
     "The current 2025-27 biennium includes partial estimate, actual, and difference data through April 2026.",
     "Do not treat the 2025-27 current-biennium values as a full-biennium forecast or final actual.",
     "Closed biennia are marked complete because their biennial end date is before the reported actual-data-through month.",
-    "This first accepted source slice is General Fund (001); companion selected-source and selected-fund report pages remain context-only until normalized."
+    "This first accepted source slice is General Fund (001); companion selected-source and selected-fund report pages remain context-only until normalized.",
+    "Report values REVISE within a data-through period: the 2026-07-14 refresh (same 'Actual Data Through April 2026' label) raised current-biennium estimates from $45.10B to $51.27B after June 2026 forecast/legislative revisions, flipping the difference from +$1.04B to -$353M. Never compare values across snapshot versions without noting the revision."
   ]
 }

@@ -168,7 +168,7 @@ class SourceStoragePolicyTest(unittest.TestCase):
             / "washington"
             / "data"
             / "revenue-by-biennium"
-            / "2025-27-revenue-through-2026-04",
+            / "2025-27-revenue-through-2026-05",
             SOURCE_ROOT
             / "washington"
             / "data"

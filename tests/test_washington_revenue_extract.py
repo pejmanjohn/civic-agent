@@ -14,7 +14,7 @@ SNAPSHOT_DIR = (
     / "washington"
     / "data"
     / "revenue-by-biennium"
-    / "2025-27-revenue-through-2026-04"
+    / "2025-27-revenue-through-2026-05"
 )
 
 
@@ -40,9 +40,9 @@ class WashingtonRevenueExtractTest(unittest.TestCase):
         source = load_json(SOURCE_CARD_PATH)
         self.assertEqual(source["id"], "washington.revenue_by_biennium")
         self.assertEqual(source["access_method"], "reportviewer_snapshot")
-        self.assertEqual(source["snapshot_version"], "2025-27-revenue-through-2026-04")
-        self.assertEqual(source["actual_data_through"], "2026-04")
-        self.assertEqual(source["actual_data_through_label"], "Actual Data Through April 2026")
+        self.assertEqual(source["snapshot_version"], "2025-27-revenue-through-2026-05")
+        self.assertEqual(source["actual_data_through"], "2026-05")
+        self.assertEqual(source["actual_data_through_label"], "Actual Data Through May 2026")
         self.assertEqual(source["actual_data_through_precision"], "month")
         self.assertEqual(source["default_fund"], "General Fund (001)")
         self.assertEqual(
@@ -67,10 +67,10 @@ class WashingtonRevenueExtractTest(unittest.TestCase):
         self.assertEqual(summary["source_id"], "washington.revenue_by_biennium")
         self.assertEqual(summary["source_fingerprint"]["row_counts"], summary["row_counts"])
         self.assertIn("exports", summary["source_fingerprint"]["integrity"])
-        self.assertEqual(summary["actual_data_through"], "2026-04")
-        self.assertEqual(summary["actual_data_through_label"], "Actual Data Through April 2026")
+        self.assertEqual(summary["actual_data_through"], "2026-05")
+        self.assertEqual(summary["actual_data_through_label"], "Actual Data Through May 2026")
         self.assertEqual(summary["row_counts"]["general_fund_revenue_by_biennium"], 12)
-        self.assertEqual(summary["row_counts"]["general_fund_revenue_by_area_account"], 934)
+        self.assertEqual(summary["row_counts"]["general_fund_revenue_by_area_account"], 937)
         self.assertEqual(summary["historical_coverage"]["start_biennium"], "2003-05")
         self.assertEqual(summary["historical_coverage"]["end_biennium"], "2025-27")
         self.assertEqual(
@@ -98,9 +98,9 @@ class WashingtonRevenueExtractTest(unittest.TestCase):
         )
         checks = summary["validation_checks"]
         self.assertTrue(checks["detail_totals_match_statewide_totals"])
-        self.assertEqual(checks["current_biennium_estimated_revenue"], 45098726991)
-        self.assertEqual(checks["current_biennium_actual_revenue"], 46142570002.15)
-        self.assertEqual(checks["current_biennium_actual_minus_estimate"], 1043843011.15)
+        self.assertEqual(checks["current_biennium_estimated_revenue"], 51267621520)
+        self.assertEqual(checks["current_biennium_actual_revenue"], 50914382425.63)
+        self.assertEqual(checks["current_biennium_actual_minus_estimate"], -353239094.37)
         self.assertEqual(checks["current_biennium_actual_data_status"], "partial")
 
     def test_biennium_rows_are_ordered_and_carry_actual_data_boundary(self):
@@ -111,14 +111,14 @@ class WashingtonRevenueExtractTest(unittest.TestCase):
         self.assertEqual(rows[0]["biennium"], "2003-05")
         self.assertEqual(rows[-1]["biennium"], "2025-27")
         self.assertEqual({row["fund"] for row in rows}, {"General Fund (001)"})
-        self.assertEqual({row["actual_data_through"] for row in rows}, {"2026-04"})
+        self.assertEqual({row["actual_data_through"] for row in rows}, {"2026-05"})
         self.assertEqual(
             {row["actual_data_through_label"] for row in rows},
-            {"Actual Data Through April 2026"},
+            {"Actual Data Through May 2026"},
         )
         self.assertEqual(rows[-1]["actual_data_status"], "partial")
-        self.assertEqual(rows[-1]["estimated_revenue"], 45098726991)
-        self.assertEqual(rows[-1]["actual_revenue"], 46142570002.15)
+        self.assertEqual(rows[-1]["estimated_revenue"], 51267621520)
+        self.assertEqual(rows[-1]["actual_revenue"], 50914382425.63)
 
     def test_detail_rows_reconcile_to_statewide_rows(self):
         statewide_rows = load_jsonl(
@@ -127,7 +127,7 @@ class WashingtonRevenueExtractTest(unittest.TestCase):
         detail_rows = load_jsonl(
             SNAPSHOT_DIR / "normalized" / "general-fund-revenue-by-area-account.jsonl"
         )
-        self.assertEqual(len(detail_rows), 934)
+        self.assertEqual(len(detail_rows), 937)
         self.assertFalse(
             duplicate_keys(detail_rows, ["biennium", "revenue_area", "account_or_agency"])
         )
@@ -153,8 +153,8 @@ class WashingtonRevenueExtractTest(unittest.TestCase):
         self.assertIn("source_fingerprint", provenance)
         self.assertEqual(provenance["source_fingerprint"]["row_counts"], summary["row_counts"])
         self.assertIn("exports", provenance["source_fingerprint"]["integrity"])
-        self.assertEqual(provenance["actual_data_through"], "2026-04")
-        self.assertEqual(provenance["actual_data_through_label"], "Actual Data Through April 2026")
+        self.assertEqual(provenance["actual_data_through"], "2026-05")
+        self.assertEqual(provenance["actual_data_through_label"], "Actual Data Through May 2026")
         self.assertEqual(provenance["actual_data_through_precision"], "month")
         self.assertEqual(
             provenance["report_parameters"]["biennium_field"],
@@ -163,7 +163,7 @@ class WashingtonRevenueExtractTest(unittest.TestCase):
         self.assertEqual(provenance["report_parameters"]["fund"], "General Fund (001)")
         self.assertIn("2025-27", provenance["exports"])
         current_export = provenance["exports"]["2025-27"]
-        self.assertEqual(current_export["actual_data_through"], "2026-04")
+        self.assertEqual(current_export["actual_data_through"], "2026-05")
         self.assertEqual(current_export["actual_data_status"], "partial")
         self.assertRegex(current_export["xml_sha256"], r"^[0-9a-f]{64}$")
         self.assertRegex(current_export["xlsx_sha256"], r"^[0-9a-f]{64}$")
@@ -181,6 +181,8 @@ class WashingtonRevenueExtractTest(unittest.TestCase):
                 "csv_sha256": "a" * 64,
                 "xlsx_sha256": "b" * 64,
                 "xml_sha256": "c" * 64,
+                "actual_data_through": "2026-05",
+                "actual_data_through_label": "Actual Data Through May 2026",
             }
         }
 

@@ -64,23 +64,23 @@ Treat this as budgeted/authorized operating budget data, not actual spending. Am
 - Official report page: `https://fiscal.wa.gov/Revenue/RevenueGeneral.aspx`
 - Context page: `https://fiscal.wa.gov/Revenue/RevenueOverview.aspx`
 - Source card: `jurisdictions/washington/sources/revenue-by-biennium.source.json`
-- Snapshot version: `2025-27-revenue-through-2026-04`
-- Snapshot generated from live ReportViewer exports: see `jurisdictions/washington/data/revenue-by-biennium/2025-27-revenue-through-2026-04/provenance.json`
+- Snapshot version: `2025-27-revenue-through-2026-05`
+- Snapshot generated from live ReportViewer exports: see `jurisdictions/washington/data/revenue-by-biennium/2025-27-revenue-through-2026-05/provenance.json`
 - Actual data through: `2026-04` (`Actual Data Through April 2026`)
 
 For local dev-plugin testing, read revenue snapshot files from the repo checkout at this relative path:
 
 ```text
-jurisdictions/washington/data/revenue-by-biennium/2025-27-revenue-through-2026-04/
+jurisdictions/washington/data/revenue-by-biennium/2025-27-revenue-through-2026-05/
 ```
 
 For hosted/fresh-agent use after the source is pushed, checked-in revenue snapshot files will be available under:
 
 ```text
-https://raw.githubusercontent.com/pejmanjohn/civic-agent/main/jurisdictions/washington/data/revenue-by-biennium/2025-27-revenue-through-2026-04/normalized/general-fund-revenue-by-biennium.jsonl
-https://raw.githubusercontent.com/pejmanjohn/civic-agent/main/jurisdictions/washington/data/revenue-by-biennium/2025-27-revenue-through-2026-04/normalized/general-fund-revenue-by-area-account.jsonl
-https://raw.githubusercontent.com/pejmanjohn/civic-agent/main/jurisdictions/washington/data/revenue-by-biennium/2025-27-revenue-through-2026-04/summary.json
-https://raw.githubusercontent.com/pejmanjohn/civic-agent/main/jurisdictions/washington/data/revenue-by-biennium/2025-27-revenue-through-2026-04/provenance.json
+https://raw.githubusercontent.com/pejmanjohn/civic-agent/main/jurisdictions/washington/data/revenue-by-biennium/2025-27-revenue-through-2026-05/normalized/general-fund-revenue-by-biennium.jsonl
+https://raw.githubusercontent.com/pejmanjohn/civic-agent/main/jurisdictions/washington/data/revenue-by-biennium/2025-27-revenue-through-2026-05/normalized/general-fund-revenue-by-area-account.jsonl
+https://raw.githubusercontent.com/pejmanjohn/civic-agent/main/jurisdictions/washington/data/revenue-by-biennium/2025-27-revenue-through-2026-05/summary.json
+https://raw.githubusercontent.com/pejmanjohn/civic-agent/main/jurisdictions/washington/data/revenue-by-biennium/2025-27-revenue-through-2026-05/provenance.json
 ```
 
 Treat revenue `estimated_revenue` as the revenue-budget measure for this source. The same rows include actual revenue collected and actual-minus-estimate. For the in-progress 2025-27 biennium, all three measures are partial through April 2026.
@@ -628,7 +628,7 @@ Use this as the supported high-level policy grouping for historical Washington o
 Read:
 
 ```text
-jurisdictions/washington/data/revenue-by-biennium/2025-27-revenue-through-2026-04/normalized/general-fund-revenue-by-biennium.jsonl
+jurisdictions/washington/data/revenue-by-biennium/2025-27-revenue-through-2026-05/normalized/general-fund-revenue-by-biennium.jsonl
 ```
 
 Known checks:
@@ -636,9 +636,9 @@ Known checks:
 ```text
 rows = 12
 coverage = 2003-05 through 2025-27
-2025-27 estimated_revenue = 45098726991
-2025-27 actual_revenue = 46142570002.15
-2025-27 actual_minus_estimate = 1043843011.15
+2025-27 estimated_revenue = 51267621520
+2025-27 actual_revenue = 50914382425.63
+2025-27 actual_minus_estimate = -353239094.37
 2025-27 actual_data_status = partial
 actual_data_through = 2026-04
 ```
@@ -650,7 +650,7 @@ Use this for General Fund revenue trend questions. For closed biennia, `actual_d
 Read:
 
 ```text
-jurisdictions/washington/data/revenue-by-biennium/2025-27-revenue-through-2026-04/normalized/general-fund-revenue-by-area-account.jsonl
+jurisdictions/washington/data/revenue-by-biennium/2025-27-revenue-through-2026-05/normalized/general-fund-revenue-by-area-account.jsonl
 ```
 
 Use this only for General Fund (001) revenue rows by biennium, `revenue_area`, and `account_or_agency`. Known check: 934 detail rows, and detail totals reconcile to the statewide biennium totals within rounding tolerance.
@@ -719,7 +719,7 @@ Use `historical-biennium-summary.jsonl` for statewide trends. Use the historical
 
 Say the current Washington snapshot is the 2025-27 enacted biennial operating budget with current model refresh time `2025-07-22T17:18:33.94`. Historical trend rows use the prior summary model with refresh time `2025-12-29T18:08:24.87`. The separate 2026 supplemental report has been probed but is not implemented in this source slice.
 
-For current Washington revenue questions, say the current revenue snapshot is `2025-27-revenue-through-2026-04`; 2025-27 revenue values are partial through April 2026.
+For current Washington revenue questions, say the current revenue snapshot is `2025-27-revenue-through-2026-05`; 2025-27 revenue values are partial through April 2026.
 
 For current Washington checkbook questions, inspect the managed local manifest. The source card's reviewed current boundary is `Payments through April 2026`; a refreshed local database may report a newer `data_through`. Always use the manifest value when it exists.
 
@@ -759,7 +759,7 @@ Known checks from snapshot `2025-27-enacted-2025-05-20`:
 
 If a result differs materially, verify the snapshot version, budget version filter, fund view, and whether the user asked for budgeted values or actuals.
 
-Known revenue checks from snapshot `2025-27-revenue-through-2026-04`:
+Known revenue checks from snapshot `2025-27-revenue-through-2026-05`:
 
 - General Fund revenue biennium rows: 12
 - General Fund revenue detail rows: 934
@@ -822,7 +822,7 @@ Revenue trace example:
 
 ```text
 Trace:
-- Source: Fiscal WA Revenue by Biennium, snapshot 2025-27-revenue-through-2026-04
+- Source: Fiscal WA Revenue by Biennium, snapshot 2025-27-revenue-through-2026-05
 - Public source: https://fiscal.wa.gov/Revenue/RevenueGeneral.aspx
 - Data-through: Actual Data Through April 2026
 - Grain: biennium
