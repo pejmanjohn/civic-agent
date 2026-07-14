@@ -654,9 +654,9 @@
         "note": "Sound Transit files with SAO (Central Puget Sound Regional Transit Authority); FIT is the machine-readable path."
       }
     ],
-    "mode_ceiling": "partial",
-    "expected_answer_mode": "partial",
-    "expected_failure_mode": "semantic_mismatch",
+    "mode_ceiling": "exact",
+    "expected_answer_mode": "exact",
+    "expected_failure_mode": "none",
     "expected_source_ids": [
       "washington.fit_filed_actuals"
     ],
@@ -682,8 +682,8 @@
       },
       {
         "id": "st3-gap-out-of-scope",
-        "pattern": "(program|capital plan|ST3|affordability)[^.]{0,80}(projection|plan|estimate|separate|cannot|out of scope)",
-        "description": "Separates filed actuals from ST3 capital-program projections."
+        "pattern": "(ST3|capital (plan|program|buildout))[^.]{0,140}(project|construction|future|expansion|separate|estimate|out of scope)|(affordability|program) gap",
+        "description": "Separates filed actuals from the ST3 capital program (buildout/plan framing counts)."
       },
       {
         "id": "mvet-one-stream",
@@ -691,8 +691,8 @@
         "description": "Notes car tabs are one revenue stream among several; the per-stream split is not yet a reviewed claim."
       }
     ],
-    "unlocked_by": "FIT totals accepted 2026-07-13; revenue-stream split and capital plan remain out of scope",
-    "improvement_path": "Review the FIT cube account grain for revenue-stream splits; ST financial-plan PDF only on demand signal.",
+    "unlocked_by": "covered (FIT filed actuals); ceiling raised to exact per 2026-07-14 maintainer calibration - the asked question (total in/out) is fully answered by filed totals",
+    "improvement_path": "Revenue-stream split (MVET vs sales vs property tax) via the FIT cube would enrich the answer; ST3 capital-plan questions need their own source.",
     "score_dimensions": [
       "correctness",
       "traceability",
@@ -734,7 +734,7 @@
       }
     ],
     "mode_ceiling": "partial",
-    "expected_answer_mode": "partial",
+    "expected_answer_mode": "side_by_side_only",
     "expected_failure_mode": "semantic_mismatch",
     "expected_source_ids": [
       "king_county.open_budget_dashboard",
@@ -770,7 +770,7 @@
         "description": "Names the excludes-internal-service-funds basis of the FIT headline number."
       }
     ],
-    "unlocked_by": "FIT actuals accepted 2026-07-13; ceiling stays partial because the frames are not reconcilable without an alignment recipe",
+    "unlocked_by": "covered (FIT actuals + KC dashboard); side_by_side_only per 2026-07-14 maintainer calibration - the recipe definition fits: frames shown side by side, never reconciled",
     "improvement_path": "A budget-vs-actual recipe that presents the two frames side by side with basis caveats is the remaining contract.",
     "score_dimensions": [
       "correctness",
@@ -822,39 +822,20 @@
       }
     ],
     "mode_ceiling": "exact",
-    "expected_answer_mode": "partial",
-    "expected_failure_mode": "semantic_mismatch",
+    "expected_answer_mode": "exact",
+    "expected_failure_mode": "none",
     "expected_source_ids": [
       "king_county.open_budget_dashboard",
       "pierce_county.open_budget",
       "washington.ofm_population"
     ],
-    "expected_missing_sources": [
-      "period-alignment recipe: Pierce biennial budget vs King County annual dashboard values"
-    ],
-    "expected_facts": [
-      {
-        "id": "king-county-2025-population",
-        "value": 2411700,
-        "tolerance": 0,
-        "unit": "residents",
-        "description": "King County April 1, 2025 OFM population estimate",
-        "reproduction_ref": "jurisdictions/washington/data/ofm-population/2025-04-01/normalized/population-estimates.jsonl"
-      },
-      {
-        "id": "pierce-county-2025-population",
-        "value": 959900,
-        "tolerance": 0,
-        "unit": "residents",
-        "description": "Pierce County April 1, 2025 OFM population estimate",
-        "reproduction_ref": "jurisdictions/washington/data/ofm-population/2025-04-01/normalized/population-estimates.jsonl"
-      }
-    ],
+    "expected_missing_sources": [],
+    "expected_facts": [],
     "required_caveats": [
       {
         "id": "denominator-cited",
         "pattern": "OFM|april 1|office of financial management",
-        "description": "Cites the OFM April 1 population denominator and estimate date."
+        "description": "Cites OFM April 1 population with the estimate year; year-matched denominators (2024 pops with 2024 actuals) are correct and preferred."
       },
       {
         "id": "service-scope",
@@ -862,13 +843,13 @@
         "description": "Warns county service responsibilities differ, so per-resident values are not directly comparable."
       },
       {
-        "id": "period-mismatch-named",
-        "pattern": "(biennial|two[- ]year)[^.]{0,90}(annual|per[- ]year|not[^.]{0,40}comparable|align)",
-        "description": "Names the biennial-vs-annual period mismatch instead of silently annualizing."
+        "id": "comparability-basis-named",
+        "pattern": "same (source|basis|year|filed)|filed actuals[^.]{0,80}(both|each)|(biennial|two[- ]year)[^.]{0,90}(annual|align|approximation)|halv",
+        "description": "Names the comparability basis: either both sides on one source/basis/year (e.g. FIT filed actuals), or the biennial-to-annual alignment labeled."
       }
     ],
-    "unlocked_by": "Pierce sources covered as of 2026-07-13; a period-alignment recipe is what remains for a numeric verdict",
-    "improvement_path": "Add an explicit biennial-to-annual alignment rule to the cross_jurisdiction recipe before allowing a per-resident verdict; until then both values present side by side with period labels.",
+    "unlocked_by": "covered; ratcheted to exact per 2026-07-14 maintainer calibration with the labeled biennial-to-annual alignment rule added to the cross_jurisdiction recipe",
+    "improvement_path": "None required; watch that answers keep the period-alignment labeling and OFM denominators.",
     "score_dimensions": [
       "correctness",
       "traceability",
@@ -1228,8 +1209,8 @@
       },
       {
         "id": "general-vs-dedicated",
-        "pattern": "general fund[^.]{0,90}(dedicated|restricted|most of the budget|cannot be)",
-        "description": "Explains the general-fund vs dedicated-funds distinction at the heart of the paradox."
+        "pattern": "general fund[^.]{0,140}(dedicated|restricted)|(dedicated|restricted|legally restricted)[^.]{0,140}general fund",
+        "description": "Explains the flexible-General-Fund vs restricted/dedicated funds distinction, in either order."
       },
       {
         "id": "levy-101-context",

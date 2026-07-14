@@ -46,3 +46,22 @@ Deliberate divergence from the goal appendix: `kc-cuts-despite-20b` seeded as `p
 ## 2026-07-14 - freshness machinery + revenue refresh: wa-new-taxes ratchet
 
 - `wa-new-taxes-actually-collecting`: `expected_answer_mode` `needs_refresh` -> `partial`; `max_data_age_days` 60 -> 120. The original 60-day bound was tighter than the source's real publication cadence (May actuals live in mid-July = ~75-day lag), so the case punished publication lag as if it were our lag. The refreshed snapshot (data through 2026-05) plus the new per-card freshness contract (cadence: 30d interval + 75d lag) make partial-with-boundary-language the honest expectation; needs_refresh now triggers only when the snapshot genuinely falls outside the cadence window. Note for scorers: the refresh also revealed that report values REVISE in place - current-biennium difference flipped from +$1.04B to -$353M after June forecast revisions - so no volatile current-period fact is pinned on this case.
+
+## 2026-07-14 - maintainer calibration batch (decision sheet)
+
+Six mode calibrations decided by the maintainer against three runs of evidence:
+
+- `wa-checkbook-vendor-lookup`: stays `exact`; the skills now state that top-N aggregate answers fully support top-N questions (the 3/3 partial declarations were under-claiming).
+- `kc-sheriff-budgeted-fte-2026`: stays `exact`; new router rule - answering at the accepted measure (budgeted FTE) with the distinction labeled stays exact.
+- `spokane-police-vs-housing`: stays `partial`; the FIT skill now teaches the expected partial shape - citywide totals plus the named category gap - instead of full refusal.
+- `sound-transit-car-tabs`: ceiling and expectation raised `partial` -> `exact` (upgrade): the asked question is fully answered by filed totals; adjacencies stay caveats. 3/3 runs already answered this way.
+- `kc-actuals-vs-budget-trap`: `partial` -> `side_by_side_only` (rank downgrade, justified): the scale recipe's own definition fits - the two frames are shown side by side and never reconciled; 3/3 runs applied it.
+- `pierce-vs-king-per-resident`: `partial` -> `exact` (upgrade): labeled biennial-to-annual alignment is now a sanctioned comparison (rule added to docs/recipes/scale.md); clears the standing scoreboard ratchet candidate.
+
+## 2026-07-14 - D7 caveat adjudication (maintainer-approved policy)
+
+Per-caveat verdicts against the run C answers:
+
+- LOOSENED (concept clearly expressed, pattern too narrow): `st3-gap-out-of-scope` (capital buildout/bonded-construction framing counts); `general-vs-dedicated` (order-agnostic).
+- REWRITTEN: `pierce-vs-king-per-resident` `period-mismatch-named` -> `comparability-basis-named`. Run C used FIT filed actuals for BOTH counties with year-matched OFM denominators - same source, basis, and year, so there was no period mismatch to name; the caveat now accepts either a shared basis or labeled alignment. The two pinned 2025 population facts are REMOVED: they hard-coded one answer path's denominators, and year-matched denominators are methodologically preferable.
+- KEPT STRICT (content genuinely missing from answers): `fragmentation-is-the-answer`, `no-outcome-claims`, `modeling-choices-explicit`, `attribution-is-context`, `levy-101-context`. The routers now carry a Hard Questions Playbook teaching those answer shapes; future runs are expected to meet the patterns.

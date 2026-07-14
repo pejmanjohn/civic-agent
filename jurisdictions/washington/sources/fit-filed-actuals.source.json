@@ -253,6 +253,14 @@
     "Filed annual actuals under BARS (SAO) and F-196 (OSPI); not budgets, not checkbook transactions.",
     "Pinned to FIT milestone Snapshot 33 (published 2026-06-30); milestones revise ~quarterly - the drift check watches for a newer milestone id.",
     "The API is the FIT SPA's internal OData surface (undocumented, unversioned); official bulk XLSX extracts are the sanctioned fallback.",
-    "Only the reviewed governments listed in coverage_jurisdictions are claimable; FIT itself covers ~2,300 governments."
-  ]
+    "Only the reviewed governments listed in coverage_jurisdictions are claimable; FIT itself covers ~2,300 governments.",
+    "fit_population on GovernmentMetrics rows is context only; per-resident math always uses washington.ofm_population - never this field."
+  ],
+  "answer_time_live_fallback": {
+    "allowed": true,
+    "conditions": "Only when the freshness ledger marks this source refresh_available, or the question needs a filed year newer than the snapshot; REVIEWED governments only.",
+    "endpoint_pattern": "https://portal.sao.wa.gov/FIT/api/Snapshots(<latest>)/GovernmentMetrics?$filter=mcag eq '<mcag>' and year eq <year>",
+    "validation": "Cross-check one snapshot-known value live before trusting the connection (e.g. spokane_2024_revenues 729876646).",
+    "labeling": "live-fetched (FIT API, snapshot <id>), snapshot-validated - cite both the live snapshot id and the checked-in snapshot version."
+  }
 }

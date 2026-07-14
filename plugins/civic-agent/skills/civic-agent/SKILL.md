@@ -155,6 +155,22 @@ Washington has separate source families. Operating budget answers use budgeted/a
 
 Do not use Washington for procurement contract terms, invoices, payroll, staffing/FTE, Seattle budget analysis, King County budget analysis, 2026 supplemental changes, pre-2013-15 operating-budget trends, capital budget, transportation budget, or cross-jurisdiction comparison.
 
+## Hard Questions Playbook
+
+Composed accountability questions have expected answer SHAPES; the facts come from accepted sources, the shape comes from here:
+
+- Homelessness spending ("how much did we spend and where did it go"): the fragmentation IS part of the answer - name that spending splits across the city, the county, and the authority; keep budgeted allocations separate from filed actuals; and refuse to convert spending totals into outcome or effectiveness claims (say what an outcome answer would need).
+- Deficit why-questions ("why is there still a shortfall"): state explicitly that "the deficit number" depends on modeling choices - which forecast vintage, maintenance-level vs policy-level growth, fund scope - and name the choices behind any number you cite.
+- Earmark-diversion questions ("what happened to the X tax money"): allocation numbers come from budget sources, but ATTRIBUTION ("was it diverted, by whom") needs ordinance/council-action context - name that gap rather than inferring intent from budget tables.
+- Cutting-despite-big-budget questions: explain the flexible-General-Fund vs restricted/dedicated funds distinction AND bring the levy-limit context (the 1%/101% growth limit from the DOR levy source) when property-tax capacity is part of the story.
+- School closure/deficit why-questions: financial facts from filed/OSPI sources; causal factors (enrollment, ESSER cliff, levy caps) are named as CONTEXT, never asserted as the answer.
+
+## Answer Craft Rules
+
+- Measure substitution stays exact: when a question asks in one vocabulary ("positions", "headcount") and the accepted source answers at its official measure (budgeted FTE), answering at the accepted measure WITH the distinction labeled is an `exact` answer, not partial. The label is mandatory; silent substitution is never allowed.
+- Traces are for humans too: every source, snapshot, or check reference in a trace carries its full clickable URL where one exists. Keep the trace scannable - one labeled line per field, boldface labels, no run-on sentences.
+- Offer visuals for time series: when an answer contains a multi-year trend or a comparison across more than ~4 values, render a chart with whatever chart tool the host provides; with no chart tool, include a compact aligned table and say a chart is available on request.
+
 ## Freshness Posture
 
 Every source card carries a `freshness` block: `data_through` (what the accepted data covers - never rediscover this), `observed_at`, and `cadence` (how often the source publishes and its typical lag). Before answering a current-period question ("is X happening now", "this year so far"):

@@ -132,7 +132,7 @@ Hosted equivalents are available under `https://raw.githubusercontent.com/pejman
 Hosted aggregate answer rules:
 
 - Supported grains: per-biennium totals by category, by agency, by calendar month, and top-100 vendors per biennium. Rows carry `biennium`, `name`, `amount`, `payment_rows` (vendor rows add `rank`).
-- `vendor-totals.jsonl` is truncated to the top 100 vendors per biennium by total amount. Say so when answering vendor questions from the hosted path, and route deeper vendor, sub-object, or filtered questions to the managed local database path.
+- `vendor-totals.jsonl` is truncated to the top 100 vendors per biennium by total amount. For top-N questions ("which vendors got the MOST money"), the truncated aggregate FULLY answers the question - declare `exact`, with the truncation stated as a caveat for anyone wanting the deeper tail. Route exhaustive vendor, sub-object, or filtered questions to the managed local database path.
 - Label answers with the snapshot version `2025-27-through-2026-05` and the `data_through` boundary from `summary.json`; the in-progress 2025-27 biennium is partial through May 2026.
 - `summary.json` records per-biennium totals with a category/agency/monthly reconciliation check; cite it as the validation evidence in traces.
 
@@ -165,6 +165,9 @@ Interpretation rules (vocabulary walls):
 - Label 2025 values partial (early filing cycle); some filers report in round thousands (Sound Transit, King County).
 - School fiscal years end August 31 and use a different accounting basis than cities/counties - never compare school and city/county values without labeling both bases.
 - Only the reviewed governments listed in the source card are claimable. For any other WA local government, follow the router's unsupported-jurisdiction protocol and point at `https://portal.sao.wa.gov/FIT/` as the official path.
+- Category-comparison questions ("police vs housing spending"): the reviewed claim is TOTALS ONLY. The expected `partial` answer gives the government's total revenues/expenditures, states plainly that the category breakdown is not yet a reviewed claim, and names the drill-down path (the government's own budget book and the FIT portal's category views). Do not refuse outright, and do not improvise category numbers.
+- DENOMINATOR WALL: `fit_population` on FIT rows is context only. Per-resident and per-capita math ALWAYS uses `washington.ofm_population` April 1 estimates - never the FIT population field.
+- LIVE FALLBACK (labeled): when the freshness ledger marks this source `refresh_available`, or a question needs a filed year newer than the snapshot, you MAY query the live API for a REVIEWED government only - `https://portal.sao.wa.gov/FIT/api/Snapshots(<latest>)/GovernmentMetrics?$filter=mcag eq '<mcag>' and year eq <year>` - if you first cross-check one snapshot-known value live (for example Spokane 2024 revenues 729,876,646) to validate the connection. Label the result "live-fetched (FIT API, snapshot <id>), snapshot-validated" and cite both. Never live-fetch non-reviewed governments; that path stays unsupported_with_path.
 - Spot checks for traces: City of Spokane 2024 revenues 729,876,646 / expenditures 648,638,448; Sound Transit 2024 revenues 2,599,304,000; KCRHA 2024 expenditures 191,618,113 (against 180,707,326 revenues - a deficit year); Seattle SD No. 1 school year 2024-25 revenues 1,518,641,110.55.
 
 ## Property Tax Levies Source Of Truth (DOR)
@@ -192,6 +195,7 @@ Interpretation rules (vocabulary walls):
 - Rates are dollars per $1,000 of assessed value, district-level only. Household math requires the parcel's assessed value; any per-household figure must be labeled illustrative. The parcel-level levy stack ("which districts tax MY address") needs county tax-code-area data - point at the county assessor (King County publishes PDF rate books).
 - No ballot-measure metadata: voter-approved levies are identifiable by levy-type codes and names ("Temp Lid Lift", "Bond"), but measure numbers, dates, and approval percentages need an elections source.
 - The levy-lid story is answerable: rows carry the 101%-limit and statutory-maximum columns.
+- If the resident's city or school district is unknown, ASK (or offer to look it up by place name): the levy detail supports district-level lookups, so "which levies changed for YOUR districts" is answerable once the place is known. A generic county answer should end by offering that lookup.
 - Spot checks for traces: statewide 2025 total $18,450,110,007; King County 2025 total $7,724,787,822 (+1.6% from $7,603,197,998); statewide school enrichment levies $2,814,008,373; Seattle SD #1 enrichment 0.65422/$194,678,891 (2025) vs 0.63479/$190,239,286 (2024). All reconcile with DOR Tables 8/12/14 to the dollar (verified 2026-07-13).
 
 ## OFM Population Source Of Truth

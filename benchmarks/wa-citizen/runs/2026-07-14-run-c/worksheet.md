@@ -4,11 +4,11 @@ Mechanical results are in results.json. Human judgment is ONLY `civic_usefulness
 
 | Anchor case | Mechanical | civic_usefulness (0-5) | Notes |
 |---|---|---|---|
-| `seattle-parks-2026-lookup` | 5/5 |  |  |
-| `wa-checkbook-vendor-lookup` | 4/5 |  |  |
-| `pierce-vs-king-per-resident` | 3/9 |  |  |
-| `kc-property-tax-why-up` | 7/7 |  |  |
-| `seattle-kc-homelessness-kcrha` | 6/8 |  |  |
+| `seattle-parks-2026-lookup` | 5/5 | 5 | Trace should include clickable URLs wherever possible so a reader can explore sources. |
+| `wa-checkbook-vendor-lookup` | 4/5 | 5 | Good answer; the Trace is hard to read as a human. |
+| `pierce-vs-king-per-resident` | 3/9 | 5 |  |
+| `kc-property-tax-why-up` | 7/7 | 4 | Should ask which city the resident lives in and offer a levy/bond lookup that could explain the increase. |
+| `seattle-kc-homelessness-kcrha` | 6/8 | 4 | Hard to process; a chart would help for changes over time. |
 
 Per-case mechanical failures (fix the capture or record as findings):
 
@@ -32,3 +32,5 @@ Per-case mechanical failures (fix the capture or record as findings):
 - `seattle-kc-homelessness-kcrha` / caveat:fragmentation-is-the-answer: expected 'States spending is fragmented across city, county, and authority - the fragmentation is part of a correct answer.', got 'not found'
 - `seattle-kc-homelessness-kcrha` / caveat:no-outcome-claims: expected 'Refuses to convert spending totals into effectiveness claims.', got 'not found'
 - `wa-deficit-after-historic-taxes` / caveat:modeling-choices-explicit: expected "States that 'the deficit number' depends on modeling choices and names them.", got 'not found'
+
+Human pass completed 2026-07-14 by the maintainer (author-scored, unblinded, per benchmark rules). Anchor civic_usefulness: 5, 5, 5, 4, 4 (mean 4.6 - reported per-case, mean shown for the record only).
