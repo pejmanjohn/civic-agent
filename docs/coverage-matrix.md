@@ -12,6 +12,7 @@ Coverage is source-scoped. A supported row means a reviewed source can answer th
 | `budget_finance.revenue_budget` | Revenue budget | Budgeted or projected revenue amounts, not actual revenue collected. |
 | `workforce.budgeted_fte` | Budgeted FTE | Authorized or budgeted full-time-equivalent staffing totals. |
 | `budget_finance.actual_spending_checkbook` | Actual spending/checkbook | Actual spending, vendor payments, invoices, or checkbook-style transactions. |
+| `budget_finance.filed_annual_actuals` | Filed annual actuals | Annual total revenues and expenditures as filed with the State Auditor (BARS Schedule 01) or OSPI (F-196), at government-year grain. Filed actuals are not budget authority and not transaction-grain checkbook data. |
 | `population_demographics.population_denominator` | Population denominator | Official point-in-time resident population estimates used only as per-resident denominators. |
 
 ## Source Coverage Claims
@@ -34,6 +35,11 @@ Coverage is source-scoped. A supported row means a reviewed source can answer th
 | City of Seattle | `seattle.operating_budget` | `budget_finance.revenue_budget` | `unsupported` | - | - | - | - | not_supported_by_this_source | Unsupported by this source: revenue analysis beyond operating-budget fund/accounting context is not supported. |
 | City of Seattle | `seattle.operating_budget` | `workforce.budgeted_fte` | `unsupported` | - | - | - | - | not_supported_by_this_source | Unsupported by this source: staffing, headcount, FTE, vacancy, and personnel roster claims are not supported. |
 | City of Seattle | `seattle.operating_budget` | `budget_finance.actual_spending_checkbook` | `unsupported` | - | - | - | - | not_supported_by_this_source | Unsupported by this source: actual spending, payments, invoices, checkbook transactions, and procurement activity are not supported. |
+| Washington State | `washington.fit_filed_actuals` | `budget_finance.filed_annual_actuals` | `supported` | total_revenues; total_expenditures | government; year | Filed years 2015-2024 complete for reviewed governments; 2025 early-cycle partial. School districts 2020-2025 (fiscal years ending Aug 31). | amount_basis=actual; budget_frame=filed_annual_actuals; period_type=fiscal_year; period_status=actualized; unit=dollars; government_scope=multi_jurisdiction; geography_basis=resident_jurisdiction; comparability_notes=Filed actuals are not comparable to adopted/approved budget frames without an explicit alignment recipe.; Compare governments only within the same government type and accounting basis, and say responsibilities differ.; School fiscal years end Aug 31 and are not calendar years. | snapshot_version; validation_checks.government_annual_totals_rows; validation_checks.spokane_2024_revenues; validation_checks.sound_transit_2024_revenues; validation_checks.kcrha_2024_expenditures; validation_checks.seattle_sd_2025_revenues | Filed actuals, not budget authority; never present as a budget.; Headline basis excludes internal service funds and can differ up to ~16% from all-funds totals.; Cities/counties file calendar-year GAAP or cash basis; school districts file OSPI modified accrual with fiscal years ending Aug 31 - never mix bases without labeling.; Some filers report in round thousands (Sound Transit, King County).; 2025 values are early-cycle and will move in later milestone revisions. |
+| Washington State | `washington.fit_filed_actuals` | `budget_finance.operating_budget` | `unsupported` | - | - | - | - | not_supported_by_this_source | Unsupported by this source: FIT carries filed actuals, not adopted or approved budget authority. |
+| Washington State | `washington.fit_filed_actuals` | `budget_finance.revenue_budget` | `unsupported` | - | - | - | - | not_supported_by_this_source | Unsupported by this source: FIT revenues are actual revenues as filed, not budgeted or projected revenue. |
+| Washington State | `washington.fit_filed_actuals` | `workforce.budgeted_fte` | `unsupported` | - | - | - | - | not_supported_by_this_source | Unsupported by this source: staffing, FTE, and personnel data are not in the filed Schedule 01 totals. |
+| Washington State | `washington.fit_filed_actuals` | `budget_finance.actual_spending_checkbook` | `unsupported` | - | - | - | - | not_supported_by_this_source | Unsupported by this source: filed annual aggregates are not transaction-grain checkbook data; vendors, payees, and invoices are not present. |
 | Washington State | `washington.ofm_population` | `population_demographics.population_denominator` | `supported` | population | estimate_year; estimate_date; county; jurisdiction; row_type | 2020 census baseline and April 1 population estimates for 2021-2025; current denominator estimate date 2025-04-01 | denominator_basis=resident_population; period_type=point_in_time; period_status=official_estimate; unit=residents; government_scope=multi_jurisdiction; geography_basis=resident_jurisdiction; comparability_notes=OFM population estimates are point-in-time April 1 resident estimates.; Budget periods may be fiscal years or biennia and should be named separately from the population estimate date.; Resident denominators do not resolve differences in government responsibilities or service scope. | snapshot_version; latest_estimate_date; primary_measure; validation_checks.seattle_2025_population; validation_checks.king_county_2025_population; validation_checks.king_county_total_reconciles | Use this as a resident population denominator, not a service population or taxpayer denominator.; State the April 1 estimate date when pairing with fiscal-year or biennial budget values.; Do not imply Seattle and King County budgets are service-comparable merely because both can be divided by resident population. |
 | Washington State | `washington.open_checkbook` | `budget_finance.operating_budget` | `unsupported` | - | - | - | - | budget_family; not_supported_by_this_source | Unsupported by this source: Fiscal WA Open Checkbook is actual vendor-payment data, not operating budget authority. |
 | Washington State | `washington.open_checkbook` | `budget_finance.revenue_budget` | `unsupported` | - | - | - | - | budget_family; not_supported_by_this_source | Unsupported by this source: Fiscal WA Open Checkbook is actual vendor-payment data, not revenue budget or forecast data. |
@@ -54,50 +60,89 @@ This rollup is derived from reviewed source-card claims. It is not a score and s
 
 | Jurisdiction | Category | Rollup status | Reviewed sources | Notes |
 |---|---|---|---|---|
-| City of Everett | `budget_finance.operating_budget` | `not-yet-probed` | - | No reviewed source card claim. |
-| City of Everett | `budget_finance.revenue_budget` | `not-yet-probed` | - | No reviewed source card claim. |
-| City of Everett | `workforce.budgeted_fte` | `not-yet-probed` | - | No reviewed source card claim. |
-| City of Everett | `budget_finance.actual_spending_checkbook` | `not-yet-probed` | - | No reviewed source card claim. |
+| City of Everett | `budget_finance.operating_budget` | `unsupported-by-reviewed-source` | washington.fit_filed_actuals | Reviewed source claim is source-scoped; probe another official source before treating this as unavailable. |
+| City of Everett | `budget_finance.revenue_budget` | `unsupported-by-reviewed-source` | washington.fit_filed_actuals | Reviewed source claim is source-scoped; probe another official source before treating this as unavailable. |
+| City of Everett | `workforce.budgeted_fte` | `unsupported-by-reviewed-source` | washington.fit_filed_actuals | Reviewed source claim is source-scoped; probe another official source before treating this as unavailable. |
+| City of Everett | `budget_finance.actual_spending_checkbook` | `unsupported-by-reviewed-source` | washington.fit_filed_actuals | Reviewed source claim is source-scoped; probe another official source before treating this as unavailable. |
+| City of Everett | `budget_finance.filed_annual_actuals` | `supported` | washington.fit_filed_actuals | At least one reviewed source supports this category. |
 | City of Everett | `population_demographics.population_denominator` | `supported` | washington.ofm_population | At least one reviewed source supports this category. |
-| King County, Washington | `budget_finance.operating_budget` | `supported` | king_county.open_budget_dashboard | At least one reviewed source supports this category. |
-| King County, Washington | `budget_finance.revenue_budget` | `supported` | king_county.open_budget_dashboard | At least one reviewed source supports this category. |
-| King County, Washington | `workforce.budgeted_fte` | `supported` | king_county.open_budget_dashboard | At least one reviewed source supports this category. |
-| King County, Washington | `budget_finance.actual_spending_checkbook` | `unsupported-by-reviewed-source` | king_county.open_budget_dashboard | Reviewed source claim is source-scoped; probe another official source before treating this as unavailable. |
+| Evergreen School District (Clark County) | `budget_finance.operating_budget` | `unsupported-by-reviewed-source` | washington.fit_filed_actuals | Reviewed source claim is source-scoped; probe another official source before treating this as unavailable. |
+| Evergreen School District (Clark County) | `budget_finance.revenue_budget` | `unsupported-by-reviewed-source` | washington.fit_filed_actuals | Reviewed source claim is source-scoped; probe another official source before treating this as unavailable. |
+| Evergreen School District (Clark County) | `workforce.budgeted_fte` | `unsupported-by-reviewed-source` | washington.fit_filed_actuals | Reviewed source claim is source-scoped; probe another official source before treating this as unavailable. |
+| Evergreen School District (Clark County) | `budget_finance.actual_spending_checkbook` | `unsupported-by-reviewed-source` | washington.fit_filed_actuals | Reviewed source claim is source-scoped; probe another official source before treating this as unavailable. |
+| Evergreen School District (Clark County) | `budget_finance.filed_annual_actuals` | `supported` | washington.fit_filed_actuals | At least one reviewed source supports this category. |
+| Evergreen School District (Clark County) | `population_demographics.population_denominator` | `not-yet-probed` | - | No reviewed source card claim. |
+| King County Regional Homelessness Authority | `budget_finance.operating_budget` | `unsupported-by-reviewed-source` | washington.fit_filed_actuals | Reviewed source claim is source-scoped; probe another official source before treating this as unavailable. |
+| King County Regional Homelessness Authority | `budget_finance.revenue_budget` | `unsupported-by-reviewed-source` | washington.fit_filed_actuals | Reviewed source claim is source-scoped; probe another official source before treating this as unavailable. |
+| King County Regional Homelessness Authority | `workforce.budgeted_fte` | `unsupported-by-reviewed-source` | washington.fit_filed_actuals | Reviewed source claim is source-scoped; probe another official source before treating this as unavailable. |
+| King County Regional Homelessness Authority | `budget_finance.actual_spending_checkbook` | `unsupported-by-reviewed-source` | washington.fit_filed_actuals | Reviewed source claim is source-scoped; probe another official source before treating this as unavailable. |
+| King County Regional Homelessness Authority | `budget_finance.filed_annual_actuals` | `supported` | washington.fit_filed_actuals | At least one reviewed source supports this category. |
+| King County Regional Homelessness Authority | `population_demographics.population_denominator` | `not-yet-probed` | - | No reviewed source card claim. |
+| King County, Washington | `budget_finance.operating_budget` | `supported` | king_county.open_budget_dashboard; washington.fit_filed_actuals | At least one reviewed source supports this category. |
+| King County, Washington | `budget_finance.revenue_budget` | `supported` | king_county.open_budget_dashboard; washington.fit_filed_actuals | At least one reviewed source supports this category. |
+| King County, Washington | `workforce.budgeted_fte` | `supported` | king_county.open_budget_dashboard; washington.fit_filed_actuals | At least one reviewed source supports this category. |
+| King County, Washington | `budget_finance.actual_spending_checkbook` | `unsupported-by-reviewed-source` | king_county.open_budget_dashboard; washington.fit_filed_actuals | Reviewed source claim is source-scoped; probe another official source before treating this as unavailable. |
+| King County, Washington | `budget_finance.filed_annual_actuals` | `supported` | washington.fit_filed_actuals | At least one reviewed source supports this category. |
 | King County, Washington | `population_demographics.population_denominator` | `supported` | washington.ofm_population | At least one reviewed source supports this category. |
-| Pierce County, Washington | `budget_finance.operating_budget` | `supported` | pierce_county.open_budget; pierce_county.open_checkbook | At least one reviewed source supports this category. |
-| Pierce County, Washington | `budget_finance.revenue_budget` | `unsupported-by-reviewed-source` | pierce_county.open_budget; pierce_county.open_checkbook | Reviewed source claim is source-scoped; probe another official source before treating this as unavailable. |
-| Pierce County, Washington | `workforce.budgeted_fte` | `unsupported-by-reviewed-source` | pierce_county.open_budget; pierce_county.open_checkbook | Reviewed source claim is source-scoped; probe another official source before treating this as unavailable. |
-| Pierce County, Washington | `budget_finance.actual_spending_checkbook` | `supported` | pierce_county.open_budget; pierce_county.open_checkbook | At least one reviewed source supports this category. |
+| Pierce County, Washington | `budget_finance.operating_budget` | `supported` | pierce_county.open_budget; pierce_county.open_checkbook; washington.fit_filed_actuals | At least one reviewed source supports this category. |
+| Pierce County, Washington | `budget_finance.revenue_budget` | `unsupported-by-reviewed-source` | pierce_county.open_budget; pierce_county.open_checkbook; washington.fit_filed_actuals | Reviewed source claim is source-scoped; probe another official source before treating this as unavailable. |
+| Pierce County, Washington | `workforce.budgeted_fte` | `unsupported-by-reviewed-source` | pierce_county.open_budget; pierce_county.open_checkbook; washington.fit_filed_actuals | Reviewed source claim is source-scoped; probe another official source before treating this as unavailable. |
+| Pierce County, Washington | `budget_finance.actual_spending_checkbook` | `supported` | pierce_county.open_budget; pierce_county.open_checkbook; washington.fit_filed_actuals | At least one reviewed source supports this category. |
+| Pierce County, Washington | `budget_finance.filed_annual_actuals` | `supported` | washington.fit_filed_actuals | At least one reviewed source supports this category. |
 | Pierce County, Washington | `population_demographics.population_denominator` | `supported` | washington.ofm_population | At least one reviewed source supports this category. |
 | City of Seattle | `budget_finance.operating_budget` | `supported` | seattle.operating_budget | At least one reviewed source supports this category. |
 | City of Seattle | `budget_finance.revenue_budget` | `unsupported-by-reviewed-source` | seattle.operating_budget | Reviewed source claim is source-scoped; probe another official source before treating this as unavailable. |
 | City of Seattle | `workforce.budgeted_fte` | `unsupported-by-reviewed-source` | seattle.operating_budget | Reviewed source claim is source-scoped; probe another official source before treating this as unavailable. |
 | City of Seattle | `budget_finance.actual_spending_checkbook` | `unsupported-by-reviewed-source` | seattle.operating_budget | Reviewed source claim is source-scoped; probe another official source before treating this as unavailable. |
+| City of Seattle | `budget_finance.filed_annual_actuals` | `not-yet-probed` | - | No reviewed source card claim. |
 | City of Seattle | `population_demographics.population_denominator` | `supported` | washington.ofm_population | At least one reviewed source supports this category. |
-| City of Spokane | `budget_finance.operating_budget` | `not-yet-probed` | - | No reviewed source card claim. |
-| City of Spokane | `budget_finance.revenue_budget` | `not-yet-probed` | - | No reviewed source card claim. |
-| City of Spokane | `workforce.budgeted_fte` | `not-yet-probed` | - | No reviewed source card claim. |
-| City of Spokane | `budget_finance.actual_spending_checkbook` | `not-yet-probed` | - | No reviewed source card claim. |
+| Seattle School District No. 1 | `budget_finance.operating_budget` | `unsupported-by-reviewed-source` | washington.fit_filed_actuals | Reviewed source claim is source-scoped; probe another official source before treating this as unavailable. |
+| Seattle School District No. 1 | `budget_finance.revenue_budget` | `unsupported-by-reviewed-source` | washington.fit_filed_actuals | Reviewed source claim is source-scoped; probe another official source before treating this as unavailable. |
+| Seattle School District No. 1 | `workforce.budgeted_fte` | `unsupported-by-reviewed-source` | washington.fit_filed_actuals | Reviewed source claim is source-scoped; probe another official source before treating this as unavailable. |
+| Seattle School District No. 1 | `budget_finance.actual_spending_checkbook` | `unsupported-by-reviewed-source` | washington.fit_filed_actuals | Reviewed source claim is source-scoped; probe another official source before treating this as unavailable. |
+| Seattle School District No. 1 | `budget_finance.filed_annual_actuals` | `supported` | washington.fit_filed_actuals | At least one reviewed source supports this category. |
+| Seattle School District No. 1 | `population_demographics.population_denominator` | `not-yet-probed` | - | No reviewed source card claim. |
+| Snohomish County, Washington | `budget_finance.operating_budget` | `unsupported-by-reviewed-source` | washington.fit_filed_actuals | Reviewed source claim is source-scoped; probe another official source before treating this as unavailable. |
+| Snohomish County, Washington | `budget_finance.revenue_budget` | `unsupported-by-reviewed-source` | washington.fit_filed_actuals | Reviewed source claim is source-scoped; probe another official source before treating this as unavailable. |
+| Snohomish County, Washington | `workforce.budgeted_fte` | `unsupported-by-reviewed-source` | washington.fit_filed_actuals | Reviewed source claim is source-scoped; probe another official source before treating this as unavailable. |
+| Snohomish County, Washington | `budget_finance.actual_spending_checkbook` | `unsupported-by-reviewed-source` | washington.fit_filed_actuals | Reviewed source claim is source-scoped; probe another official source before treating this as unavailable. |
+| Snohomish County, Washington | `budget_finance.filed_annual_actuals` | `supported` | washington.fit_filed_actuals | At least one reviewed source supports this category. |
+| Snohomish County, Washington | `population_demographics.population_denominator` | `not-yet-probed` | - | No reviewed source card claim. |
+| Sound Transit | `budget_finance.operating_budget` | `unsupported-by-reviewed-source` | washington.fit_filed_actuals | Reviewed source claim is source-scoped; probe another official source before treating this as unavailable. |
+| Sound Transit | `budget_finance.revenue_budget` | `unsupported-by-reviewed-source` | washington.fit_filed_actuals | Reviewed source claim is source-scoped; probe another official source before treating this as unavailable. |
+| Sound Transit | `workforce.budgeted_fte` | `unsupported-by-reviewed-source` | washington.fit_filed_actuals | Reviewed source claim is source-scoped; probe another official source before treating this as unavailable. |
+| Sound Transit | `budget_finance.actual_spending_checkbook` | `unsupported-by-reviewed-source` | washington.fit_filed_actuals | Reviewed source claim is source-scoped; probe another official source before treating this as unavailable. |
+| Sound Transit | `budget_finance.filed_annual_actuals` | `supported` | washington.fit_filed_actuals | At least one reviewed source supports this category. |
+| Sound Transit | `population_demographics.population_denominator` | `not-yet-probed` | - | No reviewed source card claim. |
+| City of Spokane | `budget_finance.operating_budget` | `unsupported-by-reviewed-source` | washington.fit_filed_actuals | Reviewed source claim is source-scoped; probe another official source before treating this as unavailable. |
+| City of Spokane | `budget_finance.revenue_budget` | `unsupported-by-reviewed-source` | washington.fit_filed_actuals | Reviewed source claim is source-scoped; probe another official source before treating this as unavailable. |
+| City of Spokane | `workforce.budgeted_fte` | `unsupported-by-reviewed-source` | washington.fit_filed_actuals | Reviewed source claim is source-scoped; probe another official source before treating this as unavailable. |
+| City of Spokane | `budget_finance.actual_spending_checkbook` | `unsupported-by-reviewed-source` | washington.fit_filed_actuals | Reviewed source claim is source-scoped; probe another official source before treating this as unavailable. |
+| City of Spokane | `budget_finance.filed_annual_actuals` | `supported` | washington.fit_filed_actuals | At least one reviewed source supports this category. |
 | City of Spokane | `population_demographics.population_denominator` | `supported` | washington.ofm_population | At least one reviewed source supports this category. |
-| City of Tacoma | `budget_finance.operating_budget` | `not-yet-probed` | - | No reviewed source card claim. |
-| City of Tacoma | `budget_finance.revenue_budget` | `not-yet-probed` | - | No reviewed source card claim. |
-| City of Tacoma | `workforce.budgeted_fte` | `not-yet-probed` | - | No reviewed source card claim. |
-| City of Tacoma | `budget_finance.actual_spending_checkbook` | `not-yet-probed` | - | No reviewed source card claim. |
+| City of Tacoma | `budget_finance.operating_budget` | `unsupported-by-reviewed-source` | washington.fit_filed_actuals | Reviewed source claim is source-scoped; probe another official source before treating this as unavailable. |
+| City of Tacoma | `budget_finance.revenue_budget` | `unsupported-by-reviewed-source` | washington.fit_filed_actuals | Reviewed source claim is source-scoped; probe another official source before treating this as unavailable. |
+| City of Tacoma | `workforce.budgeted_fte` | `unsupported-by-reviewed-source` | washington.fit_filed_actuals | Reviewed source claim is source-scoped; probe another official source before treating this as unavailable. |
+| City of Tacoma | `budget_finance.actual_spending_checkbook` | `unsupported-by-reviewed-source` | washington.fit_filed_actuals | Reviewed source claim is source-scoped; probe another official source before treating this as unavailable. |
+| City of Tacoma | `budget_finance.filed_annual_actuals` | `supported` | washington.fit_filed_actuals | At least one reviewed source supports this category. |
 | City of Tacoma | `population_demographics.population_denominator` | `supported` | washington.ofm_population | At least one reviewed source supports this category. |
-| City of Vancouver | `budget_finance.operating_budget` | `not-yet-probed` | - | No reviewed source card claim. |
-| City of Vancouver | `budget_finance.revenue_budget` | `not-yet-probed` | - | No reviewed source card claim. |
-| City of Vancouver | `workforce.budgeted_fte` | `not-yet-probed` | - | No reviewed source card claim. |
-| City of Vancouver | `budget_finance.actual_spending_checkbook` | `not-yet-probed` | - | No reviewed source card claim. |
+| City of Vancouver | `budget_finance.operating_budget` | `unsupported-by-reviewed-source` | washington.fit_filed_actuals | Reviewed source claim is source-scoped; probe another official source before treating this as unavailable. |
+| City of Vancouver | `budget_finance.revenue_budget` | `unsupported-by-reviewed-source` | washington.fit_filed_actuals | Reviewed source claim is source-scoped; probe another official source before treating this as unavailable. |
+| City of Vancouver | `workforce.budgeted_fte` | `unsupported-by-reviewed-source` | washington.fit_filed_actuals | Reviewed source claim is source-scoped; probe another official source before treating this as unavailable. |
+| City of Vancouver | `budget_finance.actual_spending_checkbook` | `unsupported-by-reviewed-source` | washington.fit_filed_actuals | Reviewed source claim is source-scoped; probe another official source before treating this as unavailable. |
+| City of Vancouver | `budget_finance.filed_annual_actuals` | `supported` | washington.fit_filed_actuals | At least one reviewed source supports this category. |
 | City of Vancouver | `population_demographics.population_denominator` | `supported` | washington.ofm_population | At least one reviewed source supports this category. |
-| City of Walla Walla | `budget_finance.operating_budget` | `not-yet-probed` | - | No reviewed source card claim. |
-| City of Walla Walla | `budget_finance.revenue_budget` | `not-yet-probed` | - | No reviewed source card claim. |
-| City of Walla Walla | `workforce.budgeted_fte` | `not-yet-probed` | - | No reviewed source card claim. |
-| City of Walla Walla | `budget_finance.actual_spending_checkbook` | `not-yet-probed` | - | No reviewed source card claim. |
+| City of Walla Walla | `budget_finance.operating_budget` | `unsupported-by-reviewed-source` | washington.fit_filed_actuals | Reviewed source claim is source-scoped; probe another official source before treating this as unavailable. |
+| City of Walla Walla | `budget_finance.revenue_budget` | `unsupported-by-reviewed-source` | washington.fit_filed_actuals | Reviewed source claim is source-scoped; probe another official source before treating this as unavailable. |
+| City of Walla Walla | `workforce.budgeted_fte` | `unsupported-by-reviewed-source` | washington.fit_filed_actuals | Reviewed source claim is source-scoped; probe another official source before treating this as unavailable. |
+| City of Walla Walla | `budget_finance.actual_spending_checkbook` | `unsupported-by-reviewed-source` | washington.fit_filed_actuals | Reviewed source claim is source-scoped; probe another official source before treating this as unavailable. |
+| City of Walla Walla | `budget_finance.filed_annual_actuals` | `supported` | washington.fit_filed_actuals | At least one reviewed source supports this category. |
 | City of Walla Walla | `population_demographics.population_denominator` | `supported` | washington.ofm_population | At least one reviewed source supports this category. |
 | Washington State | `budget_finance.operating_budget` | `supported` | washington.open_checkbook; washington.operating_budget; washington.revenue_by_biennium | At least one reviewed source supports this category. |
 | Washington State | `budget_finance.revenue_budget` | `partial` | washington.open_checkbook; washington.operating_budget; washington.revenue_by_biennium | At least one reviewed source partially supports this category. |
 | Washington State | `workforce.budgeted_fte` | `unsupported-by-reviewed-source` | washington.open_checkbook; washington.operating_budget; washington.revenue_by_biennium | Reviewed source claim is source-scoped; probe another official source before treating this as unavailable. |
 | Washington State | `budget_finance.actual_spending_checkbook` | `supported` | washington.open_checkbook; washington.operating_budget; washington.revenue_by_biennium | At least one reviewed source supports this category. |
+| Washington State | `budget_finance.filed_annual_actuals` | `not-yet-probed` | - | No reviewed source card claim. |
 | Washington State | `population_demographics.population_denominator` | `supported` | washington.ofm_population | At least one reviewed source supports this category. |
 
 ## Backlog Families
@@ -118,6 +163,30 @@ Backlog families are part of the full civic coverage map. They remain not-yet-pr
 | City of Everett | `performance_outcomes` | `not-yet-probed` | Performance dashboards, strategic plans, What Works Cities-style reporting. |
 | City of Everett | `governance_meetings` | `not-yet-probed` | Meeting agendas, minutes, legislative systems, ordinance databases. |
 | City of Everett | `elections_campaigns` | `not-yet-probed` | Election offices, campaign-finance portals, ethics datasets. |
+| Evergreen School District (Clark County) | `population_demographics` | `not-yet-probed` | Census ACS API, official population estimates, local demographic dashboards, planning data portals. |
+| Evergreen School District (Clark County) | `public_safety_crime` | `not-yet-probed` | Police open data, 911/CAD datasets, FBI Crime Data API, public safety dashboards. |
+| Evergreen School District (Clark County) | `transportation_infrastructure` | `not-yet-probed` | DOT dashboards, ArcGIS services, traffic counts, capital project portals. |
+| Evergreen School District (Clark County) | `housing_permitting_land` | `not-yet-probed` | Planning/permitting portals, assessor data, building inspection data, GIS. |
+| Evergreen School District (Clark County) | `procurement_contracts` | `not-yet-probed` | Contract search portals, procurement systems, vendor payment data. |
+| Evergreen School District (Clark County) | `economic_labor_context` | `not-yet-probed` | BLS LAUS, Census, state labor data, economic development dashboards. |
+| Evergreen School District (Clark County) | `health_human_services` | `not-yet-probed` | Health department dashboards, City Health Dashboard, human-services datasets. |
+| Evergreen School District (Clark County) | `environment_climate_utilities` | `not-yet-probed` | Environment dashboards, utility open data, energy benchmarking, climate plans. |
+| Evergreen School District (Clark County) | `service_requests_311` | `not-yet-probed` | 311/service request portals, case-management dashboards, open-data datasets. |
+| Evergreen School District (Clark County) | `performance_outcomes` | `not-yet-probed` | Performance dashboards, strategic plans, What Works Cities-style reporting. |
+| Evergreen School District (Clark County) | `governance_meetings` | `not-yet-probed` | Meeting agendas, minutes, legislative systems, ordinance databases. |
+| Evergreen School District (Clark County) | `elections_campaigns` | `not-yet-probed` | Election offices, campaign-finance portals, ethics datasets. |
+| King County Regional Homelessness Authority | `population_demographics` | `not-yet-probed` | Census ACS API, official population estimates, local demographic dashboards, planning data portals. |
+| King County Regional Homelessness Authority | `public_safety_crime` | `not-yet-probed` | Police open data, 911/CAD datasets, FBI Crime Data API, public safety dashboards. |
+| King County Regional Homelessness Authority | `transportation_infrastructure` | `not-yet-probed` | DOT dashboards, ArcGIS services, traffic counts, capital project portals. |
+| King County Regional Homelessness Authority | `housing_permitting_land` | `not-yet-probed` | Planning/permitting portals, assessor data, building inspection data, GIS. |
+| King County Regional Homelessness Authority | `procurement_contracts` | `not-yet-probed` | Contract search portals, procurement systems, vendor payment data. |
+| King County Regional Homelessness Authority | `economic_labor_context` | `not-yet-probed` | BLS LAUS, Census, state labor data, economic development dashboards. |
+| King County Regional Homelessness Authority | `health_human_services` | `not-yet-probed` | Health department dashboards, City Health Dashboard, human-services datasets. |
+| King County Regional Homelessness Authority | `environment_climate_utilities` | `not-yet-probed` | Environment dashboards, utility open data, energy benchmarking, climate plans. |
+| King County Regional Homelessness Authority | `service_requests_311` | `not-yet-probed` | 311/service request portals, case-management dashboards, open-data datasets. |
+| King County Regional Homelessness Authority | `performance_outcomes` | `not-yet-probed` | Performance dashboards, strategic plans, What Works Cities-style reporting. |
+| King County Regional Homelessness Authority | `governance_meetings` | `not-yet-probed` | Meeting agendas, minutes, legislative systems, ordinance databases. |
+| King County Regional Homelessness Authority | `elections_campaigns` | `not-yet-probed` | Election offices, campaign-finance portals, ethics datasets. |
 | King County, Washington | `population_demographics` | `not-yet-probed` | Census ACS API, official population estimates, local demographic dashboards, planning data portals. |
 | King County, Washington | `public_safety_crime` | `not-yet-probed` | Police open data, 911/CAD datasets, FBI Crime Data API, public safety dashboards. |
 | King County, Washington | `transportation_infrastructure` | `not-yet-probed` | DOT dashboards, ArcGIS services, traffic counts, capital project portals. |
@@ -154,6 +223,42 @@ Backlog families are part of the full civic coverage map. They remain not-yet-pr
 | City of Seattle | `performance_outcomes` | `not-yet-probed` | Performance dashboards, strategic plans, What Works Cities-style reporting. |
 | City of Seattle | `governance_meetings` | `not-yet-probed` | Meeting agendas, minutes, legislative systems, ordinance databases. |
 | City of Seattle | `elections_campaigns` | `not-yet-probed` | Election offices, campaign-finance portals, ethics datasets. |
+| Seattle School District No. 1 | `population_demographics` | `not-yet-probed` | Census ACS API, official population estimates, local demographic dashboards, planning data portals. |
+| Seattle School District No. 1 | `public_safety_crime` | `not-yet-probed` | Police open data, 911/CAD datasets, FBI Crime Data API, public safety dashboards. |
+| Seattle School District No. 1 | `transportation_infrastructure` | `not-yet-probed` | DOT dashboards, ArcGIS services, traffic counts, capital project portals. |
+| Seattle School District No. 1 | `housing_permitting_land` | `not-yet-probed` | Planning/permitting portals, assessor data, building inspection data, GIS. |
+| Seattle School District No. 1 | `procurement_contracts` | `not-yet-probed` | Contract search portals, procurement systems, vendor payment data. |
+| Seattle School District No. 1 | `economic_labor_context` | `not-yet-probed` | BLS LAUS, Census, state labor data, economic development dashboards. |
+| Seattle School District No. 1 | `health_human_services` | `not-yet-probed` | Health department dashboards, City Health Dashboard, human-services datasets. |
+| Seattle School District No. 1 | `environment_climate_utilities` | `not-yet-probed` | Environment dashboards, utility open data, energy benchmarking, climate plans. |
+| Seattle School District No. 1 | `service_requests_311` | `not-yet-probed` | 311/service request portals, case-management dashboards, open-data datasets. |
+| Seattle School District No. 1 | `performance_outcomes` | `not-yet-probed` | Performance dashboards, strategic plans, What Works Cities-style reporting. |
+| Seattle School District No. 1 | `governance_meetings` | `not-yet-probed` | Meeting agendas, minutes, legislative systems, ordinance databases. |
+| Seattle School District No. 1 | `elections_campaigns` | `not-yet-probed` | Election offices, campaign-finance portals, ethics datasets. |
+| Snohomish County, Washington | `population_demographics` | `not-yet-probed` | Census ACS API, official population estimates, local demographic dashboards, planning data portals. |
+| Snohomish County, Washington | `public_safety_crime` | `not-yet-probed` | Police open data, 911/CAD datasets, FBI Crime Data API, public safety dashboards. |
+| Snohomish County, Washington | `transportation_infrastructure` | `not-yet-probed` | DOT dashboards, ArcGIS services, traffic counts, capital project portals. |
+| Snohomish County, Washington | `housing_permitting_land` | `not-yet-probed` | Planning/permitting portals, assessor data, building inspection data, GIS. |
+| Snohomish County, Washington | `procurement_contracts` | `not-yet-probed` | Contract search portals, procurement systems, vendor payment data. |
+| Snohomish County, Washington | `economic_labor_context` | `not-yet-probed` | BLS LAUS, Census, state labor data, economic development dashboards. |
+| Snohomish County, Washington | `health_human_services` | `not-yet-probed` | Health department dashboards, City Health Dashboard, human-services datasets. |
+| Snohomish County, Washington | `environment_climate_utilities` | `not-yet-probed` | Environment dashboards, utility open data, energy benchmarking, climate plans. |
+| Snohomish County, Washington | `service_requests_311` | `not-yet-probed` | 311/service request portals, case-management dashboards, open-data datasets. |
+| Snohomish County, Washington | `performance_outcomes` | `not-yet-probed` | Performance dashboards, strategic plans, What Works Cities-style reporting. |
+| Snohomish County, Washington | `governance_meetings` | `not-yet-probed` | Meeting agendas, minutes, legislative systems, ordinance databases. |
+| Snohomish County, Washington | `elections_campaigns` | `not-yet-probed` | Election offices, campaign-finance portals, ethics datasets. |
+| Sound Transit | `population_demographics` | `not-yet-probed` | Census ACS API, official population estimates, local demographic dashboards, planning data portals. |
+| Sound Transit | `public_safety_crime` | `not-yet-probed` | Police open data, 911/CAD datasets, FBI Crime Data API, public safety dashboards. |
+| Sound Transit | `transportation_infrastructure` | `not-yet-probed` | DOT dashboards, ArcGIS services, traffic counts, capital project portals. |
+| Sound Transit | `housing_permitting_land` | `not-yet-probed` | Planning/permitting portals, assessor data, building inspection data, GIS. |
+| Sound Transit | `procurement_contracts` | `not-yet-probed` | Contract search portals, procurement systems, vendor payment data. |
+| Sound Transit | `economic_labor_context` | `not-yet-probed` | BLS LAUS, Census, state labor data, economic development dashboards. |
+| Sound Transit | `health_human_services` | `not-yet-probed` | Health department dashboards, City Health Dashboard, human-services datasets. |
+| Sound Transit | `environment_climate_utilities` | `not-yet-probed` | Environment dashboards, utility open data, energy benchmarking, climate plans. |
+| Sound Transit | `service_requests_311` | `not-yet-probed` | 311/service request portals, case-management dashboards, open-data datasets. |
+| Sound Transit | `performance_outcomes` | `not-yet-probed` | Performance dashboards, strategic plans, What Works Cities-style reporting. |
+| Sound Transit | `governance_meetings` | `not-yet-probed` | Meeting agendas, minutes, legislative systems, ordinance databases. |
+| Sound Transit | `elections_campaigns` | `not-yet-probed` | Election offices, campaign-finance portals, ethics datasets. |
 | City of Spokane | `population_demographics` | `not-yet-probed` | Census ACS API, official population estimates, local demographic dashboards, planning data portals. |
 | City of Spokane | `public_safety_crime` | `not-yet-probed` | Police open data, 911/CAD datasets, FBI Crime Data API, public safety dashboards. |
 | City of Spokane | `transportation_infrastructure` | `not-yet-probed` | DOT dashboards, ArcGIS services, traffic counts, capital project portals. |

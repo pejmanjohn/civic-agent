@@ -16,10 +16,12 @@ EXPECTED_ACTIVE_CATEGORIES = {
     "budget_finance.revenue_budget",
     "workforce.budgeted_fte",
     "budget_finance.actual_spending_checkbook",
+    "budget_finance.filed_annual_actuals",
     "population_demographics.population_denominator",
 }
 EXPECTED_BUDGET_CATEGORIES = EXPECTED_ACTIVE_CATEGORIES - {
     "population_demographics.population_denominator",
+    "budget_finance.filed_annual_actuals",
 }
 EXPECTED_CURRENT_CLAIMS = {
     "seattle.operating_budget": EXPECTED_BUDGET_CATEGORIES,
@@ -28,6 +30,10 @@ EXPECTED_CURRENT_CLAIMS = {
     "washington.revenue_by_biennium": EXPECTED_BUDGET_CATEGORIES,
     "washington.open_checkbook": EXPECTED_BUDGET_CATEGORIES,
     "washington.ofm_population": {"population_demographics.population_denominator"},
+    "washington.fit_filed_actuals": EXPECTED_BUDGET_CATEGORIES
+    | {"budget_finance.filed_annual_actuals"},
+    "pierce_county.open_budget": EXPECTED_BUDGET_CATEGORIES,
+    "pierce_county.open_checkbook": EXPECTED_BUDGET_CATEGORIES,
 }
 ALLOWED_STATUSES = {"supported", "partial", "unsupported"}
 REQUIRED_SEMANTIC_FIELDS = {
@@ -62,6 +68,7 @@ ALLOWED_SEMANTICS = {
     },
     "budget_frame": {
         "actual_spending_checkbook",
+        "filed_annual_actuals",
         "general_fund_revenue",
         "operating",
         "operating_dashboard",

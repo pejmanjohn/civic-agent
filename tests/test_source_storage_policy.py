@@ -8,6 +8,9 @@ SOURCE_ROOT = ROOT / "jurisdictions"
 
 EXPECTED_POLICY_TIERS = {
     "seattle.operating_budget": "live",
+    "pierce_county.open_budget": "live",
+    "pierce_county.open_checkbook": "live",
+    "washington.fit_filed_actuals": "checked_in_snapshot",
     "king_county.open_budget_dashboard": "checked_in_snapshot",
     "washington.operating_budget": "checked_in_snapshot",
     "washington.revenue_by_biennium": "checked_in_snapshot",
@@ -170,6 +173,11 @@ class SourceStoragePolicyTest(unittest.TestCase):
             / "data"
             / "ofm-population"
             / "2025-04-01",
+            SOURCE_ROOT
+            / "washington"
+            / "data"
+            / "fit-filed-actuals"
+            / "milestone-2025-published-2026-06-30",
         ]
         for artifact_dir in artifact_dirs:
             summary = load_json(artifact_dir / "summary.json")

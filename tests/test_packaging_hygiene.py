@@ -64,6 +64,26 @@ class PackagingHygieneTest(unittest.TestCase):
             f"update .claude-plugin/marketplace.json when adding a jurisdiction",
         )
 
+    def test_every_jurisdiction_is_routed_in_both_routers(self):
+        # Closes brainstorm R13: router/source registry drift must be visible.
+        # The root router is hand-maintained prose, so assert the durable
+        # invariant - each jurisdiction's canonical skill URL is routed.
+        root_router = (ROOT / "skill.md").read_text(encoding="utf-8")
+        installable = (ROOT / "skills" / "civic-agent" / "SKILL.md").read_text(
+            encoding="utf-8"
+        )
+        missing = []
+        for slug in jurisdiction_slugs():
+            skill_url = (
+                "https://raw.githubusercontent.com/pejmanjohn/civic-agent/main/"
+                f"jurisdictions/{slug}/skill.md"
+            )
+            if skill_url not in root_router:
+                missing.append(f"skill.md missing route for {slug}")
+            if skill_url not in installable:
+                missing.append(f"skills/civic-agent/SKILL.md missing route for {slug}")
+        self.assertEqual(missing, [])
+
     def test_shipped_file_scan_actually_covers_the_plugin(self):
         files = shipped_text_files()
         self.assertTrue(

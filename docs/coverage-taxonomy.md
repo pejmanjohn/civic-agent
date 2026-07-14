@@ -28,6 +28,7 @@ These are the only category keys that may appear in `coverage_claims` for this r
 | `budget_finance.revenue_budget` | active | Revenue budget | Budgeted or projected revenue amounts, not actual revenue collected. |
 | `workforce.budgeted_fte` | active | Budgeted FTE | Authorized or budgeted full-time-equivalent staffing totals. |
 | `budget_finance.actual_spending_checkbook` | active | Actual spending/checkbook | Actual spending, vendor payments, invoices, or checkbook-style transactions. |
+| `budget_finance.filed_annual_actuals` | active | Filed annual actuals | Annual total revenues and expenditures as filed with the State Auditor (BARS Schedule 01) or OSPI (F-196), at government-year grain. Filed actuals are not budget authority and not transaction-grain checkbook data. |
 | `population_demographics.population_denominator` | active | Population denominator | Official point-in-time resident population estimates used only as per-resident denominators. |
 
 ## Backlog Civic Coverage Families
@@ -63,6 +64,8 @@ A backlog family becomes an active source-card category only after a source prob
 Promotion should add the new active category here, update coverage tests, and add source-card claims only for reviewed sources. Do not add unsupported rows just to fill the matrix.
 
 Probe note: `docs/source-probes/washington-ofm-population.md` evaluates Washington OFM April 1 population estimates. The accepted source-card category is intentionally narrow: `population_demographics.population_denominator` supports resident denominators for Scale recipes, not broad demographic composition.
+
+Probe note: `docs/source-probes/washington-fit-filed-actuals.md` promoted `budget_finance.filed_annual_actuals` (2026-07-13). The category is deliberately scoped to government-year total revenues and expenditures as filed; fund/account/object breakdowns stay out of claims until a reviewed drill-down surface is accepted.
 
 ## Comparability Rule
 

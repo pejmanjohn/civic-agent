@@ -1,6 +1,6 @@
 ---
 name: washington-budget-analyst
-description: Use when answering questions about Washington state operating budget totals, enacted budget trends, General Fund revenue estimate-vs-actual trends, or state agency vendor-payment/checkbook actual spending from Fiscal WA.
+description: Use when answering questions about Washington state operating budget totals, enacted budget trends, General Fund revenue estimate-vs-actual trends, state agency vendor-payment/checkbook actual spending from Fiscal WA, or filed annual actuals for reviewed Washington local governments (cities, counties, school districts, special districts) from the State Auditor's FIT.
 ---
 
 # Washington Budget Analyst
@@ -11,6 +11,7 @@ Use this skill for Washington state budget, revenue, and actual vendor-payment q
 - Revenue by biennium: General Fund (001) estimated revenue, actual revenue, and actual-minus-estimate trends from 2003-05 through 2025-27, with 2025-27 partial through April 2026.
 - Open Checkbook: state agency vendor payments from 2013-15 through the current 2025-27 partial biennium, backed by a managed local SQLite database built from official Fiscal WA XLSX files.
 - OFM population: April 1 official resident population estimates for counties, cities, towns, and state totals, used only as denominator context for Scale recipes.
+- FIT filed actuals: annual total revenues and expenditures as filed with the State Auditor (and OSPI for school districts) for the REVIEWED local governments in `washington.fit_filed_actuals` - currently Spokane, Tacoma, Walla Walla, Vancouver, Everett, King County, Pierce County, Snohomish County, Sound Transit, the King County Regional Homelessness Authority, Seattle School District No. 1, and Evergreen School District (Clark County).
 
 Do not mix these source families. Operating budget rows are budget authority, revenue rows are General Fund estimate/actual revenue, Open Checkbook rows are actual vendor payments, and OFM population rows are resident denominators. Do not use this skill for procurement contract terms, payroll, staffing/FTE, capital budget, transportation budget, Seattle budget analysis, King County budget analysis, or cross-jurisdiction comparison unless a separate source explicitly supports that question. Do not treat the 2025-27 revenue or checkbook values as full-biennium final actuals.
 
@@ -135,6 +136,35 @@ Hosted aggregate answer rules:
 - `summary.json` records per-biennium totals with a category/agency/monthly reconciliation check; cite it as the validation evidence in traces.
 
 Treat this as actual state agency vendor-payment data, not budget authority, revenue, contracts, invoices, payroll, staffing, or service outcomes.
+
+## Local Government Filed Actuals Source Of Truth (FIT)
+
+- Dataset: FIT Filed Annual Actuals (reviewed governments)
+- Provider: Washington State Auditor's Office Financial Intelligence Tool; school data as reported to OSPI
+- Official portal: `https://portal.sao.wa.gov/FIT/`
+- Source card: `jurisdictions/washington/sources/fit-filed-actuals.source.json`
+- Snapshot version: `milestone-2025-published-2026-06-30` (FIT milestone Snapshot 33, published 2026-06-30)
+- Coverage: filed years 2015-2024 complete for reviewed governments, 2025 early-cycle PARTIAL; school districts 2020-2025 (school fiscal years ending August 31)
+
+Checked-in snapshot files (repo-relative; hosted equivalents under `https://raw.githubusercontent.com/pejmanjohn/civic-agent/main/` plus the same paths):
+
+```text
+jurisdictions/washington/data/fit-filed-actuals/milestone-2025-published-2026-06-30/normalized/government-annual-totals.jsonl
+jurisdictions/washington/data/fit-filed-actuals/milestone-2025-published-2026-06-30/normalized/school-district-annual-totals.jsonl
+jurisdictions/washington/data/fit-filed-actuals/milestone-2025-published-2026-06-30/summary.json
+jurisdictions/washington/data/fit-filed-actuals/milestone-2025-published-2026-06-30/provenance.json
+```
+
+Rows carry `government`, `mcag`, year, `total_revenues`, `total_expenditures`, and `amount_basis`. Government rows use the FIT headline basis (excludes internal service funds); school rows are OSPI modified accrual with `school_fiscal_year_ending_aug31`.
+
+Interpretation rules (vocabulary walls):
+
+- Filed actuals are NOT budgets. Never answer a "what is the budget" question with filed actuals without saying these are actual revenues/expenditures as filed, and never mix them numerically with adopted/approved budget frames without an explicit alignment recipe.
+- These are NOT checkbook transactions: no vendors, payees, or invoices at this grain.
+- Label 2025 values partial (early filing cycle); some filers report in round thousands (Sound Transit, King County).
+- School fiscal years end August 31 and use a different accounting basis than cities/counties - never compare school and city/county values without labeling both bases.
+- Only the reviewed governments listed in the source card are claimable. For any other WA local government, follow the router's unsupported-jurisdiction protocol and point at `https://portal.sao.wa.gov/FIT/` as the official path.
+- Spot checks for traces: City of Spokane 2024 revenues 729,876,646 / expenditures 648,638,448; Sound Transit 2024 revenues 2,599,304,000; KCRHA 2024 expenditures 191,618,113 (against 180,707,326 revenues - a deficit year); Seattle SD No. 1 school year 2024-25 revenues 1,518,641,110.55.
 
 ## OFM Population Source Of Truth
 

@@ -132,6 +132,8 @@ https://raw.githubusercontent.com/pejmanjohn/civic-agent/main/jurisdictions/wash
 
 Use Washington for:
 
+- Filed annual actuals for reviewed local governments via washington.fit_filed_actuals (Spokane, Tacoma, Walla Walla, Vancouver, Everett, King/Pierce/Snohomish counties, Sound Transit, King County Regional Homelessness Authority, Seattle School District No. 1, Evergreen School District) - "what does my city actually take in and spend", school district finances, Sound Transit revenues
+
 - Washington state budget
 - Washington operating budget
 - Washington state revenue or General Fund revenue

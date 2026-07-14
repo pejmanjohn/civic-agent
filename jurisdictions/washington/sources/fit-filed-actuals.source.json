@@ -1,0 +1,247 @@
+{
+  "id": "washington.fit_filed_actuals",
+  "jurisdiction_id": "washington",
+  "jurisdiction_name": "Washington State",
+  "jurisdiction_level": "state",
+  "budget_family": "filed_actuals",
+  "provider": "Washington State Auditor's Office / Financial Intelligence Tool (FIT); school data as reported to OSPI",
+  "dataset_name": "FIT Filed Annual Actuals (reviewed governments)",
+  "access_method": "fit_odata_snapshot",
+  "storage_policy": {
+    "tier": "checked_in_snapshot",
+    "normal_answer_source": "repo_snapshot",
+    "freshness_check": "custom_probe",
+    "repo_artifacts": [
+      "source_card",
+      "probe",
+      "builder",
+      "normalized_snapshot",
+      "summary",
+      "provenance",
+      "tests",
+      "docs"
+    ],
+    "local_artifacts": [],
+    "refresh_behavior": "rerun_extractor_against_latest_milestone_snapshot"
+  },
+  "human_inspection_urls": [
+    {
+      "label": "FIT portal (explore any government)",
+      "url": "https://portal.sao.wa.gov/FIT/"
+    },
+    {
+      "label": "FIT data extracts (official bulk downloads)",
+      "url": "https://portal.sao.wa.gov/FIT/data-extracts"
+    }
+  ],
+  "coverage_jurisdictions": [
+    {
+      "jurisdiction_id": "spokane",
+      "jurisdiction_name": "City of Spokane"
+    },
+    {
+      "jurisdiction_id": "tacoma",
+      "jurisdiction_name": "City of Tacoma"
+    },
+    {
+      "jurisdiction_id": "walla_walla",
+      "jurisdiction_name": "City of Walla Walla"
+    },
+    {
+      "jurisdiction_id": "vancouver",
+      "jurisdiction_name": "City of Vancouver"
+    },
+    {
+      "jurisdiction_id": "everett",
+      "jurisdiction_name": "City of Everett"
+    },
+    {
+      "jurisdiction_id": "king_county",
+      "jurisdiction_name": "King County, Washington"
+    },
+    {
+      "jurisdiction_id": "pierce_county",
+      "jurisdiction_name": "Pierce County, Washington"
+    },
+    {
+      "jurisdiction_id": "snohomish_county",
+      "jurisdiction_name": "Snohomish County, Washington"
+    },
+    {
+      "jurisdiction_id": "sound_transit",
+      "jurisdiction_name": "Sound Transit"
+    },
+    {
+      "jurisdiction_id": "kcrha",
+      "jurisdiction_name": "King County Regional Homelessness Authority"
+    },
+    {
+      "jurisdiction_id": "seattle_school_district_1",
+      "jurisdiction_name": "Seattle School District No. 1"
+    },
+    {
+      "jurisdiction_id": "evergreen_school_district_114",
+      "jurisdiction_name": "Evergreen School District (Clark County)"
+    }
+  ],
+  "coverage_jurisdictions_note": "FIT itself covers ~2,300 WA local governments. This card claims only the reviewed governments in the checked-in snapshot; extend REVIEWED_* lists in the extractor, re-run, and add the entry here to promote more.",
+  "source_fingerprint": {
+    "public_inspection_urls": [
+      "https://portal.sao.wa.gov/FIT/",
+      "https://portal.sao.wa.gov/FIT/data-extracts"
+    ],
+    "machine_access": {
+      "type": "odata_v4",
+      "api_base": "https://portal.sao.wa.gov/FIT/api",
+      "totals_endpoint": "https://portal.sao.wa.gov/FIT/api/Snapshots(33)/GovernmentMetrics",
+      "schools_endpoint": "https://portal.sao.wa.gov/FIT/api/Schools/financialReportAggregationsByGovt",
+      "official_bulk_fallback": "https://portal.sao.wa.gov/FIT/extracts/FullExtract(year=<YYYY>)",
+      "quirks": [
+        "OData key syntax mandatory: Snapshots(33)/...; any malformed route returns SPA HTML with HTTP 200 - validate content-type.",
+        "Government-level totals are the rows where all dimension fields are null; headline basis excludes internal service funds.",
+        "Schools route uses fundCode (not fund) and has no expenditureObjectId."
+      ]
+    },
+    "retrieval_context": {
+      "fit_snapshot_id": 33,
+      "fit_snapshot_code": "MILE2025",
+      "sections": {
+        "revenues": 20,
+        "expenditures": 30
+      },
+      "measure_basis": "totalAmountExclIntlSrvc / GovernmentMetrics (FIT headline basis)"
+    },
+    "version_boundary": {
+      "snapshot_version": "milestone-2025-published-2026-06-30",
+      "fit_snapshot_id": 33,
+      "fit_snapshot_created": "2026-06-30",
+      "included_years": "2015-2025",
+      "current_year_status": "2025 is early-cycle (June filing milestone) and will change in later revisions; label 2025 partial.",
+      "schools_included_years": "2020-2025 (school fiscal years ending Aug 31)"
+    },
+    "row_counts": {
+      "government_annual_totals": 110,
+      "school_district_annual_totals": 12
+    },
+    "checks": {
+      "spokane_2024_revenues": 729876646,
+      "spokane_2024_expenditures": 648638448,
+      "sound_transit_2024_revenues": 2599304000,
+      "kcrha_2024_expenditures": 191618113,
+      "seattle_sd_2025_revenues": 1518641110.55
+    }
+  },
+  "snapshot_version": "milestone-2025-published-2026-06-30",
+  "primary_measures": [
+    "total_revenues",
+    "total_expenditures"
+  ],
+  "snapshot_path": "jurisdictions/washington/data/fit-filed-actuals/milestone-2025-published-2026-06-30/",
+  "builder": "jurisdictions/washington/scripts/extract_fit_actuals.py",
+  "safe_answer_patterns": [
+    "Total filed revenues and expenditures for a reviewed government, 2015-2024 (2025 labeled partial).",
+    "Revenue and expenditure trends for a reviewed government across filed years.",
+    "Revenues-vs-expenditures framing for one government-year (for example KCRHA's 2024 deficit year).",
+    "School district filed totals for 2020-2025 with the OSPI basis and Aug 31 fiscal-year label.",
+    "Side-by-side filed-actuals comparisons between reviewed governments of the SAME type and basis, with scope caveats."
+  ],
+  "not_supported_by_this_source": [
+    "Budget authority, adopted budgets, or proposed budgets.",
+    "Budget-vs-actual verdicts against other sources without explicit frame and period alignment.",
+    "Fund, department, program, BARS account, or object breakdowns (not yet reviewed claims).",
+    "Checkbook/vendor transactions, invoices, payroll, staffing, or FTE.",
+    "Governments not in the reviewed coverage list.",
+    "Service-level or outcome conclusions from raw totals."
+  ],
+  "coverage_claims": [
+    {
+      "category": "budget_finance.filed_annual_actuals",
+      "status": "supported",
+      "measures": [
+        "total_revenues",
+        "total_expenditures"
+      ],
+      "grains": [
+        "government",
+        "year"
+      ],
+      "time_coverage": "Filed years 2015-2024 complete for reviewed governments; 2025 early-cycle partial. School districts 2020-2025 (fiscal years ending Aug 31).",
+      "evidence": [
+        "snapshot_version",
+        "validation_checks.government_annual_totals_rows",
+        "validation_checks.spokane_2024_revenues",
+        "validation_checks.sound_transit_2024_revenues",
+        "validation_checks.kcrha_2024_expenditures",
+        "validation_checks.seattle_sd_2025_revenues"
+      ],
+      "caveats": [
+        "Filed actuals, not budget authority; never present as a budget.",
+        "Headline basis excludes internal service funds and can differ up to ~16% from all-funds totals.",
+        "Cities/counties file calendar-year GAAP or cash basis; school districts file OSPI modified accrual with fiscal years ending Aug 31 - never mix bases without labeling.",
+        "Some filers report in round thousands (Sound Transit, King County).",
+        "2025 values are early-cycle and will move in later milestone revisions."
+      ],
+      "semantics": {
+        "amount_basis": "actual",
+        "budget_frame": "filed_annual_actuals",
+        "period_type": "fiscal_year",
+        "period_status": "actualized",
+        "unit": "dollars",
+        "government_scope": "multi_jurisdiction",
+        "geography_basis": "resident_jurisdiction",
+        "comparability_notes": [
+          "Filed actuals are not comparable to adopted/approved budget frames without an explicit alignment recipe.",
+          "Compare governments only within the same government type and accounting basis, and say responsibilities differ.",
+          "School fiscal years end Aug 31 and are not calendar years."
+        ]
+      }
+    },
+    {
+      "category": "budget_finance.operating_budget",
+      "status": "unsupported",
+      "unsupported_reason": "Unsupported by this source: FIT carries filed actuals, not adopted or approved budget authority.",
+      "evidence": [
+        "not_supported_by_this_source"
+      ]
+    },
+    {
+      "category": "budget_finance.revenue_budget",
+      "status": "unsupported",
+      "unsupported_reason": "Unsupported by this source: FIT revenues are actual revenues as filed, not budgeted or projected revenue.",
+      "evidence": [
+        "not_supported_by_this_source"
+      ]
+    },
+    {
+      "category": "workforce.budgeted_fte",
+      "status": "unsupported",
+      "unsupported_reason": "Unsupported by this source: staffing, FTE, and personnel data are not in the filed Schedule 01 totals.",
+      "evidence": [
+        "not_supported_by_this_source"
+      ]
+    },
+    {
+      "category": "budget_finance.actual_spending_checkbook",
+      "status": "unsupported",
+      "unsupported_reason": "Unsupported by this source: filed annual aggregates are not transaction-grain checkbook data; vendors, payees, and invoices are not present.",
+      "evidence": [
+        "not_supported_by_this_source"
+      ]
+    }
+  ],
+  "validation_checks": {
+    "government_annual_totals_rows": 110,
+    "school_district_annual_totals_rows": 12,
+    "spokane_2024_revenues": 729876646,
+    "spokane_2024_expenditures": 648638448,
+    "sound_transit_2024_revenues": 2599304000,
+    "kcrha_2024_expenditures": 191618113,
+    "seattle_sd_2025_revenues": 1518641110.55
+  },
+  "caveats": [
+    "Filed annual actuals under BARS (SAO) and F-196 (OSPI); not budgets, not checkbook transactions.",
+    "Pinned to FIT milestone Snapshot 33 (published 2026-06-30); milestones revise ~quarterly - the drift check watches for a newer milestone id.",
+    "The API is the FIT SPA's internal OData surface (undocumented, unversioned); official bulk XLSX extracts are the sanctioned fallback.",
+    "Only the reviewed governments listed in coverage_jurisdictions are claimable; FIT itself covers ~2,300 governments."
+  ]
+}

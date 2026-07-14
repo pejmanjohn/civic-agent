@@ -69,8 +69,14 @@ def http_head(url: str) -> dict:
 
 
 def http_get_json(url: str):
-    request = urllib.request.Request(url, headers={"User-Agent": USER_AGENT})
+    request = urllib.request.Request(
+        url, headers={"User-Agent": USER_AGENT, "Accept": "application/json"}
+    )
     with urllib.request.urlopen(request, timeout=TIMEOUT_SECONDS) as response:
+        content_type = response.headers.get("Content-Type", "")
+        if "json" not in content_type:
+            # FIT returns SPA HTML with HTTP 200 for malformed routes.
+            raise ValueError(f"non-JSON response ({content_type}) from {url}")
         return json.load(response)
 
 
@@ -273,6 +279,43 @@ def check_pierce_open_checkbook(card: dict) -> list[dict]:
     return checks
 
 
+def check_fit_filed_actuals(card: dict) -> list[dict]:
+    """Two signals: (a) a newer FIT milestone snapshot exists (refresh path),
+    (b) a pinned-snapshot fact restated (should never happen for a published
+    milestone - treat as a loud alarm)."""
+    fingerprint = card["source_fingerprint"]
+    pinned_id = fingerprint["retrieval_context"]["fit_snapshot_id"]
+    api_base = fingerprint["machine_access"]["api_base"]
+    latest = http_get_json(
+        f"{api_base}/Snapshots?%24orderby=id%20desc&%24top=1"
+    )["value"][0]
+    checks = [
+        check(
+            "fit.latest_milestone_id",
+            "ok" if latest["id"] == pinned_id else "drift",
+            expected=pinned_id,
+            actual=latest["id"],
+            detail=f"latest snapshot: {latest.get('name', '')}",
+        )
+    ]
+    expected_rev = card.get("validation_checks", {}).get("spokane_2024_revenues")
+    if expected_rev is not None:
+        query = urllib.parse.quote("mcag eq '0724' and year eq 2024", safe="()',")
+        payload = http_get_json(
+            f"{api_base}/Snapshots({pinned_id})/GovernmentMetrics?%24filter={query}"
+        )
+        live_rev = payload["value"][0]["revenues"] if payload.get("value") else None
+        checks.append(
+            check(
+                "fit.spokane_2024_revenues",
+                "ok" if live_rev == expected_rev else "drift",
+                expected=expected_rev,
+                actual=live_rev,
+            )
+        )
+    return checks
+
+
 LIVE_CHECKS = {
     "seattle.operating_budget": check_seattle_operating_budget,
     "washington.open_checkbook": check_open_checkbook,
@@ -280,6 +323,7 @@ LIVE_CHECKS = {
     "king_county.adopted_budget": check_king_county_adopted_budget,
     "pierce_county.open_budget": check_pierce_open_budget,
     "pierce_county.open_checkbook": check_pierce_open_checkbook,
+    "washington.fit_filed_actuals": check_fit_filed_actuals,
 }
 
 # Power BI and ReportViewer surfaces have no cheap unauthenticated freshness

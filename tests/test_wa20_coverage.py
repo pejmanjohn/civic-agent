@@ -344,7 +344,7 @@ class SuiteIntegrationTest(unittest.TestCase):
             by_id["seattle-parks-2026-lookup"]["achievable_mode"], "exact"
         )
         self.assertEqual(
-            by_id["walla-walla-city-budget"]["achievable_mode"], "unsupported_with_path"
+            by_id["kc-property-tax-why-up"]["achievable_mode"], "unsupported_with_path"
         )
 
     def test_weighted_score_formula(self):

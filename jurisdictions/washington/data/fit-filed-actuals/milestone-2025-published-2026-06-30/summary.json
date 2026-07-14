@@ -1,0 +1,216 @@
+{
+  "bars_year": 2025,
+  "fit_snapshot_code": "MILE2025",
+  "fit_snapshot_created": "2026-06-30T17:47:35.997-07:00",
+  "fit_snapshot_id": 33,
+  "fit_snapshot_name": "2025 Filing Milestone Snapshot (created 06/30/26 5:46 PM PDT)",
+  "governments": {
+    "City of Everett": {
+      "years": [
+        2015,
+        2016,
+        2017,
+        2018,
+        2019,
+        2020,
+        2021,
+        2022,
+        2023,
+        2024,
+        2025
+      ]
+    },
+    "City of Spokane": {
+      "years": [
+        2015,
+        2016,
+        2017,
+        2018,
+        2019,
+        2020,
+        2021,
+        2022,
+        2023,
+        2024,
+        2025
+      ]
+    },
+    "City of Tacoma": {
+      "years": [
+        2015,
+        2016,
+        2017,
+        2018,
+        2019,
+        2020,
+        2021,
+        2022,
+        2023,
+        2024,
+        2025
+      ]
+    },
+    "City of Vancouver": {
+      "years": [
+        2015,
+        2016,
+        2017,
+        2018,
+        2019,
+        2020,
+        2021,
+        2022,
+        2023,
+        2024,
+        2025
+      ]
+    },
+    "City of Walla Walla": {
+      "years": [
+        2015,
+        2016,
+        2017,
+        2018,
+        2019,
+        2020,
+        2021,
+        2022,
+        2023,
+        2024,
+        2025
+      ]
+    },
+    "King County Regional Homelessness Authority": {
+      "years": [
+        2015,
+        2016,
+        2017,
+        2018,
+        2019,
+        2020,
+        2021,
+        2022,
+        2023,
+        2024,
+        2025
+      ]
+    },
+    "King County, Washington": {
+      "years": [
+        2015,
+        2016,
+        2017,
+        2018,
+        2019,
+        2020,
+        2021,
+        2022,
+        2023,
+        2024,
+        2025
+      ]
+    },
+    "Pierce County, Washington": {
+      "years": [
+        2015,
+        2016,
+        2017,
+        2018,
+        2019,
+        2020,
+        2021,
+        2022,
+        2023,
+        2024,
+        2025
+      ]
+    },
+    "Snohomish County, Washington": {
+      "years": [
+        2015,
+        2016,
+        2017,
+        2018,
+        2019,
+        2020,
+        2021,
+        2022,
+        2023,
+        2024,
+        2025
+      ]
+    },
+    "Sound Transit": {
+      "years": [
+        2015,
+        2016,
+        2017,
+        2018,
+        2019,
+        2020,
+        2021,
+        2022,
+        2023,
+        2024,
+        2025
+      ]
+    }
+  },
+  "measure_basis": {
+    "governments": "GovernmentMetrics revenues/expenditures = FIT headline basis (excludes internal service funds); some filers report in round thousands.",
+    "school_districts": "OSPI F-196 modified accrual; school fiscal year ends Aug 31; 'year' is the ending calendar year."
+  },
+  "row_counts": {
+    "government-annual-totals.jsonl": 110,
+    "school-district-annual-totals.jsonl": 12
+  },
+  "school_districts": {
+    "Evergreen School District (Clark County)": {
+      "years": [
+        2020,
+        2021,
+        2022,
+        2023,
+        2024,
+        2025
+      ]
+    },
+    "Seattle School District No. 1": {
+      "years": [
+        2020,
+        2021,
+        2022,
+        2023,
+        2024,
+        2025
+      ]
+    }
+  },
+  "snapshot_version": "milestone-2025-published-2026-06-30",
+  "source_fingerprint": {
+    "checks": {
+      "kcrha_2024_expenditures": 191618113.0,
+      "seattle_sd_2025_revenues": 1518641110.55,
+      "sound_transit_2024_revenues": 2599304000.0,
+      "spokane_2024_expenditures": 648638448.0,
+      "spokane_2024_revenues": 729876646.0
+    },
+    "fit_snapshot_id": 33,
+    "public_inspection_urls": [
+      "https://portal.sao.wa.gov/FIT/"
+    ],
+    "row_counts": {
+      "government-annual-totals.jsonl": 110,
+      "school-district-annual-totals.jsonl": 12
+    },
+    "snapshot_version": "milestone-2025-published-2026-06-30"
+  },
+  "source_id": "washington.fit_filed_actuals",
+  "spot_checks": {
+    "kcrha_2024_expenditures": 191618113.0,
+    "seattle_sd_2025_revenues": 1518641110.55,
+    "sound_transit_2024_revenues": 2599304000.0,
+    "spokane_2024_expenditures": 648638448.0,
+    "spokane_2024_revenues": 729876646.0
+  }
+}

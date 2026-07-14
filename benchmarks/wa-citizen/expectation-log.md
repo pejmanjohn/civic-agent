@@ -18,3 +18,15 @@ Deliberate divergence from the goal appendix: `kc-cuts-despite-20b` seeded as `p
 
 - `pierce-county-budget-size`: `expected_answer_mode` `unsupported_with_path` -> `exact`; failure mode `missing_source` -> `none`. `pierce_county.open_budget` (biennial budget + budget-line actuals) and `pierce_county.open_checkbook` (transaction actuals) accepted as live Socrata sources; caveats rewritten from graceful-failure checks to biennial/budget-vs-actual/expenditure-only discipline; budget-total fact added ($3,500,588,070, verified 2026-07-13).
 - `pierce-vs-king-per-resident`: `expected_answer_mode` stays `partial` even though Tier 0 now reports achievable `exact` (all four core claims supported). Reason: Pierce budget frames are biennial and King County dashboard values are annual; without a period-alignment recipe the honest answer presents per-resident values side by side without a numeric verdict. The standing ratchet-candidate note on the scoreboard is acknowledged and intentional until the cross_jurisdiction recipe gains an alignment rule.
+
+## 2026-07-13 - FIT filed actuals accepted (M6)
+
+`budget_finance.filed_annual_actuals` promoted to an active taxonomy category (probe: `docs/source-probes/washington-fit-filed-actuals.md`); all `proposed:` prefixes dropped per the contract test. Ratchets, all upward, all backed by the checked-in FIT snapshot (milestone-2025-published-2026-06-30, verified live 2026-07-13):
+
+- `walla-walla-city-budget`: `unsupported_with_path` -> `partial` (filed actuals now answerable; adopted budget remains the missing half).
+- `spokane-police-vs-housing`: `unsupported_with_path` -> `partial` (totals answerable; BARS category breakdown not yet a reviewed claim - the ceiling reason).
+- `evergreen-schools-cuts`: `unsupported_with_path` -> `partial` (FIT Schools route; OSPI enrollment remains for per-pupil).
+- `sound-transit-car-tabs`: `unsupported_with_path` -> `partial` (filed totals; revenue-stream split and ST3 plan out of scope).
+- `kc-actuals-vs-budget-trap`: `unsupported_with_path` -> `partial` (actuals now exist; frames stay side-by-side, never reconciled).
+- `sps-deficit-school-closures`: `unsupported_with_path` -> `partial` (filed totals; F-195 budgets and enrollment remain).
+- `seattle-kc-homelessness-kcrha`: mode unchanged (`partial`); KCRHA filed actuals added to expected sources with the 2024 deficit-year fact.

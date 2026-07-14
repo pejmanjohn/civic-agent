@@ -352,7 +352,7 @@
     "required_claims": [
       {
         "jurisdiction": "City of Walla Walla",
-        "category": "proposed:budget_finance.filed_annual_actuals",
+        "category": "budget_finance.filed_annual_actuals",
         "role": "core",
         "note": "FIT (SAO filed Schedule 01 actuals) is the planned statewide path for small cities."
       },
@@ -370,27 +370,38 @@
       }
     ],
     "mode_ceiling": "exact",
-    "expected_answer_mode": "unsupported_with_path",
+    "expected_answer_mode": "partial",
     "expected_failure_mode": "missing_source",
-    "expected_source_ids": [],
-    "expected_missing_sources": [
-      "SAO FIT filed annual actuals (statewide local-government source)"
+    "expected_source_ids": [
+      "washington.fit_filed_actuals"
     ],
-    "expected_facts": [],
-    "required_caveats": [
+    "expected_missing_sources": [
+      "City of Walla Walla adopted budget (PDF-only today)"
+    ],
+    "expected_facts": [
       {
-        "id": "no-fabrication",
-        "pattern": "(no|not)[^.]{0,70}(accepted|reviewed|supported) source|not yet (covered|included|supported)",
-        "description": "Does not invent a number for an uncovered small city."
-      },
-      {
-        "id": "path-named",
-        "pattern": "wallawallawa\\.gov|budget (book|document)|state auditor|FIT|sao\\.wa\\.gov",
-        "description": "Points at the official budget documents or the SAO transparency path."
+        "id": "walla-walla-2024-expenditures",
+        "value": 96284787,
+        "tolerance": 0,
+        "unit": "dollars",
+        "description": "City of Walla Walla 2024 filed total expenditures (FIT headline basis)",
+        "reproduction_ref": "jurisdictions/washington/data/fit-filed-actuals/milestone-2025-published-2026-06-30/normalized/government-annual-totals.jsonl (verified live 2026-07-13)"
       }
     ],
-    "unlocked_by": "FIT statewide source (filed actuals for all 281 cities)",
-    "improvement_path": "FIT source card makes every WA city answerable for filed actuals; disambiguation (M5) should meanwhile serve OFM population plus applicable state facts.",
+    "required_caveats": [
+      {
+        "id": "filed-actuals-not-budget",
+        "pattern": "filed|state auditor|FIT|actuals?[^.]{0,60}not[^.]{0,40}budget|not[^.]{0,30}(a|the) budget",
+        "description": "Presents FIT numbers as filed actuals, never as a budget."
+      },
+      {
+        "id": "adopted-budget-path",
+        "pattern": "adopted budget|wallawallawa\\.gov|budget (book|document)",
+        "description": "Names the missing adopted-budget half and where it lives."
+      }
+    ],
+    "unlocked_by": "washington.fit_filed_actuals (accepted 2026-07-13); adopted budget remains the missing half",
+    "improvement_path": "Small-city adopted budgets are PDF-only; treat FIT actuals as the standing answer and revisit only on demand signal.",
     "score_dimensions": [
       "correctness",
       "traceability",
@@ -497,38 +508,40 @@
     "required_claims": [
       {
         "jurisdiction": "City of Spokane",
-        "category": "proposed:budget_finance.filed_annual_actuals",
+        "category": "budget_finance.filed_annual_actuals",
         "role": "core",
         "note": "FIT BARS expenditure categories (public safety vs housing/community services) are the only machine-readable Spokane path; the city is PDF-only."
       }
     ],
     "mode_ceiling": "partial",
-    "expected_answer_mode": "unsupported_with_path",
-    "expected_failure_mode": "missing_source",
-    "expected_source_ids": [],
+    "expected_answer_mode": "partial",
+    "expected_failure_mode": "semantic_mismatch",
+    "expected_source_ids": [
+      "washington.fit_filed_actuals"
+    ],
     "expected_missing_sources": [
-      "SAO FIT filed annual actuals (BARS function categories)"
+      "BARS function-category breakdown as a reviewed claim (totals only today)"
     ],
     "expected_facts": [],
     "required_caveats": [
       {
-        "id": "no-fabrication",
-        "pattern": "(no|not)[^.]{0,70}(accepted|reviewed|supported) source|not yet (covered|included|supported)",
-        "description": "Does not invent Spokane numbers."
-      },
-      {
-        "id": "path-named",
-        "pattern": "spokanecity\\.org|state auditor|FIT|sao\\.wa\\.gov|budget (book|document)",
-        "description": "Names Spokane's budget documents or the SAO path."
+        "id": "filed-actuals-not-budget",
+        "pattern": "filed|state auditor|FIT|actuals?[^.]{0,60}not[^.]{0,40}budget|not[^.]{0,30}(a|the) budget",
+        "description": "Presents FIT numbers as filed actuals, never as a budget."
       },
       {
         "id": "category-mapping",
-        "pattern": "BARS|categor(y|ies)[^.]{0,80}(not|don't|do not)[^.]{0,50}match|function[^.]{0,60}mapping",
-        "description": "Once FIT lands: warns BARS function categories do not map one-to-one onto 'housing and homelessness' as residents mean it."
+        "pattern": "BARS|categor(y|ies)[^.]{0,80}(not|don.t|do not)[^.]{0,50}(match|map)|function[^.]{0,60}mapping|totals?[^.]{0,60}only",
+        "description": "States police-vs-housing needs a category breakdown that is not yet a reviewed claim; totals alone cannot answer it."
+      },
+      {
+        "id": "path-named",
+        "pattern": "spokanecity\\.org|budget (book|document)|portal\\.sao\\.wa\\.gov|FIT",
+        "description": "Points at the official drill-down path."
       }
     ],
-    "unlocked_by": "FIT statewide source; ceiling partial because BARS-to-resident-category mapping is imperfect",
-    "improvement_path": "FIT source card with BARS category mapping notes; Spokane adopted-budget PDF extraction only if residents need budget-vs-actual there.",
+    "unlocked_by": "FIT totals accepted 2026-07-13; the BARS category cube is the probed-but-unreviewed drill-down",
+    "improvement_path": "Review the FIT Schedule1 cube category grain (BARS function categories) as a claim extension; map BARS categories to resident language with explicit caveats.",
     "score_dimensions": [
       "correctness",
       "traceability",
@@ -558,7 +571,7 @@
     "required_claims": [
       {
         "jurisdiction": "Evergreen School District (Clark County)",
-        "category": "proposed:budget_finance.filed_annual_actuals",
+        "category": "budget_finance.filed_annual_actuals",
         "role": "core",
         "note": "FIT Schools route (OSPI-sourced) provides filed revenues/expenditures for all 295 districts."
       },
@@ -570,33 +583,43 @@
       }
     ],
     "mode_ceiling": "exact",
-    "expected_answer_mode": "unsupported_with_path",
+    "expected_answer_mode": "partial",
     "expected_failure_mode": "missing_source",
-    "expected_source_ids": [],
-    "expected_missing_sources": [
-      "SAO FIT Schools filed financials (OSPI-sourced)",
-      "OSPI enrollment time series"
+    "expected_source_ids": [
+      "washington.fit_filed_actuals"
     ],
-    "expected_facts": [],
+    "expected_missing_sources": [
+      "OSPI enrollment time series (per-pupil framing)"
+    ],
+    "expected_facts": [
+      {
+        "id": "evergreen-2025-revenues",
+        "value": 488762832.47,
+        "tolerance": 0,
+        "unit": "dollars",
+        "description": "Evergreen SD No. 114 filed revenues, school year ending Aug 31 2025 (OSPI)",
+        "reproduction_ref": "jurisdictions/washington/data/fit-filed-actuals/milestone-2025-published-2026-06-30/normalized/school-district-annual-totals.jsonl"
+      }
+    ],
     "required_caveats": [
       {
-        "id": "no-fabrication",
-        "pattern": "(no|not)[^.]{0,70}(accepted|reviewed|supported) source|not yet (covered|included|supported)",
-        "description": "Does not invent district finances."
-      },
-      {
-        "id": "path-named",
-        "pattern": "ospi|evergreenps\\.org|state auditor|FIT|F-19[56]",
-        "description": "Names OSPI, the district budget documents, or the SAO path."
+        "id": "ospi-basis",
+        "pattern": "OSPI|modified accrual|aug(ust)? ?31|school fiscal year|F-196",
+        "description": "Labels the OSPI basis and Aug 31 school fiscal year."
       },
       {
         "id": "nominal-vs-perpupil",
         "pattern": "per[- ](pupil|student)|enrollment|inflation",
-        "description": "Once covered: distinguishes total revenue from per-pupil purchasing power."
+        "description": "Distinguishes total revenue from per-pupil purchasing power; names the missing enrollment source."
+      },
+      {
+        "id": "filed-actuals-not-budget",
+        "pattern": "filed|state auditor|FIT|actuals?[^.]{0,60}not[^.]{0,40}budget|not[^.]{0,30}(a|the) budget",
+        "description": "Presents FIT numbers as filed actuals, never as a budget."
       }
     ],
-    "unlocked_by": "FIT Schools route (trend from filed actuals); OSPI enrollment for per-pupil depth",
-    "improvement_path": "FIT source card covering the Schools dataset; add OSPI enrollment as an adjunct denominator source.",
+    "unlocked_by": "FIT Schools route accepted 2026-07-13; OSPI enrollment remains for per-pupil depth",
+    "improvement_path": "Probe OSPI P-223 enrollment as an adjunct denominator source to complete per-pupil trends.",
     "score_dimensions": [
       "correctness",
       "traceability",
@@ -626,38 +649,50 @@
     "required_claims": [
       {
         "jurisdiction": "Sound Transit",
-        "category": "proposed:budget_finance.filed_annual_actuals",
+        "category": "budget_finance.filed_annual_actuals",
         "role": "core",
         "note": "Sound Transit files with SAO (Central Puget Sound Regional Transit Authority); FIT is the machine-readable path."
       }
     ],
     "mode_ceiling": "partial",
-    "expected_answer_mode": "unsupported_with_path",
-    "expected_failure_mode": "missing_source",
-    "expected_source_ids": [],
-    "expected_missing_sources": [
-      "SAO FIT filed annual actuals (Sound Transit)"
+    "expected_answer_mode": "partial",
+    "expected_failure_mode": "semantic_mismatch",
+    "expected_source_ids": [
+      "washington.fit_filed_actuals"
     ],
-    "expected_facts": [],
+    "expected_missing_sources": [
+      "revenue-stream breakdown (MVET vs sales vs property tax) as a reviewed claim",
+      "ST3 capital-plan projections (out of scope)"
+    ],
+    "expected_facts": [
+      {
+        "id": "sound-transit-2024-revenues",
+        "value": 2599304000,
+        "tolerance": 0,
+        "unit": "dollars",
+        "description": "Sound Transit 2024 filed total revenues (reported in round thousands)",
+        "reproduction_ref": "jurisdictions/washington/data/fit-filed-actuals/milestone-2025-published-2026-06-30/normalized/government-annual-totals.jsonl"
+      }
+    ],
     "required_caveats": [
       {
-        "id": "no-fabrication",
-        "pattern": "(no|not)[^.]{0,70}(accepted|reviewed|supported) source|not yet (covered|included|supported)",
-        "description": "Does not invent agency financials."
+        "id": "filed-actuals-not-budget",
+        "pattern": "filed|state auditor|FIT|actuals?[^.]{0,60}not[^.]{0,40}budget|not[^.]{0,30}(a|the) budget",
+        "description": "Presents FIT numbers as filed actuals, never as a budget."
       },
       {
         "id": "st3-gap-out-of-scope",
         "pattern": "(program|capital plan|ST3|affordability)[^.]{0,80}(projection|plan|estimate|separate|cannot|out of scope)",
-        "description": "Separates filed actuals from ST3 capital-program projections (the $34.5B gap is a plan figure, not filed data)."
+        "description": "Separates filed actuals from ST3 capital-program projections."
       },
       {
         "id": "mvet-one-stream",
         "pattern": "MVET|car[- ]tab|one[^.]{0,40}(stream|source)|sales tax|property tax",
-        "description": "Notes car tabs are one revenue stream among sales and property taxes."
+        "description": "Notes car tabs are one revenue stream among several; the per-stream split is not yet a reviewed claim."
       }
     ],
-    "unlocked_by": "FIT statewide source (mcag 0987); ceiling partial because the personal car-tab slice and forward capital plan stay out of scope",
-    "improvement_path": "FIT source card; Sound Transit financial-plan PDF extraction only if forward-looking capital questions become a demand signal.",
+    "unlocked_by": "FIT totals accepted 2026-07-13; revenue-stream split and capital plan remain out of scope",
+    "improvement_path": "Review the FIT cube account grain for revenue-stream splits; ST financial-plan PDF only on demand signal.",
     "score_dimensions": [
       "correctness",
       "traceability",
@@ -687,7 +722,7 @@
     "required_claims": [
       {
         "jurisdiction": "King County, Washington",
-        "category": "proposed:budget_finance.filed_annual_actuals",
+        "category": "budget_finance.filed_annual_actuals",
         "role": "core",
         "note": "No actuals source exists for King County today; only budgeted values. Honest behavior is refusal with a path."
       },
@@ -699,34 +734,44 @@
       }
     ],
     "mode_ceiling": "partial",
-    "expected_answer_mode": "unsupported_with_path",
-    "expected_failure_mode": "missing_source",
+    "expected_answer_mode": "partial",
+    "expected_failure_mode": "semantic_mismatch",
     "expected_source_ids": [
-      "king_county.open_budget_dashboard"
+      "king_county.open_budget_dashboard",
+      "washington.fit_filed_actuals"
     ],
     "expected_missing_sources": [
-      "King County actuals source (SAO FIT filed actuals)"
+      "frame-alignment recipe: filed annual actuals vs annual dashboard budgeted values"
     ],
-    "expected_facts": [],
+    "expected_facts": [
+      {
+        "id": "king-county-2024-expenditures",
+        "value": 5312711000,
+        "tolerance": 0,
+        "unit": "dollars",
+        "description": "King County 2024 filed total expenditures (FIT headline basis, round thousands)",
+        "reproduction_ref": "jurisdictions/washington/data/fit-filed-actuals/milestone-2025-published-2026-06-30/normalized/government-annual-totals.jsonl"
+      }
+    ],
     "required_caveats": [
       {
-        "id": "budget-only-honesty",
-        "pattern": "only[^.]{0,60}budget|no[^.]{0,60}actual|budgeted[^.]{0,60}not[^.]{0,40}(actual|spent)",
-        "description": "States plainly that accepted King County sources are budgeted values, not actuals - the fabrication trap."
-      },
-      {
-        "id": "path-named",
-        "pattern": "state auditor|FIT|sao\\.wa\\.gov|annual (comprehensive financial )?report|ACFR",
-        "description": "Names where actuals exist officially."
+        "id": "filed-actuals-not-budget",
+        "pattern": "filed|state auditor|FIT|actuals?[^.]{0,60}not[^.]{0,40}budget|not[^.]{0,30}(a|the) budget",
+        "description": "Presents FIT numbers as filed actuals, never as a budget."
       },
       {
         "id": "frame-mismatch",
-        "pattern": "(annual|biennial|filed|dashboard)[^.]{0,80}(frame|basis|not[^.]{0,40}identical|different)",
-        "description": "Once FIT lands: warns filed annual actuals and dashboard budgeted values are different frames - hence the partial ceiling."
+        "pattern": "(annual|biennial|filed|dashboard)[^.]{0,80}(frame|basis|not[^.]{0,40}identical|different|side by side)",
+        "description": "Presents filed actuals and dashboard budgeted values side by side as different frames, never as a reconciled verdict."
+      },
+      {
+        "id": "internal-service-basis",
+        "pattern": "internal service|headline basis|excludes",
+        "description": "Names the excludes-internal-service-funds basis of the FIT headline number."
       }
     ],
-    "unlocked_by": "FIT filed actuals; ceiling partial because filed-annual vs dashboard-budgeted frames are not directly reconcilable",
-    "improvement_path": "FIT source card plus an explicit budget-vs-actuals recipe that presents the two frames side by side with basis caveats.",
+    "unlocked_by": "FIT actuals accepted 2026-07-13; ceiling stays partial because the frames are not reconcilable without an alignment recipe",
+    "improvement_path": "A budget-vs-actual recipe that presents the two frames side by side with basis caveats is the remaining contract.",
     "score_dimensions": [
       "correctness",
       "traceability",
@@ -985,7 +1030,7 @@
     "required_claims": [
       {
         "jurisdiction": "Seattle School District No. 1",
-        "category": "proposed:budget_finance.filed_annual_actuals",
+        "category": "budget_finance.filed_annual_actuals",
         "role": "core",
         "note": "FIT Schools route (mcag 1903, OSPI-sourced) is the planned machine-readable path."
       },
@@ -997,33 +1042,44 @@
       }
     ],
     "mode_ceiling": "partial",
-    "expected_answer_mode": "unsupported_with_path",
+    "expected_answer_mode": "partial",
     "expected_failure_mode": "missing_source",
-    "expected_source_ids": [],
-    "expected_missing_sources": [
-      "SAO FIT Schools filed financials",
-      "OSPI F-195/F-196 district files"
+    "expected_source_ids": [
+      "washington.fit_filed_actuals"
     ],
-    "expected_facts": [],
-    "required_caveats": [
+    "expected_missing_sources": [
+      "OSPI F-195 adopted budgets",
+      "OSPI enrollment time series"
+    ],
+    "expected_facts": [
       {
-        "id": "no-fabrication",
-        "pattern": "(no|not)[^.]{0,70}(accepted|reviewed|supported) source|not yet (covered|included|supported)",
-        "description": "Does not invent district finances or deficit figures."
-      },
+        "id": "sps-2025-revenues",
+        "value": 1518641110.55,
+        "tolerance": 0,
+        "unit": "dollars",
+        "description": "Seattle SD No. 1 filed revenues, school year ending Aug 31 2025 (OSPI)",
+        "reproduction_ref": "jurisdictions/washington/data/fit-filed-actuals/milestone-2025-published-2026-06-30/normalized/school-district-annual-totals.jsonl"
+      }
+    ],
+    "required_caveats": [
       {
         "id": "causation-is-interpretation",
         "pattern": "(why|caus|reason)[^.]{0,90}(interpret|beyond|cannot|multiple factors|enrollment|levy cap|ESSER)",
-        "description": "Separates data facts from causal interpretation (enrollment decline, ESSER cliff, levy cap are named as context, not asserted as the answer)."
+        "description": "Separates filed financial facts from causal interpretation of closures."
       },
       {
-        "id": "path-named",
-        "pattern": "seattleschools\\.org|ospi|state auditor|FIT|F-19[56]",
-        "description": "Points at SPS budget documents, OSPI, or the SAO path."
+        "id": "ospi-basis",
+        "pattern": "OSPI|modified accrual|aug(ust)? ?31|school fiscal year|F-196",
+        "description": "Labels the OSPI basis and Aug 31 school fiscal year."
+      },
+      {
+        "id": "filed-actuals-not-budget",
+        "pattern": "filed|state auditor|FIT|actuals?[^.]{0,60}not[^.]{0,40}budget|not[^.]{0,30}(a|the) budget",
+        "description": "Presents FIT numbers as filed actuals, never as a budget."
       }
     ],
-    "unlocked_by": "FIT Schools route; OSPI files for per-pupil depth; ceiling partial because the why is interpretation",
-    "improvement_path": "FIT source card (Schools dataset), then OSPI F-196/enrollment; the answer pattern should show revenue/expenditure/enrollment trends and name causal factors as context.",
+    "unlocked_by": "FIT Schools route accepted 2026-07-13; F-195 budgets and enrollment remain for the deficit story",
+    "improvement_path": "Probe OSPI F-195 budget files and enrollment to pair filed actuals with adopted budgets and per-pupil trends.",
     "score_dimensions": [
       "correctness",
       "traceability",
@@ -1270,7 +1326,7 @@
       },
       {
         "jurisdiction": "King County Regional Homelessness Authority",
-        "category": "proposed:budget_finance.filed_annual_actuals",
+        "category": "budget_finance.filed_annual_actuals",
         "role": "core",
         "note": "KCRHA files with SAO; FIT is the machine-readable path to authority-level actuals."
       },
@@ -1285,13 +1341,22 @@
     "expected_failure_mode": "missing_source",
     "expected_source_ids": [
       "seattle.operating_budget",
-      "king_county.open_budget_dashboard"
+      "king_county.open_budget_dashboard",
+      "washington.fit_filed_actuals"
     ],
     "expected_missing_sources": [
-      "KCRHA actuals (SAO FIT)",
       "provider contract data"
     ],
-    "expected_facts": [],
+    "expected_facts": [
+      {
+        "id": "kcrha-2024-expenditures",
+        "value": 191618113,
+        "tolerance": 0,
+        "unit": "dollars",
+        "description": "KCRHA 2024 filed total expenditures (a deficit year against 180.7M revenues)",
+        "reproduction_ref": "jurisdictions/washington/data/fit-filed-actuals/milestone-2025-published-2026-06-30/normalized/government-annual-totals.jsonl"
+      }
+    ],
     "required_caveats": [
       {
         "id": "fragmentation-is-the-answer",
@@ -1309,7 +1374,7 @@
         "description": "Refuses to convert spending totals into effectiveness claims."
       }
     ],
-    "unlocked_by": "FIT (KCRHA files with SAO); provider-contract data remains a later probe",
+    "unlocked_by": "KCRHA filed actuals accepted 2026-07-13 (2024: revenues 180,707,326 vs expenditures 191,618,113); provider contracts remain a later probe",
     "improvement_path": "FIT source card brings authority-level actuals; a homelessness answer pattern should assemble city budget lines + county lines + authority actuals side by side with basis caveats.",
     "score_dimensions": [
       "correctness",
