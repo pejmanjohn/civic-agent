@@ -95,6 +95,8 @@ Source cards may declare `storage_policy` alongside `access_method`:
 
 `access_method` describes how the official source is reached. `storage_policy` describes where answer data lives and how it is kept trustworthy.
 
+A `managed_local_db` source may additionally declare `hosted_aggregates` in `repo_artifacts` plus a card-level `hosted_aggregates` block: small, checked-in JSONL aggregates derived from the managed database so hosted/fresh agents can give partial answers at aggregate grain instead of dead-ending. The aggregates must state their snapshot version, data-through boundary, and any truncation (for example top-N vendors); full-grain answers still route to the managed local database. See `washington.open_checkbook` for the first example.
+
 `source_fingerprint` describes how maintainers and agents can retrieve, validate, and cite the source later. It should distinguish user-facing public source URLs from machine-oriented endpoints, parameters, file headers, and hashes.
 
 See `docs/washington-checkbook-demo.md` for the first managed-local database example.

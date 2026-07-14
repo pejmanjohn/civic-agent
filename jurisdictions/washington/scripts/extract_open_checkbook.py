@@ -37,6 +37,14 @@ REQUIRED_HEADERS = [
 ]
 HEADER_ALIASES = {
     "Fiscal Month": "FMonth",
+    # fiscal.wa.gov re-exported all vendor-payment files with long-form
+    # headers (observed 2026-07); map them onto the canonical short names.
+    "Biennium": "Bien",
+    "FiscalYear": "FY",
+    "FiscalMonth": "FMonth",
+    "AgencyCode": "Agy",
+    "AgencyTitle": "Agency",
+    "SubObject": "Subobj",
 }
 NS = {"a": "http://schemas.openxmlformats.org/spreadsheetml/2006/main"}
 REL_NS = "{http://schemas.openxmlformats.org/officeDocument/2006/relationships}id"

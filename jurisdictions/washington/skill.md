@@ -34,10 +34,10 @@ Population denominator claims are separate from budget claims. `washington.ofm_p
 - Historical model refresh time: `2025-12-29T18:08:24.87`
 - Snapshot generated from live Power BI replay: see `jurisdictions/washington/data/operating-budget/2025-27-enacted-2025-05-20/provenance.json`
 
-For local dev-plugin testing, read snapshot files from this source checkout:
+For local dev-plugin testing, read snapshot files from the repo checkout at this relative path:
 
 ```text
-/Users/pejman/code/civic-agent/jurisdictions/washington/data/operating-budget/2025-27-enacted-2025-05-20/
+jurisdictions/washington/data/operating-budget/2025-27-enacted-2025-05-20/
 ```
 
 For hosted/fresh-agent use after the source is pushed, checked-in snapshot files will be available under:
@@ -66,10 +66,10 @@ Treat this as budgeted/authorized operating budget data, not actual spending. Am
 - Snapshot generated from live ReportViewer exports: see `jurisdictions/washington/data/revenue-by-biennium/2025-27-revenue-through-2026-04/provenance.json`
 - Actual data through: `2026-04` (`Actual Data Through April 2026`)
 
-For local dev-plugin testing, read revenue snapshot files from this source checkout:
+For local dev-plugin testing, read revenue snapshot files from the repo checkout at this relative path:
 
 ```text
-/Users/pejman/code/civic-agent/jurisdictions/washington/data/revenue-by-biennium/2025-27-revenue-through-2026-04/
+jurisdictions/washington/data/revenue-by-biennium/2025-27-revenue-through-2026-04/
 ```
 
 For hosted/fresh-agent use after the source is pushed, checked-in revenue snapshot files will be available under:
@@ -94,7 +94,8 @@ Treat revenue `estimated_revenue` as the revenue-budget measure for this source.
 - Normal answer source: local SQLite database built from official XLSX files
 - Current official XLSX: `https://fiscal.wa.gov/Spending/VendorPayments2527.xlsx`
 - Historical official XLSX coverage: `2013-15` through `2025-27`
-- Current actual data through: `2026-04` (`Payments through April 2026`)
+- Current actual data through: `2026-05` (`Payments through May 2026`)
+- Hosted aggregate snapshot: `jurisdictions/washington/data/open-checkbook/2025-27-through-2026-05/`
 
 For source-checking before answering:
 
@@ -111,7 +112,27 @@ python3 scripts/source_data.py --json ensure washington.open_checkbook
 python3 scripts/source_data.py --json refresh washington.open_checkbook
 ```
 
-Do not parse the XLSX files during normal answer generation. The first ensure/refresh may download large official files and build the local database; repeated answers should query the indexed SQLite database. If the agent host cannot run this repo's CLI or access the local database, say the managed local checkbook data is not set up rather than answering from memory.
+Do not parse the XLSX files during normal answer generation. The first ensure/refresh may download large official files and build the local database; repeated answers should query the indexed SQLite database.
+
+If the agent host cannot run this repo's CLI or access the local database (the hosted/fresh-agent path), answer aggregate checkbook questions from the checked-in hosted aggregate snapshot instead of dead-ending:
+
+```text
+jurisdictions/washington/data/open-checkbook/2025-27-through-2026-05/aggregates/category-breakdown.jsonl
+jurisdictions/washington/data/open-checkbook/2025-27-through-2026-05/aggregates/agency-totals.jsonl
+jurisdictions/washington/data/open-checkbook/2025-27-through-2026-05/aggregates/vendor-totals.jsonl
+jurisdictions/washington/data/open-checkbook/2025-27-through-2026-05/aggregates/monthly-trend.jsonl
+jurisdictions/washington/data/open-checkbook/2025-27-through-2026-05/summary.json
+jurisdictions/washington/data/open-checkbook/2025-27-through-2026-05/provenance.json
+```
+
+Hosted equivalents are available under `https://raw.githubusercontent.com/pejmanjohn/civic-agent/main/` plus the same relative paths.
+
+Hosted aggregate answer rules:
+
+- Supported grains: per-biennium totals by category, by agency, by calendar month, and top-100 vendors per biennium. Rows carry `biennium`, `name`, `amount`, `payment_rows` (vendor rows add `rank`).
+- `vendor-totals.jsonl` is truncated to the top 100 vendors per biennium by total amount. Say so when answering vendor questions from the hosted path, and route deeper vendor, sub-object, or filtered questions to the managed local database path.
+- Label answers with the snapshot version `2025-27-through-2026-05` and the `data_through` boundary from `summary.json`; the in-progress 2025-27 biennium is partial through May 2026.
+- `summary.json` records per-biennium totals with a category/agency/monthly reconciliation check; cite it as the validation evidence in traces.
 
 Treat this as actual state agency vendor-payment data, not budget authority, revenue, contracts, invoices, payroll, staffing, or service outcomes.
 
@@ -172,7 +193,7 @@ The Open Checkbook source can safely support:
 
 - State agency vendor-payment totals by biennium, fiscal year, fiscal month, calendar month, agency, object category, subobject category, or vendor.
 - Category, agency, vendor, and monthly actual-payment rankings for a selected biennium or fiscal period.
-- Historical vendor-payment trends from 2013-15 through 2025-27, with the current biennium labeled partial through April 2026 until refreshed.
+- Historical vendor-payment trends from 2013-15 through 2025-27, with the current biennium labeled partial through May 2026 until refreshed.
 - Plain-English explanations of how checkbook actual payments differ from budget authority, revenue, contracts, invoices, payroll, staffing, and service outcomes.
 
 Do not use Open Checkbook for budget authority, appropriations, revenue, procurement contract terms, invoices, purchase orders, payroll, employee compensation, FTE, staffing, service quality, program outcomes, or local government spending outside Washington state agency vendor payments.
@@ -584,7 +605,7 @@ Ensure the managed local database exists, then run:
 python3 scripts/source_data.py --json query washington.open_checkbook category_breakdown --param biennium=2025-27 --param limit=10
 ```
 
-Use this for questions like "What categories drive Washington state vendor payments?" State that this is actual vendor-payment data and that 2025-27 is partial through April 2026 unless the manifest reports a newer `data_through`.
+Use this for questions like "What categories drive Washington state vendor payments?" State that this is actual vendor-payment data and that 2025-27 is partial through May 2026 unless the manifest reports a newer `data_through`.
 
 ### Open Checkbook agency totals
 
@@ -765,5 +786,5 @@ Trace:
 - Measure: amount
 - Filters/query logic: source_data.py query washington.open_checkbook category_breakdown --param biennium=2025-27 --param limit=10
 - Check: local manifest row_count and source_files row counts; current source-card probe observed 382,783 current-file rows
-- Caveats: actual vendor payments, not budget authority, revenue, contracts, invoices, payroll, staffing, or outcomes; 2025-27 is partial through April 2026 unless refreshed
+- Caveats: actual vendor payments, not budget authority, revenue, contracts, invoices, payroll, staffing, or outcomes; 2025-27 is partial through May 2026 unless refreshed
 ```

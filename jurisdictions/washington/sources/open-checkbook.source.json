@@ -17,7 +17,8 @@
       "builder",
       "tests",
       "fixtures",
-      "docs"
+      "docs",
+      "hosted_aggregates"
     ],
     "local_artifacts": [
       "raw_source_file",
@@ -25,6 +26,22 @@
       "manifest"
     ],
     "refresh_behavior": "download_and_rebuild_local_cache"
+  },
+  "hosted_aggregates": {
+    "snapshot_version": "2025-27-through-2026-05",
+    "path": "jurisdictions/washington/data/open-checkbook/2025-27-through-2026-05/",
+    "generator": "jurisdictions/washington/scripts/build_checkbook_aggregates.py",
+    "answer_grain": "biennium x (category | agency | top_vendor | calendar_month)",
+    "files": [
+      "aggregates/category-breakdown.jsonl",
+      "aggregates/agency-totals.jsonl",
+      "aggregates/vendor-totals.jsonl",
+      "aggregates/monthly-trend.jsonl",
+      "summary.json",
+      "provenance.json"
+    ],
+    "vendor_top_n_per_biennium": 100,
+    "purpose": "Hosted/fresh agents answer aggregate checkbook questions from these checked-in files; full vendor grain and filtered queries still require the managed local database."
   },
   "official_page": "https://fiscal.wa.gov/Spending/Checkbook.aspx",
   "official_context_page": "https://fiscal.wa.gov/Spending/SpendingOverview.aspx",
@@ -95,10 +112,10 @@
         "2025-27"
       ],
       "current_biennium": "2025-27",
-      "current_data_through": "2026-04",
-      "current_data_through_label": "Payments through April 2026",
-      "current_file_last_modified": "Tue, 26 May 2026 23:51:24 GMT",
-      "current_file_content_length": 22019618
+      "current_data_through": "2026-05",
+      "current_data_through_label": "Payments through May 2026",
+      "current_file_last_modified": "Tue, 23 Jun 2026 18:52:10 GMT",
+      "current_file_content_length": 24221094
     },
     "row_counts": {
       "current_file_rows": 382783,
@@ -106,9 +123,9 @@
       "historical_files_available": 7
     },
     "checks": {
-      "current_file_data_through": "2026-04",
+      "current_file_data_through": "2026-05",
       "current_file_agency_count": 100,
-      "historical_file_total_content_length": 411417899,
+      "historical_file_total_content_length": 413619375,
       "current_file_categories": [
         "Capital Outlays",
         "Cost Of Goods Sold",
@@ -125,8 +142,8 @@
   "powerbi_report_url": "https://app.powerbi.com/view?r=eyJrIjoiOGU4N2VmNjMtZDA4Ny00OGI0LTk0YWYtNDUwZjExNTc1NGJkIiwidCI6ImI0ZWIwY2NmLTAxOTQtNDY2My1hNTZhLTllZDkxZWZkMzMwOCIsImMiOjZ9",
   "current_biennium": "2025-27",
   "current_file_url": "https://fiscal.wa.gov/Spending/VendorPayments2527.xlsx",
-  "current_data_through": "2026-04",
-  "current_data_through_label": "Payments through April 2026",
+  "current_data_through": "2026-05",
+  "current_data_through_label": "Payments through May 2026",
   "current_data_through_precision": "month",
   "update_cadence_observed": "Fiscal WA says data is added monthly with previous month vendor payments.",
   "source_surfaces": {
@@ -144,7 +161,7 @@
       "url": "https://fiscal.wa.gov/Spending/VendorPayments1517.xlsx",
       "content_length": 74216856,
       "last_modified": "Mon, 03 Oct 2022 19:23:45 GMT",
-      "header_variant": "FMonth"
+      "header_variant": "FiscalMonth"
     },
     "vendor_payments_2017_19_xlsx": {
       "status": "accepted",
@@ -182,12 +199,12 @@
       "status": "accepted",
       "biennium": "2025-27",
       "url": "https://fiscal.wa.gov/Spending/VendorPayments2527.xlsx",
-      "content_length": 22019618,
-      "last_modified": "Tue, 26 May 2026 23:51:24 GMT",
+      "content_length": 24221094,
+      "last_modified": "Tue, 23 Jun 2026 18:52:10 GMT",
       "header_variant": "FMonth",
       "actual_data_status": "partial",
-      "actual_data_through": "2026-04",
-      "actual_data_through_label": "Payments through April 2026"
+      "actual_data_through": "2026-05",
+      "actual_data_through_label": "Payments through May 2026"
     }
   },
   "historical_coverage": {
@@ -261,7 +278,7 @@
         "subobject_category",
         "vendor"
       ],
-      "time_coverage": "Vendor payment XLSX files from 2013-15 through 2025-27; the in-progress 2025-27 file is partial through April 2026.",
+      "time_coverage": "Vendor payment XLSX files from 2013-15 through 2025-27; the in-progress 2025-27 file is partial through May 2026.",
       "evidence": [
         "source_surfaces",
         "storage_policy",
@@ -272,7 +289,7 @@
         "validation_checks.current_file_agency_count"
       ],
       "caveats": [
-        "Current 2025-27 vendor payments are partial through April 2026.",
+        "Current 2025-27 vendor payments are partial through May 2026.",
         "Vendor payments are actual payment rows, not budget authority, contract obligations, invoices, payroll, or service outcomes.",
         "Normal answers require the managed local database to be built or refreshed from official XLSX files."
       ],
@@ -346,7 +363,7 @@
     "current_file_periods": 10,
     "current_file_min_fiscal_year_month": "2026-01",
     "current_file_max_fiscal_year_month": "2026-10",
-    "current_file_data_through": "2026-04",
+    "current_file_data_through": "2026-05",
     "current_file_agency_count": 100,
     "current_file_categories": [
       "Capital Outlays",
@@ -368,11 +385,11 @@
       "2023-25",
       "2025-27"
     ],
-    "historical_file_total_content_length": 411417899
+    "historical_file_total_content_length": 413619375
   },
   "caveats": [
     "The official page says current-biennium data is added monthly with previous month vendor payments.",
-    "The 2025-27 file is an in-progress biennium and should be labeled partial through April 2026 until refreshed.",
+    "The 2025-27 file is an in-progress biennium and should be labeled partial through May 2026 until refreshed.",
     "The full historical line-item dataset is managed locally because the official XLSX files are too large for normal git storage.",
     "Vendor payment rows should not be interpreted as budget authority, contract terms, payroll, invoices, or program outcomes."
   ]

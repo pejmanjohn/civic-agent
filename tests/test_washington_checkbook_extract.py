@@ -178,6 +178,53 @@ class WashingtonCheckbookExtractTest(unittest.TestCase):
             self.assertEqual(normalized["calendar_month"], "2013-07")
             self.assertEqual(normalized["amount"], -1000.25)
 
+    def test_parse_xlsx_rows_handles_long_form_header_variant(self):
+        # fiscal.wa.gov re-exported files with long-form headers (observed
+        # 2026-07 on VendorPayments1517.xlsx).
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / "VendorPayments1517.xlsx"
+            write_minimal_xlsx(
+                path,
+                [
+                    [
+                        "Biennium",
+                        "FiscalYear",
+                        "FiscalMonth",
+                        "AgencyCode",
+                        "AgencyTitle",
+                        "Object",
+                        "Category",
+                        "SubObject",
+                        "SubCategory",
+                        "Vendor",
+                        "Amount",
+                    ],
+                    [
+                        "2015-17",
+                        2016,
+                        1,
+                        "300",
+                        "Agency C",
+                        "E",
+                        "Goods and Services",
+                        "03",
+                        "Supplies",
+                        "Vendor C",
+                        "2,500.75",
+                    ],
+                ],
+                absolute_sheet_target=True,
+            )
+
+            rows = list(extract.parse_xlsx_rows(path))
+            self.assertEqual(rows[0]["Bien"], "2015-17")
+            self.assertEqual(rows[0]["Agy"], "300")
+            self.assertEqual(rows[0]["Agency"], "Agency C")
+            self.assertEqual(rows[0]["Subobj"], "03")
+            normalized = extract.normalize_payment_row(rows[0])
+            self.assertEqual(normalized["calendar_month"], "2015-07")
+            self.assertEqual(normalized["amount"], 2500.75)
+
     def test_parse_xlsx_rows_rejects_unexpected_headers(self):
         with tempfile.TemporaryDirectory() as tmp:
             path = Path(tmp) / "bad.xlsx"

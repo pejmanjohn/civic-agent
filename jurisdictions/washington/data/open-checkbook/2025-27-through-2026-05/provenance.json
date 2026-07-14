@@ -1,0 +1,72 @@
+{
+  "database_row_count": 4118650,
+  "generated_at": "2026-07-14T05:18:11+00:00",
+  "generator": "jurisdictions/washington/scripts/build_checkbook_aggregates.py",
+  "snapshot_version": "2025-27-through-2026-05",
+  "source_files": [
+    {
+      "biennium": "2013-15",
+      "content_length": 84207908,
+      "last_modified": "Mon, 03 Oct 2022 19:23:45 GMT",
+      "row_count": 783330,
+      "sha256": "41e8841f01c438c37a5d6be5675d3ad0b65f31c333be488b1abe5bbcf39e4cc9",
+      "source_surface_id": "vendor_payments_2013_15_xlsx",
+      "url": "https://fiscal.wa.gov/Spending/VendorPayments1315.xlsx"
+    },
+    {
+      "biennium": "2015-17",
+      "content_length": 74216856,
+      "last_modified": "Mon, 03 Oct 2022 19:23:45 GMT",
+      "row_count": 792711,
+      "sha256": "73394413b83b60e36a6392178360e2964b45350f7bbc00bfcac5fa6377b36119",
+      "source_surface_id": "vendor_payments_2015_17_xlsx",
+      "url": "https://fiscal.wa.gov/Spending/VendorPayments1517.xlsx"
+    },
+    {
+      "biennium": "2017-19",
+      "content_length": 69940122,
+      "last_modified": "Mon, 03 Oct 2022 19:23:45 GMT",
+      "row_count": 616329,
+      "sha256": "502fa0b3b4827627c7bc6f7f9627fbfea19ba43fa0299d09e5fb21c84514c536",
+      "source_surface_id": "vendor_payments_2017_19_xlsx",
+      "url": "https://fiscal.wa.gov/Spending/VendorPayments1719.xlsx"
+    },
+    {
+      "biennium": "2019-21",
+      "content_length": 54296355,
+      "last_modified": "Mon, 03 Oct 2022 19:23:45 GMT",
+      "row_count": 555203,
+      "sha256": "f96c06c8b5c5e79df1ee5f8666652434269fe1fb2b444fd34af178e57e81a468",
+      "source_surface_id": "vendor_payments_2019_21_xlsx",
+      "url": "https://fiscal.wa.gov/Spending/VendorPayments1921.xlsx"
+    },
+    {
+      "biennium": "2021-23",
+      "content_length": 51471041,
+      "last_modified": "Mon, 28 Aug 2023 18:05:39 GMT",
+      "row_count": 451029,
+      "sha256": "68b45e19863a829eb4092ad1330aac00b050439c3d7832979d0886417e376330",
+      "source_surface_id": "vendor_payments_2021_23_xlsx",
+      "url": "https://fiscal.wa.gov/Spending/VendorPayments2123.xlsx"
+    },
+    {
+      "biennium": "2023-25",
+      "content_length": 55265999,
+      "last_modified": "Thu, 17 Jul 2025 22:26:28 GMT",
+      "row_count": 496769,
+      "sha256": "aea762617b3b36faac65d6cdd5ebe53c88a0572e0dcd56224dc3bca727391f42",
+      "source_surface_id": "vendor_payments_2023_25_xlsx",
+      "url": "https://fiscal.wa.gov/Spending/VendorPayments2325.xlsx"
+    },
+    {
+      "biennium": "2025-27",
+      "content_length": 24221094,
+      "last_modified": "Tue, 26 May 2026 23:51:24 GMT",
+      "row_count": 423279,
+      "sha256": "9d81e2fc74f20b356c4df9d5cbd31c02ea125a591b1208edb9374696aec664fd",
+      "source_surface_id": "vendor_payments_2025_27_xlsx",
+      "url": "https://fiscal.wa.gov/Spending/VendorPayments2527.xlsx"
+    }
+  ],
+  "source_id": "washington.open_checkbook"
+}

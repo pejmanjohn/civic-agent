@@ -51,6 +51,7 @@ ALLOWED_REPO_ARTIFACTS = {
     "fixtures",
     "docs",
     "query_recipes",
+    "hosted_aggregates",
   }
 ALLOWED_LOCAL_ARTIFACTS = {
     "raw_source_file",
