@@ -189,11 +189,97 @@ def check_king_county_adopted_budget(card: dict) -> list[dict]:
     return compare_header_fields("kc.adopted_budget_pdf", expected, actual)
 
 
+def check_pierce_open_budget(card: dict) -> list[dict]:
+    """Fingerprint the current-biennium budgeted total: stable between
+    adopted budgets/supplementals, so movement is a meaningful drift signal."""
+    endpoint = card["source_fingerprint"]["machine_access"]["json_endpoint"]
+    expected = card.get("validation_checks", {})
+    query = urllib.parse.urlencode(
+        {
+            "$select": "sum(budget) as total, count(*) as rows",
+            "$where": 'fiscal_year="2026-2027"',
+        }
+    )
+    payload = http_get_json(f"{endpoint}?{query}")
+    if not payload:
+        return [check("pierce.budget_2026_2027", "error", detail="empty SODA response")]
+    live_total = float(payload[0].get("total", 0.0))
+    live_rows = int(payload[0].get("rows", 0))
+    checks = []
+    expected_total = expected.get("biennium_2026_2027_budget_total")
+    if expected_total is not None:
+        relative = abs(live_total - expected_total) / expected_total
+        checks.append(
+            check(
+                "pierce.budget_2026_2027_total",
+                "ok" if relative <= APPROX_RELATIVE_TOLERANCE else "drift",
+                expected=expected_total,
+                actual=live_total,
+                detail=f"relative difference {relative:.4%}",
+            )
+        )
+    expected_rows = expected.get("biennium_2026_2027_rows")
+    if expected_rows is not None:
+        checks.append(
+            check(
+                "pierce.budget_2026_2027_rows",
+                "ok" if live_rows == expected_rows else "drift",
+                expected=expected_rows,
+                actual=live_rows,
+            )
+        )
+    return checks
+
+
+def check_pierce_open_checkbook(card: dict) -> list[dict]:
+    """Fingerprint a CLOSED fiscal year (FY2025) so routine current-year
+    growth is not treated as drift; a closed-year change is a restatement."""
+    endpoint = card["source_fingerprint"]["machine_access"]["json_endpoint"]
+    expected = card.get("validation_checks", {})
+    query = urllib.parse.urlencode(
+        {
+            "$select": "sum(ledger_budget_debit_minus) as total, count(*) as rows",
+            "$where": "fiscal_year=2025",
+        }
+    )
+    payload = http_get_json(f"{endpoint}?{query}")
+    if not payload:
+        return [check("pierce.checkbook_fy2025", "error", detail="empty SODA response")]
+    live_total = float(payload[0].get("total", 0.0))
+    live_rows = int(payload[0].get("rows", 0))
+    checks = []
+    expected_total = expected.get("fy2025_total")
+    if expected_total is not None:
+        relative = abs(live_total - expected_total) / expected_total
+        checks.append(
+            check(
+                "pierce.checkbook_fy2025_total",
+                "ok" if relative <= APPROX_RELATIVE_TOLERANCE else "drift",
+                expected=expected_total,
+                actual=live_total,
+                detail=f"relative difference {relative:.4%}",
+            )
+        )
+    expected_rows = expected.get("fy2025_rows")
+    if expected_rows is not None:
+        checks.append(
+            check(
+                "pierce.checkbook_fy2025_rows",
+                "ok" if live_rows == expected_rows else "drift",
+                expected=expected_rows,
+                actual=live_rows,
+            )
+        )
+    return checks
+
+
 LIVE_CHECKS = {
     "seattle.operating_budget": check_seattle_operating_budget,
     "washington.open_checkbook": check_open_checkbook,
     "washington.ofm_population": check_ofm_population,
     "king_county.adopted_budget": check_king_county_adopted_budget,
+    "pierce_county.open_budget": check_pierce_open_budget,
+    "pierce_county.open_checkbook": check_pierce_open_checkbook,
 }
 
 # Power BI and ReportViewer surfaces have no cheap unauthenticated freshness

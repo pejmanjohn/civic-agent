@@ -6,11 +6,11 @@ Achievable mode is what current coverage can support, computed from source-card 
 
 ## Headline
 
-- Weighted coverage: 38.8% (7.75 / 20)
-- Achievable modes: exact 5 | partial 5 | side_by_side_only 0 | needs_refresh 1 | unsupported_with_path 9
-- Expected modes: exact 5 | partial 5 | side_by_side_only 0 | needs_refresh 1 | unsupported_with_path 9
+- Weighted coverage: 46.2% (9.25 / 20)
+- Achievable modes: exact 7 | partial 4 | side_by_side_only 0 | needs_refresh 1 | unsupported_with_path 8
+- Expected modes: exact 6 | partial 5 | side_by_side_only 0 | needs_refresh 1 | unsupported_with_path 8
 - Consistency errors: 0
-- Ratchet candidates: 0
+- Ratchet candidates: 1
 
 ## Cases
 
@@ -20,14 +20,14 @@ Achievable mode is what current coverage can support, computed from source-card 
 | `kc-sheriff-budgeted-fte-2026` | T1 | county | - | `exact` | `exact` | 1/1 | - |
 | `wa-operating-total-2025-27` | T1 | state | - | `exact` | `exact` | 1/1 | - |
 | `wa-checkbook-vendor-lookup` | T1 | state | yes | `exact` | `exact` | 1/1 | - |
-| `pierce-county-budget-size` | T1 | county | - | `unsupported_with_path` | `unsupported_with_path` | 0/2 | - |
+| `pierce-county-budget-size` | T1 | county | - | `exact` | `exact` | 2/2 | - |
 | `walla-walla-city-budget` | T1 | city | - | `unsupported_with_path` | `unsupported_with_path` | 1/3 | - |
 | `spd-budget-2020-vs-2026` | T2 | city | - | `exact` | `exact` | 1/1 | - |
 | `spokane-police-vs-housing` | T2 | city | - | `unsupported_with_path` | `unsupported_with_path` | 0/1 | - |
 | `evergreen-schools-cuts` | T2 | school_district | - | `unsupported_with_path` | `unsupported_with_path` | 0/2 | - |
 | `sound-transit-car-tabs` | T2 | special_district | - | `unsupported_with_path` | `unsupported_with_path` | 0/1 | - |
 | `kc-actuals-vs-budget-trap` | T2 | county | - | `unsupported_with_path` | `unsupported_with_path` | 1/2 | - |
-| `pierce-vs-king-per-resident` | T2 | multi | yes | `partial` | `partial` | 3/4 | - |
+| `pierce-vs-king-per-resident` | T2 | multi | yes | `partial` | `exact` | 4/4 | ratchet candidate: coverage now exceeds expectation |
 | `wa-new-taxes-actually-collecting` | T2 | state | - | `needs_refresh` | `needs_refresh` | 1/2 | stale: washington.revenue_by_biennium (data through 2026-04-01 exceeds the case's 60-day freshness bound) partial-status claim: Washington State / budget_finance.revenue_budget |
 | `school-levy-household-cost` | T2 | school_district | - | `unsupported_with_path` | `unsupported_with_path` | 0/1 | - |
 | `sps-deficit-school-closures` | T3 | school_district | - | `unsupported_with_path` | `unsupported_with_path` | 0/2 | - |
@@ -39,7 +39,9 @@ Achievable mode is what current coverage can support, computed from source-card 
 
 ## Ratchet Candidates
 
-None.
+Coverage now exceeds the recorded expectation for these cases. Ratchet the expectation up in cases.json with an expectation-log.md entry:
+
+- `pierce-vs-king-per-resident`: expected `partial`, achievable `exact`
 
 ## Stale Sources
 

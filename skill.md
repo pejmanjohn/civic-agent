@@ -75,6 +75,29 @@ Boundaries:
 - Do not add, average, or reconcile annual dashboard values with adopted biennial context.
 - Do not use it for actual spending, actual revenue collected, payments, procurement, personnel rosters, or cross-jurisdiction comparisons.
 
+### Pierce County
+
+Use for Pierce County, Washington biennial budget, budget-vs-actual, and transaction-level actual spending (checkbook) questions:
+
+```text
+https://raw.githubusercontent.com/pejmanjohn/civic-agent/main/jurisdictions/pierce_county/skill.md
+```
+
+Triggers:
+
+- Pierce County budget
+- Pierce County spending, checkbook, payments, payees, vendors
+- Tacoma-area COUNTY government questions (the City of Tacoma itself is not yet covered)
+- Pierce County departments, funds, or biennial 2026-2027 budget
+- Pierce County budget-vs-actual questions
+
+Boundaries:
+
+- Both sources are live Socrata datasets; answers query the official API at answer time.
+- Budget data is biennial (2016-2017 through 2026-2027); never present biennial totals as annual.
+- Checkbook data is annual (2017 through partial 2026); state the data-through boundary.
+- No revenue or staffing source exists for Pierce County yet; say so when asked.
+
 ### Washington State
 
 Use for Washington state operating budget, General Fund revenue, state agency vendor-payment/checkbook, and OFM population-denominator questions:
@@ -115,7 +138,7 @@ Boundaries:
 
 ### Population Denominators
 
-Use `washington.ofm_population` only as a resident population denominator. Current checked-in values use OFM April 1, 2025 estimates: Seattle = 816,600 and King County = 2,411,700. Per-resident budget answers must cite the budget source and the population source, state the April 1 estimate date, and warn that city/county service responsibilities and budget frames are not directly comparable.
+Use `washington.ofm_population` only as a resident population denominator. Current checked-in values use OFM April 1, 2025 estimates: Seattle = 816,600, King County = 2,411,700, and Pierce County = 959,900; the snapshot covers every Washington county, city, and town. Per-resident budget answers must cite the budget source and the population source, state the April 1 estimate date, and warn that city/county service responsibilities and budget frames are not directly comparable.
 
 ## Routing Examples
 

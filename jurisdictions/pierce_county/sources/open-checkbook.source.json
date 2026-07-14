@@ -1,0 +1,270 @@
+{
+  "id": "pierce_county.open_checkbook",
+  "jurisdiction_id": "pierce_county",
+  "jurisdiction_name": "Pierce County, Washington",
+  "jurisdiction_level": "county",
+  "budget_family": "spending",
+  "provider": "Socrata / open.piercecountywa.gov",
+  "dataset_name": "Open Checkbook Data",
+  "dataset_id": "iwu2-biyj",
+  "access_method": "socrata",
+  "storage_policy": {
+    "tier": "live",
+    "normal_answer_source": "official_api",
+    "freshness_check": "api_metadata",
+    "repo_artifacts": [
+      "source_card",
+      "probe",
+      "tests",
+      "docs"
+    ],
+    "local_artifacts": [],
+    "refresh_behavior": "query_official_source_at_answer_time"
+  },
+  "json_endpoint": "https://open.piercecountywa.gov/resource/iwu2-biyj.json",
+  "csv_endpoint": "https://open.piercecountywa.gov/resource/iwu2-biyj.csv?$limit=50000",
+  "metadata_endpoint": "https://open.piercecountywa.gov/api/views/iwu2-biyj",
+  "public_page": "https://open.piercecountywa.gov/",
+  "human_inspection_urls": [
+    {
+      "label": "Pierce County open data portal",
+      "url": "https://open.piercecountywa.gov/"
+    },
+    {
+      "label": "Socrata dataset API page",
+      "url": "https://open.piercecountywa.gov/resource/iwu2-biyj"
+    },
+    {
+      "label": "Pierce County finance department",
+      "url": "https://www.piercecountywa.gov/95/Finance"
+    }
+  ],
+  "source_fingerprint": {
+    "public_inspection_urls": [
+      "https://open.piercecountywa.gov/",
+      "https://www.piercecountywa.gov/95/Finance"
+    ],
+    "machine_access": {
+      "type": "socrata",
+      "json_endpoint": "https://open.piercecountywa.gov/resource/iwu2-biyj.json",
+      "csv_endpoint": "https://open.piercecountywa.gov/resource/iwu2-biyj.csv?$limit=50000",
+      "metadata_endpoint": "https://open.piercecountywa.gov/api/views/iwu2-biyj"
+    },
+    "retrieval_context": {
+      "dataset_id": "iwu2-biyj",
+      "year_field": "fiscal_year",
+      "primary_measure": "ledger_budget_debit_minus",
+      "answer_filters": [
+        "fiscal_year",
+        "fiscal_period",
+        "accounting_date",
+        "company",
+        "division",
+        "fund",
+        "service",
+        "spend_category_as_worktag",
+        "payee_for_transaction"
+      ],
+      "field_quirks": [
+        "The amount field ledger_budget_debit_minus is a debit-minus-credit ledger amount; negative rows are credits/reversals and must not be silently dropped.",
+        "company is the department-level organizational dimension (Workday terminology).",
+        "Some payee_for_transaction values are generic descriptors (for example Banking Services Vendor), not legal vendor names."
+      ]
+    },
+    "version_boundary": {
+      "known_years": [
+        2017,
+        2018,
+        2019,
+        2020,
+        2021,
+        2022,
+        2023,
+        2024,
+        2025,
+        2026
+      ],
+      "current_year": 2026,
+      "current_data_through": "2026-05-29",
+      "freshness_check": "api_metadata",
+      "observed_rows_updated_at": "2026-06-22"
+    },
+    "row_counts": {
+      "fy2025_rows": 109954,
+      "fy2026_partial_rows": 48499
+    },
+    "checks": {
+      "fy2025_total": 974830912.9,
+      "fy2025_companies": 27,
+      "fy2025_funds": 87
+    }
+  },
+  "known_years": [
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024,
+    2025,
+    2026
+  ],
+  "primary_measure": "ledger_budget_debit_minus",
+  "year_field": "fiscal_year",
+  "hierarchy_fields": [
+    "company",
+    "division",
+    "fund",
+    "service",
+    "spend_category_as_worktag",
+    "payee_for_transaction"
+  ],
+  "safe_answer_patterns": [
+    "Annual actual spending totals by fiscal year from 2017 through the partial current year.",
+    "Department (company), division, fund, service, and spend-category breakdowns and rankings per fiscal year.",
+    "Payee totals and rankings per fiscal year, with the generic-payee caveat.",
+    "Monthly/period spending trends within a fiscal year using fiscal_period or accounting_date.",
+    "Chart-ready tables for Pierce County actual-spending trends."
+  ],
+  "not_supported_by_this_source": [
+    "Budgeted amounts or budget authority (use pierce_county.open_budget).",
+    "Revenue collected or revenue budgets.",
+    "Staffing, payroll rosters, headcount, FTE, or personnel records.",
+    "Contract terms, procurement solicitations, or invoice documents.",
+    "Seattle, King County, Washington state, school district, or other non-Pierce spending analysis."
+  ],
+  "coverage_claims": [
+    {
+      "category": "budget_finance.actual_spending_checkbook",
+      "status": "supported",
+      "measures": [
+        "ledger_budget_debit_minus"
+      ],
+      "grains": [
+        "fiscal_year",
+        "fiscal_period",
+        "accounting_date",
+        "company",
+        "division",
+        "fund",
+        "service",
+        "spend_category",
+        "payee"
+      ],
+      "time_coverage": "Fiscal years 2017 through 2026; FY2026 is partial through 2026-05-29.",
+      "evidence": [
+        "known_years",
+        "primary_measure",
+        "validation_checks.fy2025_total",
+        "validation_checks.fy2025_rows",
+        "validation_checks.fy2025_companies"
+      ],
+      "caveats": [
+        "Transaction-level ledger actuals, not budget authority.",
+        "FY2026 is partial through 2026-05-29 until the dataset updates.",
+        "Negative amounts are credits/reversals; state how they are handled.",
+        "Some payees are generic descriptors, not legal vendor names."
+      ],
+      "semantics": {
+        "amount_basis": "actual",
+        "budget_frame": "actual_spending_checkbook",
+        "period_type": "fiscal_year",
+        "period_status": "partial_current_period",
+        "unit": "dollars",
+        "government_scope": "county",
+        "geography_basis": "resident_jurisdiction",
+        "comparability_notes": [
+          "Ledger transaction actuals are not comparable to budgeted expenditure without an explicit budget-vs-actual frame.",
+          "Checkbook fiscal years are annual; the Open Budget dataset is biennial - align periods before comparing."
+        ]
+      }
+    },
+    {
+      "category": "budget_finance.operating_budget",
+      "status": "unsupported",
+      "unsupported_reason": "Unsupported by this source: the checkbook carries actual ledger transactions, not budget authority; use pierce_county.open_budget.",
+      "evidence": [
+        "not_supported_by_this_source"
+      ]
+    },
+    {
+      "category": "budget_finance.revenue_budget",
+      "status": "unsupported",
+      "unsupported_reason": "Unsupported by this source: revenue collected and revenue budgets are not in the checkbook.",
+      "evidence": [
+        "not_supported_by_this_source"
+      ]
+    },
+    {
+      "category": "workforce.budgeted_fte",
+      "status": "unsupported",
+      "unsupported_reason": "Unsupported by this source: staffing, payroll, headcount, FTE, and personnel records are not supported.",
+      "evidence": [
+        "not_supported_by_this_source"
+      ]
+    }
+  ],
+  "fields": [
+    {
+      "name": "fiscal_year",
+      "type": "number"
+    },
+    {
+      "name": "fiscal_period",
+      "type": "number"
+    },
+    {
+      "name": "accounting_date",
+      "type": "calendar_date"
+    },
+    {
+      "name": "journal_source",
+      "type": "text"
+    },
+    {
+      "name": "company",
+      "type": "text"
+    },
+    {
+      "name": "division",
+      "type": "text"
+    },
+    {
+      "name": "fund",
+      "type": "text"
+    },
+    {
+      "name": "service",
+      "type": "text"
+    },
+    {
+      "name": "spend_category_as_worktag",
+      "type": "text"
+    },
+    {
+      "name": "payee_for_transaction",
+      "type": "text"
+    },
+    {
+      "name": "ledger_budget_debit_minus",
+      "type": "number"
+    }
+  ],
+  "validation_checks": {
+    "fy2025_rows": 109954,
+    "fy2025_total": 974830912.9,
+    "fy2025_companies": 27,
+    "fy2025_funds": 87,
+    "fy2026_partial_rows": 48499,
+    "fy2026_data_through": "2026-05-29"
+  },
+  "caveats": [
+    "Actual ledger transactions, not budget authority, contracts, invoices, or payroll.",
+    "FY2026 is partial through 2026-05-29 (observed 2026-07-13); state the data-through boundary in answers.",
+    "ledger_budget_debit_minus nets debits and credits; negative rows are credits/reversals and must be handled intentionally.",
+    "Some payee values are generic descriptors rather than legal vendor names; coverage of exempt or sensitive payments is not documented by the source.",
+    "Verified 2026-07-13: FY2025 total $974,830,912.90 over 109,954 rows, 27 companies, 87 funds."
+  ]
+}

@@ -287,28 +287,42 @@
       }
     ],
     "mode_ceiling": "exact",
-    "expected_answer_mode": "unsupported_with_path",
-    "expected_failure_mode": "missing_source",
-    "expected_source_ids": [],
-    "expected_missing_sources": [
-      "Pierce County Socrata Open Budget (open.piercecountywa.gov resource w2wc-2pqu)",
-      "Pierce County Socrata Open Checkbook (resource iwu2-biyj)"
+    "expected_answer_mode": "exact",
+    "expected_failure_mode": "none",
+    "expected_source_ids": [
+      "pierce_county.open_budget",
+      "pierce_county.open_checkbook"
     ],
-    "expected_facts": [],
-    "required_caveats": [
+    "expected_missing_sources": [],
+    "expected_facts": [
       {
-        "id": "no-fabrication",
-        "pattern": "(no|not)[^.]{0,70}(accepted|reviewed|supported) source|not yet (covered|included|supported)",
-        "description": "Says plainly that no accepted source covers Pierce County yet."
-      },
-      {
-        "id": "path-named",
-        "pattern": "open\\.piercecountywa\\.gov|pierce county open data|budget book|piercecountywa\\.gov",
-        "description": "Names where the official data lives so the resident is not stranded."
+        "id": "pierce-2026-2027-budget-total",
+        "value": 3500588070,
+        "tolerance": 0,
+        "unit": "dollars",
+        "description": "Pierce County 2026-2027 biennial budgeted expenditure total",
+        "reproduction_ref": "SoQL: sum(budget) where fiscal_year=\"2026-2027\" on open.piercecountywa.gov/resource/w2wc-2pqu (verified 2026-07-13: 3,500,588,070 over 10,362 rows)"
       }
     ],
-    "unlocked_by": "Pierce County Socrata source cards (budget + checkbook); FIT filed actuals as fallback",
-    "improvement_path": "Add pierce_county jurisdiction with Socrata budget and checkbook source cards on the existing Seattle SODA pattern.",
+    "required_caveats": [
+      {
+        "id": "biennial-not-annual",
+        "pattern": "biennium|biennial|two[- ]year|2026-2027",
+        "description": "Names the two-year budget period; never presents the total as annual."
+      },
+      {
+        "id": "budgeted-not-actual",
+        "pattern": "budget(ed)?[^.]{0,80}not[^.]{0,40}(actual|spent|spending)|budget authority",
+        "description": "Distinguishes budgeted expenditure authority from actual spending."
+      },
+      {
+        "id": "expenditure-only",
+        "pattern": "(revenue|staffing)[^.]{0,90}(no|not)[^.]{0,60}(source|supported|covered)|expenditure[- ](side|only|data)",
+        "description": "Notes the accepted Pierce sources are expenditure-side only."
+      }
+    ],
+    "unlocked_by": "covered as of 2026-07-13 (pierce_county.open_budget + open_checkbook, live Socrata)",
+    "improvement_path": "Probe a Pierce County revenue source and budgeted-FTE source to complete the county picture.",
     "score_dimensions": [
       "correctness",
       "traceability",
@@ -764,13 +778,14 @@
     ],
     "mode_ceiling": "exact",
     "expected_answer_mode": "partial",
-    "expected_failure_mode": "missing_source",
+    "expected_failure_mode": "semantic_mismatch",
     "expected_source_ids": [
       "king_county.open_budget_dashboard",
+      "pierce_county.open_budget",
       "washington.ofm_population"
     ],
     "expected_missing_sources": [
-      "Pierce County budget source (Socrata w2wc-2pqu)"
+      "period-alignment recipe: Pierce biennial budget vs King County annual dashboard values"
     ],
     "expected_facts": [
       {
@@ -802,13 +817,13 @@
         "description": "Warns county service responsibilities differ, so per-resident values are not directly comparable."
       },
       {
-        "id": "missing-side-named",
-        "pattern": "pierce[^.]{0,80}(no|not|missing)[^.]{0,60}(source|covered|data)|unsupported",
-        "description": "Today: names the missing Pierce budget source rather than substituting an uncited number."
+        "id": "period-mismatch-named",
+        "pattern": "(biennial|two[- ]year)[^.]{0,90}(annual|per[- ]year|not[^.]{0,40}comparable|align)",
+        "description": "Names the biennial-vs-annual period mismatch instead of silently annualizing."
       }
     ],
-    "unlocked_by": "Pierce County Socrata budget card (the OFM denominator side already exists in data)",
-    "improvement_path": "Add Pierce budget card and extend the OFM card's coverage jurisdictions to Pierce County; then this graduates to a sanctioned side-by-side per-capita recipe.",
+    "unlocked_by": "Pierce sources covered as of 2026-07-13; a period-alignment recipe is what remains for a numeric verdict",
+    "improvement_path": "Add an explicit biennial-to-annual alignment rule to the cross_jurisdiction recipe before allowing a per-resident verdict; until then both values present side by side with period labels.",
     "score_dimensions": [
       "correctness",
       "traceability",

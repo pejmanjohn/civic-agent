@@ -77,6 +77,37 @@ Do not use King County for actual spending, actual revenue collected, payments, 
 
 For broad King County budget-size questions, use `king_county.open_budget_dashboard` for annual dashboard budgeted expenditure and `king_county.adopted_budget` for the official 2026-2027 adopted biennial headline. Present those frames side by side; do not add, average, or reconcile annual dashboard values with adopted two-year context.
 
+### Pierce County
+
+Read the Pierce County skill before answering Pierce County, Washington biennial budget, budget-vs-actual, or transaction-level actual spending (checkbook) questions.
+
+If Civic Agent is installed as a packaged plugin (Codex or Claude Code), use the bundled reference:
+
+```text
+references/pierce_county.md
+```
+
+If working from this source repo outside the packaged plugin, use:
+
+```text
+jurisdictions/pierce_county/skill.md
+```
+
+If working from the hosted public repo, use:
+
+```text
+https://raw.githubusercontent.com/pejmanjohn/civic-agent/main/jurisdictions/pierce_county/skill.md
+```
+
+Use Pierce County for:
+
+- Pierce County budget (biennial, 2016-2017 through 2026-2027)
+- Pierce County budget-vs-actual questions
+- Pierce County spending, checkbook, payments, payees (2017 through partial 2026)
+- Pierce County departments, funds, programs
+
+Boundaries: budget data is biennial - never present totals as annual; checkbook answers state the data-through boundary; no Pierce revenue or staffing source exists yet; the City of Tacoma is a separate, not-yet-covered jurisdiction.
+
 ### Washington State
 
 Read the Washington skill before answering Washington state operating budget, General Fund revenue, state agency vendor-payment/checkbook, or OFM population-denominator questions.
