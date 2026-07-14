@@ -1,0 +1,1 @@
+Using @civic-agent-dev, answer this as Civic Agent with source trace: Does Pierce County spend more or less per resident than King County?
