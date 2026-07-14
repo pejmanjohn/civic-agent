@@ -19,6 +19,7 @@ explicit rather than silently absent.
 from __future__ import annotations
 
 import argparse
+import datetime as dt
 import json
 import urllib.error
 import urllib.parse
@@ -43,6 +44,11 @@ def parse_args() -> argparse.Namespace:
         "--source",
         action="append",
         help="Limit to one or more source ids (default: all).",
+    )
+    parser.add_argument(
+        "--status",
+        action="store_true",
+        help="Print the freshness ledger (state per source) and always exit 0.",
     )
     return parser.parse_args()
 
@@ -368,6 +374,56 @@ def check_dor_levy_detail(card: dict) -> list[dict]:
     return checks
 
 
+FRESHNESS_SLACK_DAYS = 15
+
+
+def freshness_state(card: dict, entry_status: str, today: dt.date) -> dict:
+    """Classify a source's freshness per the card's freshness contract.
+
+    - refresh_available: the upstream probe observed movement (newer data OR
+      an in-place restatement - both mean 'run the refresh path').
+    - current: the probe verified the recorded fingerprints still hold.
+    - current_by_cadence / probably_behind: no usable probe; judged by how
+      long since the boundary was last observed vs the source's publication
+      cadence (interval + lag + slack).
+    - unknown: no freshness contract on the card.
+    """
+    block = card.get("freshness")
+    if not isinstance(block, dict):
+        return {"state": "unknown", "basis": "no freshness block"}
+    boundary = block.get("data_through")
+    observed = dt.date.fromisoformat(block["observed_at"])
+    age_days = (today - observed).days
+    cadence = block["cadence"]
+    window = (
+        cadence["expected_interval_days"]
+        + cadence["expected_lag_days"]
+        + FRESHNESS_SLACK_DAYS
+    )
+    if entry_status == "drift":
+        return {
+            "state": "refresh_available",
+            "basis": "upstream probe observed movement",
+            "data_through": boundary,
+            "observed_age_days": age_days,
+        }
+    if entry_status == "ok":
+        return {
+            "state": "current",
+            "basis": "upstream probe verified fingerprints",
+            "data_through": boundary,
+            "observed_age_days": age_days,
+        }
+    state = "probably_behind" if age_days > window else "current_by_cadence"
+    return {
+        "state": state,
+        "basis": f"no probe; boundary observed {age_days}d ago vs "
+        f"{window}d cadence window",
+        "data_through": boundary,
+        "observed_age_days": age_days,
+    }
+
+
 LIVE_CHECKS = {
     "seattle.operating_budget": check_seattle_operating_budget,
     "washington.open_checkbook": check_open_checkbook,
@@ -433,6 +489,11 @@ def run_checks(source_ids: list[str] | None = None) -> dict:
             status = "ok"
         results.append({"source_id": source_id, "status": status, "checks": checks})
 
+    today = dt.date.today()
+    for entry in results:
+        card = cards.get(entry["source_id"], {})
+        entry["freshness"] = freshness_state(card, entry["status"], today)
+
     summary = {
         "ok": sum(1 for entry in results if entry["status"] == "ok"),
         "drift": sum(1 for entry in results if entry["status"] == "drift"),
@@ -445,6 +506,20 @@ def run_checks(source_ids: list[str] | None = None) -> dict:
 def main() -> None:
     args = parse_args()
     report = run_checks(args.source)
+    if args.status:
+        if args.json:
+            print(json.dumps(report, indent=2, sort_keys=True))
+            return
+        print(f"{'SOURCE':44} {'DATA THROUGH':14} {'STATE':20} BASIS")
+        for entry in report["results"]:
+            fresh = entry.get("freshness", {})
+            print(
+                f"{entry['source_id']:44} "
+                f"{str(fresh.get('data_through', '-')):14} "
+                f"{fresh.get('state', 'unknown'):20} "
+                f"{fresh.get('basis', '')}"
+            )
+        return
     if args.json:
         print(json.dumps(report, indent=2, sort_keys=True))
     else:

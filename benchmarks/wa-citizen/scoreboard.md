@@ -6,9 +6,9 @@ Achievable mode is what current coverage can support, computed from source-card 
 
 ## Headline
 
-- Weighted coverage: 66.2% (13.25 / 20)
-- Achievable modes: exact 7 | partial 12 | side_by_side_only 0 | needs_refresh 1 | unsupported_with_path 0
-- Expected modes: exact 6 | partial 13 | side_by_side_only 0 | needs_refresh 1 | unsupported_with_path 0
+- Weighted coverage: 67.5% (13.50 / 20)
+- Achievable modes: exact 7 | partial 13 | side_by_side_only 0 | needs_refresh 0 | unsupported_with_path 0
+- Expected modes: exact 6 | partial 14 | side_by_side_only 0 | needs_refresh 0 | unsupported_with_path 0
 - Consistency errors: 0
 - Ratchet candidates: 1
 
@@ -28,7 +28,7 @@ Achievable mode is what current coverage can support, computed from source-card 
 | `sound-transit-car-tabs` | T2 | special_district | - | `partial` | `partial` | 1/1 | - |
 | `kc-actuals-vs-budget-trap` | T2 | county | - | `partial` | `partial` | 2/2 | - |
 | `pierce-vs-king-per-resident` | T2 | multi | yes | `partial` | `exact` | 4/4 | ratchet candidate: coverage now exceeds expectation |
-| `wa-new-taxes-actually-collecting` | T2 | state | - | `needs_refresh` | `needs_refresh` | 1/2 | stale: washington.revenue_by_biennium (data through 2026-05-01 exceeds the case's 60-day freshness bound) partial-status claim: Washington State / budget_finance.revenue_budget |
+| `wa-new-taxes-actually-collecting` | T2 | state | - | `partial` | `partial` | 1/2 | partial-status claim: Washington State / budget_finance.revenue_budget |
 | `school-levy-household-cost` | T2 | school_district | - | `partial` | `partial` | 1/1 | - |
 | `sps-deficit-school-closures` | T3 | school_district | - | `partial` | `partial` | 1/2 | - |
 | `kc-property-tax-why-up` | T3 | county | yes | `partial` | `partial` | 1/1 | - |
@@ -45,4 +45,4 @@ Coverage now exceeds the recorded expectation for these cases. Ratchet the expec
 
 ## Stale Sources
 
-- `wa-new-taxes-actually-collecting`: washington.revenue_by_biennium (data through 2026-05-01 exceeds the case's 60-day freshness bound)
+None.

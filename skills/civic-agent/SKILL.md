@@ -155,6 +155,17 @@ Washington has separate source families. Operating budget answers use budgeted/a
 
 Do not use Washington for procurement contract terms, invoices, payroll, staffing/FTE, Seattle budget analysis, King County budget analysis, 2026 supplemental changes, pre-2013-15 operating-budget trends, capital budget, transportation budget, or cross-jurisdiction comparison.
 
+## Freshness Posture
+
+Every source card carries a `freshness` block: `data_through` (what the accepted data covers - never rediscover this), `observed_at`, and `cadence` (how often the source publishes and its typical lag). Before answering a current-period question ("is X happening now", "this year so far"):
+
+1. Compute the boundary age from `data_through` against today.
+2. If the age is within `expected_interval_days + expected_lag_days` of the cadence, answer normally and state the boundary with publication-lag language: "latest available; this source publishes <pattern>".
+3. If the age exceeds that window, or the card/drift ledger marks the source `refresh_available`, declare `needs_refresh`: still give the bounded numbers, but LEAD with the fact that the snapshot likely lags the official source, and name the refresh path.
+4. Warning from live experience: some sources REVISE values within an unchanged data-through boundary (Fiscal WA revenue estimates moved $6B under the same April label). Treat `data_through` as a data boundary, not a version; cite the snapshot version too.
+
+Never present stale current-period data as current, and never refuse to show well-boundaried numbers just because they lag - the mode plus the boundary language carries the honesty.
+
 ## Workflow
 
 1. Identify the jurisdiction in the user's question.

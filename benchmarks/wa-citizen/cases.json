@@ -909,10 +909,10 @@
         "note": "ERFC quarterly forecast revisions would let the answer speak to 'projected' directly."
       }
     ],
-    "max_data_age_days": 60,
+    "max_data_age_days": 120,
     "mode_ceiling": "exact",
-    "expected_answer_mode": "needs_refresh",
-    "expected_failure_mode": "freshness_unclear",
+    "expected_answer_mode": "partial",
+    "expected_failure_mode": "missing_source",
     "expected_source_ids": [
       "washington.revenue_by_biennium"
     ],
@@ -932,13 +932,13 @@
         "description": "States the accepted slice is General Fund only, not every new tax stream."
       },
       {
-        "id": "freshness-block",
-        "pattern": "refresh|stale|as of|newer data",
-        "description": "Flags that a snapshot refresh is needed before a confident current-period claim."
+        "id": "publication-lag",
+        "pattern": "publish|lag|data.through|through (may|[0-9]{4}-[0-9]{2})|as of|revis",
+        "description": "States the data-through boundary with publication-lag language and notes that values revise between snapshots."
       }
     ],
-    "unlocked_by": "Revenue snapshot refresh (drift job should surface staleness); ERFC forecast source for the projection side",
-    "improvement_path": "Refresh washington.revenue_by_biennium past 2026-04 and probe ERFC quarterly forecasts as an estimate-revision source.",
+    "unlocked_by": "Revenue snapshot refreshed 2026-07-14 (data through 2026-05); the 120-day bound now matches the source cadence (30d interval + 75d lag). ERFC forecast source remains the missing adjunct.",
+    "improvement_path": "Probe ERFC quarterly forecasts as an estimate-revision source; keep the snapshot within its cadence window via scripts/refresh.py.",
     "score_dimensions": [
       "correctness",
       "traceability",

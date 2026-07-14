@@ -64,6 +64,17 @@
     ],
     "refresh_behavior": "rerun_extractor_to_update_repo_snapshot"
   },
+  "freshness": {
+    "data_through": "2025-04-01",
+    "data_through_kind": "date",
+    "observed_at": "2026-02-24",
+    "cadence": {
+      "expected_interval_days": 365,
+      "expected_lag_days": 90,
+      "pattern": "April 1 estimates published late June each year; the 2026 file published 2026-06-30 and is a KNOWN pending refresh"
+    },
+    "upstream_probe": "drift:washington.ofm_population"
+  },
   "official_page": "https://ofm.wa.gov/data-research/population-demographics/estimates/april-1-official/",
   "official_pdf_url": "https://ofm.wa.gov/wp-content/uploads/sites/default/files/public/dataresearch/pop/april1/ofm_april1_population_final.pdf",
   "source_file_url": "https://ofm.wa.gov/wp-content/uploads/sites/default/files/public/dataresearch/pop/april1/ofm_april1_population_final.xlsx",

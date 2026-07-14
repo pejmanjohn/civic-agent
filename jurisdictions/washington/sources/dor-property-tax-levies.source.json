@@ -24,6 +24,17 @@
     "local_artifacts": [],
     "refresh_behavior": "rerun_extractor_when_new_levy_year_publishes"
   },
+  "freshness": {
+    "data_through": "2025",
+    "data_through_kind": "calendar_year",
+    "observed_at": "2026-07-13",
+    "cadence": {
+      "expected_interval_days": 365,
+      "expected_lag_days": 320,
+      "pattern": "annual tables publish October-November of the tax-due year; due-2026 tables expected late 2026"
+    },
+    "upstream_probe": "drift:washington.dor_property_tax_levies"
+  },
   "human_inspection_urls": [
     {
       "label": "DOR local taxing district levy detail (landing page, 2002-2025)",

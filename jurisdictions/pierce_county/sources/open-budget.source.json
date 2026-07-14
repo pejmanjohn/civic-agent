@@ -21,6 +21,17 @@
     "local_artifacts": [],
     "refresh_behavior": "query_official_source_at_answer_time"
   },
+  "freshness": {
+    "data_through": "2026-2027",
+    "data_through_kind": "biennium",
+    "observed_at": "2026-07-13",
+    "cadence": {
+      "expected_interval_days": 730,
+      "expected_lag_days": 0,
+      "pattern": "biennial budget with supplemental updates; live Socrata answers self-freshen"
+    },
+    "upstream_probe": "drift:pierce_county.open_budget"
+  },
   "json_endpoint": "https://open.piercecountywa.gov/resource/w2wc-2pqu.json",
   "csv_endpoint": "https://open.piercecountywa.gov/resource/w2wc-2pqu.csv?$limit=50000",
   "metadata_endpoint": "https://open.piercecountywa.gov/api/views/w2wc-2pqu",

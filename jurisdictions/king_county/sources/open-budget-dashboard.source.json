@@ -25,6 +25,17 @@
     ],
     "refresh_behavior": "rerun_extractor_to_update_repo_snapshot"
   },
+  "freshness": {
+    "data_through": "2027",
+    "data_through_kind": "fiscal_year",
+    "observed_at": "2026-04-01",
+    "cadence": {
+      "expected_interval_days": 365,
+      "expected_lag_days": 0,
+      "pattern": "dashboard refreshes with budget cycles; snapshot captured 2026-04-01; budget years are forward-looking"
+    },
+    "upstream_probe": "none:power_bi_gov_has_no_cheap_probe; snapshot age is the signal"
+  },
   "official_dashboard_page": "https://kingcounty.gov/en/dept/executive/governance-leadership/performance-strategy-budget/budget/budget-dashboard",
   "powerbi_report_url": "https://app.powerbigov.us/view?r=eyJrIjoiOTNmYzYwMDEtNWM5ZC00YjllLThlNzAtZDc1OGRjNzA4MmEwIiwidCI6ImJhZTUwNTlhLTc2ZjAtNDlkNy05OTk2LTcyZGZlOTVkNjljNyJ9",
   "human_inspection_urls": [

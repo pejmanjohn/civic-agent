@@ -24,6 +24,17 @@
     "local_artifacts": [],
     "refresh_behavior": "rerun_extractor_against_latest_milestone_snapshot"
   },
+  "freshness": {
+    "data_through": "2025",
+    "data_through_kind": "fiscal_year",
+    "observed_at": "2026-07-13",
+    "cadence": {
+      "expected_interval_days": 92,
+      "expected_lag_days": 180,
+      "pattern": "quarterly milestone snapshots; filed-year 2025 is early-cycle partial and accumulates filers through the year"
+    },
+    "upstream_probe": "drift:washington.fit_filed_actuals"
+  },
   "human_inspection_urls": [
     {
       "label": "FIT portal (explore any government)",

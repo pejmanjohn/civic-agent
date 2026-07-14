@@ -114,8 +114,14 @@ def parse_dateish(value: str) -> dt.date | None:
 
 
 def card_freshness_date(card: dict) -> dt.date | None:
-    """Data-currency date for a card: prefer *_data_through fields in the
+    """Data-currency date for a card: prefer the freshness contract block
+    (required on every card), then legacy *_data_through fields in the
     fingerprint version boundary, then snapshot-version-like fields."""
+    freshness = card.get("freshness", {})
+    if isinstance(freshness, dict) and freshness.get("data_through"):
+        date = parse_dateish(str(freshness["data_through"]))
+        if date:
+            return date
     boundary = card.get("source_fingerprint", {}).get("version_boundary", {})
     through_dates = [
         parse_dateish(value)

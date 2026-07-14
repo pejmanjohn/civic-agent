@@ -24,6 +24,17 @@
     ],
     "refresh_behavior": "rerun_extractor_to_update_repo_snapshot"
   },
+  "freshness": {
+    "data_through": "2026-05",
+    "data_through_kind": "month",
+    "observed_at": "2026-07-14",
+    "cadence": {
+      "expected_interval_days": 30,
+      "expected_lag_days": 75,
+      "pattern": "monthly actuals label with ~2.5 month lag; VALUES REVISE WITHIN a data-through period after quarterly forecast/legislative updates - the label alone is not a version signal"
+    },
+    "upstream_probe": "none:reportviewer_probe_planned; refresh monthly via scripts/refresh.py"
+  },
   "official_report_page": "https://fiscal.wa.gov/Revenue/RevenueGeneral.aspx",
   "official_context_page": "https://fiscal.wa.gov/Revenue/RevenueOverview.aspx",
   "human_inspection_urls": [

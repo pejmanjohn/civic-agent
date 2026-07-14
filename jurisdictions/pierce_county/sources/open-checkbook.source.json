@@ -21,6 +21,17 @@
     "local_artifacts": [],
     "refresh_behavior": "query_official_source_at_answer_time"
   },
+  "freshness": {
+    "data_through": "2026-05-29",
+    "data_through_kind": "date",
+    "observed_at": "2026-07-13",
+    "cadence": {
+      "expected_interval_days": 30,
+      "expected_lag_days": 45,
+      "pattern": "roughly monthly ledger updates with ~6 week lag; live Socrata answers self-freshen (verify max(accounting_date) at answer time)"
+    },
+    "upstream_probe": "drift:pierce_county.open_checkbook"
+  },
   "json_endpoint": "https://open.piercecountywa.gov/resource/iwu2-biyj.json",
   "csv_endpoint": "https://open.piercecountywa.gov/resource/iwu2-biyj.csv?$limit=50000",
   "metadata_endpoint": "https://open.piercecountywa.gov/api/views/iwu2-biyj",
