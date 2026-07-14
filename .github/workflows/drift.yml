@@ -1,0 +1,23 @@
+name: Nightly source drift
+
+on:
+  schedule:
+    # 13:00 UTC ~ 6am Pacific, daily.
+    - cron: "0 13 * * *"
+  workflow_dispatch:
+
+jobs:
+  drift:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Live drift checks against official sources
+        run: python3 scripts/drift.py
+        # A red run means an official source moved (refresh the snapshot and
+        # card fingerprint) or an endpoint broke. Both deserve eyes; neither
+        # is ignorable. See scripts/drift.py for per-source semantics.

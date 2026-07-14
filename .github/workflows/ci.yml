@@ -1,0 +1,37 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # Full history so the WA-20 ratchet check can diff against the PR base.
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Unit tests
+        run: python3 -m unittest discover -s tests
+
+      - name: Plugin package is current
+        run: python3 scripts/package_plugin.py --check
+
+      - name: Coverage matrix is current
+        run: python3 scripts/coverage.py --check
+
+      - name: WA-20 scoreboard is current
+        run: python3 scripts/wa20.py --check
+
+      - name: WA-20 expectation ratchet
+        if: github.event_name == 'pull_request'
+        env:
+          BASE_REF: ${{ github.base_ref }}
+        run: python3 scripts/wa20.py --ratchet-check "origin/${BASE_REF}"
