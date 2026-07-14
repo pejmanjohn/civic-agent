@@ -25,7 +25,9 @@
     "mode_ceiling": "exact",
     "expected_answer_mode": "exact",
     "expected_failure_mode": "none",
-    "expected_source_ids": ["seattle.operating_budget"],
+    "expected_source_ids": [
+      "seattle.operating_budget"
+    ],
     "expected_missing_sources": [],
     "expected_facts": [
       {
@@ -51,7 +53,15 @@
     ],
     "unlocked_by": "none - covered today (quality anchor)",
     "improvement_path": "None required for the lookup; adjacent capital-budget context (m6va-m4qe) would enrich the parks answer.",
-    "score_dimensions": ["correctness", "traceability", "coverage_awareness", "comparability", "civic_usefulness", "freshness", "improvement_path"]
+    "score_dimensions": [
+      "correctness",
+      "traceability",
+      "coverage_awareness",
+      "comparability",
+      "civic_usefulness",
+      "freshness",
+      "improvement_path"
+    ]
   },
   {
     "id": "kc-sheriff-budgeted-fte-2026",
@@ -79,7 +89,9 @@
     "mode_ceiling": "exact",
     "expected_answer_mode": "exact",
     "expected_failure_mode": "none",
-    "expected_source_ids": ["king_county.open_budget_dashboard"],
+    "expected_source_ids": [
+      "king_county.open_budget_dashboard"
+    ],
     "expected_missing_sources": [],
     "expected_facts": [
       {
@@ -105,7 +117,15 @@
     ],
     "unlocked_by": "none - covered today",
     "improvement_path": "Department-level FTE history (2017-2027) from the same dashboard would enable staffing trends.",
-    "score_dimensions": ["correctness", "traceability", "coverage_awareness", "comparability", "civic_usefulness", "freshness", "improvement_path"]
+    "score_dimensions": [
+      "correctness",
+      "traceability",
+      "coverage_awareness",
+      "comparability",
+      "civic_usefulness",
+      "freshness",
+      "improvement_path"
+    ]
   },
   {
     "id": "wa-operating-total-2025-27",
@@ -133,7 +153,9 @@
     "mode_ceiling": "exact",
     "expected_answer_mode": "exact",
     "expected_failure_mode": "none",
-    "expected_source_ids": ["washington.operating_budget"],
+    "expected_source_ids": [
+      "washington.operating_budget"
+    ],
     "expected_missing_sources": [],
     "expected_facts": [
       {
@@ -164,7 +186,15 @@
     ],
     "unlocked_by": "none - covered today; 2026 supplemental slice is a probed-but-unimplemented extension",
     "improvement_path": "Add the 2026 supplemental as a source slice so the most current state-budget question is answerable.",
-    "score_dimensions": ["correctness", "traceability", "coverage_awareness", "comparability", "civic_usefulness", "freshness", "improvement_path"]
+    "score_dimensions": [
+      "correctness",
+      "traceability",
+      "coverage_awareness",
+      "comparability",
+      "civic_usefulness",
+      "freshness",
+      "improvement_path"
+    ]
   },
   {
     "id": "wa-checkbook-vendor-lookup",
@@ -191,8 +221,10 @@
     ],
     "mode_ceiling": "exact",
     "expected_answer_mode": "exact",
-    "expected_failure_mode": "validation_gap",
-    "expected_source_ids": ["washington.open_checkbook"],
+    "expected_failure_mode": "none",
+    "expected_source_ids": [
+      "washington.open_checkbook"
+    ],
     "expected_missing_sources": [],
     "expected_facts": [],
     "max_data_age_days": 180,
@@ -213,9 +245,17 @@
         "description": "Discloses that salaries/payroll and some exempt payments are not in the checkbook."
       }
     ],
-    "unlocked_by": "M3 hosted aggregates - today the answer requires the managed local database, which the hosted prompt path cannot build",
-    "improvement_path": "Check in pre-aggregated vendor/agency/category/monthly JSONL slices so hosted agents can answer without the 411MB local build.",
-    "score_dimensions": ["correctness", "traceability", "coverage_awareness", "comparability", "civic_usefulness", "freshness", "improvement_path"]
+    "unlocked_by": "none - covered today; hosted aggregates checked in (M3, snapshot 2025-27-through-2026-05)",
+    "improvement_path": "Full vendor grain beyond the top-100 aggregate still routes to the managed local database; a hosted_artifact SQLite would remove that last gap.",
+    "score_dimensions": [
+      "correctness",
+      "traceability",
+      "coverage_awareness",
+      "comparability",
+      "civic_usefulness",
+      "freshness",
+      "improvement_path"
+    ]
   },
   {
     "id": "pierce-county-budget-size",
@@ -269,7 +309,15 @@
     ],
     "unlocked_by": "Pierce County Socrata source cards (budget + checkbook); FIT filed actuals as fallback",
     "improvement_path": "Add pierce_county jurisdiction with Socrata budget and checkbook source cards on the existing Seattle SODA pattern.",
-    "score_dimensions": ["correctness", "traceability", "coverage_awareness", "comparability", "civic_usefulness", "freshness", "improvement_path"]
+    "score_dimensions": [
+      "correctness",
+      "traceability",
+      "coverage_awareness",
+      "comparability",
+      "civic_usefulness",
+      "freshness",
+      "improvement_path"
+    ]
   },
   {
     "id": "walla-walla-city-budget",
@@ -329,7 +377,15 @@
     ],
     "unlocked_by": "FIT statewide source (filed actuals for all 281 cities)",
     "improvement_path": "FIT source card makes every WA city answerable for filed actuals; disambiguation (M5) should meanwhile serve OFM population plus applicable state facts.",
-    "score_dimensions": ["correctness", "traceability", "coverage_awareness", "comparability", "civic_usefulness", "freshness", "improvement_path"]
+    "score_dimensions": [
+      "correctness",
+      "traceability",
+      "coverage_awareness",
+      "comparability",
+      "civic_usefulness",
+      "freshness",
+      "improvement_path"
+    ]
   },
   {
     "id": "spd-budget-2020-vs-2026",
@@ -357,7 +413,9 @@
     "mode_ceiling": "exact",
     "expected_answer_mode": "exact",
     "expected_failure_mode": "none",
-    "expected_source_ids": ["seattle.operating_budget"],
+    "expected_source_ids": [
+      "seattle.operating_budget"
+    ],
     "expected_missing_sources": [],
     "expected_facts": [
       {
@@ -396,7 +454,15 @@
     ],
     "unlocked_by": "none - covered today (trend anchor); staffing/overtime actuals remain out of scope",
     "improvement_path": "Seattle wage/position data (2khk-5ukd) and quarterly staffing reports would let the staffing half of the question be answered.",
-    "score_dimensions": ["correctness", "traceability", "coverage_awareness", "comparability", "civic_usefulness", "freshness", "improvement_path"]
+    "score_dimensions": [
+      "correctness",
+      "traceability",
+      "coverage_awareness",
+      "comparability",
+      "civic_usefulness",
+      "freshness",
+      "improvement_path"
+    ]
   },
   {
     "id": "spokane-police-vs-housing",
@@ -449,7 +515,15 @@
     ],
     "unlocked_by": "FIT statewide source; ceiling partial because BARS-to-resident-category mapping is imperfect",
     "improvement_path": "FIT source card with BARS category mapping notes; Spokane adopted-budget PDF extraction only if residents need budget-vs-actual there.",
-    "score_dimensions": ["correctness", "traceability", "coverage_awareness", "comparability", "civic_usefulness", "freshness", "improvement_path"]
+    "score_dimensions": [
+      "correctness",
+      "traceability",
+      "coverage_awareness",
+      "comparability",
+      "civic_usefulness",
+      "freshness",
+      "improvement_path"
+    ]
   },
   {
     "id": "evergreen-schools-cuts",
@@ -509,7 +583,15 @@
     ],
     "unlocked_by": "FIT Schools route (trend from filed actuals); OSPI enrollment for per-pupil depth",
     "improvement_path": "FIT source card covering the Schools dataset; add OSPI enrollment as an adjunct denominator source.",
-    "score_dimensions": ["correctness", "traceability", "coverage_awareness", "comparability", "civic_usefulness", "freshness", "improvement_path"]
+    "score_dimensions": [
+      "correctness",
+      "traceability",
+      "coverage_awareness",
+      "comparability",
+      "civic_usefulness",
+      "freshness",
+      "improvement_path"
+    ]
   },
   {
     "id": "sound-transit-car-tabs",
@@ -562,7 +644,15 @@
     ],
     "unlocked_by": "FIT statewide source (mcag 0987); ceiling partial because the personal car-tab slice and forward capital plan stay out of scope",
     "improvement_path": "FIT source card; Sound Transit financial-plan PDF extraction only if forward-looking capital questions become a demand signal.",
-    "score_dimensions": ["correctness", "traceability", "coverage_awareness", "comparability", "civic_usefulness", "freshness", "improvement_path"]
+    "score_dimensions": [
+      "correctness",
+      "traceability",
+      "coverage_awareness",
+      "comparability",
+      "civic_usefulness",
+      "freshness",
+      "improvement_path"
+    ]
   },
   {
     "id": "kc-actuals-vs-budget-trap",
@@ -597,7 +687,9 @@
     "mode_ceiling": "partial",
     "expected_answer_mode": "unsupported_with_path",
     "expected_failure_mode": "missing_source",
-    "expected_source_ids": ["king_county.open_budget_dashboard"],
+    "expected_source_ids": [
+      "king_county.open_budget_dashboard"
+    ],
     "expected_missing_sources": [
       "King County actuals source (SAO FIT filed actuals)"
     ],
@@ -621,7 +713,15 @@
     ],
     "unlocked_by": "FIT filed actuals; ceiling partial because filed-annual vs dashboard-budgeted frames are not directly reconcilable",
     "improvement_path": "FIT source card plus an explicit budget-vs-actuals recipe that presents the two frames side by side with basis caveats.",
-    "score_dimensions": ["correctness", "traceability", "coverage_awareness", "comparability", "civic_usefulness", "freshness", "improvement_path"]
+    "score_dimensions": [
+      "correctness",
+      "traceability",
+      "coverage_awareness",
+      "comparability",
+      "civic_usefulness",
+      "freshness",
+      "improvement_path"
+    ]
   },
   {
     "id": "pierce-vs-king-per-resident",
@@ -665,7 +765,10 @@
     "mode_ceiling": "exact",
     "expected_answer_mode": "partial",
     "expected_failure_mode": "missing_source",
-    "expected_source_ids": ["king_county.open_budget_dashboard", "washington.ofm_population"],
+    "expected_source_ids": [
+      "king_county.open_budget_dashboard",
+      "washington.ofm_population"
+    ],
     "expected_missing_sources": [
       "Pierce County budget source (Socrata w2wc-2pqu)"
     ],
@@ -706,7 +809,15 @@
     ],
     "unlocked_by": "Pierce County Socrata budget card (the OFM denominator side already exists in data)",
     "improvement_path": "Add Pierce budget card and extend the OFM card's coverage jurisdictions to Pierce County; then this graduates to a sanctioned side-by-side per-capita recipe.",
-    "score_dimensions": ["correctness", "traceability", "coverage_awareness", "comparability", "civic_usefulness", "freshness", "improvement_path"]
+    "score_dimensions": [
+      "correctness",
+      "traceability",
+      "coverage_awareness",
+      "comparability",
+      "civic_usefulness",
+      "freshness",
+      "improvement_path"
+    ]
   },
   {
     "id": "wa-new-taxes-actually-collecting",
@@ -742,7 +853,9 @@
     "mode_ceiling": "exact",
     "expected_answer_mode": "needs_refresh",
     "expected_failure_mode": "freshness_unclear",
-    "expected_source_ids": ["washington.revenue_by_biennium"],
+    "expected_source_ids": [
+      "washington.revenue_by_biennium"
+    ],
     "expected_missing_sources": [
       "ERFC revenue forecast source"
     ],
@@ -766,7 +879,15 @@
     ],
     "unlocked_by": "Revenue snapshot refresh (drift job should surface staleness); ERFC forecast source for the projection side",
     "improvement_path": "Refresh washington.revenue_by_biennium past 2026-04 and probe ERFC quarterly forecasts as an estimate-revision source.",
-    "score_dimensions": ["correctness", "traceability", "coverage_awareness", "comparability", "civic_usefulness", "freshness", "improvement_path"]
+    "score_dimensions": [
+      "correctness",
+      "traceability",
+      "coverage_awareness",
+      "comparability",
+      "civic_usefulness",
+      "freshness",
+      "improvement_path"
+    ]
   },
   {
     "id": "school-levy-household-cost",
@@ -820,7 +941,15 @@
     ],
     "unlocked_by": "DOR property-tax levy tables; ceiling partial because per-household math needs parcel assessed value",
     "improvement_path": "DOR levy-table source card plus district-level rate answers with median-AV illustrative math clearly labeled.",
-    "score_dimensions": ["correctness", "traceability", "coverage_awareness", "comparability", "civic_usefulness", "freshness", "improvement_path"]
+    "score_dimensions": [
+      "correctness",
+      "traceability",
+      "coverage_awareness",
+      "comparability",
+      "civic_usefulness",
+      "freshness",
+      "improvement_path"
+    ]
   },
   {
     "id": "sps-deficit-school-closures",
@@ -880,7 +1009,15 @@
     ],
     "unlocked_by": "FIT Schools route; OSPI files for per-pupil depth; ceiling partial because the why is interpretation",
     "improvement_path": "FIT source card (Schools dataset), then OSPI F-196/enrollment; the answer pattern should show revenue/expenditure/enrollment trends and name causal factors as context.",
-    "score_dimensions": ["correctness", "traceability", "coverage_awareness", "comparability", "civic_usefulness", "freshness", "improvement_path"]
+    "score_dimensions": [
+      "correctness",
+      "traceability",
+      "coverage_awareness",
+      "comparability",
+      "civic_usefulness",
+      "freshness",
+      "improvement_path"
+    ]
   },
   {
     "id": "kc-property-tax-why-up",
@@ -939,7 +1076,15 @@
     ],
     "unlocked_by": "DOR levy tables + KC assessor levy detail; ceiling partial because parcel-level answers are out of scope",
     "improvement_path": "Probe DOR property-tax statistics first (statewide Excel tables), then KC assessor levy detail for the county drill-down.",
-    "score_dimensions": ["correctness", "traceability", "coverage_awareness", "comparability", "civic_usefulness", "freshness", "improvement_path"]
+    "score_dimensions": [
+      "correctness",
+      "traceability",
+      "coverage_awareness",
+      "comparability",
+      "civic_usefulness",
+      "freshness",
+      "improvement_path"
+    ]
   },
   {
     "id": "kc-cuts-despite-20b",
@@ -973,7 +1118,10 @@
     "mode_ceiling": "partial",
     "expected_answer_mode": "partial",
     "expected_failure_mode": "semantic_mismatch",
-    "expected_source_ids": ["king_county.open_budget_dashboard", "king_county.adopted_budget"],
+    "expected_source_ids": [
+      "king_county.open_budget_dashboard",
+      "king_county.adopted_budget"
+    ],
     "expected_missing_sources": [
       "DOR/assessor levy-capacity context for the 1% cap story"
     ],
@@ -997,7 +1145,15 @@
     ],
     "unlocked_by": "DOR levy tables for the structural-gap half; the frame-discipline half is covered today",
     "improvement_path": "DOR levy source card; a general-fund-vs-total recipe would make this a fully supported explanation pattern.",
-    "score_dimensions": ["correctness", "traceability", "coverage_awareness", "comparability", "civic_usefulness", "freshness", "improvement_path"]
+    "score_dimensions": [
+      "correctness",
+      "traceability",
+      "coverage_awareness",
+      "comparability",
+      "civic_usefulness",
+      "freshness",
+      "improvement_path"
+    ]
   },
   {
     "id": "seattle-2026-deficit-jumpstart",
@@ -1037,7 +1193,9 @@
     "mode_ceiling": "partial",
     "expected_answer_mode": "partial",
     "expected_failure_mode": "missing_source",
-    "expected_source_ids": ["seattle.operating_budget"],
+    "expected_source_ids": [
+      "seattle.operating_budget"
+    ],
     "expected_missing_sources": [
       "Seattle revenue/fund-grain source",
       "council budget-action context source"
@@ -1062,7 +1220,15 @@
     ],
     "unlocked_by": "Seattle fund-grain revenue source; ordinance/budget-action context source; ceiling partial because attribution is interpretation",
     "improvement_path": "Probe Seattle open-data revenue datasets and Legistar budget actions as context-only sources for attribution sentences.",
-    "score_dimensions": ["correctness", "traceability", "coverage_awareness", "comparability", "civic_usefulness", "freshness", "improvement_path"]
+    "score_dimensions": [
+      "correctness",
+      "traceability",
+      "coverage_awareness",
+      "comparability",
+      "civic_usefulness",
+      "freshness",
+      "improvement_path"
+    ]
   },
   {
     "id": "seattle-kc-homelessness-kcrha",
@@ -1102,7 +1268,10 @@
     "mode_ceiling": "partial",
     "expected_answer_mode": "partial",
     "expected_failure_mode": "missing_source",
-    "expected_source_ids": ["seattle.operating_budget", "king_county.open_budget_dashboard"],
+    "expected_source_ids": [
+      "seattle.operating_budget",
+      "king_county.open_budget_dashboard"
+    ],
     "expected_missing_sources": [
       "KCRHA actuals (SAO FIT)",
       "provider contract data"
@@ -1127,7 +1296,15 @@
     ],
     "unlocked_by": "FIT (KCRHA files with SAO); provider-contract data remains a later probe",
     "improvement_path": "FIT source card brings authority-level actuals; a homelessness answer pattern should assemble city budget lines + county lines + authority actuals side by side with basis caveats.",
-    "score_dimensions": ["correctness", "traceability", "coverage_awareness", "comparability", "civic_usefulness", "freshness", "improvement_path"]
+    "score_dimensions": [
+      "correctness",
+      "traceability",
+      "coverage_awareness",
+      "comparability",
+      "civic_usefulness",
+      "freshness",
+      "improvement_path"
+    ]
   },
   {
     "id": "wa-deficit-after-historic-taxes",
@@ -1166,7 +1343,10 @@
     "mode_ceiling": "partial",
     "expected_answer_mode": "partial",
     "expected_failure_mode": "missing_source",
-    "expected_source_ids": ["washington.operating_budget", "washington.revenue_by_biennium"],
+    "expected_source_ids": [
+      "washington.operating_budget",
+      "washington.revenue_by_biennium"
+    ],
     "expected_missing_sources": [
       "four-year outlook / balance-sheet source",
       "ERFC forecast revisions"
@@ -1191,6 +1371,14 @@
     ],
     "unlocked_by": "Four-year outlook source; ERFC forecasts; ceiling partial because the why is interpretation over contested definitions",
     "improvement_path": "Probe the enacted-budget four-year outlook documents (LEAP/OFM) as the deficit-definition source; pair with revenue estimate-vs-actual trends.",
-    "score_dimensions": ["correctness", "traceability", "coverage_awareness", "comparability", "civic_usefulness", "freshness", "improvement_path"]
+    "score_dimensions": [
+      "correctness",
+      "traceability",
+      "coverage_awareness",
+      "comparability",
+      "civic_usefulness",
+      "freshness",
+      "improvement_path"
+    ]
   }
 ]
