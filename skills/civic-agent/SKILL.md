@@ -133,6 +133,7 @@ https://raw.githubusercontent.com/pejmanjohn/civic-agent/main/jurisdictions/wash
 Use Washington for:
 
 - Filed annual actuals for reviewed local governments via washington.fit_filed_actuals (Spokane, Tacoma, Walla Walla, Vancouver, Everett, King/Pierce/Snohomish counties, Sound Transit, King County Regional Homelessness Authority, Seattle School District No. 1, Evergreen School District) - "what does my city actually take in and spend", school district finances, Sound Transit revenues
+- Property-tax levies statewide via washington.dor_property_tax_levies (certified district levy amounts and rates, due 2024-2025) - "why did my property tax go up", school levy amounts, levy-lid context; district level only, never parcel bills
 
 - Washington state budget
 - Washington operating budget

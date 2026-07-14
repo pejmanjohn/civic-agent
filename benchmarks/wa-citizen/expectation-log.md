@@ -30,3 +30,11 @@ Deliberate divergence from the goal appendix: `kc-cuts-despite-20b` seeded as `p
 - `kc-actuals-vs-budget-trap`: `unsupported_with_path` -> `partial` (actuals now exist; frames stay side-by-side, never reconciled).
 - `sps-deficit-school-closures`: `unsupported_with_path` -> `partial` (filed totals; F-195 budgets and enrollment remain).
 - `seattle-kc-homelessness-kcrha`: mode unchanged (`partial`); KCRHA filed actuals added to expected sources with the 2024 deficit-year fact.
+
+## 2026-07-14 - DOR property-tax levies accepted (M7, second half)
+
+`budget_finance.property_tax_levies` promoted (probe: `docs/source-probes/washington-dor-property-tax-levies.md`); `proposed:` prefixes dropped. Snapshot `levies-due-2025` (tax years 2024-2025, 4,593 levy rows) reconciles with DOR Tables 8/12/14 to the dollar.
+
+- `kc-property-tax-why-up`: `unsupported_with_path` -> `partial`. District-level levy amounts, rates, YoY change, and 101%-limit context answerable; the parcel-level stack (assessor tax-code areas, PDF-only) and ballot-measure linkage remain out of scope - the partial ceiling reasons.
+- `school-levy-household-cost`: `unsupported_with_path` -> `partial`. District EP&O/bond levy rates and amounts answerable; household math stays illustrative without parcel assessed value.
+- `kc-cuts-despite-20b`: mode unchanged (`partial`); the levy-capacity adjunct is now supported, so the caveat flips from naming a missing source to explaining the 101% mechanics.

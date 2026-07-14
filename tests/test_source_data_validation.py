@@ -55,6 +55,7 @@ class SourceDataValidationTest(unittest.TestCase):
             "washington.revenue_by_biennium": "partial_current_period",
             "washington.ofm_population": "valid",
             "washington.fit_filed_actuals": "valid",
+            "washington.dor_property_tax_levies": "valid",
         }
         with tempfile.TemporaryDirectory() as tmp:
             for source_id, status in expected.items():

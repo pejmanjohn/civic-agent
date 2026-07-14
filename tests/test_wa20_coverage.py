@@ -343,8 +343,10 @@ class SuiteIntegrationTest(unittest.TestCase):
         self.assertEqual(
             by_id["seattle-parks-2026-lookup"]["achievable_mode"], "exact"
         )
+        # kc-property-tax-why-up's mode_ceiling is partial (parcel-level
+        # answers are permanently out of scope), so this pin is stable.
         self.assertEqual(
-            by_id["kc-property-tax-why-up"]["achievable_mode"], "unsupported_with_path"
+            by_id["kc-property-tax-why-up"]["achievable_mode"], "partial"
         )
 
     def test_weighted_score_formula(self):

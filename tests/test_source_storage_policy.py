@@ -11,6 +11,7 @@ EXPECTED_POLICY_TIERS = {
     "pierce_county.open_budget": "live",
     "pierce_county.open_checkbook": "live",
     "washington.fit_filed_actuals": "checked_in_snapshot",
+    "washington.dor_property_tax_levies": "checked_in_snapshot",
     "king_county.open_budget_dashboard": "checked_in_snapshot",
     "washington.operating_budget": "checked_in_snapshot",
     "washington.revenue_by_biennium": "checked_in_snapshot",

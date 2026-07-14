@@ -1,0 +1,219 @@
+{
+  "id": "washington.dor_property_tax_levies",
+  "jurisdiction_id": "washington",
+  "jurisdiction_name": "Washington State",
+  "jurisdiction_level": "state",
+  "budget_family": "property_tax",
+  "provider": "Washington State Department of Revenue, Research and Fiscal Analysis",
+  "dataset_name": "Local Taxing District Levy Detail (statewide, all taxing districts)",
+  "access_method": "official_bulk_download",
+  "storage_policy": {
+    "tier": "checked_in_snapshot",
+    "normal_answer_source": "repo_snapshot",
+    "freshness_check": "custom_probe",
+    "repo_artifacts": [
+      "source_card",
+      "probe",
+      "builder",
+      "normalized_snapshot",
+      "summary",
+      "provenance",
+      "tests",
+      "docs"
+    ],
+    "local_artifacts": [],
+    "refresh_behavior": "rerun_extractor_when_new_levy_year_publishes"
+  },
+  "human_inspection_urls": [
+    {
+      "label": "DOR local taxing district levy detail (landing page, 2002-2025)",
+      "url": "https://dor.wa.gov/about/statistics-reports/data-statistics/local-taxing-district-levy-detail"
+    },
+    {
+      "label": "DOR property tax statistics 2025",
+      "url": "https://dor.wa.gov/about/statistics-reports/data-statistics/property-tax-statistics/property-tax-statistics-2025"
+    },
+    {
+      "label": "TDCODE scheme explanation (PDF)",
+      "url": "https://dor.wa.gov/sites/default/files/2022-02/LevyDetailExplan.pdf"
+    }
+  ],
+  "coverage_jurisdictions": [
+    {
+      "jurisdiction_id": "washington",
+      "jurisdiction_name": "Washington State"
+    },
+    {
+      "jurisdiction_id": "king_county",
+      "jurisdiction_name": "King County, Washington"
+    },
+    {
+      "jurisdiction_id": "pierce_county",
+      "jurisdiction_name": "Pierce County, Washington"
+    }
+  ],
+  "coverage_jurisdictions_note": "The levy detail covers every taxing district in all 39 counties. Claimed jurisdictions are those with reviewed validation checks; county-level claims are promoted by adding a named levy-total check for the county and an entry here.",
+  "source_fingerprint": {
+    "public_inspection_urls": [
+      "https://dor.wa.gov/about/statistics-reports/data-statistics/local-taxing-district-levy-detail",
+      "https://dor.wa.gov/about/statistics-reports/data-statistics/property-tax-statistics/property-tax-statistics-2025"
+    ],
+    "machine_access": {
+      "type": "official_bulk_download",
+      "file_urls": {
+        "2025": "https://dor.wa.gov/sites/default/files/2025-10/All_County_Levy_Detail_2025.xlsx",
+        "2024": "https://dor.wa.gov/sites/default/files/2025-02/All_County_Levy_Detail_2024.xlsx"
+      },
+      "url_discovery": "Never guess /sites/default/files/{YYYY-MM}/ directories: they reflect upload month and move on silent re-uploads. Re-scrape the landing pages to resolve current URLs.",
+      "new_year_watch": "https://dor.wa.gov/about/statistics-reports/data-statistics/property-tax-statistics/property-tax-statistics-2026"
+    },
+    "retrieval_context": {
+      "sheet": "Levy_Detail",
+      "row_filter": "column A matches ^\\d{9}$ (one row per LEVY)",
+      "column_mapping": "positional (prior-year header text embeds shifting literal years); gated by a header-shape check on the stable leading columns",
+      "tdcode_scheme": "bytes 1-2 county (alphabetical, 17=King), 3-4 district type (04=local school), 5-7 district id, 8-9 levy type (1=school enrichment)"
+    },
+    "version_boundary": {
+      "snapshot_version": "levies-due-2025",
+      "years_due": [
+        2024,
+        2025
+      ],
+      "publication_cadence": "annual, October-November of the tax-due year; 2026 tables expected late 2026",
+      "file_sha256": {
+        "2025": "pinned in snapshot provenance.json",
+        "2024": "pinned in snapshot provenance.json"
+      }
+    },
+    "row_counts": {
+      "levy_detail_rows_total": 4593,
+      "year_2025_rows": 2288,
+      "year_2024_rows": 2305
+    },
+    "checks": {
+      "year_2025_statewide_levy_total": 18450110007,
+      "year_2025_king_county_levy_total": 7724787822,
+      "year_2025_school_enrichment_total": 2814008373,
+      "year_2025_distinct_counties": 39,
+      "seattle_sd_enrichment_levy_2025": 194678891,
+      "seattle_sd_enrichment_rate_2025": 0.65422
+    }
+  },
+  "snapshot_version": "levies-due-2025",
+  "snapshot_path": "jurisdictions/washington/data/dor-property-tax-levies/levies-due-2025/",
+  "builder": "jurisdictions/washington/scripts/extract_dor_levy_detail.py",
+  "primary_measures": [
+    "district_levy",
+    "levy_rate_per_1000"
+  ],
+  "safe_answer_patterns": [
+    "Which taxing districts levy property tax in a county, with certified amounts and rates, for tax years due 2024 and 2025.",
+    "Year-over-year levy change at DISTRICT level (aggregate district_key = TDCODE bytes 1-7; surface base-levy, lid-lift, and bond lines separately).",
+    "School district enrichment (EP&O), capital projects, and bond levies per district with rates and amounts.",
+    "County and statewide levy totals and assessed-value context.",
+    "Levy-lid context: statutory maximum rates and the 101% limit columns per levy."
+  ],
+  "not_supported_by_this_source": [
+    "An individual address's or parcel's tax bill or levy stack (needs county tax-code-area data; King County publishes that only as PDF rate books).",
+    "Ballot-measure linkage: no measure numbers, election dates, or approval percentages.",
+    "Property tax collections or delinquencies (these are certified levies due, not collections).",
+    "Assessed-value appeals, exemptions, or senior-relief detail.",
+    "Future-year levies before DOR publishes them."
+  ],
+  "coverage_claims": [
+    {
+      "category": "budget_finance.property_tax_levies",
+      "status": "supported",
+      "measures": [
+        "district_levy",
+        "levy_rate_per_1000"
+      ],
+      "grains": [
+        "year_due",
+        "county",
+        "district_type",
+        "district",
+        "levy_type"
+      ],
+      "time_coverage": "Tax years due 2024 and 2025 checked in; DOR series reaches back to 2002 for future extension.",
+      "evidence": [
+        "snapshot_version",
+        "validation_checks.year_2025_statewide_levy_total",
+        "validation_checks.year_2025_king_county_levy_total",
+        "validation_checks.year_2025_school_enrichment_total",
+        "validation_checks.seattle_sd_enrichment_levy_2025"
+      ],
+      "caveats": [
+        "One row per LEVY: a district's base levy, lid lifts, and bonds are separate lines; district-level statements must aggregate the district key and name the lines.",
+        "Certified levy amounts due, not collections and not budgets.",
+        "Rates are dollars per $1,000 of assessed value; district-level only - household math needs the parcel's assessed value and must be labeled illustrative.",
+        "51 new and 68 dropped levy codes between 2024 and 2025: handle births and deaths explicitly in trends."
+      ],
+      "semantics": {
+        "amount_basis": "adopted",
+        "budget_frame": "property_tax_levies",
+        "period_type": "calendar_year",
+        "period_status": "adopted",
+        "unit": "dollars",
+        "government_scope": "multi_jurisdiction",
+        "geography_basis": "taxing_district",
+        "comparability_notes": [
+          "Certified levies due are not comparable to budget authority or actual collections without explicit framing.",
+          "Levy rates are only comparable between districts with the same assessed-value base year.",
+          "Statewide and county totals reconcile exactly with DOR Tables 8/12/14 (verified 2026-07-13)."
+        ]
+      }
+    },
+    {
+      "category": "budget_finance.operating_budget",
+      "status": "unsupported",
+      "unsupported_reason": "Unsupported by this source: certified property-tax levies are revenue-side amounts due, not operating budget authority.",
+      "evidence": [
+        "not_supported_by_this_source"
+      ]
+    },
+    {
+      "category": "budget_finance.revenue_budget",
+      "status": "unsupported",
+      "unsupported_reason": "Unsupported by this source: levies due are certified amounts, not budgeted or forecast revenue; treat revenue-budget claims separately.",
+      "evidence": [
+        "not_supported_by_this_source"
+      ]
+    },
+    {
+      "category": "workforce.budgeted_fte",
+      "status": "unsupported",
+      "unsupported_reason": "Unsupported by this source: no staffing data.",
+      "evidence": [
+        "not_supported_by_this_source"
+      ]
+    },
+    {
+      "category": "budget_finance.actual_spending_checkbook",
+      "status": "unsupported",
+      "unsupported_reason": "Unsupported by this source: no spending, payments, or transactions.",
+      "evidence": [
+        "not_supported_by_this_source"
+      ]
+    }
+  ],
+  "validation_checks": {
+    "levy_detail_rows_total": 4593,
+    "year_2025_rows": 2288,
+    "year_2024_rows": 2305,
+    "year_2025_statewide_levy_total": 18450110007,
+    "year_2025_king_county_levy_total": 7724787822,
+    "year_2025_school_enrichment_total": 2814008373,
+    "year_2025_distinct_counties": 39,
+    "year_2024_statewide_levy_total": 17630395363,
+    "seattle_sd_enrichment_levy_2025": 194678891,
+    "seattle_sd_enrichment_rate_2025": 0.65422,
+    "seattle_sd_enrichment_levy_2024": 190239286
+  },
+  "caveats": [
+    "Certified property-tax levies due per taxing district, as published by DOR - not bills, not collections, not budgets.",
+    "One row per levy; lid lifts and bonds are separate lines from the base levy (verified example: Seattle city's base rate fell 2024->2025 while its lid-lift line rose after the November 2024 transportation levy).",
+    "Cross-file reconciliation verified 2026-07-13: statewide, King County, and school-enrichment totals match DOR Tables 8/12/14 to the dollar.",
+    "DOR silently re-uploads corrected files months later; snapshots are pinned by sha256 and refreshes must re-scrape the landing page."
+  ]
+}

@@ -6,9 +6,9 @@ Achievable mode is what current coverage can support, computed from source-card 
 
 ## Headline
 
-- Weighted coverage: 61.2% (12.25 / 20)
-- Achievable modes: exact 7 | partial 10 | side_by_side_only 0 | needs_refresh 1 | unsupported_with_path 2
-- Expected modes: exact 6 | partial 11 | side_by_side_only 0 | needs_refresh 1 | unsupported_with_path 2
+- Weighted coverage: 66.2% (13.25 / 20)
+- Achievable modes: exact 7 | partial 12 | side_by_side_only 0 | needs_refresh 1 | unsupported_with_path 0
+- Expected modes: exact 6 | partial 13 | side_by_side_only 0 | needs_refresh 1 | unsupported_with_path 0
 - Consistency errors: 0
 - Ratchet candidates: 1
 
@@ -29,10 +29,10 @@ Achievable mode is what current coverage can support, computed from source-card 
 | `kc-actuals-vs-budget-trap` | T2 | county | - | `partial` | `partial` | 2/2 | - |
 | `pierce-vs-king-per-resident` | T2 | multi | yes | `partial` | `exact` | 4/4 | ratchet candidate: coverage now exceeds expectation |
 | `wa-new-taxes-actually-collecting` | T2 | state | - | `needs_refresh` | `needs_refresh` | 1/2 | stale: washington.revenue_by_biennium (data through 2026-04-01 exceeds the case's 60-day freshness bound) partial-status claim: Washington State / budget_finance.revenue_budget |
-| `school-levy-household-cost` | T2 | school_district | - | `unsupported_with_path` | `unsupported_with_path` | 0/1 | - |
+| `school-levy-household-cost` | T2 | school_district | - | `partial` | `partial` | 1/1 | - |
 | `sps-deficit-school-closures` | T3 | school_district | - | `partial` | `partial` | 1/2 | - |
-| `kc-property-tax-why-up` | T3 | county | yes | `unsupported_with_path` | `unsupported_with_path` | 0/1 | - |
-| `kc-cuts-despite-20b` | T3 | county | - | `partial` | `partial` | 1/2 | - |
+| `kc-property-tax-why-up` | T3 | county | yes | `partial` | `partial` | 1/1 | - |
+| `kc-cuts-despite-20b` | T3 | county | - | `partial` | `partial` | 2/2 | - |
 | `seattle-2026-deficit-jumpstart` | T3 | city | - | `partial` | `partial` | 1/3 | - |
 | `seattle-kc-homelessness-kcrha` | T3 | multi | yes | `partial` | `partial` | 3/3 | - |
 | `wa-deficit-after-historic-taxes` | T3 | state | - | `partial` | `partial` | 2/3 | partial-status claim: Washington State / budget_finance.revenue_budget |

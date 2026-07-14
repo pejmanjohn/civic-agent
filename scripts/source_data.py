@@ -324,6 +324,7 @@ def load_validator(source_id: str) -> Validator | None:
         "washington.open_checkbook": validate_washington_open_checkbook,
         "washington.ofm_population": validate_washington_ofm_population_snapshot,
         "washington.fit_filed_actuals": validate_washington_fit_snapshot,
+        "washington.dor_property_tax_levies": validate_washington_dor_levy_snapshot,
     }
     return validators.get(source_id)
 
@@ -910,6 +911,119 @@ def validate_washington_revenue_snapshot(
         source_fingerprint=summary.get("source_fingerprint"),
         snapshot_path=str(snapshot_dir),
         data_through=summary.get("actual_data_through"),
+    )
+
+
+def validate_washington_dor_levy_snapshot(
+    context: SourceContext,
+    refresh_check: bool,
+) -> dict[str, Any]:
+    snapshot_dir = (
+        ROOT
+        / "jurisdictions"
+        / "washington"
+        / "data"
+        / "dor-property-tax-levies"
+        / context.source_card["snapshot_version"]
+    )
+    checks = source_fingerprint_contract_checks(context.source_card)
+    refresh_checks, warnings = refresh_check_placeholder(refresh_check)
+    checks.extend(refresh_checks)
+    summary, provenance = load_snapshot_artifacts(snapshot_dir, checks)
+    if summary is None or provenance is None:
+        return validation_result(
+            context,
+            status="validation_failed",
+            checks=checks,
+            warnings=warnings,
+            snapshot_path=str(snapshot_dir),
+        )
+    checks.extend(artifact_fingerprint_checks(summary, provenance))
+
+    expected = context.source_card["validation_checks"]
+    rows = load_jsonl_artifact(
+        snapshot_dir / "normalized" / "levy-detail.jsonl",
+        checks,
+        "levy_detail_jsonl",
+    )
+    if rows is not None:
+        compare_value(
+            checks,
+            "levy_detail_rows_total",
+            len(rows),
+            expected["levy_detail_rows_total"],
+        )
+        by_year: dict[int, list[dict[str, Any]]] = {}
+        for row in rows:
+            by_year.setdefault(row["year_due"], []).append(row)
+        for year in (2024, 2025):
+            compare_value(
+                checks,
+                f"year_{year}_rows",
+                len(by_year.get(year, [])),
+                expected[f"year_{year}_rows"],
+            )
+        year_2025 = by_year.get(2025, [])
+        compare_value(
+            checks,
+            "year_2025_statewide_levy_total",
+            round(sum(row["district_levy"] or 0 for row in year_2025), 2),
+            expected["year_2025_statewide_levy_total"],
+        )
+        compare_value(
+            checks,
+            "year_2025_king_county_levy_total",
+            round(
+                sum(
+                    row["district_levy"] or 0
+                    for row in year_2025
+                    if row["county_code"] == "17"
+                ),
+                2,
+            ),
+            expected["year_2025_king_county_levy_total"],
+        )
+        compare_value(
+            checks,
+            "year_2025_school_enrichment_total",
+            round(
+                sum(
+                    row["district_levy"] or 0
+                    for row in year_2025
+                    if row["district_type_code"] == "04"
+                    and row["levy_type_code"] == "1"
+                ),
+                2,
+            ),
+            expected["year_2025_school_enrichment_total"],
+        )
+        compare_value(
+            checks,
+            "year_2025_distinct_counties",
+            len({row["county_code"] for row in year_2025}),
+            expected["year_2025_distinct_counties"],
+        )
+        seattle_sd = next(
+            (
+                row
+                for row in year_2025
+                if row["tdcode"] == "170400110"
+            ),
+            {},
+        )
+        compare_value(
+            checks,
+            "seattle_sd_enrichment_levy_2025",
+            seattle_sd.get("district_levy"),
+            expected["seattle_sd_enrichment_levy_2025"],
+        )
+
+    return validation_result(
+        context,
+        status=status_from_checks(checks),
+        checks=checks,
+        warnings=warnings,
+        snapshot_path=str(snapshot_dir),
     )
 
 

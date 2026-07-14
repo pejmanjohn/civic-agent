@@ -316,6 +316,58 @@ def check_fit_filed_actuals(card: dict) -> list[dict]:
     return checks
 
 
+def check_dor_levy_detail(card: dict) -> list[dict]:
+    """Two signals: (a) the pinned levy files moved (DOR silently re-uploads
+    corrections), (b) the next tax year's statistics page went live."""
+    machine = card["source_fingerprint"]["machine_access"]
+    checks = []
+    for year, url in sorted(machine["file_urls"].items()):
+        try:
+            actual = http_head(url)
+            checks.append(
+                check(
+                    f"dor.levy_file_{year}",
+                    "ok" if actual["status"] == 200 else "drift",
+                    expected=200,
+                    actual=actual["status"],
+                    detail="pinned file URL still resolves; content is checksum-pinned in provenance",
+                )
+            )
+        except urllib.error.HTTPError as exc:
+            checks.append(
+                check(
+                    f"dor.levy_file_{year}",
+                    "drift",
+                    expected=200,
+                    actual=exc.code,
+                    detail="pinned URL moved (DOR re-upload); re-scrape the landing page",
+                )
+            )
+    watch_url = machine.get("new_year_watch")
+    if watch_url:
+        try:
+            status = http_head(watch_url)["status"]
+            checks.append(
+                check(
+                    "dor.next_year_published",
+                    "drift" if status == 200 else "ok",
+                    expected="404 until the next levy year publishes",
+                    actual=status,
+                    detail="a 200 means new-year tables are out: refresh the snapshot",
+                )
+            )
+        except urllib.error.HTTPError as exc:
+            checks.append(
+                check(
+                    "dor.next_year_published",
+                    "ok" if exc.code == 404 else "error",
+                    expected=404,
+                    actual=exc.code,
+                )
+            )
+    return checks
+
+
 LIVE_CHECKS = {
     "seattle.operating_budget": check_seattle_operating_budget,
     "washington.open_checkbook": check_open_checkbook,
@@ -324,6 +376,7 @@ LIVE_CHECKS = {
     "pierce_county.open_budget": check_pierce_open_budget,
     "pierce_county.open_checkbook": check_pierce_open_checkbook,
     "washington.fit_filed_actuals": check_fit_filed_actuals,
+    "washington.dor_property_tax_levies": check_dor_levy_detail,
 }
 
 # Power BI and ReportViewer surfaces have no cheap unauthenticated freshness

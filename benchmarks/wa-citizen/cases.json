@@ -968,39 +968,50 @@
     "required_claims": [
       {
         "jurisdiction": "Washington State",
-        "category": "proposed:budget_finance.property_tax_levies",
+        "category": "budget_finance.property_tax_levies",
         "role": "core",
         "note": "DOR levy tables by taxing district are the planned statewide source."
       }
     ],
     "mode_ceiling": "partial",
-    "expected_answer_mode": "unsupported_with_path",
+    "expected_answer_mode": "partial",
     "expected_failure_mode": "missing_source",
-    "expected_source_ids": [],
-    "expected_missing_sources": [
-      "DOR property-tax levy tables",
-      "county elections ballot-measure data"
+    "expected_source_ids": [
+      "washington.dor_property_tax_levies"
     ],
-    "expected_facts": [],
+    "expected_missing_sources": [
+      "parcel assessed value (household math input)",
+      "ballot-measure text (voters pamphlet / elections source)"
+    ],
+    "expected_facts": [
+      {
+        "id": "statewide-school-enrichment-2025",
+        "value": 2814008373,
+        "tolerance": 0,
+        "unit": "dollars",
+        "description": "Statewide school enrichment (EP&O) levies due 2025 across 374 district levies",
+        "reproduction_ref": "levy-detail.jsonl sum(district_levy) where district_type=local_school, levy_type=school_enrichment, year_due=2025; reconciles with DOR Table_12"
+      }
+    ],
     "required_caveats": [
       {
-        "id": "no-fabrication",
-        "pattern": "(no|not)[^.]{0,70}(accepted|reviewed|supported) source|not yet (covered|included|supported)",
-        "description": "Does not invent levy rates or household costs."
+        "id": "parcel-dependence",
+        "pattern": "assessed value|parcel|your (home|property)[^.]{0,60}(value|assessment)|illustrat",
+        "description": "Household cost depends on the parcel assessed value; any per-household figure is labeled illustrative."
       },
       {
-        "id": "parcel-dependence",
-        "pattern": "assessed value|parcel|your (home|property)[^.]{0,60}(value|assessment)",
-        "description": "States household cost depends on the parcel's assessed value - hence the partial ceiling."
+        "id": "rates-per-1000",
+        "pattern": "per\\s*\\$?1,?000|rate",
+        "description": "Expresses rates as dollars per $1,000 of assessed value."
       },
       {
         "id": "path-named",
-        "pattern": "dor\\.wa\\.gov|assessor|voters.{0,20}(pamphlet|guide)|elections",
-        "description": "Points at DOR, the county assessor, or the voters' pamphlet."
+        "pattern": "voters.{0,20}(pamphlet|guide)|elections|assessor|dor\\.wa\\.gov",
+        "description": "Points at the voters pamphlet or elections source for the specific measure text."
       }
     ],
-    "unlocked_by": "DOR property-tax levy tables; ceiling partial because per-household math needs parcel assessed value",
-    "improvement_path": "DOR levy-table source card plus district-level rate answers with median-AV illustrative math clearly labeled.",
+    "unlocked_by": "washington.dor_property_tax_levies (accepted 2026-07-14); district rates and amounts answerable, household math stays illustrative",
+    "improvement_path": "Median assessed values per district would let illustrative household math be standardized; measure text needs an elections source.",
     "score_dimensions": [
       "correctness",
       "traceability",
@@ -1109,44 +1120,55 @@
     "required_claims": [
       {
         "jurisdiction": "King County, Washington",
-        "category": "proposed:budget_finance.property_tax_levies",
+        "category": "budget_finance.property_tax_levies",
         "role": "core",
         "note": "DOR levy tables plus assessor levy detail are the planned sources."
       }
     ],
     "mode_ceiling": "partial",
-    "expected_answer_mode": "unsupported_with_path",
+    "expected_answer_mode": "partial",
     "expected_failure_mode": "missing_source",
-    "expected_source_ids": [],
-    "expected_missing_sources": [
-      "DOR property-tax levy tables",
-      "King County Assessor levy detail"
+    "expected_source_ids": [
+      "washington.dor_property_tax_levies"
     ],
-    "expected_facts": [],
-    "required_caveats": [
+    "expected_missing_sources": [
+      "county tax-code-area data for the parcel-level levy stack (King County assessor publishes PDF rate books)",
+      "ballot-measure linkage (elections source)"
+    ],
+    "expected_facts": [
       {
-        "id": "no-fabrication",
-        "pattern": "(no|not)[^.]{0,70}(accepted|reviewed|supported) source|not yet (covered|included|supported)",
-        "description": "Does not invent levy figures."
-      },
+        "id": "kc-2025-total-levies",
+        "value": 7724787822,
+        "tolerance": 0,
+        "unit": "dollars",
+        "description": "King County total property-tax levies due 2025 (+1.6% from 7,603,197,998 in 2024)",
+        "reproduction_ref": "jurisdictions/washington/data/dor-property-tax-levies/levies-due-2025/normalized/levy-detail.jsonl, sum(district_levy) where county_code=17, year_due=2025; reconciles with DOR Table_8"
+      }
+    ],
+    "required_caveats": [
       {
         "id": "district-not-parcel",
         "pattern": "(district|area)[- ]level|not[^.]{0,60}(your|individual|parcel)[^.]{0,40}(bill|parcel)|assessed value",
-        "description": "States answers are at taxing-district level; individual bills depend on parcel assessed value."
+        "description": "Answers at taxing-district level; individual bills depend on parcel assessed value."
       },
       {
         "id": "levy-mechanics",
-        "pattern": "1\\s?%|levy lid|lid lift|voter[- ]approved",
-        "description": "Explains the 1% cap vs voter-approved levy distinction when covered."
+        "pattern": "1\\s?%|levy lid|lid lift|voter[- ]approved|101\\s?%",
+        "description": "Explains the 101% limit vs voter-approved levy distinction using the levy-limit columns."
       },
       {
-        "id": "path-named",
-        "pattern": "assessor|dor\\.wa\\.gov|kingcounty\\.gov",
-        "description": "Points at the assessor's 'why taxes changed' resources."
+        "id": "certified-levies-basis",
+        "pattern": "certified|lev(y|ies)[^.]{0,60}due|not[^.]{0,40}(a bill|collections|collected)",
+        "description": "Presents DOR numbers as certified levy amounts due, not bills or collections."
+      },
+      {
+        "id": "lid-lift-lines-separate",
+        "pattern": "lid[- ]lift|separate (line|lev|row)|base lev",
+        "description": "Names base-levy vs lid-lift/bond lines instead of quoting a single misleading line."
       }
     ],
-    "unlocked_by": "DOR levy tables + KC assessor levy detail; ceiling partial because parcel-level answers are out of scope",
-    "improvement_path": "Probe DOR property-tax statistics first (statewide Excel tables), then KC assessor levy detail for the county drill-down.",
+    "unlocked_by": "washington.dor_property_tax_levies (accepted 2026-07-14); parcel-level stack and ballot linkage remain out of scope",
+    "improvement_path": "County tax-code-area composition (assessor PDFs) would enable the parcel-level half; an elections source would link levies to ballot measures.",
     "score_dimensions": [
       "correctness",
       "traceability",
@@ -1181,7 +1203,7 @@
       },
       {
         "jurisdiction": "King County, Washington",
-        "category": "proposed:budget_finance.property_tax_levies",
+        "category": "budget_finance.property_tax_levies",
         "role": "adjunct",
         "note": "The 1% levy-cap structural-gap explanation needs levy-capacity context."
       }
@@ -1191,10 +1213,11 @@
     "expected_failure_mode": "semantic_mismatch",
     "expected_source_ids": [
       "king_county.open_budget_dashboard",
-      "king_county.adopted_budget"
+      "king_county.adopted_budget",
+      "washington.dor_property_tax_levies"
     ],
     "expected_missing_sources": [
-      "DOR/assessor levy-capacity context for the 1% cap story"
+      "county general-fund vs dedicated-funds breakdown (dashboard is department-grain)"
     ],
     "expected_facts": [],
     "required_caveats": [
@@ -1209,12 +1232,12 @@
         "description": "Explains the general-fund vs dedicated-funds distinction at the heart of the paradox."
       },
       {
-        "id": "levy-context-missing",
-        "pattern": "(1\\s?%|levy)[^.]{0,80}(no|not|missing)[^.]{0,50}(source|covered)|levy[^.]{0,50}context",
-        "description": "Names the missing levy-capacity source rather than asserting the cap math uncited."
+        "id": "levy-101-context",
+        "pattern": "101\\s?%|1\\s?%|levy (lid|limit|capacity)|statutory maximum",
+        "description": "Explains the 101% levy-limit mechanics from the DOR levy-limit columns."
       }
     ],
-    "unlocked_by": "DOR levy tables for the structural-gap half; the frame-discipline half is covered today",
+    "unlocked_by": "Levy-capacity context covered by DOR levies (accepted 2026-07-14); the general-fund breakdown remains the missing half",
     "improvement_path": "DOR levy source card; a general-fund-vs-total recipe would make this a fully supported explanation pattern.",
     "score_dimensions": [
       "correctness",

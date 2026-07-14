@@ -1,0 +1,57 @@
+{
+  "grain": "one row per levy; district_key (TDCODE bytes 1-7) is the district aggregation key",
+  "measures": [
+    "district_levy (dollars)",
+    "levy_rate_per_1000 (dollars per $1,000 assessed value)"
+  ],
+  "row_counts": {
+    "levy-detail.jsonl": 4593
+  },
+  "snapshot_version": "levies-due-2025",
+  "source_fingerprint": {
+    "checks": {
+      "seattle_sd_enrichment_levy_2024": 190239286.0,
+      "seattle_sd_enrichment_levy_2025": 194678891.0,
+      "seattle_sd_enrichment_rate_2024": 0.63479,
+      "seattle_sd_enrichment_rate_2025": 0.65422,
+      "year_2024_distinct_counties": 39,
+      "year_2024_king_county_levy_total": 7603197998.0,
+      "year_2024_rows": 2305,
+      "year_2024_school_enrichment_total": 2633498229.0,
+      "year_2024_statewide_levy_total": 17630395363.0,
+      "year_2025_distinct_counties": 39,
+      "year_2025_king_county_levy_total": 7724787822.0,
+      "year_2025_rows": 2288,
+      "year_2025_school_enrichment_total": 2814008373.0,
+      "year_2025_statewide_levy_total": 18450110007.0
+    },
+    "public_inspection_urls": [
+      "https://dor.wa.gov/about/statistics-reports/data-statistics/local-taxing-district-levy-detail"
+    ],
+    "row_counts": {
+      "levy-detail.jsonl": 4593
+    },
+    "snapshot_version": "levies-due-2025"
+  },
+  "source_id": "washington.dor_property_tax_levies",
+  "validation_checks": {
+    "seattle_sd_enrichment_levy_2024": 190239286.0,
+    "seattle_sd_enrichment_levy_2025": 194678891.0,
+    "seattle_sd_enrichment_rate_2024": 0.63479,
+    "seattle_sd_enrichment_rate_2025": 0.65422,
+    "year_2024_distinct_counties": 39,
+    "year_2024_king_county_levy_total": 7603197998.0,
+    "year_2024_rows": 2305,
+    "year_2024_school_enrichment_total": 2633498229.0,
+    "year_2024_statewide_levy_total": 17630395363.0,
+    "year_2025_distinct_counties": 39,
+    "year_2025_king_county_levy_total": 7724787822.0,
+    "year_2025_rows": 2288,
+    "year_2025_school_enrichment_total": 2814008373.0,
+    "year_2025_statewide_levy_total": 18450110007.0
+  },
+  "years_due": [
+    2024,
+    2025
+  ]
+}

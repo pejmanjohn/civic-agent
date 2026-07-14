@@ -12,6 +12,7 @@ Use this skill for Washington state budget, revenue, and actual vendor-payment q
 - Open Checkbook: state agency vendor payments from 2013-15 through the current 2025-27 partial biennium, backed by a managed local SQLite database built from official Fiscal WA XLSX files.
 - OFM population: April 1 official resident population estimates for counties, cities, towns, and state totals, used only as denominator context for Scale recipes.
 - FIT filed actuals: annual total revenues and expenditures as filed with the State Auditor (and OSPI for school districts) for the REVIEWED local governments in `washington.fit_filed_actuals` - currently Spokane, Tacoma, Walla Walla, Vancouver, Everett, King County, Pierce County, Snohomish County, Sound Transit, the King County Regional Homelessness Authority, Seattle School District No. 1, and Evergreen School District (Clark County).
+- DOR property tax levies: certified levy amounts and rates for every taxing district statewide, tax years due 2024-2025, used for "who levies property tax and how much did it change" questions at district level.
 
 Do not mix these source families. Operating budget rows are budget authority, revenue rows are General Fund estimate/actual revenue, Open Checkbook rows are actual vendor payments, and OFM population rows are resident denominators. Do not use this skill for procurement contract terms, payroll, staffing/FTE, capital budget, transportation budget, Seattle budget analysis, King County budget analysis, or cross-jurisdiction comparison unless a separate source explicitly supports that question. Do not treat the 2025-27 revenue or checkbook values as full-biennium final actuals.
 
@@ -165,6 +166,33 @@ Interpretation rules (vocabulary walls):
 - School fiscal years end August 31 and use a different accounting basis than cities/counties - never compare school and city/county values without labeling both bases.
 - Only the reviewed governments listed in the source card are claimable. For any other WA local government, follow the router's unsupported-jurisdiction protocol and point at `https://portal.sao.wa.gov/FIT/` as the official path.
 - Spot checks for traces: City of Spokane 2024 revenues 729,876,646 / expenditures 648,638,448; Sound Transit 2024 revenues 2,599,304,000; KCRHA 2024 expenditures 191,618,113 (against 180,707,326 revenues - a deficit year); Seattle SD No. 1 school year 2024-25 revenues 1,518,641,110.55.
+
+## Property Tax Levies Source Of Truth (DOR)
+
+- Dataset: Local Taxing District Levy Detail (statewide, every taxing district)
+- Provider: Washington State Department of Revenue, Research and Fiscal Analysis
+- Official landing page: `https://dor.wa.gov/about/statistics-reports/data-statistics/local-taxing-district-levy-detail`
+- Source card: `jurisdictions/washington/sources/dor-property-tax-levies.source.json`
+- Snapshot version: `levies-due-2025` (tax years due 2024 and 2025; 4,593 levy rows; DOR series reaches back to 2002)
+
+Checked-in snapshot files (repo-relative; hosted equivalents under `https://raw.githubusercontent.com/pejmanjohn/civic-agent/main/` plus the same paths):
+
+```text
+jurisdictions/washington/data/dor-property-tax-levies/levies-due-2025/normalized/levy-detail.jsonl
+jurisdictions/washington/data/dor-property-tax-levies/levies-due-2025/summary.json
+jurisdictions/washington/data/dor-property-tax-levies/levies-due-2025/provenance.json
+```
+
+Rows carry `year_due`, `tdcode`, `district_key`, `county`, `district_type`, `levy_type`, `district_name`, `assessed_value`, `levy_rate_per_1000`, `district_levy`, and `statutory_maximum_rate`.
+
+Interpretation rules (vocabulary walls):
+
+- These are CERTIFIED LEVY AMOUNTS DUE per taxing district - not tax bills, not collections, not budgets.
+- One row per LEVY: a district's base levy, lid lifts, and bonds are separate rows. District-level statements aggregate `district_key` and name the lines. Verified trap: Seattle city's base rate fell 1.44409 -> 1.05837 from 2024 to 2025 while its lid-lift line rose 0.87332 -> 1.57835 after the November 2024 transportation levy - quoting only the base line misleads.
+- Rates are dollars per $1,000 of assessed value, district-level only. Household math requires the parcel's assessed value; any per-household figure must be labeled illustrative. The parcel-level levy stack ("which districts tax MY address") needs county tax-code-area data - point at the county assessor (King County publishes PDF rate books).
+- No ballot-measure metadata: voter-approved levies are identifiable by levy-type codes and names ("Temp Lid Lift", "Bond"), but measure numbers, dates, and approval percentages need an elections source.
+- The levy-lid story is answerable: rows carry the 101%-limit and statutory-maximum columns.
+- Spot checks for traces: statewide 2025 total $18,450,110,007; King County 2025 total $7,724,787,822 (+1.6% from $7,603,197,998); statewide school enrichment levies $2,814,008,373; Seattle SD #1 enrichment 0.65422/$194,678,891 (2025) vs 0.63479/$190,239,286 (2024). All reconcile with DOR Tables 8/12/14 to the dollar (verified 2026-07-13).
 
 ## OFM Population Source Of Truth
 

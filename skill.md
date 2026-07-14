@@ -100,7 +100,7 @@ Boundaries:
 
 ### Washington State And Local Government Filed Actuals
 
-Use for Washington state operating budget, General Fund revenue, state agency vendor-payment/checkbook, OFM population-denominator, and FIT filed-actuals questions. FIT filed actuals cover REVIEWED local governments (currently Spokane, Tacoma, Walla Walla, Vancouver, Everett, King/Pierce/Snohomish counties, Sound Transit, the King County Regional Homelessness Authority, Seattle School District No. 1, and Evergreen School District) - questions like "what does Spokane actually take in and spend", "Sound Transit's revenues", or "Seattle Public Schools' finances" route here:
+Use for Washington state operating budget, General Fund revenue, state agency vendor-payment/checkbook, OFM population-denominator, FIT filed-actuals, and property-tax levy questions ("why did my property tax go up", "what does the school levy cost", "who levies property tax in my county" - answered at taxing-district level from DOR levy detail). FIT filed actuals cover REVIEWED local governments (currently Spokane, Tacoma, Walla Walla, Vancouver, Everett, King/Pierce/Snohomish counties, Sound Transit, the King County Regional Homelessness Authority, Seattle School District No. 1, and Evergreen School District) - questions like "what does Spokane actually take in and spend", "Sound Transit's revenues", or "Seattle Public Schools' finances" route here:
 
 ```text
 https://raw.githubusercontent.com/pejmanjohn/civic-agent/main/jurisdictions/washington/skill.md
