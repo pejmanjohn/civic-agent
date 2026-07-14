@@ -61,3 +61,10 @@ plus one non-mechanical bar: **a WA-20 benchmark case moved or was added**, with
 - **Socrata portal** (Tacoma? Everett has one): copy the Pierce pattern - live tier, no extractor, SoQL recipes in the skill, closed-period drift fingerprints. An afternoon.
 - **FIT extension** (any WA city/county/school/special district): add the government to `REVIEWED_GOVERNMENTS` (or `REVIEWED_SCHOOL_DISTRICTS`) in `jurisdictions/washington/scripts/extract_fit_actuals.py`, re-run it, add the `coverage_jurisdictions` entry to the FIT card, update the card/validator row counts, and ratchet any benchmark case it unlocks. Under an hour - this is the paved road for the long tail of WA governments.
 - **Everything else** starts with a probe brief and an honest tier decision.
+
+## Local Ops (local-first; GitHub is the publish step, not the compute)
+
+- `bash scripts/gates.sh` - every quality gate in one shot. `bash scripts/install-hooks.sh` installs it as a git pre-push hook so nothing leaves the machine without passing.
+- `python3 scripts/drift.py --status` - the freshness ledger on demand. A launchd job (`~/Library/LaunchAgents/com.civic-agent.drift.plist`, daily 9:30) runs `scripts/drift-notify.sh`: one probe sweep, appended to `~/.civic-agent/drift.log`, macOS notification only on drift/error (suppressed when ALL probes fail - that is a local network outage, not eight simultaneous upstream failures). Unload with `launchctl unload ~/Library/LaunchAgents/com.civic-agent.drift.plist`.
+- `bash scripts/refresh-all.sh` - the deliberate Monday-coffee command: attempts the four cheap snapshot refreshes and prints each review checklist. Refreshes are never scheduled; they change reviewed artifacts.
+- The GitHub workflows under `.github/workflows/` are push-triggered CI (`ci.yml`) plus manual-dispatch fallbacks for drift and refresh - no scheduled Actions compute.

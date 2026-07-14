@@ -1,4 +1,4 @@
-name: Weekly auto-refresh
+name: Auto-refresh (manual fallback)
 
 # Attempts the deterministic snapshot refreshes (FIT, DOR, OFM, revenue) and:
 # - if anything changed AND the full test suite still passes -> opens a PR;
@@ -8,9 +8,9 @@ name: Weekly auto-refresh
 # (2026-07-14: a revenue refresh flipped a sign under an unchanged label).
 # The 411MB checkbook rebuild stays a manual scripts/refresh.py run.
 
+# Local-first ops: refreshes run manually via scripts/refresh-all.sh
+# (see CONTRIBUTING.md Local Ops). Manual fallback trigger only.
 on:
-  schedule:
-    - cron: "0 14 * * 1" # Mondays ~7am Pacific
   workflow_dispatch:
 
 permissions:
